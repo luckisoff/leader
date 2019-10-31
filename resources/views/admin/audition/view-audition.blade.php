@@ -37,6 +37,7 @@
                                 <th>Email </th>
                                 {{--<th>Image</th>--}}
                                 <th>Payment Status</th>
+                                <th>Payment Code</th>
                                 <th>Payment Option</th>
                                 <th>Action</th>
                             </tr>
@@ -68,10 +69,18 @@
                                     {{--</td>--}}
 
                                     <td style="width:10px;">
-                                        @if($value->payment_status == 1)
+                                        @if($value->payment_status == 1 && !empty($value->registration_code))
                                             <i style="color:green;padding-left:25px; " class="fa fa-check-circle"></i>
                                         @else
                                             <i style="color:red; padding-left:25px; " class="fa fa-times-circle"></i>
+                                        @endif
+                                    </td>
+
+                                    <td style="width:10px;">
+                                        @if(!empty($value->registration_code))
+                                            <span class="label label-active">{{$value->registration_code}}</span>
+                                        @else
+                                        <span class="label label-danger">Unpaid</span>
                                         @endif
                                     </td>
 
