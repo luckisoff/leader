@@ -32,6 +32,7 @@ Route::group(['middleware'=>'api'], function(){
         Route::group(['prefix' => 'payment/'], function() {
             //stripe payment api
             Route::get('/stripe/key', 'Api\PaymentController@getStripeKey');
+            
             Route::post('/stripe/pay', 'Api\PaymentController@postPaymentStripe');
 
 

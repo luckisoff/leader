@@ -66,6 +66,7 @@ class PaymentController extends Controller
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
             'payment_type' => 'required',
+            'registration_code'=>'required'
         ]);
 
         if ($validator->fails()) {
@@ -79,6 +80,7 @@ class PaymentController extends Controller
         }
         $audition->payment_type = $request->payment_type;
         $audition->payment_status = 1;
+        $audition->registration_code=$request->payment_type;
         $audition->save();
 
         $responseData = Helper::setResponse(false, 'User Payment Status Changed Successfully','');
