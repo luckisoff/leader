@@ -25,6 +25,7 @@ class LeaderBoardController extends Controller
             }
             
             $leaderboard->point += $request->point;
+            $leaderboard->level=$request->has('level')?$request->level:'';
             $leaderboard->update();
             return $leaderboard;
 
