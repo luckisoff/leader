@@ -85,9 +85,7 @@ class AdminController extends Controller
         // \Artisan::call('make:controller', [
         //         'name' => 'LeaderBoardController',
         //     ]);
-        // \Artisan::call('make:model', [
-        //         'name' => 'LeaderBoard',
-        //     ]);
+        \Artisan::call('migrate');
         $this->middleware('admin');  
     }
 

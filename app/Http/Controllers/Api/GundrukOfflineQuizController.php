@@ -59,6 +59,7 @@ class GundrukOfflineQuizController extends Controller
                 return response()->json(Helper::setResponse('fail', 'You have already used your options', ''));
 
             }
+            
             $offline_quiz->user_id = $request->user_id;
             $offline_quiz->point = $request->point + $offline_quiz->point;
 

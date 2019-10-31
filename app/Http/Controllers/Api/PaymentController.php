@@ -50,7 +50,7 @@ class PaymentController extends Controller
             $form->payment_status = 1;
             $form->save();
 
-            $responseData = Helper::setResponse(false, 'Payment Successfull Successfully','');
+            $responseData = Helper::setResponse(false, 'Payment Successful','');
         }
         else
         {
@@ -80,7 +80,7 @@ class PaymentController extends Controller
         }
         $audition->payment_type = $request->payment_type;
         $audition->payment_status = 1;
-        $audition->registration_code=$request->payment_type;
+        $audition->registration_code=$request->registration_code;
         $audition->save();
 
         $responseData = Helper::setResponse(false, 'User Payment Status Changed Successfully','');

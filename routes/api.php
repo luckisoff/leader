@@ -32,7 +32,7 @@ Route::group(['middleware'=>'api'], function(){
         Route::group(['prefix' => 'payment/'], function() {
             //stripe payment api
             Route::get('/stripe/key', 'Api\PaymentController@getStripeKey');
-            
+
             Route::post('/stripe/pay', 'Api\PaymentController@postPaymentStripe');
 
 
@@ -51,7 +51,6 @@ Route::group(['middleware'=>'api'], function(){
 
     //gundruk offline quiz api route
     Route::group(['prefix' => 'gundrukquiz/', 'middleware' => 'jwt.verify'], function() {
-
         //offline  gundruk quiz change point
         Route::post('/offline/change-point', 'Api\GundrukOfflineQuizController@addOfflineQuizPoint');
         Route::post('/offline/get-user-points', 'Api\GundrukOfflineQuizController@get_logged_in_user_points');

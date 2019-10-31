@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStoriesTable extends Migration
+class UpdateLeaderBoardsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,8 @@ class CreateStoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('stories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('picture');
-            $table->string('status');
-            $table->timestamps();
+        Schema::table('leader_boards', function (Blueprint $table) {
+            $table->string('level')->nullable();
         });
     }
 
@@ -28,6 +24,8 @@ class CreateStoriesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('stories');
+        Schema::table('leader_boards', function (Blueprint $table) {
+            $table->dropColumn('level');
+        });
     }
 }
