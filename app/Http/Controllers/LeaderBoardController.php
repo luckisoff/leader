@@ -40,8 +40,8 @@ class LeaderBoardController extends Controller
                 $index=$key+1;
             }
         }
-        
-        return ['user'=>$leaderboard,'postion'=>$index];
+        $leaderboard['position']=$index;
+        return $leaderboard;
     }
     
     public function get_leader_users(){
