@@ -32,12 +32,20 @@ class LeaderBoardController extends Controller
     } 
     
     public function get($user_id){
+        $members=LeaderBoard::orderBy('point','desc')->get();
         $leaderboard=Leaderboard::where('user_id',$user_id)->first();
-        return $leaderboard;
+        $index='';
+        foreach($members as $key=>$member){
+            if($leaderboard==$member){
+                $index=$key+1;
+            }
+        }
+        
+        return ['user'=>$leaderboard,'postion'=>$index];
     }
     
     public function get_leader_users(){
-       $leaderboards=LeaderBoard::orderBy('point','desc')->limit(13)->get(['point','user_id']);
+       $leaderboards=LeaderBoard::orderBy('point','desc')->limit(53)->get(['point','user_id']);
         
         foreach($leaderboards as $leader){
             $user=User::where('id',$leader->user_id)->first();
