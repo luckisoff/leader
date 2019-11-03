@@ -12,11 +12,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
 use JWTAuth;
 use Config;
 use Tymon\JWTAuth\Exceptions\JWTException;
-
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -25,7 +24,7 @@ class LoginController extends Controller
     {
 
         
-    if($request->login_by!="email"){
+    if($request->login_by !="email"){
 
         $validator = Validator::make($request->all(), [
             'login_by' => 'required',
@@ -77,11 +76,13 @@ class LoginController extends Controller
 
                 
         }else{
-            $user=User::where('email',$request->email)->where('password',bcrypt($request->password))->first();
+            $user=User::where('email',$request->email)->where('password',\sha1($request->password))->first();
         }
 
             if(!$user){
-                return Helper::setResponse(true, 'No User', $request->email);
+                return response()->json([
+                    'message' => 'Unauthorized'
+                ], 401);
             }
 
             $token = JWTAuth::fromUser($user);

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\LeaderBoard;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 class LeaderBoardController extends Controller
 {
     public function save(Request $request){
@@ -63,7 +64,7 @@ class LeaderBoardController extends Controller
         ]);
 
         $user=User::where('email',$request->email)->first();
-        $user->password=bcrypt($request->password);
+        $user->password=\sha1($request->password);
         $user->update();
         return $user;
     }
