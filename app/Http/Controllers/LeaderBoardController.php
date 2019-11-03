@@ -39,7 +39,7 @@ class LeaderBoardController extends Controller
             }
         }
         
-        $leaderboard['user_name']=$leaderboard->user()->name;
+        $leaderboard['user_name']=$leaderboard->user->name;
         $leaderboard['position']=$index;
         return $leaderboard;
     }
