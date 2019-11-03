@@ -52,4 +52,14 @@ class LeaderBoardController extends Controller
         }
         return $leaderboards;
     }
+
+    public function resetPassword(Request $request){
+        $this->validate($request,[
+            'email'=>'required|email',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $user=User::where('email',$request->email)->first();
+        return $user;
+    }
 }
