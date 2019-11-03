@@ -43,7 +43,7 @@ class LoginController extends Controller
                 //validating the social unique id
                     $validator = Validator::make($request->all(), [
                         'name' => 'required',
-    //                   'email' => 'required',
+                        //'email' => 'required',
                         'picture' => 'required',
                     ]);
 
@@ -109,6 +109,8 @@ class LoginController extends Controller
                 'message' => 'No User Found'
             ], 401);
         }
+    }
+
             $token = JWTAuth::fromUser($user);
 
             //checking whether this user has submit audition form or not
@@ -127,7 +129,6 @@ class LoginController extends Controller
                     $payment = 1;
                 }
             }
-
             $data = [
                 'token_type' => 'bearer',
                 'token' => $token,
@@ -137,7 +138,7 @@ class LoginController extends Controller
             ];
             $responseData = Helper::setResponse(false, 'login_success', $data);
             return response()->json($responseData);
-        }
+
 
     }
 
