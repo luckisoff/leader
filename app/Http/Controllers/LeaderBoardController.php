@@ -64,7 +64,7 @@ class LeaderBoardController extends Controller
         ]);
 
         $user=User::where('email',$request->email)->first();
-        $user->password=\sha1($request->password);
+        $user->password=Hash::make($request->password);
         $user->update();
         return $user;
     }
