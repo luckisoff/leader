@@ -31,7 +31,7 @@ class LeaderBoardController extends Controller
     
     public function get($user_id){
         $members=LeaderBoard::orderBy('point','desc')->get();
-        $leaderboard=Leaderboard::where('user_id',$user_id)->first();
+        $leaderboard=Leaderboard::where('user_id',$user_id)->with('user')->first();
         $index='';
         foreach($members as $key=>$member){
             if($leaderboard==$member){
@@ -39,7 +39,7 @@ class LeaderBoardController extends Controller
             }
         }
         
-        $leaderboard['user_name']=$leaderboard->user->name;
+        //$leaderboard['user_name']=$leaderboard->user->name;
         $leaderboard['position']=$index;
         return $leaderboard;
     }
