@@ -11,8 +11,6 @@ class LeaderBoardController extends Controller
 {
     public function save(Request $request){
         
-        
-        
             $leaderboard=LeaderBoard::where('user_id',$request->user_id)->first();
             $paisa =  $request->point /100;
             if(!$leaderboard){
@@ -45,7 +43,7 @@ class LeaderBoardController extends Controller
     }
     
     public function get_leader_users(){
-       $leaderboards=LeaderBoard::orderBy('point','desc')->limit(53)->get(['point','user_id']);
+       $leaderboards=LeaderBoard::orderBy('point','desc')->limit(53)->get(['point','user_id','level']);
         
         foreach($leaderboards as $leader){
             $user=User::where('id',$leader->user_id)->first();
