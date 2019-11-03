@@ -66,6 +66,14 @@ class LoginController extends Controller
                     }
                     $user->save();
 
+                    if($user){
+                        LeaderBoard::create([
+                            'user_id'=>$user->id,
+                            'point'=>0,
+                            'level'=>''
+                        ]);
+                    }
+
             }
             else{
                     $user->updated_at = date("Y-m-d H:i:s");
