@@ -85,30 +85,30 @@ class LoginController extends Controller
                 
         }else{
 
-            $user = User::where('email', $request->email)->first();
-            
-            if ($user) {
-                if (Hash::check($request->password, $user->password)) {
+                $user = User::where('email', $request->email)->first();
+                
+                if ($user) {
+                    if (Hash::check($request->password, $user->password)) {
 
-                    $data = [
-                        'token_type' => 'bearer',
-                        'token' => Helper::generate_token(),
-                        'expires_in' =>  Helper::generate_token_expiry(),
-                        'user_data' => $user
-                    ];
-                    $responseData = Helper::setResponse(false, 'login_success', $data);
-                    return response()->json($responseData);
-                }else{
-                    return response()->json([
-                        'message' => 'Unauthorized'
-                    ], 401);
-                }
+                        $data = [
+                            'token_type' => 'bearer',
+                            'token' => Helper::generate_token(),
+                            'expires_in' =>  Helper::generate_token_expiry(),
+                            'user_data' => $user
+                        ];
+                        $responseData = Helper::setResponse(false, 'login_success', $data);
+                        return response()->json($responseData);
+                    }else{
+                        return response()->json([
+                            'message' => 'Unauthorized'
+                        ], 401);
+                    }
 
-        }else{
-            return response()->json([
-                'message' => 'No User Found'
-            ], 401);
-        }
+            }else{
+                return response()->json([
+                    'message' => 'No User Found'
+                ], 401);
+            }
     }
 
             $token = JWTAuth::fromUser($user);

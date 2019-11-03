@@ -30,7 +30,7 @@ class LeaderBoardController extends Controller
 
     } 
     
-    public function get($user_id){
+    public function getPoints($user_id){
         $members=LeaderBoard::orderBy('point','desc')->get();
         $leaderboard=Leaderboard::where('user_id',$user_id)->first();
         $index='';
@@ -39,11 +39,11 @@ class LeaderBoardController extends Controller
                 $index=$key+1;
             }
         }
-        
         $user=User::where('id',$user_id)->first();
+        
         $leaderboard['user_name']=$user->name;
         $leaderboard['position']=$index;
-        return $leaderboard;
+        return response()->json($leaderboard);
     }
     
     public function get_leader_users(){
