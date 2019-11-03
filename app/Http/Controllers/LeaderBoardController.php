@@ -38,6 +38,9 @@ class LeaderBoardController extends Controller
                 $index=$key+1;
             }
         }
+        
+        //$user=User::where('id',$user_id)->first();
+        $leaderboard['user_name']=$leaderboard->user->name;
         $leaderboard['position']=$index;
         return $leaderboard;
     }

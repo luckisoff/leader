@@ -24,6 +24,9 @@ class LoginController extends Controller
     public function login(Request $request)
     {
 
+        
+    if($request->login_by!="email"){
+
         $validator = Validator::make($request->all(), [
             'login_by' => 'required',
             'social_unique_id' => 'required'
@@ -69,9 +72,19 @@ class LoginController extends Controller
                     $user->updated_at = date("Y-m-d H:i:s");
                     $user->save();
                 }
-        $user = User::where('login_by', $request->login_by)->where('social_unique_id', $request->social_unique_id)->first();
+                $user = User::where('login_by', $request->login_by)->where('social_unique_id', $request->social_unique_id)->first();
+        }else{
+            $user=User::where('email',$request->email)->where('password',bcrypt($request->password))->first();
+        }
 
-        $token = JWTAuth::fromUser($user);
+
+
+
+            if(!$user){
+                return Helper::setResponse(true, 'No User', $request->email);
+            }
+
+            $token = JWTAuth::fromUser($user);
 
             //checking whether this user has submit audition form or not
             $audition = Audition::where('user_id',$user->id)->first();
