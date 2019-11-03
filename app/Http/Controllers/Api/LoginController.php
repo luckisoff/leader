@@ -55,7 +55,12 @@ class LoginController extends Controller
                     $user = new User();
                     $user->name = $request->name;
                     $user->login_by = $request->login_by;
-                    $user->social_unique_id = $request->social_unique_id;
+                    if($request->login_by!="facebook"){
+                        $user->social_unique_id = bcrypt($request->social_unique_id);
+                    }else{
+                        $user->social_unique_id = $request->social_unique_id;
+                    }
+                    
                     $user->picture = $request->picture;
 
                     if(isset($request->email)){
@@ -72,13 +77,17 @@ class LoginController extends Controller
                     $user->updated_at = date("Y-m-d H:i:s");
                     $user->save();
                 }
-                $user = User::where('login_by', $request->login_by)->where('social_unique_id', $request->social_unique_id)->first();
+
+                if($request->login_by!="facebook"){
+                    $user = User::where('login_by', $request->login_by)->where('social_unique_id', bcrypt($request->social_unique_id))->first();
+                }else{
+                    $user = User::where('login_by', $request->login_by)->where('social_unique_id', $request->social_unique_id)->first();
+                }
+
+                
         }else{
             $user=User::where('email',$request->email)->where('password',bcrypt($request->password))->first();
         }
-
-
-
 
             if(!$user){
                 return Helper::setResponse(true, 'No User', $request->email);
