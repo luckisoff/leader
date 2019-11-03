@@ -11,18 +11,20 @@ class LeaderBoardController extends Controller
 {
     public function save(Request $request){
         
+        
+        
             $leaderboard=LeaderBoard::where('user_id',$request->user_id)->first();
-            
+            $paisa =  $request->point /100;
             if(!$leaderboard){
                 $leaderboard=new LeaderBoard();
                 $leaderboard->user_id=$request->user_id;
-                $leaderboard->point=$request->point;
+                $leaderboard->point=$paisa;
                 $leaderboard->level=$request->has('level')?$request->level:'';
                 $leaderboard->save();
                 return $leaderboard;
             }
             
-            $leaderboard->point += $request->point;
+            $leaderboard->point += $paisa;
             $leaderboard->level=$request->has('level')?$request->level:'';
             $leaderboard->update();
             return $leaderboard;
