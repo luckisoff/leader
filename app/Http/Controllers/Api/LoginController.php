@@ -36,7 +36,7 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return Helper::setResponse(true, 'missing_parameter', '');
         }
-            $user = User::where('login_by', $request->login_by)->where('social_unique_id', $request->login_by!="facebook"?bcrypt($request->social_unique_id):$request->social_unique_id)->first();
+            $user = User::where('login_by', $request->login_by)->where('social_unique_id', $request->social_unique_id)->first();
 
             //if user is not found then register the user
             if (!$user) {
@@ -55,7 +55,7 @@ class LoginController extends Controller
                     $user = new User();
                     $user->name = $request->name;
                     $user->login_by = $request->login_by;
-                    $user->social_unique_id = $request->login_by!="facebook"?bcrypt($request->social_unique_id):$request->social_unique_id;
+                    $user->social_unique_id = $request->social_unique_id;
                     $user->picture = $request->picture;
 
                     if(isset($request->email)){
@@ -73,7 +73,7 @@ class LoginController extends Controller
                     $user->save();
                 }
 
-                $user = User::where('login_by', $request->login_by)->where('social_unique_id', $request->login_by!="facebook"?bcrypt($request->social_unique_id):$request->social_unique_id)->first();
+                $user = User::where('login_by', $request->login_by)->where('social_unique_id', $request->social_unique_id)->first();
 
                 
         }else{
