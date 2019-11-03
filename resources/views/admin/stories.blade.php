@@ -44,7 +44,7 @@
 	                            	</td>
 	                            	<td>{{$story->category['name']}}</td>
 	                            	<td>
-	                            	    @if($story->updated_at->diffInHours(\Carbon\Carbon::now())<24)
+	                            	    @if($story->updated_at->diffInHours(\Carbon\Carbon::now())>24)
 	                            	        <span class="label label-success">Active</span>
 	                            	    @else
 	                            	        <span class="label label-danger">Expired</span>
