@@ -48,6 +48,8 @@ class GundrukController extends Controller
         }])->whereHas('story',function($q){
             $q->where('updated_at','>=',\Carbon\Carbon::now()->subDay());
         })->orderBy('updated_at','desc')->get();
+
+        $categories=Category::with('story')->orderBy('updated_at','desc')->get();
     
         return response()->json($categories);
         

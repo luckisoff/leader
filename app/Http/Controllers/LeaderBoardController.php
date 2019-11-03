@@ -11,8 +11,6 @@ class LeaderBoardController extends Controller
 {
     public function save(Request $request){
         
-        
-        
             $leaderboard=LeaderBoard::where('user_id',$request->user_id)->first();
             
             if(!$leaderboard){
