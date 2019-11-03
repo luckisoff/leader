@@ -41,15 +41,15 @@ class LoginController extends Controller
             if (!$user) {
 
                 //validating the social unique id
-                $validator = Validator::make($request->all(), [
-                    'name' => 'required',
-//                    'email' => 'required',
-                    'picture' => 'required',
-                ]);
+                    $validator = Validator::make($request->all(), [
+                        'name' => 'required',
+    //                   'email' => 'required',
+                        'picture' => 'required',
+                    ]);
 
-                if ($validator->fails()) {
-                    return Helper::setResponse(true, 'missing_parameter', '');
-                }
+                    if ($validator->fails()) {
+                        return Helper::setResponse(true, 'missing_parameter', '');
+                    }
 
                     $user = new User();
                     $user->name = $request->name;
@@ -67,7 +67,7 @@ class LoginController extends Controller
                     $user->save();
 
                     if($user){
-                        LeaderBoard::create([
+                        \App\LeaderBoard::create([
                             'user_id'=>$user->id,
                             'point'=>0,
                             'level'=>''
