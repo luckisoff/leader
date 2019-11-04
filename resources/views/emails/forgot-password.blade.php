@@ -8,7 +8,7 @@
     <style type="text/css">
 
         body {
-            background-color: black;
+            background-color: white;
         }
 
         #outlook a {padding:0;}
@@ -120,7 +120,7 @@
 </head>
 <body >
     <!-- Wrapper/Container Table: Use a wrapper table to control the width and the background color consistently of your email. Use this approach instead of setting attributes on the body tag. -->
-    <table style="background-color: black;" cellpadding="0" width="100%" cellspacing="0" border="0" id="backgroundTable" class='bgBody table-full'>
+    <table style="background-color: grey;" cellpadding="0" width="100%" cellspacing="0" border="0" id="backgroundTable" class='bgBody table-full'>
         <tr>
             <td>
 
@@ -181,11 +181,8 @@
                                                         You recently requested to reset password for your {{Setting::get('site_name' , 'Stream Hash')}} account.
                                                     </p>
                                                     <br />
-
                                                     <p>Your Email : @if(isset($email_data))  @if(isset($email_data['user'])) {{$email_data['user']->email}}@endif @endif</p>
-
-                                                    <p>Your Password : @if(isset($email_data))  @if(isset($email_data['user'])){{$email_data['password']}} @endif @endif</p>
-                                                    <p>Your Password : @if(isset($email_data))  @if(isset($email_data['topup'])){{$email_data['topup']}} @endif @endif</p>
+                                                    <p>Your Reset Code : @if(isset($email_data))  @if(isset($email_data['topup'])){{$email_data['topup']}} @endif @endif</p>
                                                 </div>
                                             </div>
                                         </td>

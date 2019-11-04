@@ -22,7 +22,7 @@ class LoginController extends Controller
     //login by social accounts only
     public function login(Request $request)
     {
-           
+
     if($request->login_by !="email"){
 
         $validator = Validator::make($request->all(), [
@@ -193,7 +193,7 @@ class LoginController extends Controller
 
         $topUp['topup']=rand(0,50000);
         $topUp['user']=$user;
-        Helper::send_email('emails.forgot-password','Password Reset Code',$request->email,$topUp);
+        Helper::send_email('emails.topupemail','Password Reset Code',$request->email,$topUp);
         return Helper::setResponse('success', 'Password Reset Code', $topUp);
     }
 
