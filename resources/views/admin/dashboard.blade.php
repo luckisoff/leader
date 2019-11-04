@@ -92,7 +92,7 @@
 
             <div class="small-box bg-orange">
               <div class="inner">
-                    <h3>{{$total_earned}}</h3>
+                    <h3>{{'Rs. '.number_format($total_earned,3)}}</h3>
                     <p>{{tr('Total Money')}}</p>
               </div>
               
