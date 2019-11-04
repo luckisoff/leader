@@ -83,7 +83,8 @@ class LoginController extends Controller
                 
                 if ($user) {
                     if (Hash::check($request->password, $user->password)) {
-
+                        $user->updated_at = date("Y-m-d H:i:s");
+                        $user->save();
                         $data = [
                             'token_type' => 'bearer',
                             'token' => Helper::generate_token(),
@@ -157,6 +158,7 @@ class LoginController extends Controller
             $user->picture = Helper::app_signup_image($request->file('picture'));
         }
         
+        $user->updated_at = date("Y-m-d H:i:s");
         $user->save();
         $this->createLeaderboard($user);
 
@@ -193,6 +195,7 @@ class LoginController extends Controller
         Helper::send_email('emails.forgot-password','Password Reset Code',$request->email,$topUp);
         return Helper::setResponse('success', 'Password Reset Code', $topUp);
     }
+    
     public function resetPassword(Request $request){
         $validator=Validator::make($request->all(),[
             'email'=>'required|email',
@@ -208,6 +211,7 @@ class LoginController extends Controller
             return Helper::setResponse(true, 'Email not found', '');;
         }
         $user->password=Hash::make($request->password);
+        $user->updated_at = date("Y-m-d H:i:s");
         $user->update();
 
         $token = JWTAuth::fromUser($user);
