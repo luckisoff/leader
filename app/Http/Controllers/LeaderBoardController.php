@@ -26,11 +26,11 @@ class LeaderBoardController extends Controller
                 return $leaderboard;
             }
 
-            $today=Today::where('created_at',\Carbon\Carbon::today())->first();
+            $today=Today::where('created_at','>=',\Carbon\Carbon::today())->first();
 
             if(!$today){
                 Today::create([
-                    'amount'=>$paisa
+                    'amount'=>0
                 ]);
             }
             $today->amount += $paisa;
