@@ -49,8 +49,9 @@ class LeaderBoardController extends Controller
     public function get_leader_users(){
        $leaderboards=LeaderBoard::orderBy('point','desc')->limit(53)->get(['point','user_id','level']);
         
-        foreach($leaderboards as $leader){
+        foreach($leaderboards as $key=>$leader){
             $user=User::where('id',$leader->user_id)->first();
+            $leader['position']=$key+1;
             $leader->name=isset($user->name)?$user->name:null;
             $leader->email=isset($user->email)?$user->email:null;
             $leader->picture=isset($user->picture)?$user->picture:null;
