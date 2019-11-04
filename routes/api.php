@@ -54,7 +54,7 @@ Route::group(['middleware'=>'api'], function(){
     });
     
 });
-
+Route::post('save-user-points','LeaderBoardController@save');
 Route::get('get-user-points/{id}','LeaderBoardController@getPoints');
 Route::get('leader-users','LeaderBoardController@get_leader_users');
 
