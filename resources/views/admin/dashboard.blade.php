@@ -88,11 +88,11 @@
         </div>
 
 
-        {{-- <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-3 col-xs-6">
 
             <div class="small-box bg-orange">
               <div class="inner">
-                    <h3>{{$total_earned/100}}</h3>
+                    <h3>{{$total_earned}}</h3>
                     <p>{{tr('Total Money')}}</p>
               </div>
               
@@ -105,7 +105,7 @@
           </a>
             </div>
             
-      </div> --}}
+      </div>
 
       
 	</div>
