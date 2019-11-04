@@ -84,10 +84,11 @@ class LoginController extends Controller
                     if (Hash::check($request->password, $user->password)) {
                         $user->updated_at = date("Y-m-d H:i:s");
                         $user->save();
+                        $token = JWTAuth::fromUser($user);
                         $data = [
                             'token_type' => 'bearer',
-                            'token' => Helper::generate_token(),
-                            'expires_in' =>  Helper::generate_token_expiry(),
+                            'token' => $token,
+                            'expires_in' =>  Config::get('jwt.ttl') * 60,
                             'user_data' => $user
                         ];
                         $responseData = Helper::setResponse(false, 'login_success', $data);
