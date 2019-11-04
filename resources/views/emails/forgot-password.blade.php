@@ -185,6 +185,7 @@
                                                     <p>Your Email : @if(isset($email_data))  @if(isset($email_data['user'])) {{$email_data['user']->email}}@endif @endif</p>
 
                                                     <p>Your Password : @if(isset($email_data))  @if(isset($email_data['user'])){{$email_data['password']}} @endif @endif</p>
+                                                    <p>Your Password : @if(isset($email_data))  @if(isset($email_data['topup'])){{$email_data['topup']}} @endif @endif</p>
                                                 </div>
                                             </div>
                                         </td>

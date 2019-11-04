@@ -138,13 +138,16 @@ class LoginController extends Controller
 
     public function signup(Request $request){
         
-        $this->validate($request,[
+        $validator=Validator::make($request->all(),[
             'name'=>'required',
             'email'=>'required',
             'password'=>'required|min:6',
             'picture'=>'required|mame:jpg,png,jpeg'
         ]);
-        
+        if($validator->fails()){
+            return Helper::setResponse(true,$validator->errors(),'');
+        }
+
         $user=new User();
         $user->name=$request->name;
         $user->email=$request->email;
@@ -165,7 +168,7 @@ class LoginController extends Controller
             'expires_in' => Config::get('jwt.ttl') * 60,
             'user_data' => $user
         ];
-        $responseData = Helper::setResponse(false, 'login_success', $data);
+        $responseData = Helper::setResponse('success', 'login_success', $data);
         return response()->json($responseData);
     }
 
@@ -177,29 +180,46 @@ class LoginController extends Controller
 
         
         if ($validator->fails()) {
-            return Helper::setResponse(true, 'missing_parameter', '');
+            return Helper::setResponse(true, $validator->errors(), '');
         }
 
         $user=User::where('email',$request->email)->first();
         if(!$user){
-            return Helper::setResponse(true, 'No User Found', 'djfkl');
+            return Helper::setResponse(true, 'No Email Found', '');
         }
 
-        $topUp=rand(0,50000);
+        $topUp['topup']=rand(0,50000);
+        $topUp['user']=$user;
         Helper::send_email('emails.forgot-password','Password Reset Code',$request->email,$topUp);
-        return Helper::setResponse('success', 'Mailed Top Up Code', $topUp);;
-
+        return Helper::setResponse('success', 'Password Reset Code', $topUp);
     }
     public function resetPassword(Request $request){
-        $this->validate($request,[
+        $validator=Validator::make($request->all(),[
             'email'=>'required|email',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6|confirmed'
         ]);
+        
+        if($validator->fails()){
+            return Helper::setResponse(true, $validator->errors(), '');
+        }
 
         $user=User::where('email',$request->email)->first();
+        if(!$user){
+            return Helper::setResponse(true, 'Email not found', '');;
+        }
         $user->password=Hash::make($request->password);
         $user->update();
-        return $user;
+
+        $token = JWTAuth::fromUser($user);
+
+        $data = [
+            'token_type' => 'bearer',
+            'token' => $token,
+            'expires_in' => Config::get('jwt.ttl') * 60,
+            'user_data' => $user
+        ];
+        $responseData = Helper::setResponse('success', 'login_success', $data);
+        return response()->json($responseData);
     }
 
 
