@@ -25,20 +25,22 @@ class LeaderBoardController extends Controller
                 $leaderboard->save();
                 return $leaderboard;
             }
+            
+            $leaderboard->point += $paisa;
+            $leaderboard->level=$request->has('level')?$request->level:'';
+            $leaderboard->update();
 
             $today=Today::where('created_at','>=',\Carbon\Carbon::today())->first();
 
             if(!$today){
                 Today::create([
-                    'amount'=>0
+                    'amount'=>$paisa
                 ]);
+            }else{
+                $today->amount += $paisa;
+                $today->update();
             }
-            $today->amount += $paisa;
-            $today->update();
-            
-            $leaderboard->point += $paisa;
-            $leaderboard->level=$request->has('level')?$request->level:'';
-            $leaderboard->update();
+
             return response()->json($leaderboard);
 
     } 
