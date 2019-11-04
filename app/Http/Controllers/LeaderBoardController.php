@@ -14,10 +14,10 @@ class LeaderBoardController extends Controller
         
             $leaderboard=LeaderBoard::where('user_id',$request->user_id)->first();
 
-            // if(!is_number($request->point)){
-            //     return response()->json(Helper::setResponse(true,'Number only allowed',''));
-            // }
-
+            if(!is_numeric($request->point)){
+                return response()->json(Helper::setResponse(true,'Number only allowed',''));
+            }
+            
             $paisa =  $request->point/100;
             if(!$leaderboard){
                 $leaderboard=new LeaderBoard();
