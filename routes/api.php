@@ -54,7 +54,7 @@ Route::post('save-user-points','LeaderBoardController@save');
 Route::get('get-user-points/{id}','LeaderBoardController@getPoints');
 Route::get('leader-users','LeaderBoardController@get_leader_users');
 
-Route::post('send/topup','Api\LoginController@sendTopUp');
+Route::post('send-topup','Api\LoginController@sendTopUp');
 
 Route::post('password-reset','Api\LoginController@resetPassword');
 Route::post('signup','Api\LoginController@signup');

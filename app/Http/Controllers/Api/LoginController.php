@@ -142,7 +142,7 @@ class LoginController extends Controller
         $validator=Validator::make($request->all(),[
             'name'=>'required',
             'email'=>'required',
-            'password'=>'required|min:6',
+            'password'=>'required|min:6|confirmed',
             'picture'=>'required|mimes:jpg,jpeg,png,bmp,tiff'
         ]);
         if($validator->fails()){
