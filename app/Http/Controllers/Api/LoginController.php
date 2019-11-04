@@ -186,7 +186,7 @@ class LoginController extends Controller
         }
 
         $topUp=rand(0,50000);
-        Helper::send_email('','Password Reset Code',$request->email,$topUp);
+        Helper::send_email('emails.forgot-password','Password Reset Code',$request->email,$topUp);
         return response()->json(['topup-code'=>$topUp]);
 
     }
