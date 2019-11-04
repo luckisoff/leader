@@ -141,7 +141,7 @@ class LoginController extends Controller
         
         $validator=Validator::make($request->all(),[
             'name'=>'required',
-            'email'=>'required',
+            'email'=>'required|email',
             'password'=>'required|min:6|confirmed',
             'picture'=>'required|mimes:jpg,jpeg,png,bmp,tiff'
         ]);
@@ -157,8 +157,6 @@ class LoginController extends Controller
         if($request->hasFile('picture') && $request->file('picture')->isValid()) {
             $user->picture = Helper::app_signup_image($request->file('picture'));
         }
-        
-        $user->updated_at = date("Y-m-d H:i:s");
         $user->save();
         $this->createLeaderboard($user);
 
@@ -191,7 +189,7 @@ class LoginController extends Controller
             return Helper::setResponse(true, 'No Email Found', '');
         }
 
-        $topUp['code']=rand(0,50000);
+        $topUp['code']=rand(100,50000);
         $topUp['user']=$user;
         Helper::send_email('emails.topupemail','Password Reset Code',$request->email,$topUp);
         return Helper::setResponse('success', 'Password Reset Code', $topUp);
