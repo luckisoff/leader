@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\LeaderBoard;
 use App\User;
+use App\Today;
 use Illuminate\Support\Facades\Hash;
 class LeaderBoardController extends Controller
 {
@@ -24,11 +25,21 @@ class LeaderBoardController extends Controller
                 $leaderboard->save();
                 return $leaderboard;
             }
+
+            $today=Today::where('created_at',\Carbon\Carbon::today())->first();
+
+            if(!$today){
+                Today::create([
+                    'amount'=>$paisa
+                ]);
+            }
+            $today->amount += $paisa;
+            $today->update();
             
             $leaderboard->point += $paisa;
             $leaderboard->level=$request->has('level')?$request->level:'';
             $leaderboard->update();
-            return $leaderboard;
+            return response()->json($leaderboard);
 
     } 
     
