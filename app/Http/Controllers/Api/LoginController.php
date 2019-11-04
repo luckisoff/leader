@@ -170,6 +170,39 @@ class LoginController extends Controller
     }
 
 
+    public function sendTopUp(Request $request){
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+
+        
+        if ($validator->fails()) {
+            return Helper::setResponse(true, 'missing_parameter', '');
+        }
+
+        $user=User::where('email',$request->email)->first();
+        if(!$user){
+            return Helper::setResponse(true, 'No User Found', '');
+        }
+
+        $topUp=rand(0,50000);
+        Helper::send_email('','Password Reset Code',$request->email,$topUp);
+        return response()->json(['topup-code'=>$topUp]);
+
+    }
+    public function resetPassword(Request $request){
+        $this->validate($request,[
+            'email'=>'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        $user=User::where('email',$request->email)->first();
+        $user->password=Hash::make($request->password);
+        $user->update();
+        return $user;
+    }
+
+
     public function createLeaderboard(User $user){
         if($user){
             \App\LeaderBoard::create([

@@ -57,15 +57,4 @@ class LeaderBoardController extends Controller
         return $leaderboards;
     }
 
-    public function resetPassword(Request $request){
-        $this->validate($request,[
-            'email'=>'required|email',
-            'password' => 'required|min:6'
-        ]);
-
-        $user=User::where('email',$request->email)->first();
-        $user->password=Hash::make($request->password);
-        $user->update();
-        return $user;
-    }
 }
