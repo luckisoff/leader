@@ -142,10 +142,10 @@ class LoginController extends Controller
             'name'=>'required',
             'email'=>'required',
             'password'=>'required|min:6',
-            'picture'=>'required|mame:jpg,png,jpeg'
+            'picture'=>'required|mimes:jpg,jpeg,png,bmp,tiff'
         ]);
         if($validator->fails()){
-            return Helper::setResponse(true,$validator->errors(),'');
+            return Helper::setResponse(true,'error',$validator->errors());
         }
 
         $user=new User();
@@ -166,7 +166,7 @@ class LoginController extends Controller
             'token_type' => 'bearer',
             'token' => $token,
             'expires_in' => Config::get('jwt.ttl') * 60,
-            'user_data' => $user
+            'user' => $user
         ];
         $responseData = Helper::setResponse('success', 'login_success', $data);
         return response()->json($responseData);
@@ -180,7 +180,7 @@ class LoginController extends Controller
 
         
         if ($validator->fails()) {
-            return Helper::setResponse(true, $validator->errors(), '');
+            return Helper::setResponse(true, 'error', $validator->errors());
         }
 
         $user=User::where('email',$request->email)->first();
@@ -200,7 +200,7 @@ class LoginController extends Controller
         ]);
         
         if($validator->fails()){
-            return Helper::setResponse(true, $validator->errors(), '');
+            return Helper::setResponse(true, 'Error', $validator->errors());
         }
 
         $user=User::where('email',$request->email)->first();
