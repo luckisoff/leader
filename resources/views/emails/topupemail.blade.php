@@ -32,7 +32,7 @@
                                         @endif</h2>
                                         <p>Please use this code in the app to reset your password</p>
                                         <p>
-                                            Code: @if(isset($email_data))  @if(isset($email_data['topup'])){{$email_data['topup']}} @endif @endif
+                                            Code: @if(isset($email_data))  @if(isset($email_data['code'])){{$email_data['code']}} @endif @endif
                                         </p>
                                     </td>
                                 </tr>
