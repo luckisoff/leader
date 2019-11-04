@@ -74,6 +74,18 @@
             return $s3_url;
         }
 
+        public static function app_signup_image($picture,$location="/uploads/gundruk/users/")
+        {
+            $file_name = Helper::file_name();
+            $ext = $picture->getClientOriginalExtension();
+            $picture->move(base_path() . $location, $file_name . "." . $ext);
+            $local_url = $file_name . "." . $ext;
+
+            $s3_url = Helper::web_url().$location.'/'.$local_url;
+
+            return $s3_url;
+        }
+
         public static function tr($key) {
 
             if (!\Session::has('locale'))

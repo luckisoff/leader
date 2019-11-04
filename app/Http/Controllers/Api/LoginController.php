@@ -65,14 +65,8 @@ class LoginController extends Controller
                         $user->mobile = $request->mobile;
                     }
                     $user->save();
-
-                    if($user){
-                        \App\LeaderBoard::create([
-                            'user_id'=>$user->id,
-                            'point'=>0,
-                            'level'=>''
-                        ]);
-                    }
+                    $this->createLeaderboard($user);
+                   
 
             }
             else{
@@ -142,6 +136,49 @@ class LoginController extends Controller
 
     }
 
+    public function signup(Request $request){
+        
+        $this->validate($request,[
+            'name'=>'required',
+            'email'=>'required',
+            'password'=>'required|min:6',
+            'picture'=>'required|mame:jpg,png,jpeg'
+        ]);
+        
+        $user=new User();
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->password=Hash::make($request->password);
+
+        if($request->hasFile('picture') && $request->file('picture')->isValid()) {
+            $user->picture = Helper::app_signup_image($request->file('picture'));
+        }
+        
+        $user->save();
+        $this->createLeaderboard($user);
+
+        $token = JWTAuth::fromUser($user);
+
+        $data = [
+            'token_type' => 'bearer',
+            'token' => $token,
+            'expires_in' => Config::get('jwt.ttl') * 60,
+            'user_data' => $user
+        ];
+        $responseData = Helper::setResponse(false, 'login_success', $data);
+        return response()->json($responseData);
+    }
+
+
+    public function createLeaderboard(User $user){
+        if($user){
+            \App\LeaderBoard::create([
+                'user_id'=>$user->id,
+                'point'=>0,
+                'level'=>''
+            ]);
+        }
+    }
     public function refresh(){
         $token = JWTAuth::getToken();
 

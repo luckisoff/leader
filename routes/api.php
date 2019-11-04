@@ -55,6 +55,7 @@ Route::get('get-user-points/{id}','LeaderBoardController@getPoints');
 Route::get('leader-users','LeaderBoardController@get_leader_users');
 
 Route::post('password-reset','LeaderBoardController@resetPassword');
+Route::post('signup','Api\LoginController@signup');
 
 
 Route::get('/stories', 'Api\GundrukController@getStoriesList');
