@@ -182,12 +182,12 @@ class LoginController extends Controller
 
         $user=User::where('email',$request->email)->first();
         if(!$user){
-            return Helper::setResponse(true, 'No User Found', '');
+            return Helper::setResponse(true, 'No User Found', 'djfkl');
         }
 
         $topUp=rand(0,50000);
         Helper::send_email('emails.forgot-password','Password Reset Code',$request->email,$topUp);
-        return response()->json(['topup-code'=>$topUp]);
+        return Helper::setResponse('success', 'Mailed Top Up Code', $topUp);;
 
     }
     public function resetPassword(Request $request){
