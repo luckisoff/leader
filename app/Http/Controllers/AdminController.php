@@ -111,6 +111,8 @@ class AdminController extends Controller
 
         $recent_users = get_recent_users();
 
+        $total_earned=\App\LeaderBoard::sum('point');
+
         $categories = active_categories_count();
 
         return view('admin.dashboard')->withPage('dashboard')
@@ -119,6 +121,7 @@ class AdminController extends Controller
                     ->with('video_count' , $video_count)
                     ->with('recent_users' , $recent_users)
                     ->with('recent_videos' , $recent_videos)
+                    ->with('total_earned',$total_earned)
                     ->with('categories', $categories);
     }
 

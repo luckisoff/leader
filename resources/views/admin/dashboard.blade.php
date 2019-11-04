@@ -23,7 +23,7 @@
 
 		<!-- Total Users -->
 
-		<div class="col-lg-4 col-xs-6">
+		<div class="col-lg-3 col-xs-6">
 
           	<div class="small-box bg-green">
             	<div class="inner">
@@ -44,7 +44,7 @@
 
 		<!-- Total Moderators -->
 
-          <div class="col-lg-4 col-xs-6">
+          <div class="col-lg-3 col-xs-6">
 
             <div class="small-box label-primary">
                 <div class="inner">
@@ -67,7 +67,7 @@
 
         
 
-        <div class="col-lg-4 col-xs-6">
+        <div class="col-lg-3 col-xs-6">
 
           	<div class="small-box bg-yellow">
             	<div class="inner">
@@ -86,6 +86,26 @@
           	</div>
         
         </div>
+
+
+        <div class="col-lg-3 col-xs-6">
+
+            <div class="small-box bg-orange">
+              <div class="inner">
+                    <h3>{{$total_earned/100}}</h3>
+                    <p>{{tr('Total Money')}}</p>
+              </div>
+              
+              <div class="icon">
+                    <i class="fa fa-dollar"></i>
+              </div>
+              <a href="{{route('admin.users')}}" class="small-box-footer">
+                {{tr('more_info')}}
+                <i class="fa fa-arrow-circle-right"></i>
+          </a>
+            </div>
+            
+      </div>
 
       
 	</div>
