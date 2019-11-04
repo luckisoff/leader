@@ -22,8 +22,7 @@ class LoginController extends Controller
     //login by social accounts only
     public function login(Request $request)
     {
-
-        
+           
     if($request->login_by !="email"){
 
         $validator = Validator::make($request->all(), [
@@ -137,7 +136,8 @@ class LoginController extends Controller
 
     }
 
-    public function signup(Request $request){
+    public function signup(Request $request)
+    {
         
         $validator=Validator::make($request->all(),[
             'name'=>'required',
@@ -175,7 +175,8 @@ class LoginController extends Controller
     }
 
 
-    public function sendTopUp(Request $request){
+    public function sendTopUp(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
         ]);
@@ -195,8 +196,9 @@ class LoginController extends Controller
         Helper::send_email('emails.forgot-password','Password Reset Code',$request->email,$topUp);
         return Helper::setResponse('success', 'Password Reset Code', $topUp);
     }
-    
-    public function resetPassword(Request $request){
+
+    public function resetPassword(Request $request)
+    {
         $validator=Validator::make($request->all(),[
             'email'=>'required|email',
             'password' => 'required|min:6|confirmed'
@@ -227,7 +229,8 @@ class LoginController extends Controller
     }
 
 
-    public function createLeaderboard(User $user){
+    public function createLeaderboard(User $user)
+    {
         if($user){
             \App\LeaderBoard::create([
                 'user_id'=>$user->id,
