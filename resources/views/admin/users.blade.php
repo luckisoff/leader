@@ -61,6 +61,8 @@
 
 								                  	<li role="presentation"><a role="menuitem" tabindex="-1" href="{{route('admin.user.wishlist', $user->id)}}">{{tr('wishlist')}}</a></li>
 
+													<li role="presentation"><a role="menuitem" tabindex="-1" href="{{route('user-earnings', $user->id)}}">{{tr('earnings')}}</a></li>
+
 								                  	<li role="presentation" class="divider"></li>
 								                  	<li role="presentation">
 

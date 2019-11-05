@@ -112,7 +112,12 @@
     <!-- page script -->
     <script>
         $(function () {
-            $("#example1").DataTable();
+            $("#example1").DataTable(
+                // {
+                //     dom: 'Bfrtip',
+                //     buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+                // }
+            );
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": false,
@@ -122,6 +127,7 @@
                 "autoWidth": false
             });
         });
+        
     </script>
 
 

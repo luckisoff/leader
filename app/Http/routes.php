@@ -272,6 +272,7 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('/counter/{id}','CounterController@destroy')->name('deletecounter');
     
     Route::get('/counter/edit/{id}','CounterController@show')->name('editcounter');
+    Route::get('/user/earnings/{id}','TransactionController@index')->name('user-earnings');
    
 });
 
