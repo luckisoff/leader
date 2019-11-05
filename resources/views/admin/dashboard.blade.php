@@ -214,9 +214,9 @@
                 </div>
             </div>
         @endif
-            {{-- <div class="col-lg-9">
+            <div class="col-lg-9">
                 <canvas id="myChart" width="400" height="200" border="1"></canvas>
-            </div> --}}
+            </div>
     </div>
 
     
