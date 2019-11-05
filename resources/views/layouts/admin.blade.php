@@ -35,9 +35,11 @@
 
     <link rel="stylesheet" href="{{ asset('admin-css/dist/css/custom.css')}}">
 
+    
     @yield('styles')
 
    <?php echo Setting::get('header_scripts'); ?>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
 
 </head>
 
@@ -100,8 +102,8 @@
 
     <script src="{{asset('admin-css/plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
 
-    <script src="{{asset('admin-css/plugins/chartjs/Chart.min.js')}}"></script>
-
+    {{-- <script src="{{asset('admin-css/plugins/chartjs/Chart.min.js')}}"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <!-- <script src="{{asset('admin-css/dist/js/pages/dashboard2.js')}}"></script> -->
 
@@ -132,7 +134,34 @@
     @yield('scripts')
 
    <?php echo Setting::get('body_scripts'); ?>
-
+   <script>
+    //    var ctx = document.getElementById('myChart');
+    //    var myBarChart = new Chart(ctx, {
+    //         type: 'bar',
+    //         data: {
+    //             labels:[@foreach($leaderboards as $leaderboard)"{{$leaderboard->user['name']}}",@endforeach],
+    //             datasets: [{
+    //                     barPercentage: 0.5,
+    //                     barThickness: 6,
+    //                     maxBarThickness: 8,
+    //                     minBarLength: 2,
+    //                     label: 'Rs Total (Top 10)',
+    //                     data: [@foreach($leaderboards as $leaderboard){{$leaderboard->point/10}},@endforeach],
+    //                     backgroundColor : [
+    //                         @php($colors=['pink','violet','red','green', 'blue', 'purple','magenta','orange','red'])
+    //                         @foreach($leaderboards as $leaderboard)
+    //                             "{{$colors[array_rand($colors)] }}",
+    //                         @endforeach
+    //                     ],
+    //                     borderColor : [
+    //                         @foreach($leaderboards as $leaderboard)
+    //                             "#111",
+    //                         @endforeach
+    //                     ],
+    //                 }]
+    //             },
+    //     });
+    </script>
 </body>
 
 </html>

@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\LeaderBoard;
 use App\User;
 use App\Today;
+use App\Transaction;
 use Illuminate\Support\Facades\Hash;
 class LeaderBoardController extends Controller
 {
@@ -40,6 +41,13 @@ class LeaderBoardController extends Controller
                 $today->amount += $paisa;
                 $today->update();
             }
+
+            $transaction=new Transaction();
+            $transaction->user_id=$request->user_id;
+            $transaction->amount=$paisa;
+            $transaction->set=$request->has('set')?$request->set:null;
+            $transaction->level=$request->has('level')?$request->level:null;
+            $transaction->save();
 
             return response()->json($leaderboard);
 

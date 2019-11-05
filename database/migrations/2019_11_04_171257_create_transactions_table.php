@@ -14,6 +14,10 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
+            $table->bigInteger('user_id');
+            $table->float('amount')->nullable();
+            $table->string('set')->nullable();
+            $table->string('level')->nullable();
             $table->timestamps();
         });
     }

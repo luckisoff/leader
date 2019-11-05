@@ -63,6 +63,12 @@ class User extends Authenticatable implements JWTSubject
     public function leaderboard(){
         return $this->hasMany(LeaderBoard::class);
     }
+
+    public function transactions(){
+        return $this->hasMany(Transaction::class);
+    }
+
+
     public static function boot()
     {
         //execute the parent's boot method 
