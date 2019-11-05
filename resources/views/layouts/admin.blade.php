@@ -150,7 +150,7 @@
     //                     backgroundColor : [
     //                         @php($colors=['pink','violet','red','green', 'blue', 'purple','magenta','orange','red'])
     //                         @foreach(//$leaderboards as $leaderboard)
-    //                             "{{//$colors[array_rand($colors)] }}",
+    //                             "",
     //                         @endforeach
     //                     ],
     //                     borderColor : [
