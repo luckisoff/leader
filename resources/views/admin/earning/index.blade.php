@@ -19,8 +19,8 @@
                 <div class="box-body">
                     
                     @if(count($earnings) > 0)
-                    {{-- <a href="#"><i class="fa fa-download"> To Excel</i></a>
-                    <hr> --}}
+                    <a href="#" onclick="exportToExcel(this,'{{$user->name}}');"><i class="fa fa-download"> To Excel</i></a>
+                    <hr>
                         <table id="example1" class="table table-bordered table-striped display nowrap">
 
                             <thead>
@@ -54,5 +54,14 @@
             </div>
         </div>
     </div>
-
+    <script type="text/javascript">
+        function exportToExcel(elem,name) {
+            var table = document.getElementById("example1");
+            var html = table.outerHTML;
+            var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+            elem.setAttribute("href", url);
+            elem.setAttribute("download", name+".xls"); // Choose the file name
+            return false;
+        }     
+    </script>
 @endsection

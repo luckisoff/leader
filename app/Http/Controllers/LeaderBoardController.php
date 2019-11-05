@@ -49,7 +49,7 @@ class LeaderBoardController extends Controller
             $transaction->level=$request->has('level')?$request->level:null;
             $transaction->save();
 
-            return $leaderboard;
+            return reponse()->json($leaderboard);
 
     } 
     
