@@ -147,7 +147,7 @@
                         maxBarThickness: 8,
                         minBarLength: 2,
                         label: 'Rs Total (Top 10)',
-                        data: [@foreach($leaderboards as $leaderboard){{$leaderboard->point/10}},@endforeach],
+                        data: [@foreach($leaderboards as $leaderboard){{$leaderboard->point}},@endforeach],
                         backgroundColor : [
                             @php($colors=['pink','violet','red','green', 'blue', 'purple','magenta','orange','red'])
                             @foreach($leaderboards as $leaderboard)
