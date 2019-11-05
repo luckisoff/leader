@@ -139,24 +139,22 @@
     //    var myBarChart = new Chart(ctx, {
     //         type: 'bar',
     //         data: {
-    //             labels:[@foreach($leaderboards as $leaderboard)"{{$leaderboard->user['name']}}",@endforeach],
+    //             labels:[],
     //             datasets: [{
     //                     barPercentage: 0.5,
     //                     barThickness: 6,
     //                     maxBarThickness: 8,
     //                     minBarLength: 2,
     //                     label: 'Rs Total (Top 10)',
-    //                     data: [@foreach($leaderboards as $leaderboard){{$leaderboard->point/10}},@endforeach],
+    //                     data: [],
     //                     backgroundColor : [
     //                         @php($colors=['pink','violet','red','green', 'blue', 'purple','magenta','orange','red'])
-    //                         @foreach($leaderboards as $leaderboard)
-    //                             "{{$colors[array_rand($colors)] }}",
+    //                         @foreach(//$leaderboards as $leaderboard)
+    //                             "{{//$colors[array_rand($colors)] }}",
     //                         @endforeach
     //                     ],
     //                     borderColor : [
-    //                         @foreach($leaderboards as $leaderboard)
-    //                             "#111",
-    //                         @endforeach
+    //                         
     //                     ],
     //                 }]
     //             },
