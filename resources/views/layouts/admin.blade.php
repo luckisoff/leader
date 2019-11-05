@@ -134,6 +134,7 @@
     @yield('scripts')
 
    <?php echo Setting::get('body_scripts'); ?>
+   @if(isset($leaderboards))
    <script>
        var ctx = document.getElementById('myChart');
        var myBarChart = new Chart(ctx, {
@@ -162,6 +163,7 @@
                 },
         });
     </script>
+    @endif
 </body>
 
 </html>
