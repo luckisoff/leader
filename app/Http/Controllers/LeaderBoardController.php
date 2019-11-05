@@ -29,7 +29,7 @@ class LeaderBoardController extends Controller
             
             $leaderboard->point += $paisa;
             $leaderboard->level=$request->has('level')?$request->level:'';
-            $leaderboard->update();
+            $leaderboard->save();
 
             $today=Today::where('created_at','>=',\Carbon\Carbon::today())->first();
 
@@ -39,7 +39,7 @@ class LeaderBoardController extends Controller
                 ]);
             }else{
                 $today->amount += $paisa;
-                $today->update();
+                $today->save();
             }
 
             $transaction=new Transaction();
@@ -49,7 +49,7 @@ class LeaderBoardController extends Controller
             $transaction->level=$request->has('level')?$request->level:null;
             $transaction->save();
 
-            return response()->json($leaderboard);
+            return $leaderboard;
 
     } 
     
