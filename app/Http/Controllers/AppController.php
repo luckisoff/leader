@@ -33,16 +33,17 @@ class AppController extends Controller
        ]);
 
        if(!is_null($app)){
-            $message='An App is Edited!';
+            $message=$app->name. ' is turned on.';
             $app->name=$request->name;
             $app->status=$request->status;
             $app->save();
        }else{
-           $message='An App is Created!';
+           
             App::create([
                 'name'=>$request->name,
                 'status'=>$request->status
             ]);
+            $message=$request->name.' is Created!';
        }
         return redirect()->route('app')->with('flash_success',tr($message));
     }
