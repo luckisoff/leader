@@ -33,8 +33,7 @@ class AppController extends Controller
             'name'=>'required'
        ]);
 
-       if(!is_null($app)){
-            
+       if($app){
             $app->name=$request->name;
             $app->status=$request->status;
             $app->save();
