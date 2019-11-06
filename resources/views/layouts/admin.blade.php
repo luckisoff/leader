@@ -35,6 +35,7 @@
 
     <link rel="stylesheet" href="{{ asset('admin-css/dist/css/custom.css')}}">
 
+    <link rel="stylesheet" href="https://unpkg.com/coreui/dist/css/coreui.min.css">
     
     @yield('styles')
 
@@ -76,6 +77,7 @@
     <!-- jQuery 2.2.0 -->
     <script src="{{asset('admin-css/plugins/jQuery/jQuery-2.2.0.min.js')}}"></script>
     <!-- Bootstrap 3.3.6 -->
+    
     <script src="{{asset('admin-css/bootstrap/js/bootstrap.min.js')}}"></script>
 
     <script src="{{asset('admin-css/plugins/datatables/jquery.dataTables.min.js')}}"></script>
@@ -108,7 +110,7 @@
     <!-- <script src="{{asset('admin-css/dist/js/pages/dashboard2.js')}}"></script> -->
 
     <script src="{{asset('admin-css/dist/js/demo.js')}}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <!-- page script -->
     <script>
         $(function () {

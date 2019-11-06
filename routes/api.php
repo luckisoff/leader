@@ -64,6 +64,7 @@ Route::post('send-topup','Api\LoginController@sendTopUp');
 Route::post('password-reset','Api\LoginController@resetPassword');
 Route::post('signup','Api\LoginController@signup');
 
+Route::get('apps','AppController@api');
 
 Route::get('/stories', 'Api\GundrukController@getStoriesList');
 Route::get('/videos', 'Api\GundrukController@getVideosList');

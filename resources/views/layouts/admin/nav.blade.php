@@ -131,6 +131,16 @@
                 </ul>
             </li>
 
+            <li class="treeview" id="Apps">
+                    <a >
+                        <i class="fa fa-mobile"></i><span>{{tr('Apps')}}</span><i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li id="add_sponser"><a href="{{route('createapp')}}"><i class="fa fa-circle-o"></i>Add App </a></li>
+                        <li id="show_sponser"><a href="{{route('app')}}"><i class="fa fa-circle-o"></i>View Apps</a></li>
+                    </ul>
+                </li>
+
             <li class="treeview" id="audition">
                 <a >
                     <i class="fa fa-file"></i><span>{{tr('Audition Registration')}}</span> <i class="fa fa-angle-left pull-right"></i>

@@ -115,6 +115,7 @@ class AdminController extends Controller
 
         $categories = active_categories_count();
         $leaderboard=\App\LeaderBoard::orderBy('point','desc')->limit(10)->get();
+        $apps=\App\App::orderBy('created_at','desc')->get();
 
         return view('admin.dashboard')->withPage('dashboard')
                     ->with('sub_page','')
@@ -124,6 +125,7 @@ class AdminController extends Controller
                     ->with('recent_videos' , $recent_videos)
                     ->with('total_earned',$total_earned)
                     ->with('leaderboards',$leaderboard)
+                    ->with('apps',$apps)
                     ->with('categories', $categories);
     }
 

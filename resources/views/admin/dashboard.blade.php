@@ -18,7 +18,7 @@
 </style>
 
 @section('content')
-
+    
 	<div class="row">
 
 		<!-- Total Users -->
@@ -214,11 +214,119 @@
                 </div>
             </div>
         @endif
+
+
+       
+        {{-- <div class="col-md-6">
+            <div class="box box-primary">
+
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{tr('Apps')}} </span></h3>
+
+                    <div class="box-tools pull-right">
+
+                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-plus"> Add</i>
+                        </button>
+
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+
+
+                        <button type="button" class="btn btn-box-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                  </div>
+
+                </div>
+
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <ul class="products-list product-list-in-box" id="app">
+                        @foreach($apps as $v => $app)
+
+                            @if($v < 5)
+                                <li class="item">
+                                    
+                                </li>
+
+                            @endif
+                        @endforeach
+                        <!-- /.item -->
+                    </ul>
+                </div>
+
+                <!-- /.box-body -->
+                <!-- /.box-footer -->
+            </div>
+        </div> --}}
             {{-- <div class="col-lg-9">
                 <canvas id="myChart" width="400" height="200" border="1"></canvas>
             </div> --}}
     </div>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="exampleModalLabel">New App</h4>
+                </div>
+                <div class="modal-body">
+                  <form id="app" method="POST" action="javascript:void(0)">
+                        {{ csrf_field() }}
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">App Name:</label>
+                      <input type="text" name="name" class="form-control" id="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status:</label><br>
+                        <select name="status" id="status">
+                            <option value="1">On</option>
+                            <option value="0">Off</option>
+                        </select>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Add</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <script>
+              window.onload = function(){
+                jQuery(document).ready(function() {
+                jQuery(".btn-primary").click(function(e){
+                    e.preventDefault();
+        
+        
+                    var _token = jQuery("input[name='_token']").val();
+                    var name = jQuery("input[name='name']").val();
+                    var status = jQuery("#status").val();
+        
+        
+                    jQuery.ajax({
+                        url: 'http://localhost/leader/admin/app',
+                        type:'POST',
+                        data: {_token:_token, name:name,status:status},
+                        success: function(response) {
+                            $.each(this, function(k, v) {
+                                $("#app").append(response.name).innerHtml;
+                            });
+                        }
+                    });
+        
+        
+                }); 
+            });
+              };  
+
+            
+        
+        
+        </script>
     
 @endsection
 
