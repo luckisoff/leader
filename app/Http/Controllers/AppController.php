@@ -15,20 +15,36 @@ class AppController extends Controller
         return view('admin.app.index')->with('apps' , $apps)->withPage('profile')->with('sub_page','');
     }
 
-    public function create($app=''){
+    public function create($id=''){
+        if($id){
+            $app=App::find($id);
+        }
         return view('admin.app.create')->with('app' , $app)->withPage('profile')->with('sub_page','');
     }
 
     public function store(Request $request){
-       
+        $app='';
+        $message='';
+       if($request->has('id')){
+         $app=App::find($request->id);
+       }
        $this->validate($request,[
             'name'=>'required'
        ]);
-        App::create([
-            'name'=>$request->name,
-            'status'=>$request->status
-        ]);
-        return redirect()->route('app')->with('flash_success',tr('An App is Created!'));
+
+       if(!is_null($app)){
+            $message='An App is Edited!';
+            $app->name=$request->name;
+            $app->status=$request->status;
+            $app->save();
+       }else{
+           $message='An App is Created!';
+            App::create([
+                'name'=>$request->name,
+                'status'=>$request->status
+            ]);
+       }
+        return redirect()->route('app')->with('flash_success',tr($message));
     }
 
 

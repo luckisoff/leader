@@ -56,6 +56,13 @@
                                                 </a>
 
                                                 <ul class="dropdown-menu">  
+
+                                                        <li role="presentation">
+                                                                <a role="menuitem" tabindex="-1" href="{{route('createapp', array('id' => $value->id))}}">
+                                                                    <i class="fa fa-pencil"></i>Edit
+                                                                </a>
+                                                            </li>
+
                                                     <li role="presentation">
                                                         @if(Setting::get('admin_delete_control'))
                                                             <a role="button" href="javascript:;" class="btn disabled" style="text-align: left">{{tr('delete')}}</a>

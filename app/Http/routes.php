@@ -275,8 +275,10 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('/user/earnings/{id}','TransactionController@index')->name('user-earnings');
 
     Route::get('app','AppController@index')->name('app');
-    Route::get('app/create','AppController@create')->name('createapp');
+    Route::get('app/create/{id?}','AppController@create')->name('createapp');
+
     Route::post('app/store','AppController@store')->name('storeapp');
+
     Route::get('app/delete/{id}','AppController@destroy')->name('appdelete');
    
 });
