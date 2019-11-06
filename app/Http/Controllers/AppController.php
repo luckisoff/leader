@@ -40,6 +40,6 @@ class AppController extends Controller
 
     public function api(){
         $apps=App::orderBy('created_at','desc')->select('name','status as live')->get();
-        return response()->json(['response'=>true,'data'=>$apps]);
+        return response()->json(['response'=>true,'type'=>'apps','data'=>$apps]);
     }
 }
