@@ -44,8 +44,8 @@
                             <div class="form-group">
                                 <label for="description" class="">Status:</label><br>
                                 <select name="status" id="status">
-                                    <option value="1" {{$app->status==1?'selected':''}}>On</option>
-                                    <option value="0" {{$app->status==0?'selected':''}}>Off</option>
+                                    <option value="1" {{$app?($app->status==1?'selected':''):''}}>On</option>
+                                    <option value="0" {{$app?($app->status==0?'selected':''):''}}>Off</option>
                                 </select>
                                 
                             </div>

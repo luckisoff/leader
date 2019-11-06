@@ -16,6 +16,7 @@ class AppController extends Controller
     }
 
     public function create($id=''){
+        $app='';
         if($id){
             $app=App::find($id);
         }
