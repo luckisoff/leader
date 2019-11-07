@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Livequiz;
 use App\LiveQuizCorrectUser;
 use Illuminate\Support\Facades\Validator as LiveValidator;
@@ -17,10 +15,10 @@ class LivequizController extends Controller
         $totalLiveUsers=Livequiz::where('question_id',$question_id)->count();
         $options=Livequiz::where('question_id',$question_id)->pluck('option')->toArray();
         $users=[];
-        foreach($options as $option){
+        foreach($options as $option)
+        {
             $users[$option]=count(Livequiz::where('question_id',$question_id)->where('option',$option)->get());
         }
-
         return response()->json([
             'response'  =>true,
             'status'=>200,
@@ -49,7 +47,6 @@ class LivequizController extends Controller
         $livequiz->user_id=$request->user_id;
         $livequiz->question_set=$request->question_set;
         $livequiz->question_id=$request->question_id;
-        $livequiz->question_id=$request->question_id;
         $livequiz->option=$request->option;
         $livequiz->answer=$request->answer;
         $livequiz->time=$request->time;
@@ -58,16 +55,15 @@ class LivequizController extends Controller
         $livequiz->save();
 
         $this->saveCorrectUserData($livequiz,$request);
-
         return $this->index($livequiz->question_id);
     }
 
     
-    public function getWinner(Request $request)
+    public function getWinner()
     {
         $winner='';
         
-        $totalCorrectUsers=LiveQuizCorrectUser::where('question_set',$request->question_set)->where('correct',1)->with('user')->orderBy('total_time','desc')->get();
+        $totalCorrectUsers=LiveQuizCorrectUser::where('created_at','>=',\Carbon\Carbon::today())->where('correct',1)->with('user')->orderBy('total_time','asc')->get();
         $totalFastestUsers=$totalCorrectUsers->groupBy('total_time')->first();
         if(count($totalFastestUsers)==1){
             $winner=$totalFastestUsers->first();
@@ -80,16 +76,14 @@ class LivequizController extends Controller
             $winner=array_rand($users);
             $winner=$users[$winner];
         }
-        $winnerData=LiveQuizCorrectUser::where('user_id',$winner->id)->where('question_set',$request->question_set)->first();
+        $winnerData=LiveQuizCorrectUser::where('user_id',$winner->id)->where('created_at','>=',\Carbon\Carbon::today())->first();
         \App\Winner::create([
             'user_id'=>$winner->id,
             'question_set'=>$winnerData->question_set,
             'point'=>$winnerData->point,
             'prize'=>$winnerData->prize,
             'quiz_data'=>\Carbon\Carbon::parse($winnerData->created_at)
-
         ]);
-        return \Carbon\Carbon::parse($winnerData->created_at);
         return $winner;
     }
 

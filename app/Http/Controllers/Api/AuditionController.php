@@ -114,14 +114,21 @@ class AuditionController extends Controller
 
     //judge listing
     public function getJudgelist(){
-        $judge = Judge::all();
+        $judges = Judge::select(
+            'name','image',
+            'fb_link as facebook',
+            'insta_link as instagram',
+            'twitter_link as twitter',
+            'youtube_link as youtube',
+            'description','type'
+        )->get();
 
-        if(count($judge) == 0){
+        if(count($judges ) == 0){
             $responseData = Helper::setResponse('fail','Judge not found | Empty','','');
             return response()->json($responseData);
         }
-
-        $responseData = Helper::setResponse('success','Judge Listing Successfull',$judge,'');
+        
+        $responseData = Helper::setResponse('success','Judge Listing Successfull',$judges,'');
         return response()->json($responseData);
     }
 
