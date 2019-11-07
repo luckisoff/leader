@@ -53,6 +53,7 @@ Route::group(['middleware'=>'api'], function(){
         Route::get('getuserpoints/{id}','LeaderBoardController@getPoints');
         Route::post('save-live-data','LivequizController@store');
         Route::post('get-live-winner','LivequizController@getWinner');
+        Route::post('gundruk/payment-claim','LeaderBoardController@paymentClaim');
     });
     
 });

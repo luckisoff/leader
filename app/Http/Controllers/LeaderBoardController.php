@@ -9,6 +9,8 @@ use App\LeaderBoard;
 use App\User;
 use App\Today;
 use App\Transaction;
+use App\Helpers\Helper;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 class LeaderBoardController extends Controller
 {
@@ -81,5 +83,22 @@ class LeaderBoardController extends Controller
         }
         return response()->json($leaderboards);
     }
+
+    public function paymentClaim(Request $request)
+    {
+        $validator=Validator::make($request->all(),[
+            'payment_claim'=>'required|max:1',
+            'user_id'=>'required'
+        ]);
+        if($validator->fails()){
+            return Helper::setResponse('fails','missing parameter','');
+        }
+
+        $leaderBoard=LeaderBoard::where('user_id',$request->user_id)->first();
+        $leaderBoard->payment_claim=$request->payment_claim;
+        $leaderBoard->update();
+        return Helper::setResponse('success','Payment Claimed','');
+    }
+    
 
 }

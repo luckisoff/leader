@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Livequiz;
 use App\LiveQuizCorrectUser;
+use App\Helpers\Helper;
 use Illuminate\Support\Facades\Validator as LiveValidator;
 
 
@@ -61,35 +62,51 @@ class LivequizController extends Controller
     
     public function getWinner()
     {
-        $winner='';
-        
-        $totalCorrectUsers=LiveQuizCorrectUser::where('created_at','>=',\Carbon\Carbon::today())->where('correct',1)->with('user')->orderBy('total_time','asc')->get();
-        $totalFastestUsers=$totalCorrectUsers->groupBy('total_time')->first();
-        if(count($totalFastestUsers)==1){
-            $winner=$totalFastestUsers->first();
-            $winner=$winner->user;
-        }else{
-            $users=[];
-            foreach($totalFastestUsers as $user){
-                $users[]=$user->user;
-            }
-            $winner=array_rand($users);
-            $winner=$users[$winner];
+        $winner=LiveQuizCorrectUser::leftJoin('users',function($join){
+            $join->on('live_quiz_correct_users.user_id','=','users.id');
+        })
+        ->where('live_quiz_correct_users.created_at','>=',\Carbon\Carbon::today())
+        ->where('correct',1)->orderBy('total_time','asc')->get();
+
+        $winner=$winner->groupBy('total_time')->first();
+        if(count($winner)>1){
+            $winner=$winner->random(1);
         }
-        $winnerData=LiveQuizCorrectUser::where('user_id',$winner->id)->where('created_at','>=',\Carbon\Carbon::today())->first();
+
         \App\Winner::create([
-            'user_id'=>$winner->id,
-            'question_set'=>$winnerData->question_set,
-            'point'=>$winnerData->point,
-            'prize'=>$winnerData->prize,
-            'quiz_data'=>\Carbon\Carbon::parse($winnerData->created_at)
+            'user_id'=>$winner->user_id,
+            'question_set'=>$winner->question_set,
+            'point'=>$winner->point,
+            'prize'=>$winner->prize,
+            'quiz_data'=>$winner->created_at
         ]);
         return $winner;
+    }
+
+
+    public function getAllTimeWinners()
+    {
+        $winners=Winner::orderBy('created_at','desc')->get();
+        return $winners;
+    }
+
+
+    protected function updateLeaderBoard($user_id,$point)
+    {
+        $leaderboard=LeaderBoard::where('user_id',$user_id)->first();
+        if($leaderboard)
+        {
+            $leaderboard->point +=$point;
+            $leaderboard->update();
+        }
     }
 
     protected function saveCorrectUserData(Livequiz $livequiz,Request $request)
     {
         $liveQuizCorrectUser=LiveQuizCorrectUser::where('user_id',$livequiz->user_id)->first();
+        $question=Question::where('id',$livequiz->question_id)->leftJoin('options',function($join){
+            $join->on('questions.id','=','options.question_id');
+        })->get();
         if($livequiz->answer==1){
             if($liveQuizCorrectUser){
                 $liveQuizCorrectUser->total_time +=$livequiz->time;
@@ -114,5 +131,7 @@ class LivequizController extends Controller
             }
         }
     }
+
+
 
 }
