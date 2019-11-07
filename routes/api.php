@@ -51,6 +51,9 @@ Route::group(['middleware'=>'api'], function(){
     Route::group(['middleware' => ['jwt.verify']], function() {
         Route::post('saveuserpoints','LeaderBoardController@save');
         Route::get('getuserpoints/{id}','LeaderBoardController@getPoints');
+        Route::get('live-quiz-detail/{question_id}','LivequizController@index');
+        Route::post('save-live-data','LivequizController@store');
+        Route::post('get-live-winner','LivequizController@getWinner');
     });
     
 });

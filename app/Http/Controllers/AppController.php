@@ -39,7 +39,6 @@ class AppController extends Controller
             $app->save();
             $message=$app->status==1?$app->name.' is turned on!':$app->name.' is turned off!';
        }else{
-           
             App::create([
                 'name'=>$request->name,
                 'status'=>$request->status

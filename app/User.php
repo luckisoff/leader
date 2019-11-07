@@ -68,7 +68,19 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Transaction::class);
     }
 
+    public function livequiz(){
+        return $this->hasMany(Livequiz::class);
+    }
 
+    public function liveQuizCorrectUsers(){
+        return $this->hasMany(LiveQuizCorrectUser::class);
+    }
+
+    public function winners()
+    {
+        return $this->hasMany(Winner::class);
+    }
+    
     public static function boot()
     {
         //execute the parent's boot method 

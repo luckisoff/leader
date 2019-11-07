@@ -384,6 +384,7 @@ class AuditionController extends Controller
         $this->validate($request, [
             'name' => 'required|max:100',
             'judge_image' => 'required|mimes:jpeg,png,jpg,gif',
+            'description'=>'required'
         ]);
 
         if(!empty($request->insta_link)){
@@ -405,12 +406,21 @@ class AuditionController extends Controller
             ]);
         }
 
+        if(!empty($request->youtube_link)){
+            $this->validate($request, [
+                'youtube_link' => 'required|max:255|regex:'.$regex,
+            ]);
+        }
+
         $judge = new Judge();
 
         $judge->name = $request->name;
         $judge->insta_link = $request->insta_link;
         $judge->fb_link = $request->fb_link;
         $judge->twitter_link = $request->twitter_link;
+        $judge->youtube_link=$request->youtube_link;
+        $judge->description=$request->description;
+        $judge->type=$request->type;
         $judge->image = Helper::normal_img_upload($request->file('judge_image'),'/uploads/audition/judge');
 
         $judge->save();

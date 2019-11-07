@@ -27,7 +27,7 @@
 
                     <div class="box-body">
 
-                        <div class="col-md-6">
+                        <div class="col-md-12">
 
                             <div class="form-group">
                                 <label for="title" class="">Judge Name <span style="color:red;">*</span></label>
@@ -68,6 +68,35 @@
                                   * {{ $errors->first('twitter_link') }}
                               </span>
                                 @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="video" class="">Youtube Link</label>
+                                <input type="text" class="form-control" id="" value="{{ old('youtube_link') }}" name="youtube_link"  placeholder="Enter Youtube Link" >
+                                @if($errors->has('youtube_link'))
+                                    <span class="help-block" style="color:red;">
+                                  * {{ $errors->first('youtube_link') }}
+                              </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="video" class="">Description</label>
+                                <textarea type="text" class="form-control" id="" value="{{ old('description') }}" name="description"  placeholder="Enter Description" ></textarea>
+                                @if($errors->has('description'))
+                                    <span class="help-block" style="color:red;">
+                                  * {{ $errors->first('description') }}
+                              </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="video" class="">Type</label>
+                                <select name="type" id="" class="form-control">
+                                    <option value="host">Host</option>
+                                    <option value="co host">Co Host</option>
+                                    <option value="montor">Mentor</option>
+                                </select>
                             </div>
 
                             <div class="form-group">
