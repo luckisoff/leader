@@ -95,7 +95,7 @@ class LeaderBoardController extends Controller
 
         $leaderBoard=LeaderBoard::where('user_id',$request->user_id)->first();
         
-        if($leaderBoard->payment_claim==0 && $request->payment_claim==1){
+        if($leaderBoard->payment_claim!=1 && $request->payment_claim==1){
             $leaderBoard->payment_claim=1;
             $leaderBoard->point +=1;
             $leaderBoard->update();
