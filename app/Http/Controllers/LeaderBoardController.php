@@ -88,24 +88,21 @@ class LeaderBoardController extends Controller
             'payment_claim'=>'required|max:1',
             'user_id'=>'required'
         ]);
+
         if($validator->fails()){
             return Helper::setResponse('fails','missing parameter','');
         }
 
         $leaderBoard=LeaderBoard::where('user_id',$request->user_id)->first();
         
-        if($leaderBoard->payment_claim==1){
-            return Helper::setResponse('fails','Already Claimed','');
-        }else if($request->payment_claim!=1){
-            return Helper::setResponse('fails','Can not be claimed','');
-        }else{
-            $leaderBoard->payment_claim=$request->payment_claim;
+        if($leaderBoard->payment_claim==0 && $request->payment_claim==1){
+            $leaderBoard->payment_claim=1;
             $leaderBoard->point +=1;
             $leaderBoard->update();
             return Helper::setResponse('success','Payment Claimed','');
         }
 
-        
+        return Helper::setResponse('fails','Could not be claimed this time!','');
     }
     
 
