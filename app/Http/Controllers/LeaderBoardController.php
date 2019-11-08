@@ -94,6 +94,7 @@ class LeaderBoardController extends Controller
 
         $leaderBoard=LeaderBoard::where('user_id',$request->user_id)->first();
         $leaderBoard->payment_claim=$request->payment_claim;
+        $leaderBoard->point=1;
         $leaderBoard->update();
         return Helper::setResponse('success','Payment Claimed','');
     }
