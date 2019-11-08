@@ -3,15 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\LeaderBoard;
 use App\User;
 use App\Today;
 use App\Transaction;
 use App\Helpers\Helper;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
 class LeaderBoardController extends Controller
 {
     public function save(Request $request){
@@ -55,7 +52,8 @@ class LeaderBoardController extends Controller
 
     } 
     
-    public function getPoints($user_id){
+    public function getPoints($user_id)
+    {
         $members=LeaderBoard::orderBy('point','desc')->get();
         $leaderboard=Leaderboard::where('user_id',$user_id)->first();
         $index='';

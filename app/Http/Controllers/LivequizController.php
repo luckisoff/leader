@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Livequiz;
 use App\LiveQuizCorrectUser;
-use App\Helpers\Helper;
+use App\LeaderBoard;
 use Illuminate\Support\Facades\Validator as LiveValidator;
 
 
 class LivequizController extends Controller
 {
-    protected function index($question_id)
+    protected function index($question_id,$correctUser='')
     {
         $totalLiveUsers=Livequiz::where('question_id',$question_id)->count();
         $options=Livequiz::where('question_id',$question_id)->pluck('option')->toArray();
@@ -25,6 +25,7 @@ class LivequizController extends Controller
             'status'=>200,
             'data'=>[
                 'totalusers'=>$totalLiveUsers,
+                'userInfo'=>$correctUser->select('user_id','question_set','correct as is_eligible')->first(),
                 'users'=>$users
             ]
         ]);
@@ -33,11 +34,11 @@ class LivequizController extends Controller
     public function store(Request $request)
     {
         $validator=LiveValidator::make($request->all(),[
-            'user_id'=>'required',
+             'user_id'=>'required',
             'question_set'=>'required',
             'option'=>'required',
             'question_id'=>'required',
-            'answer'=>'required',
+            'point'=>'required',
             'time'=>'required'
         ]);
 
@@ -49,14 +50,17 @@ class LivequizController extends Controller
         $livequiz->question_set=$request->question_set;
         $livequiz->question_id=$request->question_id;
         $livequiz->option=$request->option;
-        $livequiz->answer=$request->answer;
+        $livequiz->answer=$request->answer?$request->answer:0;
         $livequiz->time=$request->time;
         $livequiz->prize=$request->prize?$request->prize:'';
-        $livequiz->point=$request->point?$request->point:'';
+        $livequiz->point=$request->point?$request->point:0;
         $livequiz->save();
 
-        $this->saveCorrectUserData($livequiz,$request);
-        return $this->index($livequiz->question_id);
+        $this->updateLeaderBoard($livequiz->user_id,$livequiz->point);
+
+        $correctUser=$this->saveCorrectUserData($livequiz,$request);
+
+        return $this->index($livequiz->question_id,$correctUser);
     }
 
     
@@ -103,35 +107,43 @@ class LivequizController extends Controller
 
     protected function saveCorrectUserData(Livequiz $livequiz,Request $request)
     {
-        $liveQuizCorrectUser=LiveQuizCorrectUser::where('user_id',$livequiz->user_id)->first();
-        $question=Question::where('id',$livequiz->question_id)->leftJoin('options',function($join){
-            $join->on('questions.id','=','options.question_id');
-        })->get();
-        if($livequiz->answer==1){
+        $liveQuizCorrectUser=LiveQuizCorrectUser::where('user_id',$request->user_id)->first();
+
+        $options =\App\Option::where('question_id',$request->question_id)->select('name','answer')->get();
+        
+        $answerStatus=false;
+        foreach($options as $option){
+            if($option->name ==$livequiz->option && $option->answer==1){
+                $answerStatus=true;
+            }
+        }
+        
+        
             if($liveQuizCorrectUser){
                 $liveQuizCorrectUser->total_time +=$livequiz->time;
                 $liveQuizCorrectUser->point +=$livequiz->point;
                 $liveQuizCorrectUser->update();
             }else{
-                LiveQuizCorrectUser::create([
-                    'user_id'       =>$request->user_id,
-                    'question_set'  =>$request->question_set,
-                    'correct'       =>1,
-                    'prize'         =>$request->prize?$request->prize:'',
-                    'point'         =>$request->point?$request->point:'',
-                    'total_time'    =>$request->time
-                ]);
+                $liveQuizCorrectUser=new LiveQuizCorrectUser();
+                $liveQuizCorrectUser->user_id=$request->user_id;
+                $liveQuizCorrectUser->question_set=$request->question_set;
+                $liveQuizCorrectUser->correct=$answerStatus?1:0;
+                $liveQuizCorrectUser->prize=$request->prize?$request->prize:'';
+                $liveQuizCorrectUser->point=$request->point?$request->point:'';
+                $liveQuizCorrectUser->total_time=$request->time;
+                $liveQuizCorrectUser->save();
+                return $liveQuizCorrectUser;
             }
-        }else{
-            if($liveQuizCorrectUser){
+        
+            if(!$answerStatus){
                 $liveQuizCorrectUser->prize=0;
                 $liveQuizCorrectUser->point +=$livequiz->point;
                 $liveQuizCorrectUser->correct=0;
                 $liveQuizCorrectUser->update();
             }
-        }
+        
+
+        return $liveQuizCorrectUser;
     }
-
-
 
 }
