@@ -51,6 +51,7 @@ Route::group(['middleware'=>'api'], function(){
     Route::group(['middleware' => ['jwt.verify']], function() {
         Route::post('saveuserpoints','LeaderBoardController@save');
         Route::get('getuserpoints/{id}','LeaderBoardController@getPoints');
+        Route::get('leaderusers','LeaderBoardController@get_leader_users');
         Route::post('save-live-data','LivequizController@store');
         Route::post('get-live-winner','LivequizController@getWinner');
         Route::post('gundruk/payment-claim','LeaderBoardController@paymentClaim');
