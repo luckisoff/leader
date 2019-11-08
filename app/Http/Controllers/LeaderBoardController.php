@@ -11,8 +11,8 @@ use App\Helpers\Helper;
 use Illuminate\Support\Facades\Validator;
 class LeaderBoardController extends Controller
 {
-    public function save(Request $request){
-        
+    public function save(Request $request)
+    {    
             $leaderboard=LeaderBoard::where('user_id',$request->user_id)->first();
             
             $paisa =  $request->point/100;
@@ -47,7 +47,6 @@ class LeaderBoardController extends Controller
             $transaction->set=$request->has('set')?$request->set:null;
             $transaction->level=$request->has('level')?$request->level:null;
             $transaction->save();
-
             return response()->json($leaderboard);
 
     } 
@@ -69,7 +68,8 @@ class LeaderBoardController extends Controller
         return response()->json($leaderboard);
     }
     
-    public function get_leader_users(){
+    public function get_leader_users()
+    {
        $leaderboards=LeaderBoard::orderBy('point','desc')->limit(53)->get(['point','user_id','level']);
         
         foreach($leaderboards as $key=>$leader){
@@ -92,7 +92,6 @@ class LeaderBoardController extends Controller
         if($validator->fails()){
             return Helper::setResponse('fails','missing parameter','');
         }
-
         $leaderBoard=LeaderBoard::where('user_id',$request->user_id)->first();
         
         if(($leaderBoard->payment_claim ==0) && ($request->payment_claim==1)){
