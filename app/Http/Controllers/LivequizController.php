@@ -113,7 +113,7 @@ class LivequizController extends Controller
         
         $answerStatus=false;
         foreach($options as $option){
-            if($option->name ==$livequiz->option && $option->answer==1){
+            if($option->name==$livequiz->option && $option->answer==1){
                 $answerStatus=true;
             }
         }

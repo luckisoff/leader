@@ -25,7 +25,6 @@ class LeaderBoardController extends Controller
                 $leaderboard->save();
                 return $leaderboard;
             }
-            
             $leaderboard->point += $paisa;
             $leaderboard->level=$request->has('level')?$request->level:'';
             $leaderboard->save();
@@ -102,6 +101,27 @@ class LeaderBoardController extends Controller
         }
         $message=$leaderBoard->payment_claim==1?'Already Claimed!':'Could not be claimed this time!';
         return Helper::setResponse('fails',$message,'');
+    }
+
+    public function deductUserPoint(Request $request)
+    {
+        $validator=Validator::make($request->all(),[
+            'user_id'=>'required',
+            'point_to_deduct'=>'required'
+        ]);
+
+        if($validator->fails()){
+            return Helper::setResponse('fails',$validator->errors()->all(),'');
+        }
+        $leaderBoard=LeaderBoard::where('user_id',$request->user_id)->first();
+        if($leaderBoard){
+            if($request->point_to_deduct>$leaderBoard->point){
+                return Helper::setResponse('fails','Not enough point','');
+            }
+            $leaderBoard->point -=$request->point_to_deduct;
+            $leaderBoard->update();
+        }
+        return Helper::setResponse('success','Leader Board Data',$leaderBoard,'');
     }
     
 
