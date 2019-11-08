@@ -48,7 +48,7 @@ class LeaderBoardController extends Controller
             $transaction->level=$request->has('level')?$request->level:null;
             $transaction->save();
 
-            return reponse()->json($leaderboard);
+            return response()->json($leaderboard);
 
     } 
     
@@ -94,7 +94,7 @@ class LeaderBoardController extends Controller
         }
 
         $leaderBoard=LeaderBoard::where('user_id',$request->user_id)->first();
-        
+        //return $leaderBoard;
         if(($leaderBoard->payment_claim !=1) && ($request->payment_claim==1)){
             $leaderBoard->payment_claim=1;
             $leaderBoard->point +=1;
