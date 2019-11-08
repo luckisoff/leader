@@ -96,6 +96,8 @@ class LeaderBoardController extends Controller
 
         if($leaderBoard->payment_claim==1){
             return Helper::setResponse('error','Already Claimed','');
+        }else if($request->payment_claim==0){
+            return Helper::setResponse('error','Can not be claimed','');
         }else{
             $leaderBoard->payment_claim=$request->payment_claim;
             $leaderBoard->point +=1;
