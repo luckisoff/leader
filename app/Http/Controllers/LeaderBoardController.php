@@ -93,6 +93,9 @@ class LeaderBoardController extends Controller
         }
 
         $leaderBoard=LeaderBoard::where('user_id',$request->user_id)->first();
+        if($leaderBoard->payment_caim==1){
+            return Helper::setResponse('error','Already Claimed','');
+        }
         $leaderBoard->payment_claim=$request->payment_claim;
         $leaderBoard->point +=1;
         $leaderBoard->update();
