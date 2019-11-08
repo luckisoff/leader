@@ -101,8 +101,8 @@ class LeaderBoardController extends Controller
             $leaderBoard->update();
             return Helper::setResponse('success','Payment Claimed','');
         }
-
-        return Helper::setResponse('fails','Could not be claimed this time!','');
+        $message=$leaderBoard->payment_claim==1?'Already Claimed!':'Could not be claimed this time!';
+        return Helper::setResponse('fails',$message,'');
     }
     
 
