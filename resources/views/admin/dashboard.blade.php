@@ -220,7 +220,7 @@
             <div class="box box-primary">
 
                 <div class="box-header with-border">
-                    <h3 class="box-title">{{tr('recent_videos')}}</h3>
+                    <h3 class="box-title">{{tr('Live Quiz Winner')}}</h3>
 
                     <div class="box-tools pull-right">
 
