@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Livequiz;
 use App\LiveQuizCorrectUser;
 use App\LeaderBoard;
+use App\Winner;
 use Illuminate\Support\Facades\Validator as LiveValidator;
 
 
@@ -39,7 +40,7 @@ class LivequizController extends Controller
             'option'=>'required',
             'question_id'=>'required',
             'point'=>'required',
-            'time'=>'required'
+            'time_taken'=>'required'//time required to answer
         ]);
 
         if($validator->fails()){
@@ -91,7 +92,7 @@ class LivequizController extends Controller
     public function getAllTimeWinners()
     {
         $winners=Winner::orderBy('created_at','desc')->get();
-        return $winners;
+        return view('admin.winner.index',['winners'=>$winners,'page'=>'']);
     }
 
 

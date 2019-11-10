@@ -33,6 +33,7 @@
                 <ul class="treeview-menu">
                     <li id="add-user"><a href="{{route('admin.add.user')}}"><i class="fa fa-circle-o"></i>{{tr('add_user')}}</a></li>
                     <li id="view-user"><a href="{{route('admin.users')}}"><i class="fa fa-circle-o"></i>{{tr('view_users')}}</a></li>
+                    <li id="winner-winner"><a href="{{route('live-quiz-winners')}}"><i class="fa fa-circle-o"></i>{{tr('Live Quiz Winner')}}</a></li>
                 </ul>
     
             </li>
