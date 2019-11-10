@@ -54,6 +54,7 @@ use Setting;
 use Log;
 
 use App\Jobs\NormalPushNotification;
+use App\Winner;
 
 define('USER', 0);
 
@@ -115,9 +116,10 @@ class AdminController extends Controller
 
         $categories = active_categories_count();
         $leaderboard=\App\LeaderBoard::orderBy('point','desc')->limit(10)->get();
+        $winners=Winner::orderBy('created_at','desc')->limit(2)->get();
         $apps=\App\App::orderBy('created_at','desc')->get();
 
-        return view('admin.dashboard')->withPage('dashboard')
+        return view('admin.dashboard',['winners'=>$winners])->withPage('dashboard')
                     ->with('sub_page','')
                     ->with('user_count' , $user_count)
                     ->with('video_count' , $video_count)

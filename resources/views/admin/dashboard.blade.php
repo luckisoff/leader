@@ -215,6 +215,57 @@
             </div>
         @endif
 
+        @if(count($winners) > 0)
+        <div class="col-md-6">
+            <div class="box box-primary">
+
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{tr('recent_videos')}}</h3>
+
+                    <div class="box-tools pull-right">
+
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+
+                        <button type="button" class="btn btn-box-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                  </div>
+
+                </div>
+
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <ul class="products-list product-list-in-box">
+                        @foreach($winners as $v => $winner)
+
+                            @if($v < 5)
+                                <li class="item">
+                                    <div class="product-img">
+                                        <img src="{{$winner->user->picture}}" alt="Product Image">
+                                    </div>
+                                    <div class="product-info">
+                                        <a href="#" class="product-title">{{$winner->user->name}}
+                                            <span class="label label-warning pull-right">{{$winner->created_at->format('d M Y')}}</span>
+                                        </a>
+                                  </div>
+                                </li>
+
+                            @endif
+                        @endforeach
+                        <!-- /.item -->
+                    </ul>
+                </div>
+
+                <!-- /.box-body -->
+                <div class="box-footer text-center">
+                    <a href="{{route('admin.videos')}}" class="uppercase">{{tr('view_all')}}</a>
+                </div>
+                <!-- /.box-footer -->
+            </div>
+        </div>
+    @endif
 
        
         {{-- <div class="col-md-6">
