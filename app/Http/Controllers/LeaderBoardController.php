@@ -23,7 +23,7 @@ class LeaderBoardController extends Controller
                 $leaderboard=new LeaderBoard();
                 $leaderboard->user_id=$request->user_id;
                 $leaderboard->point=$paisa;
-                $leaderboard->level=$request->has('level')?$request->level:'';
+                $leaderboard->level=$request->has('level')?$request->level:0;
                 $leaderboard->save();
                 return $leaderboard;
             }
