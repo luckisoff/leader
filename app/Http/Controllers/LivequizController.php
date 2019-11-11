@@ -38,7 +38,7 @@ class LivequizController extends Controller
     public function store(Request $request)
     {
         $validator=LiveValidator::make($request->all(),[
-             'user_id'=>'required',
+            'user_id'=>'required',
             'question_set'=>'required',
             'option'=>'required',
             'question_id'=>'required',

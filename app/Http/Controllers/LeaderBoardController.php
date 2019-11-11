@@ -10,6 +10,7 @@ use App\Transaction;
 use App\Helpers\Helper;
 use Illuminate\Support\Facades\Validator;
 use App\LiveQuizCorrectUser as LiveQuizUser;
+
 class LeaderBoardController extends Controller
 {
     public function save(Request $request)

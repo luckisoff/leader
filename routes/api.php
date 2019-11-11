@@ -52,12 +52,12 @@ Route::group(['middleware'=>'api'], function(){
         Route::post('saveuserpoints','LeaderBoardController@save');
         Route::get('getuserpoints/{id}','LeaderBoardController@getPoints');
         Route::get('leaderusers','LeaderBoardController@get_leader_users');
-        Route::post('deduct-user-point','LeaderBoardController@deductUserPoint');
+        Route::post('deduct-user-point','LeaderBoardController@deductUserPoint');//params: user_id, point_to_deduct
         
         
-        Route::post('save-live-data','LivequizController@store');
-        Route::post('get-live-winner','LivequizController@getWinner');
-        Route::post('live-quit','LivequizController@quit');
+        Route::post('save-live-data','LivequizController@store');//params: user_id, question_set, question_id, option,point,time_taken
+        Route::get('get-live-winner','LivequizController@getWinner');
+        Route::post('live-quit','LivequizController@quit');//param: user_id
         Route::post('gundruk/payment-claim','LeaderBoardController@paymentClaim');
     });
     
