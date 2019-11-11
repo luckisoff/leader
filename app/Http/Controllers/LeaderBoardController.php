@@ -28,7 +28,7 @@ class LeaderBoardController extends Controller
                 return $leaderboard;
             }
             $leaderboard->point += $paisa;
-            $leaderboard->level=$request->has('level')?$request->level:'';
+            $leaderboard->level=$request->has('level')?$request->level:0;
             $leaderboard->save();
 
             $today=Today::where('created_at','>=',\Carbon\Carbon::today())->first();
