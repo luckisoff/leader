@@ -54,8 +54,10 @@ Route::group(['middleware'=>'api'], function(){
         Route::get('leaderusers','LeaderBoardController@get_leader_users');
         Route::post('deduct-user-point','LeaderBoardController@deductUserPoint');
         
+        
         Route::post('save-live-data','LivequizController@store');
         Route::post('get-live-winner','LivequizController@getWinner');
+        Route::post('live-quit','LivequizController@quit');
         Route::post('gundruk/payment-claim','LeaderBoardController@paymentClaim');
     });
     

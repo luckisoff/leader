@@ -8,7 +8,7 @@ use App\LiveQuizCorrectUser;
 use App\LeaderBoard;
 use App\Winner;
 use Illuminate\Support\Facades\Validator as LiveValidator;
-
+use Carbon\Carbon;
 
 class LivequizController extends Controller
 {
@@ -17,16 +17,19 @@ class LivequizController extends Controller
         $totalLiveUsers=Livequiz::where('question_id',$question_id)->count();
         $options=Livequiz::where('question_id',$question_id)->pluck('option')->toArray();
         $users=[];
+        $correctOption =\App\Option::where('question_id',$question_id)->where('answer',1)->pluck('name')->first();
         foreach($options as $option)
         {
             $users[$option]=count(Livequiz::where('question_id',$question_id)->where('option',$option)->get());
         }
         return response()->json([
-            'response'  =>true,
-            'status'=>200,
+            'status'  =>true,
+            'code'=>200,
+            'message'=>'success',
             'data'=>[
                 'totalusers'=>$totalLiveUsers,
-                'userInfo'=>$correctUser->select('user_id','question_set','correct as is_eligible')->first(),
+                'conrrect_option'=>$correctOption,
+                'userInfo'=>$correctUser->select('user_id','question_set','correct as is_eligible','live_paid as is_paid')->first(),
                 'users'=>$users
             ]
         ]);
@@ -70,8 +73,18 @@ class LivequizController extends Controller
         $winner=LiveQuizCorrectUser::leftJoin('users',function($join){
             $join->on('live_quiz_correct_users.user_id','=','users.id');
         })
-        ->where('live_quiz_correct_users.created_at','>=',\Carbon\Carbon::today())
+        ->where('live_quiz_correct_users.created_at','>=',Carbon::today())
         ->where('correct',1)->orderBy('total_time','asc')->get();
+
+        if(!$winner)
+        {
+            return response()->json([
+                'status'=>false,
+                'code'=>200,
+                'message'=>'No data available.',
+                'data'=>''
+            ]);
+        }
 
         $winner=$winner->groupBy('total_time')->first();
         if(count($winner)>1){
@@ -83,9 +96,15 @@ class LivequizController extends Controller
             'question_set'=>$winner->question_set,
             'point'=>$winner->point,
             'prize'=>$winner->prize,
-            'quiz_data'=>$winner->created_at
+            'quiz_date'=>$winner->created_at
         ]);
-        return $winner;
+
+        return respone()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'winner created',
+            'data'=>$winner
+        ]);
     }
 
 
@@ -145,6 +164,37 @@ class LivequizController extends Controller
         
 
         return $liveQuizCorrectUser;
+    }
+
+    public function quit(Request $request)
+    {
+        
+        $validator=LiveValidator::make($request->all(),[
+            'user_id'=>'required'
+        ]);      
+
+        if($validator->fails())
+        {
+            return response()->json(['status'=>false,'code'=>200,'message'=>'Error','data'=>$validator->errors()->first()]);
+        }
+
+        $liveQuizUser=LiveQuizCorrectUser::where('user_id',$request->user_id)->where('created_at','>=',Carbon::today())->first();
+        $livequizzes=Livequiz::where('user_id',$request->user_id)->where('created_at','>=',Carbon::today())->get();
+        if($liveQuizUser){
+            $liveQuizUser->delete();
+        }
+        if($livequizzes){
+            foreach($livequizzes as $livequiz){
+                $livequiz->delete();
+            }
+        }
+
+        return response()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'quiting success',
+            'data'=>'Thank you for playing. Please come back later.'
+        ]);
     }
 
 }

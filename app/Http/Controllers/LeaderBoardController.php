@@ -9,6 +9,7 @@ use App\Today;
 use App\Transaction;
 use App\Helpers\Helper;
 use Illuminate\Support\Facades\Validator;
+use App\LiveQuizCorrectUser as LiveQuizUser;
 class LeaderBoardController extends Controller
 {
     public function save(Request $request)
@@ -119,7 +120,12 @@ class LeaderBoardController extends Controller
                 return Helper::setResponse('fails','Not enough point','');
             }
             $leaderBoard->point -=$request->point_to_deduct;
-            $leaderBoard->update();
+
+            $liveQuizUser=LiveQuizUser::where('user_id',$request->user_id)->first();
+            if($leaderBoard->update() && $liveQuizUser){
+                $liveQuizUser->live_paid=1;
+                $liveQuizUser->update();
+            }
         }
         return Helper::setResponse('success','Leader Board Data',$leaderBoard,'');
     }
