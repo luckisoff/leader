@@ -36,7 +36,7 @@
 
                         <div class="form-group">
                             @if(Setting::get('site_logo'))
-                                <img style="height: 50px; width:75px;margin-bottom: 15px; border-radius:2em;" src="{{Setting::get('site_logo')}}">
+                                <img style="height: 50px;margin-bottom: 15px; border-radius:2em;" src="{{Setting::get('site_logo')}}">
                             @endif
 
                             <label for="site_logo">{{tr('site_logo')}}</label>
@@ -47,7 +47,7 @@
 
                         <div class="form-group">
                             @if(Setting::get('site_icon'))
-                                <img style="height: 50px; width:75px; margin-bottom: 15px; border-radius:2em;" src="{{Setting::get('site_icon')}}">
+                                <img style="height: 50px;margin-bottom: 15px; border-radius:2em;" src="{{Setting::get('site_icon')}}">
                             @endif
                             <label for="site_icon">{{tr('site_icon')}}</label>
                             <input type="file" id="site_icon" name="site_icon" accept="image/png,image/jpeg">

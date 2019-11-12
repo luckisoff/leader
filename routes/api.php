@@ -46,7 +46,6 @@ Route::group(['middleware'=>'api'], function(){
         Route::post('/offline/change-point', 'Api\GundrukOfflineQuizController@addOfflineQuizPoint');
         Route::post('/offline/get-user-points', 'Api\GundrukOfflineQuizController@get_logged_in_user_points');
         Route::post('/offline/leaderboard', 'Api\GundrukOfflineQuizController@getLeaderBoard');
-        
     });
     Route::group(['middleware' => ['jwt.verify']], function() {
         Route::post('saveuserpoints','LeaderBoardController@save');
