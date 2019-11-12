@@ -86,11 +86,7 @@
 
             </li>
 
-            <li id="settings">
-                <a href="{{route('admin.settings')}}">
-                    <i class="fa fa-gears"></i> <span>{{tr('settings')}}</span>
-                </a>
-            </li>
+            
 
             <li class="treeview" id="pages">
                 <a href="{{route('viewPages')}}">
@@ -182,6 +178,12 @@
             <li id="help">
                 <a href="{{route('admin.help')}}">
                     <i class="fa fa-question-circle"></i> <span>{{tr('help')}}</span>
+                </a>
+            </li>
+
+            <li id="settings">
+                <a href="{{route('admin.settings')}}">
+                    <i class="fa fa-gears"></i> <span>{{tr('settings')}}</span>
                 </a>
             </li>
 
