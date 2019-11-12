@@ -74,7 +74,7 @@ class PaymentController extends Controller
         }
 
         $audition = Audition::where('user_id',$request->user_id)->first();
-        if($audition == null){
+        if(!$audition){
             return Helper::setResponse(true, 'Error: User Not Found', '');
 
         }

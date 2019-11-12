@@ -78,7 +78,7 @@
 
                                     <td style="width:10px;">
                                         @if(!empty($value->registration_code))
-                                            <span class="label label-active">{{$value->registration_code}}</span>
+                                            <span class="label label-success">{{$value->registration_code}}</span>
                                         @else
                                         <span class="label label-danger">Unpaid</span>
                                         @endif

@@ -29,7 +29,7 @@ class LivequizController extends Controller
             'data'=>[
                 'totalusers'=>$totalLiveUsers,
                 'conrrect_option'=>$correctOption,
-                'userInfo'=>$correctUser->select('user_id','question_set','correct as is_eligible','live_paid as is_paid')->first(),
+                'userInfo'=>$correctUser,
                 'users'=>$users
             ]
         ]);
@@ -49,13 +49,24 @@ class LivequizController extends Controller
         if($validator->fails()){
             return response()->json(['status'=>false,'message'=>'Error','data'=>$validator->errors()->first()]);
         }
+        $options=\App\Option::where('question_id',$request->question_id)->pluck('name')->toArray();
+       
+        if(!in_array($request->option,$options))
+        {
+            return response()->json([
+                'status'=>false,
+                'code'=>200,
+                'message'=>'Option '.$request->option .' is not available',
+                'data'=>''
+            ]);
+        }
         $livequiz=new Livequiz();
         $livequiz->user_id=$request->user_id;
         $livequiz->question_set=$request->question_set;
         $livequiz->question_id=$request->question_id;
         $livequiz->option=$request->option;
         $livequiz->answer=$request->answer?$request->answer:0;
-        $livequiz->time=$request->time;
+        $livequiz->time=$request->time_taken;
         $livequiz->prize=$request->prize?$request->prize:'';
         $livequiz->point=$request->point?$request->point:0;
         $livequiz->save();
@@ -150,7 +161,7 @@ class LivequizController extends Controller
                 $liveQuizCorrectUser->correct=$answerStatus?1:0;
                 $liveQuizCorrectUser->prize=$request->prize?$request->prize:'';
                 $liveQuizCorrectUser->point=$request->point?$request->point:'';
-                $liveQuizCorrectUser->total_time=$request->time;
+                $liveQuizCorrectUser->total_time=$request->time_taken;
                 $liveQuizCorrectUser->save();
                 return $liveQuizCorrectUser;
             }
@@ -158,6 +169,7 @@ class LivequizController extends Controller
             if(!$answerStatus){
                 $liveQuizCorrectUser->prize=0;
                 $liveQuizCorrectUser->point +=$livequiz->point;
+                $liveQuizCorrectUser->total_time +=$livequiz->time;
                 $liveQuizCorrectUser->correct=0;
                 $liveQuizCorrectUser->update();
             }
