@@ -9,32 +9,11 @@ use App\LeaderBoard;
 use App\Winner;
 use Illuminate\Support\Facades\Validator as LiveValidator;
 use Carbon\Carbon;
+use App\QuestionPosition as Position;
 
 class LivequizController extends Controller
 {
-    protected function index($question_id,$correctUser='')
-    {
-        $totalLiveUsers=Livequiz::where('question_id',$question_id)->count();
-        $options=Livequiz::where('question_id',$question_id)->pluck('option')->toArray();
-        $users=[];
-        $correctOption =\App\Option::where('question_id',$question_id)->where('answer',1)->pluck('name')->first();
-        foreach($options as $option)
-        {
-            $users[$option]=count(Livequiz::where('question_id',$question_id)->where('option',$option)->get());
-        }
-        return response()->json([
-            'status'  =>true,
-            'code'=>200,
-            'message'=>'success',
-            'data'=>[
-                'totalusers'=>$totalLiveUsers,
-                'conrrect_option'=>$correctOption,
-                'userInfo'=>$correctUser,
-                'users'=>$users
-            ]
-        ]);
-    }
-
+   
     public function store(Request $request)
     {
         $validator=LiveValidator::make($request->all(),[
@@ -75,42 +54,60 @@ class LivequizController extends Controller
 
         $correctUser=$this->saveCorrectUserData($livequiz,$request);
 
-        return $this->index($livequiz->question_id,$correctUser);
+
+        return response()->json([
+            'status'  =>true,
+            'code'=>200,
+            'message'=>'success',
+            'data'=>$correctUser
+        ]);
     }
 
     
     public function getWinner()
     {
-        $winner=LiveQuizCorrectUser::leftJoin('users',function($join){
-            $join->on('live_quiz_correct_users.user_id','=','users.id');
+        $is_winner=Winner::leftJoin('users',function($join){
+            $join->on('winners.user_id','=','users.id');
         })
-        ->where('live_quiz_correct_users.created_at','>=',Carbon::today())
-        ->where('correct',1)->orderBy('total_time','asc')->get();
+        ->where('winners.created_at','>=',Carbon::today())->first();
+        $winner=$is_winner;
 
-        if(!$winner)
-        {
-            return response()->json([
-                'status'=>false,
-                'code'=>200,
-                'message'=>'No data available.',
-                'data'=>''
+        if(!$is_winner){        
+            $winner=LiveQuizCorrectUser::leftJoin('users',function($join){
+                $join->on('live_quiz_correct_users.user_id','=','users.id');
+            })
+            ->where('live_quiz_correct_users.created_at','>=',Carbon::today())
+            ->where('correct',1)->orderBy('total_time','asc')->get();
+            
+            if(!$winner)
+            {
+                return response()->json([
+                    'status'=>false,
+                    'code'=>200,
+                    'message'=>'No data available.',
+                    'data'=>''
+                ]);
+            }
+
+            $winner=$winner->groupBy('total_time')->first();
+            
+            $winner=$winner->shuffle();
+            
+           
+            if(count($winner)>1){
+                $winner=$winner->random(1);
+            }
+            
+            \App\Winner::create([
+                'user_id'=>$winner->user_id,
+                'question_set'=>$winner->question_set,
+                'point'=>$winner->point,
+                'prize'=>$winner->prize,
+                'quiz_date'=>$winner->created_at
             ]);
         }
 
-        $winner=$winner->groupBy('total_time')->first();
-        if(count($winner)>1){
-            $winner=$winner->random(1);
-        }
-
-        \App\Winner::create([
-            'user_id'=>$winner->user_id,
-            'question_set'=>$winner->question_set,
-            'point'=>$winner->point,
-            'prize'=>$winner->prize,
-            'quiz_date'=>$winner->created_at
-        ]);
-
-        return respone()->json([
+        return response()->json([
             'status'=>true,
             'code'=>200,
             'message'=>'winner created',
@@ -138,7 +135,7 @@ class LivequizController extends Controller
 
     protected function saveCorrectUserData(Livequiz $livequiz,Request $request)
     {
-        $liveQuizCorrectUser=LiveQuizCorrectUser::where('user_id',$request->user_id)->first();
+        $liveQuizCorrectUser=LiveQuizCorrectUser::where('user_id',$request->user_id)->where('created_at','>=',Carbon::today())->first();
 
         $options =\App\Option::where('question_id',$request->question_id)->select('name','answer')->get();
         
@@ -206,6 +203,57 @@ class LivequizController extends Controller
             'code'=>200,
             'message'=>'quiting success',
             'data'=>'Thank you for playing. Please come back later.'
+        ]);
+    }
+
+    public function setPosition(Request $request)
+    {
+        $position=Position::where('created_at','>=',Carbon::today())->first();
+        if(!$position){
+            $position=Position::create([
+                'set'=>$request->question_set,
+                'question_id'=>$request->question_id
+            ]);
+        }else{
+            $position->question_id=$request->question_id;
+            $position->update();
+        }
+        return $position;
+    }
+
+    public function getPosition()
+    {
+        $position=Position::where('created_at','>=',Carbon::today())->first();
+        return response()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'Question Position',
+            'data'=>$position
+        ]);
+    }
+
+    public function getOptionCount(Request $request)
+    {
+        $totalLiveUsers=Livequiz::where('question_id',$request->question_id)->where('created_at','>=',Carbon::today())->count();
+        
+        $correctOption =\App\Option::where('question_id',$request->question_id)->where('answer',1)->pluck('name')->first();
+        $options=Livequiz::where('question_id',$request->question_id)->where('created_at','>=',Carbon::today())->pluck('option')->toArray();
+        $optionCount=[];
+        foreach($options as $option)
+        {
+            $optionCount[$option]=count(Livequiz::where('question_id',$request->question_id)->where('option',$option)
+                                        ->where('created_at','>=',Carbon::today())->get());
+        }
+
+        return response()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'Options Count',
+            'data'=>[
+                'total_users'=>$totalLiveUsers,
+                'correct_option'=>$correctOption,
+                'option_count'=>$optionCount
+            ]
         ]);
     }
 
