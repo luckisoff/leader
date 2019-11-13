@@ -53,6 +53,7 @@ Route::group(['middleware'=>'api'], function(){
         Route::get('leaderusers','LeaderBoardController@get_leader_users');
         Route::post('deduct-user-point','LeaderBoardController@deductUserPoint');//params: user_id, point_to_deduct
         
+        Route::post('register-live-user','LivequizController@registerLiveUsers');//params:question_set,user_id
         Route::post('save-live-data','LivequizController@store');//params: user_id, question_set, question_id, option,point,time_taken,prize
         Route::post('option-count','LivequizController@getOptionCount');//param:question_id
         Route::post('set-live-position','LivequizController@setPosition');//param:question_set,question_id

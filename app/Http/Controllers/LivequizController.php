@@ -28,6 +28,14 @@ class LivequizController extends Controller
         if($validator->fails()){
             return response()->json(['status'=>false,'message'=>'Error','data'=>$validator->errors()->first()]);
         }
+
+        $registered_user=\App\LiveQuizUser::where('user_id',$request->user_id)->where('created_at','>=',Carbon::today())->first();
+
+        if(!$registered_user)
+        {
+            return response()->json(['status'=>false,'code'=>200,'message'=>'Not Registerd','data'=>'You are not registerd for this quiz.']);
+        }
+
         $options=\App\Option::where('question_id',$request->question_id)->pluck('name')->toArray();
        
         if(!in_array($request->option,$options))
@@ -145,8 +153,6 @@ class LivequizController extends Controller
                 $answerStatus=true;
             }
         }
-        
-        
             if($liveQuizCorrectUser){
                 $liveQuizCorrectUser->total_time +=$livequiz->time;
                 $liveQuizCorrectUser->point +=$livequiz->point;
@@ -170,7 +176,7 @@ class LivequizController extends Controller
                 $liveQuizCorrectUser->correct=0;
                 $liveQuizCorrectUser->update();
             }
-            
+
         return $liveQuizCorrectUser;
     }
 
@@ -254,6 +260,29 @@ class LivequizController extends Controller
                 'option_count'=>$optionCount
             ]
         ]);
+    }
+
+    public function registerLiveUsers(Request $request){
+        $validator=LiveValidator::make($request->all(),[
+            'question_set'=>'required',
+            'user_id'=>'required'
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['status'=>false,'code'=>200,'message'=>'Validation Failed','data'=>'']);
+        }
+        $registerd_user= \App\LiveQuizUser::where('user_id',$request->user_id)->where('question_set',$request->question_set)
+                                        ->where('created_at','>=',Carbon::today())->first();
+        if($registerd_user)
+        {
+            return response()->json(['status'=>true,'code'=>200,'message'=>'Already Registerd','data'=>'']);
+        }
+
+        \App\LiveQuizUser::create([
+            'user_id'=>$request->user_id,
+            'question_set'=>$request->question_set
+        ]);
+        return response()->json(['status'=>true,'code'=>200,'message'=>'User registerd','data'=>'']);
     }
 
 }
