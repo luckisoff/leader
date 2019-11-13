@@ -170,8 +170,7 @@ class LivequizController extends Controller
                 $liveQuizCorrectUser->correct=0;
                 $liveQuizCorrectUser->update();
             }
-        
-
+            
         return $liveQuizCorrectUser;
     }
 
