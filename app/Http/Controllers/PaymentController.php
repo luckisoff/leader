@@ -131,6 +131,7 @@ class PaymentController extends Controller
             $form = Audition::find($request->user_id);
             $form->payment_type = "stripe";
             $form->payment_status = 1;
+            $form->payment_code=$_POST['stripeToken'];
             $form->save();
 
             return Redirect::to('http://localhost/bharyang/audition/payment?user_id='.$request->user_id.'&payment=success');
