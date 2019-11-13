@@ -34,7 +34,7 @@ class PaymentController extends Controller
         }
 
         //stripe integration javascript way.
-//
+
         $stripe = new Stripe(config('services.stripe.secret'), '2015-01-11');
         $charge = $stripe->charges()->create([
             'card' =>  $request->stripeToken,
