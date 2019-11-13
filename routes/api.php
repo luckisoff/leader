@@ -63,7 +63,6 @@ Route::group(['middleware'=>'api'], function(){
 
         Route::post('gundruk/payment-claim','LeaderBoardController@paymentClaim');
     });
-    
 });
 
 Route::post('save-user-points','LeaderBoardController@save');

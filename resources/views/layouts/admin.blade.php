@@ -123,8 +123,9 @@
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": false,
-                "searching": false,
-                "ordering": true,
+                "searching": true,
+                "filtering":true,
+                "ordering": false,
                 "info": true,
                 "autoWidth": false
             });

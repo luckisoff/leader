@@ -10,6 +10,7 @@ use App\Winner;
 use Illuminate\Support\Facades\Validator as LiveValidator;
 use Carbon\Carbon;
 use App\QuestionPosition as Position;
+use App\LiveQuizUser;
 
 class LivequizController extends Controller
 {
@@ -192,10 +193,15 @@ class LivequizController extends Controller
             return response()->json(['status'=>false,'code'=>200,'message'=>'Error','data'=>$validator->errors()->first()]);
         }
 
-        $liveQuizUser=LiveQuizCorrectUser::where('user_id',$request->user_id)->where('created_at','>=',Carbon::today())->first();
+        $livequizCorrectUser=LiveQuizCorrectUser::where('user_id',$request->user_id)->where('created_at','>=',Carbon::today())->first();
         $livequizzes=Livequiz::where('user_id',$request->user_id)->where('created_at','>=',Carbon::today())->get();
+        $liveQuizUser=LiveQuizUser::where('user_id',$request->user_id)->where('created_at','>=',Carbon::today())->first();
+
         if($liveQuizUser){
             $liveQuizUser->delete();
+        }
+        if($livequizCorrectUser){
+            $livequizCorrectUser->delete();
         }
         if($livequizzes){
             foreach($livequizzes as $livequiz){
@@ -229,6 +235,7 @@ class LivequizController extends Controller
     public function getPosition()
     {
         $position=Position::where('created_at','>=',Carbon::today())->first();
+        
         return response()->json([
             'status'=>true,
             'code'=>200,
@@ -239,15 +246,15 @@ class LivequizController extends Controller
 
     public function getOptionCount(Request $request)
     {
-        $totalLiveUsers=Livequiz::where('question_id',$request->question_id)->where('created_at','>=',Carbon::today())->count();
+
+        $totalLiveUsers=LiveQuizUser::where('created_at','>=',Carbon::today())->count();
         
-        $correctOption =\App\Option::where('question_id',$request->question_id)->where('answer',1)->pluck('name')->first();
-        $options=Livequiz::where('question_id',$request->question_id)->where('created_at','>=',Carbon::today())->pluck('option')->toArray();
+        $options =\App\Option::where('question_id',$request->question_id)->get();
         $optionCount=[];
-        foreach($options as $option)
-        {
-            $optionCount[$option]=count(Livequiz::where('question_id',$request->question_id)->where('option',$option)
-                                        ->where('created_at','>=',Carbon::today())->get());
+
+        foreach($options as $option){
+            $optionCount[$option->name]=count(Livequiz::where('question_id',$request->question_id)->where('option',$option->name)
+            ->where('created_at','>=',Carbon::today())->get());
         }
 
         return response()->json([
@@ -255,8 +262,9 @@ class LivequizController extends Controller
             'code'=>200,
             'message'=>'Options Count',
             'data'=>[
+                'question_id'=>$request->question_id,
                 'total_users'=>$totalLiveUsers,
-                'correct_option'=>$correctOption,
+                'correct_option'=>$options->where('answer',1)->pluck('name')->first(),
                 'option_count'=>$optionCount
             ]
         ]);
