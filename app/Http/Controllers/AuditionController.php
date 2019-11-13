@@ -556,7 +556,7 @@ class AuditionController extends Controller
     }
 
     public function viewAllAuditionUser(){
-        $data['contestant'] = Audition::all();
+        $data['contestant'] = Audition::orderBy('payment_status','desc')->get();
         $data['page'] = 'audition';
         $data['sub_page'] = 'show_audition';
 

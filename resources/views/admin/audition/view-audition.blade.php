@@ -108,7 +108,7 @@
                                           </div>
                                         @else
                                             <span class="label label-success">
-                                                <i  class="fa fa-check-circle"> Paid</i>
+                                                Paid
                                             </span>
                                         @endif
                                     </td>
