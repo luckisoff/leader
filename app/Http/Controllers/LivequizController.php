@@ -127,7 +127,10 @@ class LivequizController extends Controller
 
     public function getAllTimeWinners()
     {
-        $winners=Winner::orderBy('created_at','desc')->get();
+        $winners=Winner::leftJoin('users',function($join){
+            $join->on('winners.user_id','=','users.id');
+        })
+        ->orderBy('winners.created_at','desc')->first();
         return view('admin.winner.index',['winners'=>$winners,'page'=>'']);
     }
 
