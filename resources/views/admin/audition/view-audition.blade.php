@@ -85,31 +85,31 @@
                                     </td>
 
                                     <td style="width:55px;">
-                                        @if($value->payment_status == 0)
+                                        @if($value->payment_type)
                                           <div class="row">
-                                              <div style="float: left;padding-left: 5px;">
+                                          @if(strtolower($value->payment_type)=='khalti')
+                                              <div style="float: left;padding-left: 25px;">
                                                   <a href="{{ route('khalti.view-khalti',array('user_id' => $value->id,'user_type' => 'admin')) }}">
                                                       <img title="Khalti" class="img img-responsive" style="max-width:100%; height: 40px;" src="{{asset('images/khalti.png')}}" alt="Pay With Khalti">
                                                   </a>
                                               </div>
-
-                                              <div style="float: left; padding-left: 5px; padding-top:7px;">
+                                            @elseif(strtolower($value->payment_type)=='stripe')
+                                        
+                                              <div style="float: left;padding-left: 25px;">
                                                   <a href="{{ route('stripe.view-stripe',array('user_id' => $value->id,'user_type' => 'admin')) }}">
                                                       <img title="Stripe" class="img img-responsive" style="max-width:100%; height: 25px;" src="{{asset('images/stripe.png')}}" alt="Pay With Khalti">
                                                   </a>
                                               </div>
-
-                                              <div style="float: left; padding-top:7px;">
+                                            @elseif(strtolower($value->payment_type)=='paypal')
+                                              <div style="float: left;padding-left: 25px;">
                                                   <a href="{{ route('paypal.view-paypal',array('user_id' => $value->id)) }}">
                                                       <img title="Paypal" class="img img-responsive" style="max-width:100%; height: 25px;" src="{{asset('images/paypal.png')}}" alt="Pay With Khalti">
                                                   </a>
                                               </div>
-
+                                            @endif
                                           </div>
                                         @else
-                                            <span class="label label-success">
-                                                Paid
-                                            </span>
+                                            <span class="label label-danger">Not Available</span>
                                         @endif
                                     </td>
 
