@@ -293,4 +293,15 @@ class LivequizController extends Controller
         return response()->json(['status'=>true,'code'=>200,'message'=>'User registerd','data'=>'']);
     }
 
+    public function getWinnerList(){
+        $winners=Winner::orderBy('created_at','desc')->get();
+
+        return response()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'all time winner list',
+            'data'=>$winners
+        ]);
+    }
+
 }
