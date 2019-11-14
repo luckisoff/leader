@@ -127,7 +127,7 @@ class LoginController extends Controller
             $data = [
                 'token_type' => 'bearer',
                 'token' => $token,
-                'expires_in' => Config::get('jwt.ttl') * 60,
+                'expires_in' => Config::get('jwt.ttl'),
                 'user_data' => $user,
                 'payment_status' => $payment
             ];
