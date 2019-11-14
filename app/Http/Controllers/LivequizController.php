@@ -272,7 +272,6 @@ class LivequizController extends Controller
 
     public function registerLiveUsers(Request $request){
         $validator=LiveValidator::make($request->all(),[
-            'question_set'=>'required',
             'user_id'=>'required'
         ]);
 
