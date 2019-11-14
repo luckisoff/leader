@@ -59,7 +59,7 @@ Route::group(['middleware'=>'api'], function(){
         Route::post('set-live-position','LivequizController@setPosition');//param:question_set,question_id
         Route::get('get-live-position','LivequizController@getPostion');
         Route::get('get-live-winner','LivequizController@getWinner');
-        Route::get('get-winner-list','LivequizController@winnerList');
+        Route::get('get-winner-list','LivequizController@getWinnerList');
         Route::post('live-quit','LivequizController@quit');//param: user_id
 
         Route::post('gundruk/payment-claim','LeaderBoardController@paymentClaim');
