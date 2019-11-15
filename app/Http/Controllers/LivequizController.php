@@ -251,10 +251,11 @@ class LivequizController extends Controller
         
         $options =\App\Option::where('question_id',$request->question_id)->get();
         $optionCount=[];
-
+        $totalUserHits=Count(Livequiz::where('question_id',$request->question_id)->where('created_at','>=',Carbon::today())->get());
+        
         foreach($options as $option){
             $optionCount[$option->name]=count(Livequiz::where('question_id',$request->question_id)->where('option',$option->name)
-            ->where('created_at','>=',Carbon::today())->get());
+            ->where('created_at','>=',Carbon::today())->get())*100/$totalUserHits;
         }
 
         return response()->json([
@@ -263,7 +264,8 @@ class LivequizController extends Controller
             'message'=>'Options Count',
             'data'=>[
                 'question_id'=>$request->question_id,
-                'total_users'=>$totalLiveUsers,
+                'total_users_registerd'=>$totalLiveUsers,
+                'total_live_users'=>$totalUserHits,
                 'correct_option'=>$options->where('answer',1)->pluck('name')->first(),
                 'option_count'=>$optionCount
             ]
