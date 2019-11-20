@@ -265,7 +265,8 @@ class LivequizController extends Controller
         $totalUserHits=Count(Livequiz::where('question_id',$request->question_id)->where('created_at','>=',Carbon::today())->get());
         
         foreach($options as $option){
-            $optionCount[$option->name]=count(Livequiz::where('question_id',$request->question_id)->where('option',$option->name)
+            $optionCount['name']=$option->name;
+            $optionCount['count']=count(Livequiz::where('question_id',$request->question_id)->where('option',$option->name)
             ->where('created_at','>=',Carbon::today())->get())*100/$totalUserHits;
         }
 
