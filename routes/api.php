@@ -47,21 +47,25 @@ Route::group(['middleware'=>'api'], function(){
         Route::post('/offline/get-user-points', 'Api\GundrukOfflineQuizController@get_logged_in_user_points');
         Route::post('/offline/leaderboard', 'Api\GundrukOfflineQuizController@getLeaderBoard');
     });
+
     Route::group(['middleware' => ['jwt.verify']], function() {
         Route::post('saveuserpoints','LeaderBoardController@save');
         Route::get('getuserpoints/{id}','LeaderBoardController@getPoints');
         Route::get('leaderusers','LeaderBoardController@get_leader_users');
+
         Route::post('deduct-user-point','LeaderBoardController@deductUserPoint');//params: user_id, point_to_deduct
-        
         Route::post('register-live-user','LivequizController@registerLiveUsers');//params:question_set,user_id
         Route::post('save-live-data','LivequizController@store');//params: user_id, question_set, question_id, option,point,time_taken,prize
         Route::post('option-count','LivequizController@getOptionCount');//param:question_id
         Route::post('set-live-position','LivequizController@setPosition');//param:question_set,question_id
+        Route::post('live-quit','LivequizController@quit');//param: user_id
+        Route::post('add-live-viewer','LivequizController@setLiveViewer');//params:user_id, question_set
+        
+        
         Route::get('get-live-position','LivequizController@getPostion');
         Route::get('get-live-winner','LivequizController@getWinner');
-        //Route::get('get-winner-list','LivequizController@getWinnerList');
-        Route::post('live-quit','LivequizController@quit');//param: user_id
-
+        Route::get('get-winner-list','LivequizController@getWinnerList');
+        
         Route::post('gundruk/payment-claim','LeaderBoardController@paymentClaim');
     });
 });

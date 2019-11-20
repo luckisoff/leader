@@ -59,7 +59,7 @@ class LivequizController extends Controller
         $livequiz->point=$request->point?$request->point:0;
         $livequiz->save();
 
-        $this->updateLeaderBoard($livequiz->user_id,$livequiz->point);
+        $this->updateLeaderBoard($livequiz->user_id,$livequiz);
 
         $correctUser=$this->saveCorrectUserData($livequiz,$request);
 
@@ -106,7 +106,9 @@ class LivequizController extends Controller
             if(count($winner)>1){
                 $winner=$winner->random(1);
             }
+
             
+
             \App\Winner::create([
                 'user_id'=>$winner->user_id,
                 'question_set'=>$winner->question_set,
@@ -114,6 +116,8 @@ class LivequizController extends Controller
                 'prize'=>$winner->prize,
                 'quiz_date'=>$winner->created_at
             ]);
+
+            $this->flushLiveUsers();
         }
 
         return response()->json([
@@ -132,13 +136,20 @@ class LivequizController extends Controller
     }
 
 
-    protected function updateLeaderBoard($user_id,$point)
+    protected function updateLeaderBoard($user_id,$livequiz)
     {
         $leaderboard=LeaderBoard::where('user_id',$user_id)->first();
         if($leaderboard)
         {
-            $leaderboard->point +=$point;
+            $leaderboard->point +=$livequiz->point;
             $leaderboard->update();
+
+            $transaction=new Transaction();
+            $transaction->user_id=$leaderboard->user_id;
+            $transaction->amount=$livequiz->point?$livequiz->point:0;
+            $transaction->set=$livequiz->question_set?$livequiz->question_set:'Live Quiz';
+            $transaction->level=$leaderboard->level?$leaderboard->level:'Live Quiz';
+            $transaction->save();
         }
     }
 
@@ -305,6 +316,59 @@ class LivequizController extends Controller
             'message'=>'all time winners list',
             'data'=>$winners,
         ]);
+    }
+
+    public function setLiveViewer(Request $request){
+        $validator=LiveValidator::make($request->all(),[
+            'user_id'=>'required'
+        ]);
+
+        if($validator->fails())
+        {
+            return respones()->json([
+                'status'=>false,
+                'code'=>200,
+                'message'=>'mising parameters',
+                'data'=>$validator->errors()->first()
+            ]);
+        }
+
+        $registered_user=\App\LiveQuizUser::where('user_id',$request->user_id)->where('created_at','>=',Carbon::today())->first();
+
+        if($registered_user)
+        {
+            return response()->json(['status'=>false,'code'=>200,'message'=>'Live Viewer','data'=>'A rigistered user detected.']);
+        }
+
+        return \App\LiveViewer::crate([
+            'user_id'=>$request->user_id,
+            'question_set'=>$request->question_set?$request->question_set:'Live Quiz'
+        ]);
+    }
+
+    public function liveUserCount(Request $request)
+    {
+        $totalRegisterd=LiveQuizUser::where('created_at','>=',Carbon::today())->count();
+        $totalLiveUsers=count(Livequiz::where('question_id',$request->question_id)->where('created_at','>=',Carbon::today())->get());
+        $tottalLiveViewer=count(\App\LiveViewer::where('created_at','>=',today())->get());
+
+        return response()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'Live quiz users data',
+            'data'=>[
+                'total_registerd_users'=>$totalRegisterd,
+                'total_live_users'=>$totalLiveUsers,
+                'total_live_viewer'=>$tottalLiveViewer
+            ]
+        ]);
+    }
+
+    protected function flushLiveUsers()
+    {
+        LiveQuizUser::truncate();
+        Livequiz::truncate();
+        \App\LiveViewer::truncate();
     }
 
 }

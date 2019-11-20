@@ -4,8 +4,8 @@ use Aws\Laravel\AwsServiceProvider;
 
 return [
     'credentials' => [
-        'key'    => "AKIAIX5X7LUUELBTZH5A",
-        'secret' => "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",
+        'key'    => env('AWS_KEY'),
+        'secret' => env('AWS_SECRET'),
     ],
     'region' => 'us-west-2',
     'version' => 'latest',
