@@ -260,18 +260,13 @@ class LivequizController extends Controller
 
         $totalLiveUsers=LiveQuizUser::where('created_at','>=',Carbon::today())->count();
         
-        $options =\App\Option::where('question_id',$request->question_id)->get();
-        $optionCount=[];
+        $options =\App\Option::where('question_id',$request->question_id)->select('name')->get();
+        
         $totalUserHits=Count(Livequiz::where('question_id',$request->question_id)->where('created_at','>=',Carbon::today())->get());
-        $optionArray=array();
+        
         foreach($options as $option){
-            $optionArray=[
-                'name'=>$option->name,
-                'count'=>count(Livequiz::where('question_id',$request->question_id)->where('option',$option->name)
-                ->where('created_at','>=',Carbon::today())->get())*100/$totalUserHits
-            ];
-            // $optionCount['name']=;
-            // $optionCount['count']=;
+            $option->setAttribute('count',count(Livequiz::where('question_id',$request->question_id)->where('option',$option->name)
+            ->where('created_at','>=',Carbon::today())->get())*100/$totalUserHits);
         }
 
         return response()->json([
@@ -283,7 +278,7 @@ class LivequizController extends Controller
                 'total_users_registerd'=>$totalLiveUsers,
                 'total_live_users'=>$totalUserHits,
                 'correct_option'=>$options->where('answer',1)->pluck('name')->first(),
-                'option_count'=>$optionArray
+                'option_count'=>$options
             ]
         ]);
     }
