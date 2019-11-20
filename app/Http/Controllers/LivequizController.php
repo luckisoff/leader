@@ -265,7 +265,7 @@ class LivequizController extends Controller
         $totalUserHits=Count(Livequiz::where('question_id',$request->question_id)->where('created_at','>=',Carbon::today())->get());
         $optionArray=array();
         foreach($options as $option){
-            $optonArray=[
+            $optionArray=[
                 'name'=>$option->name,
                 'count'=>count(Livequiz::where('question_id',$request->question_id)->where('option',$option->name)
                 ->where('created_at','>=',Carbon::today())->get())*100/$totalUserHits
