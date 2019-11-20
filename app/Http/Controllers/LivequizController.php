@@ -260,7 +260,7 @@ class LivequizController extends Controller
 
         $totalLiveUsers=LiveQuizUser::where('created_at','>=',Carbon::today())->count();
         
-        $options =\App\Option::where('question_id',$request->question_id)->select('name')->get();
+        $options =\App\Option::where('question_id',$request->question_id)->select('name','answer')->get();
         
         $totalUserHits=Count(Livequiz::where('question_id',$request->question_id)->where('created_at','>=',Carbon::today())->get());
         
