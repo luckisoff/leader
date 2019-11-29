@@ -72,6 +72,7 @@ Route::group(['middleware'=>'api'], function(){
             Route::post('/store','SpinnerLeaderboardController@store');
             Route::get('/top-ten','SpinnerLeaderboardController@topTenUsers');
             Route::get('/user-point-today/{user_id}','SpinnerLeaderboardController@getUserDailyPoint');
+            Route::get('/get-landmark','SpinnerLeaderboardController@getLandmark');
         });
         
     });

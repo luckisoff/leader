@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\SpinnerLeaderboard;
 use Illuminate\Support\Facades\Validator;
 use App\SpinnerDailyPoint as DailyPoint;
+use App\SpinnerLandmark;
+
 class SpinnerLeaderboardController extends Controller
 {
     public function store(Request $request)
@@ -90,6 +92,17 @@ class SpinnerLeaderboardController extends Controller
             'code'=>200,
             'message'=>'Users daily point',
             'data'=>$dailyPoint
+        ]);
+    }
+
+    public function getLandmark()
+    {
+        $spinnerLandmark=SpinnerLandmark::orderBy('created_at','desc')->get();
+        return response()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'Spinner landmark list',
+            'data'=>$spinnerLandmark
         ]);
     }
 }
