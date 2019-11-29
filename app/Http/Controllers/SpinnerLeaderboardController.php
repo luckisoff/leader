@@ -28,18 +28,9 @@ class SpinnerLeaderboardController extends Controller
         $spinenrUser=SpinnerLeaderboard::where('user_id',$request->user_id)->first();
         $dailyPoint=$this->setDailyPoint($request);
 
-        if(!$spinenrUser)
-        {
-            $spinenrUser= SpinnerLeaderboard::create([
-                'user_id'=>$request->user_id,
-                'point'=>$request->point
-            ]);
-        }
-        else
-        {
-            $spinenrUser->point +=$request->point;
-            $spinenrUser->save();
-        }
+        $spinenrUser->point +=$request->point;
+        $spinenrUser->save();
+
         return response()->json([
             'status'=>true,
             'code'=>200,
@@ -76,8 +67,9 @@ class SpinnerLeaderboardController extends Controller
         return $dailyPoint;
     }
 
-    public function getUserDailyPoint($user_id)
+    public function getUserPoint($user_id)
     {
+        $spinenrUser=SpinnerLeaderboard::where('user_id',$user_id)->first();
         $dailyPoint=DailyPoint::where('user_id',$user_id)->where('created_at','>=',\Carbon\Carbon::today())->first();
         if(!$dailyPoint)
         {
@@ -87,11 +79,22 @@ class SpinnerLeaderboardController extends Controller
                 'available_spin'=>20
             ]);
         }
+
+        if(!$spinenrUser)
+        {
+            $spinenrUser= SpinnerLeaderboard::create([
+                'user_id'=>$user_id,
+                'point'=>0
+            ]);
+        }
         return response()->json([
             'status'=>true,
             'code'=>200,
-            'message'=>'Users daily point',
-            'data'=>$dailyPoint
+            'message'=>'Users point',
+            'data'=>[
+                'daily'=>$dailyPoint,
+                'overal'=> $spinenrUser
+            ]
         ]);
     }
 
