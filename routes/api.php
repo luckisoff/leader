@@ -67,6 +67,13 @@ Route::group(['middleware'=>'api'], function(){
         Route::get('get-winner-list','LivequizController@getWinnerList');
         
         Route::post('gundruk/payment-claim','LeaderBoardController@paymentClaim');
+
+        Route::group(['prefix'=>'spinner/leaderboard'],function(){
+            Route::post('/store','SpinnerLeaderboardController@store');
+            Route::get('/top-ten','SpinnerLeaderboardController@topTenUsers');
+            Route::get('/user-point-today/{user_id}','SpinnerLeaderboardController@getUserDailyPoint');
+        });
+        
     });
 });
 Route::get('get-winner-list','LivequizController@getWinnerList');

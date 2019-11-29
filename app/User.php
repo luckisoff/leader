@@ -80,6 +80,11 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Winner::class);
     }
+
+    public function spinnerLeaderBoards()
+    {
+        $this->hasMany(SpinnerLeaderboard::class);
+    }
     
     public static function boot()
     {
