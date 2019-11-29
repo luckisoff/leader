@@ -75,13 +75,25 @@
             </li>
             
              <li class="treeview" id="counters">
-                <a href="{{route('admin.videos')}}">
+                <a href="{{route('counter')}}">
                     <i class="fa fa-clock-o"></i> <span>{{tr('counters')}}</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
 
                 <ul class="treeview-menu">
                     <li id="add-video"><a href="{{route('addcounter')}}"><i class="fa fa-circle-o"></i>{{tr('add_counter')}}</a></li>
                     <li id="view-videos"><a href="{{route('counter')}}"><i class="fa fa-circle-o"></i>{{tr('view_counters')}}</a></li>
+                </ul>
+
+            </li>
+
+            <li class="treeview" id="spinners">
+                <a href="{{route('landmark')}}">
+                    <i class="fa fa-spinner"></i> <span>{{tr('spinners')}}</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+
+                <ul class="treeview-menu">
+                    <li id="add-landmark"><a href="{{route('addlandmark')}}"><i class="fa fa-circle-o"></i>{{tr('add landmark')}}</a></li>
+                    <li id="view-videos"><a href="{{route('landmark')}}"><i class="fa fa-circle-o"></i>{{tr('view landmarks')}}</a></li>
                 </ul>
 
             </li>

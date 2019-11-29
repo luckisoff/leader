@@ -247,7 +247,7 @@ Route::group(['prefix' => 'admin'], function(){
 //        Route::get('/khalti',['uses'=>'AuditionController@showKhalti','as'=>'view-khalti']);
 //        Route::get('/integrate',['uses'=>'AuditionController@integrateKhalti','as'=>'delete-audition']);
 
-
+        //spinner group
     });
 
     Route::group(['prefix' =>'location', 'as' => 'location.'], function () {
@@ -260,6 +260,14 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/delete/{id}',['uses'=>'AuditionController@deleteLocation','as'=>'delete-location']);
 
     });
+
+    Route::group(['prefix'=>'spinner'],function(){
+        Route::get('/landmark','SpinnerController@index')->name('landmark');
+        Route::get('/landmark/create','SpinnerController@create')->name('addlandmark');
+        Route::post('/landmark/store','SpinnerController@store')->name('storelandmark');
+        Route::get('/landmark/delete/{landmark}','SpinnerController@destroy')->name('landmarkdelete');
+    });
+
 
     //End Audition Routes
 
