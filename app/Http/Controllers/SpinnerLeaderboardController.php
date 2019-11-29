@@ -26,6 +26,7 @@ class SpinnerLeaderboardController extends Controller
             ]);
         }
         $spinenrUser=SpinnerLeaderboard::where('user_id',$request->user_id)->first();
+
         $dailyPoint=$this->setDailyPoint($request);
 
         $spinenrUser->point +=$request->point;
@@ -36,7 +37,7 @@ class SpinnerLeaderboardController extends Controller
             'code'=>200,
             'message'=>'Point Added',
             'data'=>[
-                'leader_board'=>$spinenrUser->with('user')->get(),
+                'leader_board'=>$spinenrUser,
                 'daily_point'=>$dailyPoint
             ]
         ]);
