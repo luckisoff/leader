@@ -37,33 +37,34 @@ class KhaltiPaymentController extends Controller
 
     public function confirmation(Request $request)
     {
-        
-        $url='https://khalti.com/api/payment/confirm/';
+        return $request->all();
+        // $url='https://khalti.com/api/payment/confirm/';
 
        
-        $data=[
-            'public_key'=>config('services.khalti.client_id'),
-            'token'=>$request->token,
-            'confirmation_code'=>$request->confirmation_code,
-            'transaction_pin'=>$request->transaction_pin
-        ];
+        // $data=[
+        //     'public_key'=>config('services.khalti.client_id'),
+        //     'token'=>$request->token,
+        //     'confirmation_code'=>$request->confirmation_code,
+        //     'transaction_pin'=>$request->transaction_pin
+        // ];
 
-        # Make the call using API.
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        // Response
-        $response=json_decode(curl_exec($curl));
-        $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-        //return $response;
-        if(!$request->amount)
-        {
-            return response()->json(['status'=>false,'message'=>'Confirmation Error'],200);
-        }
-        return $this->verify($response->amount,$request);
+        // # Make the call using API.
+        // $curl = curl_init();
+        // curl_setopt($curl, CURLOPT_URL, $url);
+        // curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        // curl_setopt($curl, CURLOPT_POST, true);
+        // curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        // // Response
+        // $response=json_decode(curl_exec($curl));
+        // $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        // curl_close($curl);
+        // return $response;
+        // if(!$request->amount)
+        // {
+        //     return response()->json(['status'=>false,'message'=>'Confirmation Error'],200);
+        // }
+
+        // return $this->verify($response->amount,$request);
     }
 
     protected function verify($amount,Request $request)
