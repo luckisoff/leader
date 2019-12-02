@@ -84,7 +84,7 @@ class KhaltiPaymentController extends Controller
 
         $responseOb=json_decode($response);
 
-        if(isset($responseOb->status_code) && $responseOb->status_code==401)
+        if(isset($responseOb->status_code))
         {
             return response()->json([
                 'status'=>false,
