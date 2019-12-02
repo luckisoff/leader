@@ -62,10 +62,30 @@ class SpinnerLeaderboardController extends Controller
         $dailyPoint=DailyPoint::where('user_id',$request->user_id)->where('created_at','>=',\Carbon\Carbon::today())->first();
 
         $dailyPoint->point += $request->point;
-        $dailyPoint->available_spin -= 1;
+
+        if($dailyPoint->available_spin>0)
+        {
+            $dailyPoint->available_spin -= 1;
+        }
+       
         $dailyPoint->save();
         
         return $dailyPoint;
+    }
+
+    public function addSpin(Request $request)
+    {
+        $dailyPoint=DailyPoint::where('user_id',$request->user_id)->where('created_at','>=',\Carbon\Carbon::today())->first();
+        
+        $dailyPoint->available_spin += 1;
+        $dailyPoint->save();
+        
+        return response()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'Available Spin Added',
+            'data'=>$dailyPoint
+        ]);
     }
 
     public function getUserPoint($user_id)

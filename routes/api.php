@@ -73,6 +73,12 @@ Route::group(['middleware'=>'api'], function(){
             Route::get('/top-ten','SpinnerLeaderboardController@topTenUsers');
             Route::get('/user-point/{user_id}','SpinnerLeaderboardController@getUserPoint');
             Route::get('/get-landmark','SpinnerLeaderboardController@getLandmark');
+            Route::post('/view-ad','SpinnerLeaderboardController@addSpin');
+        });
+
+        Route::group(['prefix'=>'khalti/payment/'],function(){
+            Route::post('/initiate','Api\KhaltiPaymentController@initiate');
+            Route::post('/confirm','Api\KhaltiPaymentController@confirmation');
         });
         
     });
@@ -95,11 +101,6 @@ Route::get('/counter', 'Api\GundrukController@getCounter');
 Route::post('/token/refresh', 'Api\LoginController@refresh');
 Route::get('/policy', 'Api\GundrukController@getPolicy');
 Route::get('/faq', 'Api\GundrukController@getFaq');
-
-Route::group(['prefix'=>'khalti/payment/'],function(){
-    Route::post('/initiate','Api\KhaltiPaymentController@initiate');
-    Route::post('/confirm','Api\KhaltiPaymentController@confirmation');
-});
 
 
 
