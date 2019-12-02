@@ -98,7 +98,7 @@ Route::get('/faq', 'Api\GundrukController@getFaq');
 
 Route::group(['prefix'=>'khalti/payment/'],function(){
     Route::post('/initiate','Api\KhaltiPaymentController@initiate');
-    Route::post('/confirm','APi\KhaltiPaymentController@confirmation');
+    Route::post('/confirm','Api\KhaltiPaymentController@confirmation');
 });
 
 
