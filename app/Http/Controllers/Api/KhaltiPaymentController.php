@@ -22,7 +22,7 @@ class KhaltiPaymentController extends Controller
             'mobile'=>$request->mobile
 
         ];
-
+        return $data;
         # Make the call using API.
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
