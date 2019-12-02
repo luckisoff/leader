@@ -57,7 +57,6 @@ class KhaltiPaymentController extends Controller
         $response=json_decode(curl_exec($curl));
         $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        return $response;
         if(!$request->amount)
         {
             return response()->json(['status'=>false,'message'=>'Confirmation Error'],200);
