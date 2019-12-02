@@ -48,6 +48,7 @@ class PaymentController extends Controller
             $form = Audition::find($request->user_id);
             $form->payment_type = "stripe";
             $form->payment_status = 1;
+            $form->registration_code=$request->registration_code;
             $form->save();
 
             $responseData = Helper::setResponse(false, 'Payment Successful','');
