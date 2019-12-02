@@ -16,7 +16,7 @@ class KhaltiPaymentController extends Controller
        
         $data=[
             'public_key'=>config('services.khalti.client_id'),
-            'amount'=>1000*100,
+            'amount'=>1000,
             'product_identity'=>'Leader Audition Registration',
             'product_name'=>'Leader Audition Registration Charge',
             'mobile'=>$request->mobile
