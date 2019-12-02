@@ -96,6 +96,10 @@ Route::post('/token/refresh', 'Api\LoginController@refresh');
 Route::get('/policy', 'Api\GundrukController@getPolicy');
 Route::get('/faq', 'Api\GundrukController@getFaq');
 
+Route::group(['prefix'=>'khalti/payment/'],function(){
+    Route::post('/initiate','Api\KhaltiPaymentController@initiate');
+    Route::post('/confirm','APi\KhaltiPaymentController@confirmation');
+});
 
 
 
