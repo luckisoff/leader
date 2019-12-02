@@ -84,7 +84,10 @@ class KhaltiPaymentController extends Controller
         $responseOb=json_decode($response);
         if($responseOb->status_code==401)
         {
-            return $response;
+            return response()->json([
+                'status'=>false,
+                'data'=>$response
+            ]);
         }
             $audition = Audition::where('user_id',$request->user_id)->first();
             $audition->payment_type = "Khalti";
