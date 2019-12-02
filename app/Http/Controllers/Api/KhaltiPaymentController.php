@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use  App\Audition;
 class KhaltiPaymentController extends Controller
 {
     public function initiate(Request $request )
@@ -57,11 +57,6 @@ class KhaltiPaymentController extends Controller
         $response=json_decode(curl_exec($curl));
         $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        if(!$request->amount)
-        {
-            return response()->json(['status'=>false,'message'=>'Confirmation Error'],200);
-        }
-
         return $this->verify($response->amount,$request);
     }
 
@@ -86,16 +81,16 @@ class KhaltiPaymentController extends Controller
         $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
 
-        $audition = App\Audition::where('user_id',$request->user_id)->first();
-        if(!$audition){
-            return Helper::setResponse(true, 'Error: User Not Found', '');
-
+        $responseOb=json_decode($response);
+        if($responseOb->status_code==401)
+        {
+            return $response;
         }
-        $audition->payment_type = "Khalti";
-        $audition->payment_status = 1;
-        $audition->registration_code=$request->registration_code;
-        $audition->save();
-
+            $audition = Audition::where('user_id',$request->user_id)->first();
+            $audition->payment_type = "Khalti";
+            $audition->payment_status = 1;
+            $audition->registration_code=$request->registration_code;
+            $audition->save();
         return $response;
         
         
