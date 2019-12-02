@@ -63,6 +63,7 @@ class KhaltiPaymentController extends Controller
     protected function verify($amount,Request $request)
     {
         $url='https://khalti.com/api/v2/payment/verify/';
+
         $data=[
             'token'=>$request->token,
             'amount'=>$amount
@@ -74,7 +75,7 @@ class KhaltiPaymentController extends Controller
         
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        $headers = ['Authorization:Key '.config('services.khalti.client_id')];
+        $headers = ['Authorization:Key '.config('services.khalti.client_secret')];
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         // Response
         $response = curl_exec($curl);

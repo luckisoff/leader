@@ -81,6 +81,7 @@ Route::group(['middleware'=>'api'], function(){
             Route::post('/confirm','Api\KhaltiPaymentController@confirmation');
         });
         
+        
     });
 });
 Route::get('get-winner-list','LivequizController@getWinnerList');
@@ -101,9 +102,6 @@ Route::get('/counter', 'Api\GundrukController@getCounter');
 Route::post('/token/refresh', 'Api\LoginController@refresh');
 Route::get('/policy', 'Api\GundrukController@getPolicy');
 Route::get('/faq', 'Api\GundrukController@getFaq');
-
-
-
 
 
 
