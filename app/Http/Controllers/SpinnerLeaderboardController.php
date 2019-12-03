@@ -63,7 +63,7 @@ class SpinnerLeaderboardController extends Controller
         $topTenUsers=DailyPoint::orderBy('point','asc')->join('users',function($join){
             $join->on('user_id','=','users.id');
         })->select('spinner_daily_points.user_id','spinner_daily_points.point','users.name','users.picture','users.email','spinner_daily_points.created_at')
-        ->where('spinner_daily_points.created_at','==',\Carbon\Carbon::now()->addDay(-1))->limit(10)->get();
+        ->whereRaw('spinner_daily_points.created_at',\Carbon\Carbon::yesterday())->limit(10)->get();
         
         return response()->json([
             'status'=>true,
