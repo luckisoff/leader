@@ -57,6 +57,21 @@ class SpinnerLeaderboardController extends Controller
         ]);
     }
 
+
+    public function previousWinners()
+    {
+        $topTenUsers=DailyPoint::orderBy('point','asc')->join('users',function($join){
+            $join->on('user_id','=','users.id');
+        })->select('spinner_daily_points.user_id','spinner_daily_points.point','users.name','users.picture','users.email','spinner_daily_points.created_at')
+        ->where('spinner_daily_points.created_at','>=',\Carbon\Carbon::yesterday())->limit(10)->get();
+        return response()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'Top Ten Users',
+            'data'=>$topTenUsers
+        ]);
+    }
+
     protected function setDailyPoint(Request $request)
     {
         $dailyPoint=DailyPoint::where('user_id',$request->user_id)->where('created_at','>=',\Carbon\Carbon::today())->first();

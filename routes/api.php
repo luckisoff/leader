@@ -71,6 +71,7 @@ Route::group(['middleware'=>'api'], function(){
         Route::group(['prefix'=>'spinner/leaderboard'],function(){
             Route::post('/store','SpinnerLeaderboardController@store');
             Route::get('/top-ten','SpinnerLeaderboardController@topTenUsers');
+            Route::get('/yesterday-winner','SpinnerLeaderboardController@previousWinners');
             Route::get('/user-point/{user_id}','SpinnerLeaderboardController@getUserPoint');
             Route::get('/get-landmark','SpinnerLeaderboardController@getLandmark');
             Route::post('/view-ad','SpinnerLeaderboardController@addSpin');
