@@ -92,12 +92,13 @@ class SpinnerLeaderboardController extends Controller
     {
         $spinenrUser=SpinnerLeaderboard::where('user_id',$user_id)->first();
         $dailyPoint=DailyPoint::where('user_id',$user_id)->where('created_at','>=',\Carbon\Carbon::today())->first();
+        
         if(!$dailyPoint)
         {
             $dailyPoint=DailyPoint::firstOrcreate([
                 'user_id'=>$user_id,
                 'point'=>0,
-                'available_spin'=>20
+                'available_spin'=>20,
             ]);
         }
 
@@ -128,5 +129,38 @@ class SpinnerLeaderboardController extends Controller
             'message'=>'Spinner landmark list',
             'data'=>$spinnerLandmark
         ]);
+    }
+
+    
+    public function checkIn(Request $request)
+    {
+        $validator=Validator::make($request->all(),[
+            'user_id'=>'required',
+            'point'=>'required:max:2'
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>false,
+                'message'=>$validator->errors()->first(),
+                'data'=>''
+            ]);
+        }
+
+        $dailyPoint=DailyPoint::where('user_id',$request->user_id)->where('created_at','>=',\Carbon\Carbon::today())->first();
+        if($dailyPoint->check_in==1)
+        {
+            return response()->json([
+                'status'=>true,
+                'code'=>200,
+                'message'=>'Already Checked In',
+                'data'=>$dailyPoint
+            ]);
+        }
+        $dailyPoint->check_in=1;
+        $dailyPoint->save();
+
+        return $this->store($request);
     }
 }

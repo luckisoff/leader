@@ -7,6 +7,7 @@ use App\Stories;
 use App\Category;
 use App\Helpers\Helper;
 use App\Policy;
+use App\Page;
 use Illuminate\Http\Request;
 
 use Carbon\Carbon;
@@ -28,6 +29,16 @@ class GundrukController extends Controller
         return response()->json($responseData);
     }
 
+    public function getPaymentTerms()
+    {
+        $page=Page::where('heading','getPaymentTerms')->first();
+        return response()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'Payment Terms',
+            'data'=>$page
+        ]);
+    }
     public function getFaq(){
         $faq= Faq::all();
 

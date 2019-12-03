@@ -74,6 +74,7 @@ Route::group(['middleware'=>'api'], function(){
             Route::get('/user-point/{user_id}','SpinnerLeaderboardController@getUserPoint');
             Route::get('/get-landmark','SpinnerLeaderboardController@getLandmark');
             Route::post('/view-ad','SpinnerLeaderboardController@addSpin');
+            Route::post('/check-in','SpinnerLeaderboardController@checkIn');
         });
 
         Route::group(['prefix'=>'khalti/payment/'],function(){
@@ -101,6 +102,7 @@ Route::get('/counter', 'Api\GundrukController@getCounter');
 //to refresh the token
 Route::post('/token/refresh', 'Api\LoginController@refresh');
 Route::get('/policy', 'Api\GundrukController@getPolicy');
+Route::get('/payment-terms', 'Api\GundrukController@getPaymentTerms');
 Route::get('/faq', 'Api\GundrukController@getFaq');
 
 
