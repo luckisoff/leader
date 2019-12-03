@@ -12,8 +12,7 @@ class KhaltiPaymentController extends Controller
     public function initiate(Request $request )
     {
         $url='https://khalti.com/api/payment/initiate/';
-
-       
+        
         $data=[
             'public_key'=>config('services.khalti.client_id'),
             'amount'=>1000,
@@ -37,8 +36,16 @@ class KhaltiPaymentController extends Controller
 
     public function confirmation(Request $request)
     {
+        $audition = Audition::where('user_id',$request->user_id)->first();
+        if(!$audition){
+            return resposne()->json([
+                'status'=>false,
+                'code'=>200,
+                'message'=>'User not registered'
+            ]);
+        }
+        
         $url='https://khalti.com/api/payment/confirm/';
-
        
         $data=[
             'public_key'=>config('services.khalti.client_id'),
@@ -57,10 +64,10 @@ class KhaltiPaymentController extends Controller
         $response=json_decode(curl_exec($curl));
         $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        return $this->verify($response->amount,$request);
+        return $this->verify($response->amount,$request,$audition);
     }
 
-    protected function verify($amount,Request $request)
+    protected function verify($amount,Request $request,Audition $audition)
     {
         $url='https://khalti.com/api/v2/payment/verify/';
 
@@ -91,14 +98,12 @@ class KhaltiPaymentController extends Controller
                 'data'=>$response
             ]);
         }
-            $audition = Audition::where('user_id',$request->user_id)->first();
-            $audition->payment_type = "Khalti";
-            $audition->payment_status = 1;
-            $audition->registration_code=$request->registration_code;
-            $audition->save();
+            
+        $audition->payment_type = "Khalti";
+        $audition->payment_status = 1;
+        $audition->registration_code=$request->registration_code;
+        $audition->save();
         return $response;
-        
-        
     }
 
 }
