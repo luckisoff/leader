@@ -163,4 +163,18 @@ class SpinnerLeaderboardController extends Controller
 
         return $this->store($request);
     }
+
+    public function isCheckedIn($user_id)
+    {
+        $dailyPoint=DailyPoint::where('user_id',$user_id)->where('check_in',1)->where('created_at','>=',\Carbon\Carbon::today())->first();
+        if($dailyPoint)
+        {
+            return response()->json([
+                'status'=>true
+            ]);
+        }
+        return response()->json([
+            'status'=>false
+        ]);
+    }
 }

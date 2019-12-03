@@ -75,6 +75,8 @@ Route::group(['middleware'=>'api'], function(){
             Route::get('/get-landmark','SpinnerLeaderboardController@getLandmark');
             Route::post('/view-ad','SpinnerLeaderboardController@addSpin');
             Route::post('/check-in','SpinnerLeaderboardController@checkIn');
+            Route::get('/check-in','SpinnerLeaderboardController@isCheckedIn');
+            
         });
 
         Route::group(['prefix'=>'khalti/payment/'],function(){
