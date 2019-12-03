@@ -74,8 +74,9 @@ Route::group(['middleware'=>'api'], function(){
             Route::get('/user-point/{user_id}','SpinnerLeaderboardController@getUserPoint');
             Route::get('/get-landmark','SpinnerLeaderboardController@getLandmark');
             Route::post('/view-ad','SpinnerLeaderboardController@addSpin');
+            
             Route::post('/check-in','SpinnerLeaderboardController@checkIn');
-            Route::get('/check-in','SpinnerLeaderboardController@isCheckedIn');
+            Route::get('/check-in/{user_id}','SpinnerLeaderboardController@isCheckedIn');
             
         });
 
