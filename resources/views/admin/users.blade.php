@@ -28,6 +28,7 @@
 						      <th>{{tr('username')}}</th>
 						      <th>{{tr('email')}}</th>
 						      <th>{{tr('mobile')}}</th>
+							  <th>{{tr('quiz level')}}</th>
 						      <th>{{tr('action')}}</th>
 						    </tr>
 						</thead>
@@ -40,7 +41,7 @@
 							      	<td>{{$user->name}}</td>
 							      	<td>{{$user->email}}</td>
 							      	<td>{{$user->mobile}}</td>
-							      	
+									<td>{{$user->leaderBoard()->first()->level}}</td>
 							      	<td>
 							      		
             							<ul class="admin-action btn btn-default">
