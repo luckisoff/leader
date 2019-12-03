@@ -60,10 +60,10 @@ class SpinnerLeaderboardController extends Controller
 
     public function previousWinners()
     {
-        $topTenUsers=DailyPoint::orderBy('point','asc')->join('users',function($join){
+        $topTenUsers=DailyPoint::orderBy('point','desc')->join('users',function($join){
             $join->on('user_id','=','users.id');
         })->select('spinner_daily_points.user_id','spinner_daily_points.point','users.name','users.picture','users.email','spinner_daily_points.created_at')
-        ->whereDate('spinner_daily_points.created_at','>=',\Carbon\Carbon::yesterday()->addDay(-1))->limit(10)->get();
+        ->whereDate('spinner_daily_points.created_at','<=',\Carbon\Carbon::yesterday())->limit(5)->get();
         
         return response()->json([
             'status'=>true,
