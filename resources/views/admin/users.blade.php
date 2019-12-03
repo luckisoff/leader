@@ -41,7 +41,7 @@
 							      	<td>{{$user->name}}</td>
 							      	<td>{{$user->email}}</td>
 							      	<td>{{$user->mobile}}</td>
-									<td>{{$user->leaderBoard()->first()->level}}</td>
+									<td>{{$user->leaderBoard->first()['level']}}</td>
 							      	<td>
 							      		
             							<ul class="admin-action btn btn-default">
