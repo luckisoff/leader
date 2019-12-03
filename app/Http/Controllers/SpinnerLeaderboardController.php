@@ -122,7 +122,7 @@ class SpinnerLeaderboardController extends Controller
 
     public function getLandmark()
     {
-        $spinnerLandmark=SpinnerLandmark::orderBy('poin','asc')->get();
+        $spinnerLandmark=SpinnerLandmark::orderBy('point','asc')->get();
         return response()->json([
             'status'=>true,
             'code'=>200,
