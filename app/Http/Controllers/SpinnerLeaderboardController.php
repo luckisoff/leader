@@ -27,10 +27,10 @@ class SpinnerLeaderboardController extends Controller
         }
         $spinenrUser=SpinnerLeaderboard::where('user_id',$request->user_id)->first();
 
-        $dailyPoint=$this->setDailyPoint($request);
-
         $spinenrUser->point +=$request->point;
-        $spinenrUser->save();
+        $spinenrUser->update();
+
+        $dailyPoint=$this->setDailyPoint($request);
 
         return response()->json([
             'status'=>true,
@@ -85,18 +85,40 @@ class SpinnerLeaderboardController extends Controller
             $dailyPoint->available_spin -= 1;
         }
        
-        $dailyPoint->save();
+        $dailyPoint->update();
         
         return $dailyPoint;
     }
 
     public function addSpin(Request $request)
     {
+        $validator=Validator::make($request->all(),[
+            'user_id'=>'required',
+            'point'=>'required:max:2'
+        ]);
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>false,
+                'code'=>200,
+                'data'=>''
+            ]);
+        }
+
         $dailyPoint=DailyPoint::where('user_id',$request->user_id)->where('created_at','>=',\Carbon\Carbon::today())->first();
+        $spinenrUser=SpinnerLeaderboard::where('user_id',$request->user_id)->first();
+
+        if($request->watch_video==1)
+        {
+            $dailyPoint->available_spin += 1;
+        }
         
-        $dailyPoint->available_spin += 1;
-        $dailyPoint->save();
-        
+        $dailyPoint->point+=$request->point;
+        $dailyPoint->update();
+
+        $spinenrUser->point +=$request->point;
+        $spinenrUser->update();
+
         return response()->json([
             'status'=>true,
             'code'=>200,
@@ -176,7 +198,7 @@ class SpinnerLeaderboardController extends Controller
             ]);
         }
         $dailyPoint->check_in=1;
-        $dailyPoint->save();
+        $dailyPoint->updte();
 
         return $this->store($request);
     }
