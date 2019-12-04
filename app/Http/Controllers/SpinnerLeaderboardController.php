@@ -170,6 +170,24 @@ class SpinnerLeaderboardController extends Controller
         ]);
     }
 
+    protected function updatePoint(Request $request)
+    {
+        $dailyPoint=DailyPoint::where('user_id',$request->user_id)->where('created_at','>=',\Carbon\Carbon::today())->first();
+        $spinnerUser=SpinnerLeaderboard::where('user_id',$request->user_id)->first();
+        $dailyPoint->point +=$request->point;
+        $spinnerUser->point +=$request->point;
+        $dailyPoint->update();
+        $spinnerUser->update();
+        return response()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'Point Updated',
+            'data'=>[
+                'leader_board'=> $spinnerUser,
+                'daily_point'=>$spinnerUser
+            ]
+        ]);
+    }
     
     public function checkIn(Request $request)
     {
@@ -199,8 +217,8 @@ class SpinnerLeaderboardController extends Controller
         }
         $dailyPoint->check_in=1;
         $dailyPoint->update();
-
-        return $this->store($request);
+        
+        return $this->updatePoint($request);
     }
 
     public function isCheckedIn($user_id)
