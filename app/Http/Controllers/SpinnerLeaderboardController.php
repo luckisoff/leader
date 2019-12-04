@@ -123,7 +123,10 @@ class SpinnerLeaderboardController extends Controller
             'status'=>true,
             'code'=>200,
             'message'=>'Available Spin Added',
-            'data'=>$dailyPoint
+            'data'=>[
+                'daily_point'=>$dailyPoint,
+                'spinner_leader'=>$spinenrUser
+            ]
         ]);
     }
 
