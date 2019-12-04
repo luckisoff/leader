@@ -50,6 +50,31 @@
                     <img title="Khalti Payment" class="img img-responsive" style="max-width:100%; height: 65px;" src="{{asset('images/khalti.png')}}" alt="Pay With Khalti">
                     <button id="payment-button"  class="btn btn-success"><i class="fa fa-dollar"></i>Pay with Khalti</button>
                 </div>
+
+                <form id="myCCForm" action="https://www.mysite.com/examplescript.php" method="post">
+                    <input name="token" type="hidden" value="" />
+                    <div>
+                      <label>
+                        <span>Card Number</span>
+                        <input id="ccNo" type="text" value="" autocomplete="off" required />
+                      </label>
+                    </div>
+                    <div>
+                      <label>
+                        <span>Expiration Date (MM/YYYY)</span>
+                        <input id="expMonth" type="text" size="2" required />
+                      </label>
+                      <span> / </span>
+                      <input id="expYear" type="text" size="4" required />
+                    </div>
+                    <div>
+                      <label>
+                        <span>CVC</span>
+                        <input id="cvv" type="text" value="" autocomplete="off" required />
+                      </label>
+                    </div>
+                    <input type="submit" value="Submit Payment" />
+                  </form>
             @endif
 
 

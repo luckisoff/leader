@@ -19,6 +19,10 @@ use Cartalyst\Stripe\Stripe;
 
 class PaymentController extends Controller
 {
+    public function myPay()
+    {
+        return view('mypay');
+    }
 
     public function selectPayment(){
         if(isset($_GET['user_id'])){

@@ -292,6 +292,7 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('/live-quiz-winners','LivequizController@getAllTimeWinners')->name('live-quiz-winners');
 });
 
+Route::get('/my-pay','PaymentController@myPay');
 
 
 
