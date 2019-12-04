@@ -37,11 +37,22 @@ class KhaltiPaymentController extends Controller
     public function confirmation(Request $request)
     {
         $audition = Audition::where('user_id',$request->user_id)->first();
+        
         if(!$audition){
             return resposne()->json([
                 'status'=>false,
                 'code'=>200,
                 'message'=>'User not registered'
+            ]);
+        }
+
+        if($audition->payment_status==1)
+        {
+            return resposne()->json([
+                'status'=>true,
+                'code'=>200,
+                'message'=>'Already Registered',
+                'data'=>''
             ]);
         }
         

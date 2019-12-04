@@ -178,6 +178,7 @@ class SpinnerLeaderboardController extends Controller
         $spinnerUser->point +=$request->point;
         $dailyPoint->update();
         $spinnerUser->update();
+        
         return response()->json([
             'status'=>true,
             'code'=>200,
