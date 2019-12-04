@@ -185,7 +185,7 @@ class SpinnerLeaderboardController extends Controller
             'message'=>'Point Updated',
             'data'=>[
                 'leader_board'=> $spinnerUser,
-                'daily_point'=>$spinnerUser
+                'daily_point'=>$dailyPoint
             ]
         ]);
     }
