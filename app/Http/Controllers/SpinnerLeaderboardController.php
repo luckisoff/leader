@@ -198,7 +198,7 @@ class SpinnerLeaderboardController extends Controller
             ]);
         }
         $dailyPoint->check_in=1;
-        $dailyPoint->updte();
+        $dailyPoint->update();
 
         return $this->store($request);
     }
