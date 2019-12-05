@@ -55,7 +55,8 @@ return [
     ],
     'paypal'=>[
         'client_id'=>env('PAYPAL_KEY'),
-        'client_secret'=>env('PAYPAL_SECRET')
+        'client_secret'=>env('PAYPAL_SECRET'),
+        'mode'=>env('PAYPAL_MODE')
     ]
 
 ];

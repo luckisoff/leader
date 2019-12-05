@@ -21,7 +21,8 @@ class PaymentController extends Controller
             'message'=>'Paypal Credentials',
             'data'=>[
                 'paypal_key'=>config('services.paypal.client_id'),
-                'paypal_secret'=>config('services.paypal.client_secret')
+                'paypal_secret'=>config('services.paypal.client_secret'),
+                'mode'=>config('services.papal.mode')
             ]
         ]);
     }
