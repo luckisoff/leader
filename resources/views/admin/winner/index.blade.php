@@ -39,13 +39,13 @@
                                 @foreach($winners as $key =>  $value)
 
                                 <tr>
-                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{$key + 1 }}</td>
                                     <td>{{$value->user->name }}</td>
                                     <td>{{$value->question_set}}</td>
                                     <td>{{$value->prize}}</td>
                                     <td>{{$value->point}}</td>
                                     <td>
-                                        {{gmdate('H:i:s',$value->user->liveQuizCorrectUsers->first()->total_time?$value->user->liveQuizCorrectUsers->first()->total_time:'Not Available')}}
+                                        {{gmdate('H:i:s',$value->user->liveQuizCorrectUsers->first()['total_time'])}}
                                     </td>
                                     <td>{{$value->created_at->format("d M Y")}}</td>
                                 </tr>
