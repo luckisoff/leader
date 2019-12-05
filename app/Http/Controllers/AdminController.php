@@ -55,7 +55,7 @@ use Log;
 
 use App\Jobs\NormalPushNotification;
 use App\Winner;
-
+use Twocheckout;
 define('USER', 0);
 
 define('NONE', 0);
@@ -91,7 +91,48 @@ class AdminController extends Controller
         return view('admin.login')->withPage('admin-login')->with('sub_page','');
     }
 
+    public function checkout()
+    {
+        Twocheckout::privateKey('BE632CB0-BB29-11E3-AFB6-D99C28100996');
+        Twocheckout::sellerId('901248204');
+
+        try {
+            $charge = TwocheckoutCharge::auth(array(
+                "sellerId" => "901248204",
+                "merchantOrderId" => "123",
+                "token" => 'MjFiYzIzYjAtYjE4YS00ZmI0LTg4YzYtNDIzMTBlMjc0MDlk',
+                "currency" => 'USD',
+                "total" => '10.00',
+                "billingAddr" => array(
+                    "name" => 'Testing Tester',
+                    "addrLine1" => '123 Test St',
+                    "city" => 'Columbus',
+                    "state" => 'OH',
+                    "zipCode" => '43123',
+                    "country" => 'USA',
+                    "email" => 'testingtester@2co.com',
+                    "phoneNumber" => '555-555-5555'
+                ),
+                "shippingAddr" => array(
+                    "name" => 'Testing Tester',
+                    "addrLine1" => '123 Test St',
+                    "city" => 'Columbus',
+                    "state" => 'OH',
+                    "zipCode" => '43123',
+                    "country" => 'USA',
+                    "email" => 'testingtester@2co.com',
+                    "phoneNumber" => '555-555-5555'
+                )
+            ));
+            echo $charge['response']['responseCode'];
+        } catch (TwocheckoutError $e) {
+            echo $e->getMessage();
+        }
+    }
+
     public function dashboard() {
+        Twocheckout::privateKey('BE632CB0-BB29-11E3-AFB6-D99C28100996');
+        Twocheckout::sellerId('901248204');
 
         $admin = Admin::first();
 

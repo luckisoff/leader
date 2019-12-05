@@ -24,6 +24,8 @@ Route::group(['middleware'=>'api'], function(){
             //stripe payment api
             Route::get('/stripe/key', 'Api\PaymentController@getStripeKey');
 
+            
+
             Route::post('/stripe/pay', 'Api\PaymentController@postPaymentStripe');
 
 
@@ -86,6 +88,9 @@ Route::group(['middleware'=>'api'], function(){
             Route::post('/confirm','Api\KhaltiPaymentController@confirmation');
         });
         
+        Route::group(['prefix'=>'audition/payment'],function(){
+            Route::get('/paypal/key','Api\PaymentController@getPaypalKey');
+        });
         
     });
 });

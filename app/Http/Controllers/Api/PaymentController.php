@@ -11,9 +11,20 @@ use Cartalyst\Stripe\Stripe;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-
 class PaymentController extends Controller
 {
+    public function getPaypalKey()
+    {
+        return response()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'Paypal Credentials',
+            'data'=>[
+                'paypal_key'=>config('services.paypal.client_id'),
+                'paypal_secret'=>config('services.paypal.client_secret')
+            ]
+        ]);
+    }
     public function getStripeKey(){
         $responseData = Helper::setResponse(false, 'Stripe Key',config('services.stripe.key'));
         return response()->json($responseData);
