@@ -55,7 +55,7 @@ use Log;
 
 use App\Jobs\NormalPushNotification;
 use App\Winner;
-use Twocheckout;
+//use Twocheckout;
 define('USER', 0);
 
 define('NONE', 0);
@@ -131,8 +131,8 @@ class AdminController extends Controller
     }
 
     public function dashboard() {
-        Twocheckout::privateKey('BE632CB0-BB29-11E3-AFB6-D99C28100996');
-        Twocheckout::sellerId('901248204');
+        // Twocheckout::privateKey('BE632CB0-BB29-11E3-AFB6-D99C28100996');
+        // Twocheckout::sellerId('901248204');
 
         $admin = Admin::first();
 
