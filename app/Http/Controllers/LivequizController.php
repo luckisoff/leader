@@ -371,4 +371,10 @@ class LivequizController extends Controller
         \App\LiveViewer::truncate();
     }
 
+    public function delWinner($id)
+    {
+        $winner=Winner::find($id);
+        $winner->delete();
+        return back()->with('flash_success', tr('Winner Deleted'));
+    }
 }

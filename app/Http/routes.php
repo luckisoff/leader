@@ -290,6 +290,7 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('app/delete/{id}','AppController@destroy')->name('appdelete');
    
     Route::get('/live-quiz-winners','LivequizController@getAllTimeWinners')->name('live-quiz-winners');
+    Route::get('/live-quiz-winners/del/{id}','LivequizController@delWinner');
 });
 
 Route::get('/my-pay','PaymentController@myPay');
