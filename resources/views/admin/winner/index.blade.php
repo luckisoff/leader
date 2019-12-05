@@ -47,7 +47,7 @@
                                     <td>
                                         {{gmdate('H:i:s',$value->user->liveQuizCorrectUsers->first()['total_time'])}}
                                     </td>
-                                    <td>{{$value->created_at->format("d M Y")}}</td>
+                                    <td>{{$value->created_at->format("d M Y")}} <span class="btn btn-xs btn-danger">Del</span></td>
                                 </tr>
 
                                 @endforeach
