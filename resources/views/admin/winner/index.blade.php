@@ -48,7 +48,7 @@
                                         {{gmdate('H:i:s',$value->user->liveQuizCorrectUsers->first()['total_time'])}}
                                     </td>
                                     <td>{{$value->created_at->format("d M Y")}}
-                                    <a class="btn btn-xs btn-danger pull-right" href="{{route('del-live-winner',$value->id)}}">Del</a></td>
+                                    <a class="btn btn-xs btn-danger pull-right" href="{{route('del-live-winner',$value->id)}}" onClick="return confirm('Do you really want to delete?')">Del</a></td>
                                 </tr>
 
                                 @endforeach
