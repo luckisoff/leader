@@ -767,6 +767,7 @@ class AuditionController extends Controller
         $location->landmark = $request->landmark;
         $location->latitude = $request->latitude;
         $location->longitude = $request->longitude;
+        $location->type=$request->type;
         $location->save();
 
         \Session::flash('flash_success','Location Added Successfully');
@@ -823,6 +824,7 @@ class AuditionController extends Controller
         $location->landmark = $request->landmark;
         $location->latitude = $request->latitude;
         $location->longitude = $request->longitude;
+        $location->type = $request->type;
         $location->save();
 
         \Session::flash('flash_success','Location Updated Successfully');

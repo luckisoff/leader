@@ -83,7 +83,7 @@
 
                             <div class="form-group">
                                 <label for="" class="">Type</label>
-                                <select name="type" id="type">
+                                <select name="type" id="type" class="form-control">
                                     <option value="nepal">Nepal</option>
                                     <option value="international">International</option>
                                 </select>
