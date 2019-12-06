@@ -84,7 +84,13 @@
                                   </span>
                                 @endif
                             </div>
-
+                            <div class="form-group">
+                                <label for="" class="">Type</label>
+                                <select name="type" id="type">
+                                    <option value="nepal" {{$location->type=='nepal':'selected':''}}>Nepal</option>
+                                    <option value="international" {{$location->type=='international':'selected':''}}>International</option>
+                                </select>
+                            </div>
                         </div>
 
                     </div>

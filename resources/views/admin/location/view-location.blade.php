@@ -33,6 +33,7 @@
                                 <th>Venue</th>
                                 <th>Landmark</th>
                                 <th> Map</th>
+                                <th>Type</th>
                                 <th>Action</th>
 
                             </tr>
@@ -65,7 +66,7 @@
                                         @endif
 
                                     </td>
-
+                                    <td>{{$value->type}}</td>
                                     <td>
                                         <ul class="admin-action btn btn-default">
                                             <li class="dropdown">

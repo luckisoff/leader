@@ -81,6 +81,14 @@
                                 @endif
                             </div>
 
+                            <div class="form-group">
+                                <label for="" class="">Type</label>
+                                <select name="type" id="type">
+                                    <option value="nepal">Nepal</option>
+                                    <option value="international">International</option>
+                                </select>
+                            </div>
+
                         </div>
 
                     </div>
