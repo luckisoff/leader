@@ -48,6 +48,7 @@
                                 <th>Judge Name</th>
                                 <th>Social Media</th>
                                 <th>Image</th>
+                                <th>Type</th>
                                 <th>Action</th>
 
                             </tr>
@@ -89,7 +90,7 @@
                                     <td>
                                         <img class="img img-responsive" style="max-width:100%; height: 100px;" src="{{asset($value->image)}}" alt="Sponser Image">
                                     </td>
-
+                                    <td>{{$value->type}}</td>
                                     <td>
                                         <ul class="admin-action btn btn-default">
                                             <li class="dropdown">
