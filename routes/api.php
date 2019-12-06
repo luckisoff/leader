@@ -91,6 +91,7 @@ Route::group(['middleware'=>'api'], function(){
         
         Route::group(['prefix'=>'audition/payment'],function(){
             Route::get('/paypal/key','Api\PaymentController@getPaypalKey');
+            
         });
         
     });
@@ -115,5 +116,7 @@ Route::get('/policy', 'Api\GundrukController@getPolicy');
 Route::get('/payment-terms', 'Api\GundrukController@getPaymentTerms');
 Route::get('/faq', 'Api\GundrukController@getFaq');
 
-
+Route::get('/audition/payment/esewa/pay',function(){
+    return view('esewa');
+});
 
