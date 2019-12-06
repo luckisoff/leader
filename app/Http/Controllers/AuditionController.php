@@ -829,7 +829,10 @@ class AuditionController extends Controller
         $location->country = $request->country;
         $location->city = $request->city;
         if(isset($request->image)){
-            File::delete( base_path() . "/uploads/audition/judge/" . basename($location->image));
+            if($location->image!=null)
+            {
+                File::delete( base_path() . "/uploads/audition/judge/" . basename($location->image));
+            }
             $location->image = Helper::normal_img_upload($request->file('image'),'/uploads/audition/judge');
         }
         $location->save();
