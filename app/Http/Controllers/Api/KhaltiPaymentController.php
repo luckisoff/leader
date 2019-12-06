@@ -176,6 +176,7 @@ class KhaltiPaymentController extends Controller
             $audition->upate();
             return response()->json([
                 'status'=>true,
+                'code'=>200,
                 'message'=>'Registered successfully.',
                 'data'=>''
             ]);
