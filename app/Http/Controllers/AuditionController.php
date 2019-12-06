@@ -480,6 +480,8 @@ class AuditionController extends Controller
         $judge->insta_link = $request->insta_link;
         $judge->fb_link = $request->fb_link;
         $judge->twitter_link = $request->twitter_link;
+        $judge->type=$request->type;
+        $judge->description=$request->description;
 
         if(isset($request->judge_image)){
             File::delete( base_path() . "/uploads/audition/judge/" . basename($judge->image));
