@@ -82,7 +82,7 @@
 
                             <div class="form-group">
                                 <label for="video" class="">Description</label>
-                                <textarea type="text" class="form-control" id="" value="{{ $judge->description }}" name="description"  placeholder="Enter Description" ></textarea>
+                                <textarea type="text" class="form-control" id="" value="" name="description"  placeholder="Enter Description" >{{ $judge->description }}</textarea>
                                 @if($errors->has('description'))
                                     <span class="help-block" style="color:red;">
                                   * {{ $errors->first('description') }}
