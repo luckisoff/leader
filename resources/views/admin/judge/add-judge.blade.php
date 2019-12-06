@@ -95,7 +95,7 @@
                                 <select name="type" id="" class="form-control">
                                     <option value="host">Host</option>
                                     <option value="co host">Co Host</option>
-                                    <option value="montor">Mentor</option>
+                                    <option value="mentor">Mentor</option>
                                 </select>
                             </div>
 

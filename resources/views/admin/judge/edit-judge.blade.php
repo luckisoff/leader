@@ -69,6 +69,26 @@
                               </span>
                                 @endif
                             </div>
+                            
+
+                            <div class="form-group">
+                                <label for="video" class="">Type</label>
+                                <select name="type" id="" class="form-control">
+                                    <option value="host" {{$judge->type=='Host'?'selected':''}}>Host</option>
+                                    <option value="co host" {{$judge->type=='Co host'?'selected':''}}>Co Host</option>
+                                    <option value="mentor" {{$judge->type=='Mentor'?'selected':''}}>Mentor</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="video" class="">Description</label>
+                                <textarea type="text" class="form-control" id="" value="{{ $judge->description }}" name="description"  placeholder="Enter Description" ></textarea>
+                                @if($errors->has('description'))
+                                    <span class="help-block" style="color:red;">
+                                  * {{ $errors->first('description') }}
+                              </span>
+                                @endif
+                            </div>
 
                             <div class="form-group">
                                 <label for="" class="">Judge Image <span style="color:red;">*</span></label>
