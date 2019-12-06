@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use  App\Audition;
+use Illuminate\Support\Facades\Validator;
 class KhaltiPaymentController extends Controller
 {
+
     public function initiate(Request $request )
     {
         $url='https://khalti.com/api/payment/initiate/';
@@ -115,6 +117,71 @@ class KhaltiPaymentController extends Controller
         $audition->registration_code=$request->registration_code;
         $audition->save();
         return $response;
+    }
+
+    public function khaltiCardVerify(Request $request)
+    {
+        $validator =Validator::make($request->all(),[
+            'reference'=>'required',
+            'user_id'=>'required',
+            'registration_code'=>'required'
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>false,
+                'code'=>200,
+                'message'=>$validator->errors()->first(),
+                'data'=>''
+            ]);
+        }
+        $audition = Audition::where('user_id',$request->user_id)->first();
+
+        if(!$audition)
+        {
+            return response()->json([
+                'status'=>false,
+                'code'=>200,
+                'message'=>'Audition user not found',
+                'data'=>''
+            ]);
+        }
+
+        $url="https://khalti.com/api/v2/ids/transaction_status/";
+
+        $data=[
+            'reference'=>$request->reference,
+            'amount'=>1000*100
+        ];
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        $headers = ['Authorization:Key '.config('services.khalti.client_secret')];
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        // Response
+        $response = json_decode(curl_exec($curl));
+        $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        
+        if($response->status)
+        {
+            $audition->payment_type = "Khalti";
+            $audition->payment_status = 1;
+            $audition->registration_code=$request->registration_code;
+            $audition->upate();
+        }
+        
+        return response()->json([
+            'status'=>false,
+            'code'=>200,
+            'message'=>'Could not verify this time.',
+            'data'=>$response
+        ]);
     }
 
 }
