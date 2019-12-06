@@ -60,6 +60,26 @@
                                 @endif
                             </div>
 
+                            <div class="form-group">
+                                <label for="video" class="">Country<span style="color:red;">*</span></label>
+                                <input type="text" required class="form-control" id="" value="{{ old('country')}}" name="country"  placeholder="Enter Country" >
+                                @if($errors->has('country'))
+                                    <span class="help-block" style="color:red;">
+                                  * {{ $errors->first('country') }}
+                              </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="video" class="">City<span style="color:red;">*</span></label>
+                                <input type="text" required class="form-control" id="" value="{{ old('city')}}" name="city"  placeholder="Enter City" >
+                                @if($errors->has('city'))
+                                    <span class="help-block" style="color:red;">
+                                  * {{ $errors->first('city') }}
+                              </span>
+                                @endif
+                            </div>
+
 
                             <div class="form-group">
                                 <label for="" class="">Latitude</label>
@@ -89,9 +109,21 @@
                                 </select>
                             </div>
 
+                            <div class="form-group">
+                                <label for="" class="">Loation Image <span style="color:red;">*</span></label>
+                                <input type="file" required class="form-control" name="image"   accept="image/jpeg,image/png" placeholder="{{tr('default_image')}}">
+                                @if($errors->has('image'))
+                                    <span class="help-block" style="color:red;">
+                                      * {{ $errors->first('image') }}
+                                  </span>
+                                @endif
+                            </div>
+
                         </div>
 
                     </div>
+
+                   
 
                     <div class="box-footer">
                         <button type="reset" class="btn btn-danger"><i class="fa fa-trash"></i> Reset</button>

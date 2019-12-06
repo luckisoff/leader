@@ -768,6 +768,7 @@ class AuditionController extends Controller
         $location->latitude = $request->latitude;
         $location->longitude = $request->longitude;
         $location->type=$request->type;
+        $location->image = Helper::normal_img_upload($request->file('image'),'/uploads/audition/judge');
         $location->save();
 
         \Session::flash('flash_success','Location Added Successfully');
@@ -825,6 +826,12 @@ class AuditionController extends Controller
         $location->latitude = $request->latitude;
         $location->longitude = $request->longitude;
         $location->type = $request->type;
+        $location->country = $request->country;
+        $location->city = $request->city;
+        if(isset($request->image)){
+            File::delete( base_path() . "/uploads/audition/judge/" . basename($location->image));
+            $location->image = Helper::normal_img_upload($request->file('image'),'/uploads/audition/judge');
+        }
         $location->save();
 
         \Session::flash('flash_success','Location Updated Successfully');

@@ -64,6 +64,25 @@
                                 @endif
                             </div>
 
+                            <div class="form-group">
+                                <label for="video" class="">Country<span style="color:red;">*</span></label>
+                                <input type="text" required class="form-control" id="" value="{{ $location->country}}" name="country"  placeholder="Enter Country" >
+                                @if($errors->has('country'))
+                                    <span class="help-block" style="color:red;">
+                                  * {{ $errors->first('country') }}
+                              </span>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
+                                <label for="video" class="">City<span style="color:red;">*</span></label>
+                                <input type="text" required class="form-control" id="" value="{{ $location->city}}" name="city"  placeholder="Enter City" >
+                                @if($errors->has('city'))
+                                    <span class="help-block" style="color:red;">
+                                  * {{ $errors->first('city') }}
+                              </span>
+                                @endif
+                            </div>
 
                             <div class="form-group">
                                 <label for="" class="">Latitude</label>
@@ -90,6 +109,19 @@
                                     <option value="nepal" {{$location->type=='nepal'?'selected':''}}>Nepal</option>
                                     <option value="international" {{$location->type=='international'?'selected':''}}>International</option>
                                 </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="">Loation Image <span style="color:red;">*</span></label>
+                                @if($location->image != null )
+                                    <img class="img img-responsive" style="max-width:100%; height: 100px;" src="{{asset($location->image)}}" alt="User Avatar">
+                                @endif
+                                <input type="file" required class="form-control" name="image"   accept="image/jpeg,image/png" placeholder="{{tr('default_image')}}">
+                                @if($errors->has('image'))
+                                    <span class="help-block" style="color:red;">
+                                      * {{ $errors->first('image') }}
+                                  </span>
+                                @endif
                             </div>
                         </div>
 
