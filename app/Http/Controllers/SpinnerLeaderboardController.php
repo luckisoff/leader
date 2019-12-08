@@ -195,6 +195,7 @@ class SpinnerLeaderboardController extends Controller
     
     public function checkIn(Request $request)
     {
+        
         $validator=Validator::make($request->all(),[
             'user_id'=>'required',
             'point'=>'required:max:2'
@@ -210,6 +211,15 @@ class SpinnerLeaderboardController extends Controller
         }
 
         $dailyPoint=DailyPoint::where('user_id',$request->user_id)->where('created_at','>=',\Carbon\Carbon::today())->first();
+        if(!$dailyPoint)
+        {
+            return response()->json([
+                'status'=>false,
+                'code'=>200,
+                'message'=>'No user present',
+                'data'=>''
+            ]);
+        }
         if($dailyPoint->check_in==1)
         {
             return response()->json([
