@@ -41,7 +41,7 @@ class KhaltiPaymentController extends Controller
         $audition = Audition::where('user_id',$request->user_id)->first();
         
         if(!$audition){
-            return resposne()->json([
+            return response()->json([
                 'status'=>false,
                 'code'=>200,
                 'message'=>'User not registered'
@@ -50,7 +50,7 @@ class KhaltiPaymentController extends Controller
 
         if($audition->payment_status==1)
         {
-            return resposne()->json([
+            return response()->json([
                 'status'=>true,
                 'code'=>200,
                 'message'=>'Already Registered',
@@ -77,6 +77,16 @@ class KhaltiPaymentController extends Controller
         $response=json_decode(curl_exec($curl));
         $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
+
+        if(!isset($response->idx))
+        {
+            return response()->json([
+                'status'=>false,
+                'code'=>200,
+                'message'=>'something web wrong, try again',
+                'data'=>''
+            ]);
+        }
         return $this->verify($response->amount,$request,$audition);
     }
 
