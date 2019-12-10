@@ -11,10 +11,7 @@
               <ul class="dropdown-menu dropdown-menu-right">
                 <li><a href="{{route('user.profile')}}">{{tr('profile')}}</a></li>
 				<li><a href="{{route('user.wishlist')}}">{{tr('wishlist')}}</a></li>
-				
-				@if(Auth::user())
 				<li><a href="{{route('web-leader-register')}}">{{tr('leader register')}}</a></li>
-				@endif
 				
                 <li>
                 	<a href="{{route('user.delete.account')}}" @if(Auth::user()->login_by != 'manual') onclick="return confirm('Are you sure? . Once you deleted account, you will lose your history and wishlist details.')" @endif>
