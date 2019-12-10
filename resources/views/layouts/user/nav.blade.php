@@ -61,7 +61,8 @@
 		              	<li id="categories"><a href="{{route('user.categories')}}">{{tr('categories')}}</a></li>
 		              	<li id="trending"><a href="{{route('user.trending')}}">{{tr('trending')}}</a></li>
 		              	@if(Auth::check())
-		              	<li id="profile"><a href="{{route('user.wishlist')}}">{{tr('wishlist')}}</a></li>
+						  <li id="profile"><a href="{{route('user.wishlist')}}">{{tr('wishlist')}}</a></li>
+						  <li><a href="{{route('web-leader-register')}}">{{tr('leader register')}}</a></li>
 		              	@endif
 		              
 		            </ul>
