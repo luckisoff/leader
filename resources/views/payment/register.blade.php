@@ -61,7 +61,7 @@
             <table class="table table-bordered text-center" style="width: 200px;margin: 15px auto;">
                 <tbody>
                     <tr>
-                        <td></span>{{$audition->name}} ({{'code: '.$audition->registration_code}})</td>
+                        <td></span>{{$audition->name}}</td>
                     </tr>
                     <tr>
                         <td>{{$audition->email}}</td>
@@ -73,10 +73,13 @@
                         <td>{{$audition->gender}}</td>
                     </tr>
                     <tr>
-                            <td>{{$audition->address}}</td>
-                        </tr>
+                        <td>{{$audition->address}}</td>
+                    </tr>
                     <tr>
                         <td>{{$audition->payment_status?'Paid':'Error...!'}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{$audition->registration_code}}</td>
                     </tr>
                 </tbody>
             </table>
