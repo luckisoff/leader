@@ -61,7 +61,7 @@
             <table class="table table-bordered text-center" style="width: 200px;margin: 15px auto;">
                 <tbody>
                     <tr>
-                        <td></span>{{$audition->name}}</td>
+                        <td></span>{{$audition->name}} ({{'code: '.$audtion->registration_code}})</td>
                     </tr>
                     <tr>
                         <td>{{$audition->email}}</td>
