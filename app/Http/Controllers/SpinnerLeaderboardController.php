@@ -177,6 +177,7 @@ class SpinnerLeaderboardController extends Controller
     {
         $dailyPoint=DailyPoint::where('user_id',$request->user_id)->where('created_at','>=',\Carbon\Carbon::today())->first();
         $spinnerUser=SpinnerLeaderboard::where('user_id',$request->user_id)->first();
+        
         $dailyPoint->point +=$request->point;
         $spinnerUser->point +=$request->point;
         $dailyPoint->update();
