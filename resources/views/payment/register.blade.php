@@ -66,17 +66,17 @@
                                     <img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" />
                                 </div>
                                 <div class="col-xs-9">
-                                    <h4 class="text-left">{{$audition->name}}</h4>
-                                    <small><cite title="{{$audition->address}}">{{$audition->address}}<i class="glyphicon glyphicon-map-marker">
+                                    <h4 style="text-align:left"> {{$audition->name}}</h4>
+                                    <small><cite title="{{$audition->address}}"> {{$audition->address}} <i class="glyphicon glyphicon-map-marker">
                                     </i></cite></small>
                                     <p>
-                                        <i class="glyphicon glyphicon-envelope"></i>{{$audition->email}}
+                                        <i class="glyphicon glyphicon-envelope"></i> {{$audition->email}}
                                         <br />
-                                        <i class="glyphicon glyphicon-user"></i>{{$audition->gender}}
+                                        <i class="glyphicon glyphicon-user"></i> {{$audition->gender}}
                                         <br />
-                                        <i class="glyphicon glyphicon-money"></i>{{$audition->payment_status?'Paid':'Error...!'}}
+                                        <i class="glyphicon glyphicon-money"></i> {{$audition->payment_status?'Paid':'Error...!'}}
                                         <br />
-                                        <i class="glyphicon glyphicon-code"></i>{{$audition->registration_code}}
+                                        <i class="glyphicon glyphicon-code"></i> {{$audition->registration_code}}
                                     </p>
                                     <!-- Split button -->
                                 </div>
