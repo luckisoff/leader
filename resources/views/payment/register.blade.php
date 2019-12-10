@@ -46,7 +46,7 @@
                 <select name="address" id="address" class="form-control">
                     <option value="">--Select--</option>
                     @foreach($locations as $location)
-                    <option value="{{$location->city}}">{{$location->location.', '.$location->city}}</option>
+                    <option value="{{$location->city}}">{{$location->location.', '.$location->city.', '.$location->country}}</option>
                     @endforeach
                     
                 </select>
