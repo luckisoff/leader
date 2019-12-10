@@ -61,7 +61,7 @@
             <table class="table table-bordered text-center" style="width: 200px;margin: 15px auto;">
                 <tbody>
                     <tr>
-                        <td>{{$audition->name}}</td>
+                        <td><span class="fa fa-user"></span>{{$audition->name}}</td>
                     </tr>
                     <tr>
                         <td>{{$audition->email}}</td>
