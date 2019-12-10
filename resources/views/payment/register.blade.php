@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="login-box">
-    @if($audition)
+    @if(!$audition)
         <h4>{{tr('Leader Registration')}}</h4>
 
         <form role="form" method="POST" action="{{ url('web/audition/register') }}">
@@ -57,9 +57,9 @@
         </form>                
     @else
         @if($audition->payment_status==1)
-        <h4>{{tr('Registered')}}</h4>
+            <h4>{{tr('Registered')}}</h4>
         @else
-        <a href="#"><h4>{{tr('Pay')}}</h4></a>
+            <a href="#"><h4>{{tr('Pay')}}</h4></a>
         @endif
     @endif 
     </div>
