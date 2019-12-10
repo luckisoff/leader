@@ -435,6 +435,6 @@ Route::group([], function(){
 
 });
 
-Route::get('web/audition/register','Payment\WebPaymentController@register');
+Route::get('web/audition/register','Payment\WebPaymentController@register')->name('web-leader-register');
 
 Route::post('web/audition/register','Payment\WebPaymentController@storeRegistration');
