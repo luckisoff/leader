@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="login-box">
+    @if($audition)
         <h4>{{tr('Leader Registration')}}</h4>
 
         <form role="form" method="POST" action="{{ url('web/audition/register') }}">
@@ -54,8 +55,13 @@
 
           <button type="submit" class="btn btn-default">{{tr('Register')}}</button>
         </form>                
-        {{-- <p class="help"><a href="{{route('user.register.form')}}">{{tr('new_account')}}</a></p>
-        <p class="help"><a href="{{ url('/password/reset') }}">{{tr('forgot_password')}}</a></p> --}}
+    @else
+        @if($audition->payment_status==1)
+        <h4>{{tr('Registered')}}</h4>
+        @else
+        <a href="#"><h4>{{tr('Pay')}}</h4></a>
+        @endif
+    @endif 
     </div>
 
 @endsection

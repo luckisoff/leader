@@ -18,7 +18,8 @@ class WebPaymentController extends Controller
     {
         $locations=Location::orderBy('location','asc')->get();
         $user=Auth::user();
-        return view('payment.register',compact('user','locations'));
+        $audition=Audition::where('email',$user->email)->first();
+        return view('payment.register',compact('user','locations','audition'));
     }
 
     public function storeRegistration(Request $request)
@@ -50,6 +51,6 @@ class WebPaymentController extends Controller
 
     public function esewaCancel()
     {
-        
+
     }
 }
