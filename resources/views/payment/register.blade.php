@@ -63,7 +63,7 @@
                         <div class="well well-sm">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <img src="{{$audition->user->picture}}" alt="" class="img-rounded img-responsive" />
+                                    <img style="border-radius: 50%;width: 65px;height: 65px;margin: 38px 15px;border: 2px solid #000;" src="{{$audition->user->picture}}" alt="{{$audition->name.'-image'}}" class="img-responsive" />
                                 </div>
                                 <div class="col-xs-9">
                                     <h4 style="text-align:left"><i class="fa fa-user"></i> {{$audition->name}}</h4>
