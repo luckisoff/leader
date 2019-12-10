@@ -59,7 +59,7 @@
         @if($audition->payment_status==1)
             <h4>{{tr('Registered')}}</h4>
         @else
-            <a href="#"><h4>{{tr('Pay')}}</h4></a>
+            <h4><a href="#">{{tr('Pay')}}</a></h4>
         @endif
     @endif 
     </div>
