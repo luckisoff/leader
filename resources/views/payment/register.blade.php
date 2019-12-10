@@ -57,11 +57,11 @@
         </form>                
     @else
         @if($audition->payment_status==1)
-            <h4 style="margin-bottom:0px">{{tr('Registered')}}</h4>
+            <h4 style="margin-bottom:0px">{{tr('Registration Detail')}}</h4>
             <table class="table table-bordered text-center" style="width: 200px;margin: 15px auto;">
                 <tbody>
                     <tr>
-                        <td><span class="fa fa-user"></span>{{$audition->name}}</td>
+                        <td></span>{{$audition->name}}</td>
                     </tr>
                     <tr>
                         <td>{{$audition->email}}</td>
