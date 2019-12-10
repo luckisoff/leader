@@ -59,68 +59,31 @@
         @if($audition->payment_status==1)
             <h4 style="margin-bottom:0px">{{tr('Registration Detail')}}</h4>
             <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="col-xs-12">
                         <div class="well well-sm">
                             <div class="row">
-                                <div class="col-sm-6 col-md-4">
+                                <div class="col-xs-12">
                                     <img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" />
                                 </div>
-                                <div class="col-sm-6 col-md-8">
-                                    <h4>
-                                        Bhaumik Patel</h4>
-                                    <small><cite title="San Francisco, USA">San Francisco, USA <i class="glyphicon glyphicon-map-marker">
+                                <div class="col-xs-12">
+                                    <h4>{{$audition->name}}</h4>
+                                    <small><cite title="{{$audition->address}}">{{$audition->address}}<i class="glyphicon glyphicon-map-marker">
                                     </i></cite></small>
                                     <p>
-                                        <i class="glyphicon glyphicon-envelope"></i>email@example.com
+                                        <i class="glyphicon glyphicon-envelope"></i>{{$audition->email}}
                                         <br />
-                                        <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
+                                        <i class="glyphicon glyphicon-user"></i>{{$audition->gender}}
                                         <br />
-                                        <i class="glyphicon glyphicon-gift"></i>June 02, 1988</p>
+                                        <i class="glyphicon glyphicon-money"></i>{{$audition->payment_status?'Paid':'Error...!'}}
+                                        <br />
+                                        <i class="glyphicon glyphicon-code"></i>{{$audition->registration_code}}
+                                    </p>
                                     <!-- Split button -->
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-primary">
-                                            Social</button>
-                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                            <span class="caret"></span><span class="sr-only">Social</span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Twitter</a></li>
-                                            <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                            <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="#">Github</a></li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            <table class="table table-bordered text-center" style="width: 200px;margin: 15px auto;">
-                <tbody>
-                    <tr>
-                        <td></span>{{$audition->name}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{$audition->email}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{$audition->number}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{$audition->gender}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{$audition->address}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{$audition->payment_status?'Paid':'Error...!'}}</td>
-                    </tr>
-                    <tr>
-                        <td>{{$audition->registration_code}}</td>
-                    </tr>
-                </tbody>
-            </table>
         @else
             <a href="#" style="color:#ffffff"><h4 style="margin-bottom:0px">{{tr('Pay')}}</h4></a>
         @endif
