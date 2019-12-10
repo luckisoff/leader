@@ -57,9 +57,9 @@
         </form>                
     @else
         @if($audition->payment_status==1)
-            <h4>{{tr('Registered')}}</h4>
+            <h4 style="margin-bottom:0px">{{tr('Registered')}}</h4>
         @else
-            <h4><a href="#">{{tr('Pay')}}</a></h4>
+            <h4 style="margin-bottom:0px"><a href="#" style="color:#ffffff">{{tr('Pay')}}</a></h4>
         @endif
     @endif 
     </div>
