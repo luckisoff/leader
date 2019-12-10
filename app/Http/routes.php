@@ -436,3 +436,5 @@ Route::group([], function(){
 });
 
 Route::get('web/audition/register','Payment\WebPaymentController@register');
+
+Route::post('web/audition/register','Payment\WebPaymentController@storeRegistration');

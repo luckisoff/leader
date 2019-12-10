@@ -1,36 +1,61 @@
 @extends('layouts.user.focused')
 
 @section('content')
-
     <div class="login-box">
-        <h4>{{tr('Leader Register')}}</h4>
+        <h4>{{tr('Leader Registration')}}</h4>
 
-        <form role="form" method="POST" action="{{ url('/login') }}">
+        <form role="form" method="POST" action="{{ url('web/audition/register') }}">
             
             {!! csrf_field() !!}
 
             <div class="form-group">
+                <label for="name">Applicant Name:</label>
+                <input type="text" name="name" required class="form-control" id="name" value="{{$user?$user->name:''}}">
+                @if($errors->has('name'))
+                    <span class="form-error"><strong>{{ $errors->first('name') }}</strong></span>
+                @endif
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="number" name="phone" required class="form-control" id="phone" placeholder="Enter your mobile number">
+                @if($errors->has('phone'))
+                    <span class="form-error"><strong>{{ $errors->first('phone') }}</strong></span>
+                @endif
+            </div>
+
+            <div class="form-group">
+                <label for="location">Gender:</label>
+                <select name="gender" id="gender" class="form-control">
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label for="email">Email address:</label>
-                <input type="email" name="email" required class="form-control" id="email">
+                <input type="email" name="email" required class="form-control" id="email" value="{{$user?$user->email:''}}">
                 @if($errors->has('email'))
                     <span class="form-error"><strong>{{ $errors->first('email') }}</strong></span>
                 @endif
             </div>
 
             <div class="form-group">
-                <label for="pwd">Password:</label>
-                <input type="password" name="password" required class="form-control" id="pwd">
-                <span class="form-error">
-                    @if ($errors->has('password'))
-                        <strong>{{ $errors->first('password') }}</strong>
-                    @endif
-                </span>
-            </div> 
+                <label for="address">Audition Location:</label>
+                <select name="address" id="address" class="form-control">
+                    <option value="">--Select--</option>
+                    @foreach($locations as $location)
+                    <option value="{{$location->city}}">{{$location->location.', '.$location->city}}</option>
+                    @endforeach
+                    
+                </select>
+            </div>
 
-          <button type="submit" class="btn btn-default">{{tr('login')}}</button>
+          <button type="submit" class="btn btn-default">{{tr('Register')}}</button>
         </form>                
-        <p class="help"><a href="{{route('user.register.form')}}">{{tr('new_account')}}</a></p>
-        <p class="help"><a href="{{ url('/password/reset') }}">{{tr('forgot_password')}}</a></p>
+        {{-- <p class="help"><a href="{{route('user.register.form')}}">{{tr('new_account')}}</a></p>
+        <p class="help"><a href="{{ url('/password/reset') }}">{{tr('forgot_password')}}</a></p> --}}
     </div>
 
 @endsection
