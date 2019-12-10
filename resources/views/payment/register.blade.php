@@ -58,7 +58,7 @@
     @else
         @if($audition->payment_status==1)
             <h4 style="margin-bottom:0px">{{tr('Registered')}}</h4>
-            <table class="table table-bordered">
+            <table class="table table-bordered text-center" style="width: 200px;margin: 15px auto;">
                 <tbody>
                     <tr>
                         <td>{{$audition->name}}</td>
@@ -72,6 +72,9 @@
                     <tr>
                         <td>{{$audition->gender}}</td>
                     </tr>
+                    <tr>
+                            <td>{{$audition->address}}</td>
+                        </tr>
                     <tr>
                         <td>{{$audition->payment_status?'Paid':'Error...!'}}</td>
                     </tr>
