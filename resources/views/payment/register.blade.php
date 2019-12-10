@@ -57,26 +57,38 @@
         </form>                
     @else
         @if($audition->payment_status==1)
-            <h4 style="margin-bottom:0px">{{tr('Registration Detail')}}</h4>
+            <h4 style="margin-bottom:0px">{{tr('Registration Detail')}}</h4><br>
             <div class="row">
                     <div class="col-xs-12" style="color:#000">
                         <div class="well well-sm">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive" />
+                                    <img src="{{$audition->user->picture}}" alt="" class="img-rounded img-responsive" />
                                 </div>
                                 <div class="col-xs-9">
-                                    <h4 style="text-align:left"> {{$audition->name}}</h4>
-                                    <small><cite title="{{$audition->address}}"> {{$audition->address}} <i class="glyphicon glyphicon-map-marker">
-                                    </i></cite></small>
+                                    <h4 style="text-align:left"><i class="fa fa-user"></i> {{$audition->name}}</h4>
                                     <p>
-                                        <i class="glyphicon glyphicon-envelope"></i> {{$audition->email}}
-                                        <br />
-                                        <i class="glyphicon glyphicon-user"></i> {{$audition->gender}}
-                                        <br />
-                                        <i class="glyphicon glyphicon-money"></i> {{$audition->payment_status?'Paid':'Error...!'}}
-                                        <br />
-                                        <i class="glyphicon glyphicon-code"></i> {{$audition->registration_code}}
+                                        <table style="width: 225px;height: 152px;" class="table table-bordered">
+                                            <tr>
+                                                <td style="text-align: center"><i class="fa fa-map-marker"></i> </td>
+                                                <td>{{$audition->address}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: center"><i class="fa fa-envelope"></i></td>
+                                                <td>{{$audition->email}}</td></tr>
+                                            <tr>
+                                                <td style="text-align: center"><i class="fa fa-{{$audition->gender=='Female'?'female':'male'}}"></i></td>
+                                                <td>{{$audition->gender}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: center"><i class="fa fa-money"></i></td>
+                                                <td>{{$audition->payment_status?'Paid':'Error...!'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: center"><i class="fa fa-ticket"></i></td>
+                                                <td>{{$audition->registration_code}}</td>
+                                            </tr>
+                                        </table>                                         
                                     </p>
                                     <!-- Split button -->
                                 </div>

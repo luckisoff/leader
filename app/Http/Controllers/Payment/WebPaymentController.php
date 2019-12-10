@@ -31,14 +31,14 @@ class WebPaymentController extends Controller
         ]);
         
         $audition=new Audition();
-        $audition->user_id=Auth::user()->id;
+        $audition->user_id=Auth::User()->id;
         $audition->name=$request->name;
         $audition->number=$request->phone;
         $audition->address=$request->address;
         $audition->gender=$request->gender;
         $audition->email=$request->email;
         $audition->save();
-        if($audition->create($request->all()))
+        if($audition)
         {
             return redirect('/web/audition/payment');
         }
