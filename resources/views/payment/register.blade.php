@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="login-box">
-        <h4>{{tr('login')}}</h4>
+        <h4>{{tr('Leader Register')}}</h4>
 
         <form role="form" method="POST" action="{{ url('/login') }}">
             
