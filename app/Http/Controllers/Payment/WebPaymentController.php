@@ -91,7 +91,7 @@ class WebPaymentController extends Controller
     //Esewa failure method
     public function esewaFailure()
     {
-        PaymentLog::createOrFirst([
+        PaymentLog::create([
             'type'=>'Esewa',
             'user_id'=>Auth::user()->id,
             'value'=>'',
@@ -102,6 +102,11 @@ class WebPaymentController extends Controller
 
     public function payment()
     {
+        $audition=Audition::where('email',Auth::user()->email)->first();
+        if($audition->payment_status===1)
+        {
+            return redirect('/web/audition/register');
+        }
         return view('payment.payment');
     }
 
@@ -134,6 +139,12 @@ class WebPaymentController extends Controller
                 'status'=>false,
                 'data'=>$response
             ]);
+            PaymentLog::create([
+                'type'=>'Khalti',
+                'user_id'=>Auth::user()->id,
+                'value'=>\serialize($request->all()),
+                'status'=>false
+            ]);
         }
         $audition=Audition::where('email',Auth::user()->email)->first();
         $audition->payment_type = "Khalti";
@@ -141,7 +152,7 @@ class WebPaymentController extends Controller
         $audition->registration_code='LEADERSRBN'.Auth::user()->id;
         $audition->save();
 
-        PaymentLog::createOrFirst([
+        PaymentLog::create([
             'type'=>'Khalti',
             'user_id'=>Auth::user()->id,
             'value'=>\serialize($request->all()),
@@ -165,11 +176,11 @@ class WebPaymentController extends Controller
         $audition->registration_code='LEADERSRBN'.Auth::user()->id;
         $audition->save();
 
-        PaymentLog::createOrFirst([
-            'type'=>'Esewa',
+        PaymentLog::create([
+            'type'=>'Paypal',
             'user_id'=>Auth::user()->id,
-            'value'=>'',
-            'status'=>false
+            'value'=>\serialize($request->all()),
+            'status'=>true
         ]);
 
         if(!$audition)
