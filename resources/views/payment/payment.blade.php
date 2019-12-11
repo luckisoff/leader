@@ -59,7 +59,6 @@
                     <div id="paypal-button-container"></div>
                 </div>
             </div>
-
             <form id="esewaPayment" action="https://esewa.com.np/epay/main" method="POST">
                 <input value="1000" name="tAmt" type="hidden">
                 <input value="1000" name="amt" type="hidden">
@@ -68,8 +67,8 @@
                 <input value="0" name="pdc" type="hidden">
                 <input value="NP-ES-SRBN" name="scd" type="hidden">
                 <input value="{{'LEADERAUDITION-SRBN-'.Auth::user()->id}}" name="pid" type="hidden">
-                <input value="{{env('APP_URL').'/web/audition/esewa/success?id='.Auth::user()->id}}" type="hidden" name="su">
-                <input value="{{env('APP_URL').'/web/audition/esewa/failure?id='.Auth::user()->id}}" type="hidden" name="fu">
+                <input value="{{URL::to('/').'/web/audition/esewa/success?id='.Auth::user()->id}}" type="hidden" name="su">
+                <input value="{{URL::to('/').'/web/audition/esewa/failure?id='.Auth::user()->id}}" type="hidden" name="fu">
             </form>
 
     </div>
@@ -84,7 +83,7 @@
         "eventHandler": {
             onSuccess (payload) {
                 $.ajax({
-                    url:'{{env('APP_URL')."/web/audition/khalti/success"}}',
+                    url:'{{URL::to('/')."/web/audition/khalti/success"}}',
                     type:"POST",
                     dataType:"JSON",
                     data:payload,
@@ -143,16 +142,16 @@
             return actions.order.capture().then(function(details) {
                 // Show a success message to the buyer
                 $.ajax({
-                    url:'{{env('APP_URL')."/web/audition/paypal/success"}}',
+                    url:'{{URL::to('/')."/web/audition/paypal/success"}}',
                     type:"POST",
                     dataType:"JSON",
                     data:details,
                     success:function(response){
                         if(response.status)
                         {
-                            window.location.href='{{env('APP_URL')."/web/audition/register"}}';
+                            window.location.href='{{URL::to('/')."/web/audition/register"}}';
                         }
-                        window.location.href='{{env('APP_URL')."/web/audition/register"}}';
+                        window.location.href='{{URL::to('/')."/web/audition/register"}}';
                     },
                     error:function(error)
                     {
