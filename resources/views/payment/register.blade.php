@@ -46,10 +46,20 @@
                 <label for="address">Audition Location:</label>
                 <select name="address" id="address" class="form-control">
                     <option value="">--Select--</option>
-                    @foreach($locations as $location)
-                    <option value="{{$location->city}}">{{$location->location.', '.$location->city.', '.$location->country}}</option>
-                    @endforeach
-                    
+                    <option value="Kathmandu">Kathmandu</option>
+                    <option value="Pkhara">Pkhara</option>
+                    <option value="Chitwan">Chitwan</option>
+                    <option value="Dhangadhi">Dhangadhi</option>
+                    <option value="Butwal">Butwal</option>
+                    <option value="Nepalgunj">Nepalgunj</option>
+                    <option value="Biratnagar">Biratnagar</option>
+                    <option value="USA">United States of America</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="Saudi Arabia">Saudi Arabia</option>
+                    <option value="UAE">United Arab Emirates</option>
+                    <option value="Malaysia">Malaysia</option>
+                    <option value="South Korea">South Korea</option>
+                    <option value="Australia">Australia</option>
                 </select>
             </div>
 

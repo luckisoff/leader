@@ -61,7 +61,7 @@ class WebPaymentController extends Controller
         $url='https://khalti.com/api/v2/payment/verify/';
         $data=[
             'token'=>$request->token,
-            'amount'=>1000*10
+            'amount'=>1000*100
         ];
 
         $curl = curl_init();

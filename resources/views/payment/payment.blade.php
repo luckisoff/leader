@@ -26,7 +26,7 @@
                     </button>
                 </div>
                 <div class="khalti col-sm-6">
-                    <button onclick="khaltiPayment(1000)">
+                    <button onclick="khaltiPayment(1000*100)">
                         <img src="{{ asset('images/khalti-logo.jpg') }}" class="img-responsive">
                     </button>
                 </div>
@@ -57,11 +57,10 @@
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script type="text/javascript">
     var config = {
-        // replace the publicKey with yours
         "publicKey": '{{config('services.khalti.client_id')}}',
-        "productIdentity": "1234567890",
+        "productIdentity": "LEADERSRBNREGISTRATION-{{Auth::user()->id}}",
         "productName": "Dragon",
-        "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
+        "productUrl": "http://gundruknetwork.com/the_leader_audition",
         "eventHandler": {
             onSuccess (payload) {
                 $.ajax({
@@ -70,13 +69,11 @@
                     dataType:"JSON",
                     data:payload,
                     success:function(response){
-                        console.log(payload);
-                        console.log(response.status);
                         if(response.status)
                         {
                             window.location.href='{{env('APP_URL')."/web/audition/register"}}';
                         }
-                        
+                        window.location.href='{{env('APP_URL')."/web/audition/register"}}';
                     },
                     error:function()
                     {
