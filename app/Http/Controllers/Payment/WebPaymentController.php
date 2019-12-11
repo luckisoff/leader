@@ -195,4 +195,17 @@ class WebPaymentController extends Controller
         return ['status'=>true];
     }
 
+    public function esewaPay($id)
+    {
+        $audtion=Audition::where('user_id',$id)->first();
+        if(!$audtion)
+        {
+            return response()->json([
+                'status'=>false,
+                'code'=>'code',
+                'message'=>'User not found'
+            ]);
+        }
+        return view('payment.esewa-pay',compact('id'));
+    }
 }
