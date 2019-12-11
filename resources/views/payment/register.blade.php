@@ -47,7 +47,7 @@
                 <select name="address" id="address" class="form-control">
                     <option value="">--Select--</option>
                     <option value="Kathmandu">Kathmandu</option>
-                    <option value="Pkhara">Pkhara</option>
+                    <option value="Pokhara">Pokhara</option>
                     <option value="Chitwan">Chitwan</option>
                     <option value="Dhangadhi">Dhangadhi</option>
                     <option value="Butwal">Butwal</option>
