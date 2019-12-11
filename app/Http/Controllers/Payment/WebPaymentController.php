@@ -67,8 +67,8 @@ class WebPaymentController extends Controller
         
         if(!empty(Input::get('oid')) && !empty(Input::get('refId')))
         {
-            if($this->esewaVerify()==="Success")
-            {
+            // if($this->esewaVerify()==="Success")
+            // {
                 $audition=Audition::where('email',Auth::user()->email)->first();
                 $audition->payment_type = "Khalti";
                 $audition->payment_status = 1;
@@ -87,8 +87,8 @@ class WebPaymentController extends Controller
                     return redirect('/web/audition/payment');
                 }
                 return redirect('/web/audition/register');
-            }
-            return redirect('/web/audition/register');
+            // }
+            // return redirect('/web/audition/register');
         }
         
     }
