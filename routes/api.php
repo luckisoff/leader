@@ -116,5 +116,5 @@ Route::get('/policy', 'Api\GundrukController@getPolicy');
 Route::get('/payment-terms', 'Api\GundrukController@getPaymentTerms');
 Route::get('/faq', 'Api\GundrukController@getFaq');
 
-Route::get('/audition/payment/esewa/pay/{user_id}','Payment\WebPaymentController@esewaPay');
+Route::get('/audition/payment/esewa-pay/{user_id}','Payment\WebPaymentController@esewaPay');
 
