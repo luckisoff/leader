@@ -13,6 +13,7 @@
         <link href="{{asset('adult/css/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{asset('adult/css/jquery-ui.css')}}" rel="stylesheet">
         <link href="{{asset('adult/css/style.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
 
         <link rel="shortcut icon" type="image/png" href="{{Setting::get('site_icon' , asset('img/favicon.png'))}}"/>
 

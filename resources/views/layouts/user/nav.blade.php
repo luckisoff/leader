@@ -10,7 +10,9 @@
               </button>
               <ul class="dropdown-menu dropdown-menu-right">
                 <li><a href="{{route('user.profile')}}">{{tr('profile')}}</a></li>
-                <li><a href="{{route('user.wishlist')}}">{{tr('wishlist')}}</a></li>                
+				<li><a href="{{route('user.wishlist')}}">{{tr('wishlist')}}</a></li>
+				<li><a href="{{route('web-leader-register')}}">{{tr('leader register')}}</a></li>
+				
                 <li>
                 	<a href="{{route('user.delete.account')}}" @if(Auth::user()->login_by != 'manual') onclick="return confirm('Are you sure? . Once you deleted account, you will lose your history and wishlist details.')" @endif>
                         <i class="fa fa-trash"></i>{{tr('delete_account')}}
@@ -59,7 +61,8 @@
 		              	<li id="categories"><a href="{{route('user.categories')}}">{{tr('categories')}}</a></li>
 		              	<li id="trending"><a href="{{route('user.trending')}}">{{tr('trending')}}</a></li>
 		              	@if(Auth::check())
-		              	<li id="profile"><a href="{{route('user.wishlist')}}">{{tr('wishlist')}}</a></li>
+						  <li id="profile"><a href="{{route('user.wishlist')}}">{{tr('wishlist')}}</a></li>
+						  <li><a href="{{route('web-leader-register')}}">{{tr('leader register')}}</a></li>
 		              	@endif
 		              
 		            </ul>
