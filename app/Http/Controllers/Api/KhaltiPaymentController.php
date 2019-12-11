@@ -183,7 +183,7 @@ class KhaltiPaymentController extends Controller
             $audition->payment_type = "Khalti";
             $audition->payment_status = 1;
             $audition->registration_code=$request->registration_code;
-            $audition->upate();
+            $audition->update();
             return response()->json([
                 'status'=>true,
                 'code'=>200,
