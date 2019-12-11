@@ -65,19 +65,19 @@ class WebPaymentController extends Controller
     public function esewaSuccess(Request $request)
     {
         
-        if(!empty(Input::get('oid')) && !empty(Input::get('refId')))
+        if(!empty($request->oid) && !empty($request->refId))
         {
             // if($this->esewaVerify()==="Success")
             // {
-                $audition=Audition::where('email',Auth::user()->email)->first();
-                $audition->payment_type = "Khalti";
+                $audition=Audition::where('user_id',$request->id)->first();
+                $audition->payment_type = "Esewa";
                 $audition->payment_status = 1;
                 $audition->registration_code='LEADERSRBN'.Auth::user()->id;
                 $audition->save();
                 
                 PaymentLog::create([
                     'type'=>'Esewa',
-                    'user_id'=>Auth::user()->id,
+                    'user_id'=>$request->id,
                     'value'=>\serialize($request->all()),
                     'status'=>true
                 ]);
@@ -98,8 +98,8 @@ class WebPaymentController extends Controller
     {
         PaymentLog::create([
             'type'=>'Esewa',
-            'user_id'=>Auth::user()->id,
-            'value'=>'',
+            'user_id'=>$_GET['id'],
+            'value'=>\serialize($_GET),
             'status'=>false
         ]);
         return redirect('/web/audition/payment');
