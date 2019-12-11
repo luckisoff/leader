@@ -7,6 +7,8 @@ use Auth;
 use App\Location;
 use App\Audition;
 use App\PaymentLog;
+use Illuminate\Support\Facades\Input;
+
 class WebPaymentController extends Controller
 {
 
@@ -60,9 +62,10 @@ class WebPaymentController extends Controller
     }
 
     //Esewa success method
-    public function esewaSuccess()
+    public function esewaSuccess(Request $request)
     {
-        if(isset($_GET['oid']) && isset($_GET['refId']))
+        
+        if(!empty(Input::get('oid')) && !empty(Input::get('refId')))
         {
             if($this->esewaVerify()==="Success")
             {
@@ -75,7 +78,7 @@ class WebPaymentController extends Controller
                 PaymentLog::createOrFirst([
                     'type'=>'Esewa',
                     'user_id'=>Auth::user()->id,
-                    'value'=>\serialize($_GET),
+                    'value'=>\serialize($request->all()),
                     'status'=>true
                 ]);
 
@@ -85,8 +88,9 @@ class WebPaymentController extends Controller
                 }
                 return redirect('/web/audition/register');
             }
+            return redirect('/web/audition/register');
         }
-        return redirect('/web/audition/register');
+        
     }
 
     //Esewa failure method
