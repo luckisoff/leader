@@ -46,7 +46,7 @@ class WebPaymentController extends Controller
     {
         $url = "https://uat.esewa.com.np/epay/transrec";
         $data =[
-            'amt'=> 10,
+            'amt'=> 1000,
             'rid'=> $_GET['refId'],
             'pid'=>$_GET['oid'],
             'scd'=> 'NP-ES-SRBN'
