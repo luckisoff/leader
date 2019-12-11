@@ -108,7 +108,10 @@ class WebPaymentController extends Controller
     public function payment()
     {
         $audition=Audition::where('email',Auth::user()->email)->first();
-        if(!$audition||$audition->payment_status===1)
+        if(!$audition)
+        {
+            return redirect('/web/audition/register');
+        }elseif( $audition->payment_status===1)
         {
             return redirect('/web/audition/register');
         }
