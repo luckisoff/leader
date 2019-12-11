@@ -2,17 +2,38 @@
 
 @section('content')
 <style type="text/css">
+.login-box{
+    background-color: #d4d3d2;
+}
+.login-box h4, .login-box h5{
+    color: rgb(44, 46, 47) !important;
+
+}
 .esewa{
     margin: 0;
-    padding: 0 0 6px 15px;
+    padding: 0 0 5px 15px;
 }
 .khalti{
     margin: 0;
-    padding: 0 19px 6px 5px;
+    padding: 0 0 5px 3px;
 }
 .esewa img, .khalti img{
-    width: 170px;
-    height: 80px;
+    width: 177px;
+    height: 87px;
+    border-radius: 3px;
+}
+.payment-method button{
+    margin: 0;
+    padding: 0;
+}
+@media screen and (max-width: 767px) {
+    .khalti{
+        padding: 0 0 5px 15px;
+    }
+    .esewa img, .khalti img{
+        width: auto;
+        height: auto;
+    }
 }
 </style>
     <div class="login-box">
@@ -32,11 +53,8 @@
                 </div>
             </div>
             <div class="row">
-                ]<div class="col-sm-6">
-                    <div class="payment-method">
-                        <button id="paypal-button">
-                        </button>
-                    </div>
+                <div class="col-sm-12">
+                    <div id="paypal-button-container"></div>
                 </div>
             </div>
 
@@ -47,14 +65,15 @@
                 <input value="2" name="psc" type="hidden">
                 <input value="3" name="pdc" type="hidden">
                 <input value="NP-ES-SRBN" name="scd" type="hidden">
-                <input value="ee2c3ca1-696b-4cc5-a6be-2c40d929d453" name="pid" type="hidden">
+                <!-- <input value="ee2c3ca1-696b-4cc5-a6be-2c40d929d453" name="pid" type="hidden"> -->
                 <input value="http://merchant.com.np/page/esewa_payment_success?q=su" type="hidden" name="su">
                 <input value="http://merchant.com.np/page/esewa_payment_failed?q=fu" type="hidden" name="fu">
             </form>
 
     </div>
 <script src="https://khalti.com/static/khalti-checkout.js"></script>
-<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<!-- <script src="https://www.paypalobjects.com/api/checkout.js"></script> -->
+ <script src="https://www.paypal.com/sdk/js?client-id=AeK_uXchdPl_ctu5zY9C4mtdHDo6_pNihxDSgFU6PkDWvre1oJbu-y9xL67mCoyLUZ5bspN9TtBP8I3a&currency=USD"></script>
 <script type="text/javascript">
     var config = {
         // replace the publicKey with yours
@@ -81,48 +100,43 @@
         checkout.show({amount: totalAmount});
     }
 
-    paypal.Button.render({
+    paypal.Buttons({
     // Configure environment
-        env: 'sandbox',
-        client: {
-          sandbox: 'AeK_uXchdPl_ctu5zY9C4mtdHDo6_pNihxDSgFU6PkDWvre1oJbu-y9xL67mCoyLUZ5bspN9TtBP8I3a',
-          production: 'demo_production_client_id'
-        },
+        // env: 'sandbox',
+        // client: {
+        //   sandbox: 'AeK_uXchdPl_ctu5zY9C4mtdHDo6_pNihxDSgFU6PkDWvre1oJbu-y9xL67mCoyLUZ5bspN9TtBP8I3a',
+        //   production: 'demo_production_client_id'
+        // },
         // Customize button (optional)
         locale: 'en_US',
         style: {
-            layout: 'horizontal',
-            size: 'large',
             color: 'gold',
-            shape: 'pill',
+            shape: 'rect',
+            label: 'pay',
+            height: 42,
+            size: 'responsive'
         },
 
-        // Enable Pay Now checkout flow (optional)
-        commit: true,
-
-        // Set up a payment
-        payment: function(data, actions) {
-          return actions.payment.create({
-            transactions: [{
-              amount: {
-                total: '31.3',
-                currency: 'USD',
-                details: {
-                  subtotal: '30.00',
-                  tax: '1.3',
-                }
-              }
-            }]
-          });
+        // Set up the transaction
+          createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '5'
+                    }
+                }]
+            });
         },
-        // Execute the payment
-        onAuthorize: function(data, actions) {
-          return actions.payment.execute().then(function() {
-            // Show a confirmation message to the buyer
-            window.alert('Thank you for your purchase!');
-          });
+
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                // Show a success message to the buyer
+                alert('Transaction completed by ' + details.payer.name.given_name + '!');
+            });
         }
-      }, '#paypal-button');
+
+      }).render('#paypal-button-container');;
 
 </script>
 @endsection
