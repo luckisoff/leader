@@ -34,12 +34,13 @@ class WebPaymentController extends Controller
         $audition->number=$request->phone;
         $audition->address=$request->address;
         $audition->gender=$request->gender;
-        $audition->email=Auth::User()->email;
+        $audition->email=Auth::User()->email?Auth::User()->email:$request->email;
         $audition->save();
         if($audition)
         {
             return redirect('/web/audition/payment');
         }
+        return redirect('/web/audition/register');
     }
 
     protected function esewaVerify()
@@ -176,7 +177,7 @@ class WebPaymentController extends Controller
     public function paypalVerify(Request $request)
     {
         $audition=Audition::where('email',Auth::user()->email)->first();
-        $audition->payment_type = "Khalti";
+        $audition->payment_type = "Paypal";
         $audition->payment_status = 1;
         $audition->registration_code='LEADERSRBN'.Auth::user()->id;
         $audition->save();
