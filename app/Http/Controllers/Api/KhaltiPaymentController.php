@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use  App\Audition;
 use Illuminate\Support\Facades\Validator;
+use App\PaymentLog;
 class KhaltiPaymentController extends Controller
 {
 
@@ -126,6 +127,12 @@ class KhaltiPaymentController extends Controller
         $audition->payment_status = 1;
         $audition->registration_code=$request->registration_code;
         $audition->save();
+        PaymentLog::create([
+            'type'=>'Khalti',
+            'status'=>true,
+            'user_id'=>$audition->user_id,
+            'value'=>\serialize($request->all())
+        ]);
         return $response;
     }
 
@@ -184,6 +191,12 @@ class KhaltiPaymentController extends Controller
             $audition->payment_status = 1;
             $audition->registration_code=$request->registration_code;
             $audition->update();
+            PaymentLog::create([
+                'type'=>'Khalti',
+                'status'=>true,
+                'user_id'=>$audition->user_id,
+                'value'=>\serialize($request->all())
+            ]);
             return response()->json([
                 'status'=>true,
                 'code'=>200,

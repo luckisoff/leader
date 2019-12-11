@@ -7,7 +7,6 @@ use Auth;
 use App\Location;
 use App\Audition;
 use App\PaymentLog;
-use Illuminate\Support\Facades\Input;
 
 class WebPaymentController extends Controller
 {
