@@ -86,6 +86,7 @@ class WebPaymentController extends Controller
                 return redirect('/web/audition/register');
             }
         }
+        return redirect('/web/audition/register');
     }
 
     //Esewa failure method
