@@ -435,8 +435,17 @@ Route::group([], function(){
 
 });
 
-Route::get('web/audition/register','Payment\WebPaymentController@register');
-Route::get('web/audition/payment','Payment\WebPaymentController@payment');
-Route::get('web/audition/register','Payment\WebPaymentController@register')->name('web-leader-register');
+Route::group(['prefix'=>'web'],function(){
+    Route::group(['middleware'=>'auth'],function(){
+        Route::get('/audition/payment','Payment\WebPaymentController@payment')->name('web-leader-payment');
+        Route::get('/audition/register','Payment\WebPaymentController@register')->name('web-leader-register');
+        Route::post('/audition/register','Payment\WebPaymentController@storeRegistration');
+    });
+    // Esewa
+    Route::get('/audition/esewa/failure','Payment\WebPaymentController@esewaFailure');
+    Route::get('/audition/esewa/success','Payment\WebPaymentController@esewaSuccess');
+    // Khalti
+    Route::post('/audition/khalti/success','Payment\WebPaymentController@khaltiSuccess');
+    Route::get('/audition/paypal/verify','Payment\WebPaymentController@paypalVerify');
+});
 
-Route::post('web/audition/register','Payment\WebPaymentController@storeRegistration');

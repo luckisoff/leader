@@ -47,9 +47,9 @@
                 <input value="2" name="psc" type="hidden">
                 <input value="3" name="pdc" type="hidden">
                 <input value="NP-ES-SRBN" name="scd" type="hidden">
-                <input value="ee2c3ca1-696b-4cc5-a6be-2c40d929d453" name="pid" type="hidden">
-                <input value="http://merchant.com.np/page/esewa_payment_success?q=su" type="hidden" name="su">
-                <input value="http://merchant.com.np/page/esewa_payment_failed?q=fu" type="hidden" name="fu">
+                <input value="{{'Leader-Audition-'.Auth::user()->id}}" name="pid" type="hidden">
+                <input value="{{env('APP_URL').'/web/audition/esewa/success'}}" type="hidden" name="su">
+                <input value="{{env('APP_URL').'/web/audition/esewa/failure'}}" type="hidden" name="fu">
             </form>
 
     </div>
@@ -58,14 +58,32 @@
 <script type="text/javascript">
     var config = {
         // replace the publicKey with yours
-        "publicKey": "test_public_key_dc74e0fd57cb46cd93832aee0a390234",
+        "publicKey": '{{config('services.khalti.client_id')}}',
         "productIdentity": "1234567890",
         "productName": "Dragon",
         "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
         "eventHandler": {
             onSuccess (payload) {
-                // hit merchant api for initiating verfication
-                console.log(payload);
+                $.ajax({
+                    url:'{{env('APP_URL')."/web/audition/khalti/success"}}',
+                    type:"POST",
+                    dataType:"JSON",
+                    data:payload,
+                    success:function(response){
+                        console.log(payload);
+                        console.log(response.status);
+                        if(response.status)
+                        {
+                            window.location.href='{{env('APP_URL')."/web/audition/register"}}';
+                        }
+                        
+                    },
+                    error:function()
+                    {
+                        window.location.href='{{env('APP_URL')."/web/audition/payment"}}';
+                    }
+                })
+                
             },
             onError (error) {
                 console.log(error);

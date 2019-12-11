@@ -97,7 +97,7 @@
                     </div>
                 </div>
         @else
-            <a href="#" style="color:#ffffff"><h4 style="margin-bottom:0px">{{tr('Pay')}}</h4></a>
+            <a href="{{route('web-leader-payment')}}" style="color:#ffffff"><h4 style="margin-bottom:0px">{{tr('Pay')}}</h4></a>
         @endif
     @endif 
     </div>
