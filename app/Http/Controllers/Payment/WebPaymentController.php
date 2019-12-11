@@ -75,7 +75,7 @@ class WebPaymentController extends Controller
                 $audition->registration_code='LEADERSRBN'.Auth::user()->id;
                 $audition->save();
                 
-                PaymentLog::createOrFirst([
+                PaymentLog::create([
                     'type'=>'Esewa',
                     'user_id'=>Auth::user()->id,
                     'value'=>\serialize($request->all()),
