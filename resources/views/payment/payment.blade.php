@@ -61,8 +61,8 @@
             </div>
 
             <form id="esewaPayment" action="https://esewa.com.np/epay/main" method="POST">
-                <input value="1000" name="tAmt" type="hidden">
-                <input value="1000" name="amt" type="hidden">
+                <input value="10" name="tAmt" type="hidden">
+                <input value="10" name="amt" type="hidden">
                 <input value="0" name="txAmt" type="hidden">
                 <input value="0" name="psc" type="hidden">
                 <input value="0" name="pdc" type="hidden">
