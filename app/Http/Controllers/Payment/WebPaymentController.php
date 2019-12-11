@@ -2,8 +2,6 @@
 namespace App\Http\Controllers\Payment;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Auth;
 use App\Location;
@@ -44,11 +42,13 @@ class WebPaymentController extends Controller
         }
     }
 
+    //Esewa success method
     public function esewaSuccess()
     {
 
     }
 
+    //Esewa failure method
     public function esewaCancel()
     {
 

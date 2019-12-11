@@ -71,7 +71,7 @@
                                         <table style="width: 225px;height: 152px;" class="table table-bordered">
                                             <tr>
                                                 <td style="text-align: center"><i class="fa fa-map-marker"></i> </td>
-                                                <td>{{$audition->address}}</td>
+                                                <td>{{$audition->address?$audition->address:'Not Confirmed'}}</td>
                                             </tr>
                                             <tr>
                                                 <td style="text-align: center"><i class="fa fa-envelope"></i></td>
