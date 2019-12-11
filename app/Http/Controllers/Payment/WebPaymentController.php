@@ -16,4 +16,10 @@ class WebPaymentController extends Controller
     {
         return view('payment.register');
     }
+
+    public function payment()
+    {
+        return view('payment.payment');
+    }
+
 }
