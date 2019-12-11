@@ -40,13 +40,13 @@ class WebPaymentController extends Controller
         }
     }
 
-    protected function esewaVerify(Request $request)
+    protected function esewaVerify()
     {
         $url = "https://uat.esewa.com.np/epay/transrec";
         $data =[
             'amt'=> 1000*100,
-            'rid'=> $request->refId,
-            'pid'=>$request->oid,
+            'rid'=> $_GET['refId'],
+            'pid'=>$_GET['oid'],
             'scd'=> 'NP-ES-SRBN'
         ];
 
@@ -60,11 +60,11 @@ class WebPaymentController extends Controller
     }
 
     //Esewa success method
-    public function esewaSuccess(Request $request)
+    public function esewaSuccess()
     {
-        if($request->has('oid')&&$request->has('refId'))
+        if(isset($_GET['oid']) && isset($_GET['refId']))
         {
-            if($this->esewaVerify($request)==="Success")
+            if($this->esewaVerify()==="Success")
             {
                 $audition=Audition::where('email',Auth::user()->email)->first();
                 $audition->payment_type = "Khalti";
@@ -75,7 +75,7 @@ class WebPaymentController extends Controller
                 PaymentLog::createOrFirst([
                     'type'=>'Esewa',
                     'user_id'=>Auth::user()->id,
-                    'value'=>\serialize($request->all()),
+                    'value'=>\serialize($_GET),
                     'status'=>true
                 ]);
 
