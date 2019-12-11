@@ -62,7 +62,7 @@ class WebPaymentController extends Controller
     //Esewa success method
     public function esewaSuccess(Request $request)
     {
-        if($request->has('q')&&$request->q=='su')
+        if($request->has('oid')&&$request->has('refId'))
         {
             if($this->esewaVerify($request)==="Success")
             {
