@@ -295,25 +295,6 @@ Route::group(['prefix' => 'admin'], function(){
 
 Route::get('/my-pay','PaymentController@myPay');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //payment routes
 Route::get('/payment',['uses'=>'PaymentController@selectPayment','as'=>'select-payment']);
 

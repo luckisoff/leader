@@ -75,7 +75,7 @@
     </div>
 <script src="https://khalti.com/static/khalti-checkout.js"></script>
 <!-- <script src="https://www.paypalobjects.com/api/checkout.js"></script> -->
- <script src="https://www.paypal.com/sdk/js?client-id=AeK_uXchdPl_ctu5zY9C4mtdHDo6_pNihxDSgFU6PkDWvre1oJbu-y9xL67mCoyLUZ5bspN9TtBP8I3a&currency=USD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id={{config('services.paypal.client_id')}}&currency=USD"></script>
 <script type="text/javascript">
     var config = {
         "publicKey": '{{config('services.khalti.client_id')}}',
@@ -148,7 +148,7 @@
             return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: '5'
+                        value: '15'
                     }
                 }]
             });
