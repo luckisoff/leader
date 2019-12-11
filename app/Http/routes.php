@@ -442,10 +442,11 @@ Route::group(['prefix'=>'web'],function(){
         Route::post('/audition/register','Payment\WebPaymentController@storeRegistration');
     });
     // Esewa
-    Route::get('/audition/esewa/failure','Payment\WebPaymentController@esewaFailure');
     Route::get('/audition/esewa/success','Payment\WebPaymentController@esewaSuccess');
+    Route::get('/audition/esewa/failure','Payment\WebPaymentController@esewaFailure');
+    
     // Khalti
     Route::post('/audition/khalti/success','Payment\WebPaymentController@khaltiSuccess');
-    Route::get('/audition/paypal/verify','Payment\WebPaymentController@paypalVerify');
+    Route::post('/audition/paypal/success','Payment\WebPaymentController@paypalVerify');
 });
 

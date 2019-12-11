@@ -162,7 +162,7 @@ class KhaltiPaymentController extends Controller
 
         $data=[
             'reference'=>$request->reference,
-            'amount'=>1000
+            'amount'=>1000*100
         ];
 
         $curl = curl_init();

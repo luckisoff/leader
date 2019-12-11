@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use App\Location;
 use App\Audition;
+use App\PaymentLog;
 class WebPaymentController extends Controller
 {
 
@@ -31,7 +32,7 @@ class WebPaymentController extends Controller
         $audition->number=$request->phone;
         $audition->address=$request->address;
         $audition->gender=$request->gender;
-        $audition->email=$request->email;
+        $audition->email=Auth::User()->email;
         $audition->save();
         if($audition)
         {
@@ -39,16 +40,64 @@ class WebPaymentController extends Controller
         }
     }
 
-    //Esewa success method
-    public function esewaSuccess()
+    protected function esewaVerify(Request $request)
     {
+        $url = "https://uat.esewa.com.np/epay/transrec";
+        $data =[
+            'amt'=> 1000*100,
+            'rid'=> $request->refId,
+            'pid'=>$request->oid,
+            'scd'=> 'NP-ES-SRBN'
+        ];
 
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $response = json_decode(json_encode(curl_exec($curl)));
+        curl_close($curl);
+        return $response;
+    }
+
+    //Esewa success method
+    public function esewaSuccess(Request $request)
+    {
+        if($request->has('q')&&$request->q=='su')
+        {
+            if($this->esewaVerify($request)==="Success")
+            {
+                $audition=Audition::where('email',Auth::user()->email)->first();
+                $audition->payment_type = "Khalti";
+                $audition->payment_status = 1;
+                $audition->registration_code='LEADERSRBN'.Auth::user()->id;
+                $audition->save();
+                
+                PaymentLog::createOrFirst([
+                    'type'=>'Esewa',
+                    'user_id'=>Auth::user()->id,
+                    'value'=>\serialize($request->all()),
+                    'status'=>true
+                ]);
+
+                if(!$audition)
+                {
+                    return redirect('/web/audition/payment');
+                }
+                return redirect('/web/audition/register');
+            }
+        }
     }
 
     //Esewa failure method
     public function esewaFailure()
     {
-
+        PaymentLog::createOrFirst([
+            'type'=>'Esewa',
+            'user_id'=>Auth::user()->id,
+            'value'=>'',
+            'status'=>false
+        ]);
+        return redirect('/web/audition/payment');
     }
 
     public function payment()
@@ -91,6 +140,14 @@ class WebPaymentController extends Controller
         $audition->payment_status = 1;
         $audition->registration_code='LEADERSRBN'.Auth::user()->id;
         $audition->save();
+
+        PaymentLog::createOrFirst([
+            'type'=>'Khalti',
+            'user_id'=>Auth::user()->id,
+            'value'=>\serialize($request->all()),
+            'status'=>true
+        ]);
+
         return ['status'=>true];
         
     }
@@ -100,13 +157,26 @@ class WebPaymentController extends Controller
         return $this->khaltiWebVerify($request);
     }
 
-    public function paypalVerify()
+    public function paypalVerify(Request $request)
     {
         $audition=Audition::where('email',Auth::user()->email)->first();
         $audition->payment_type = "Khalti";
         $audition->payment_status = 1;
         $audition->registration_code='LEADERSRBN'.Auth::user()->id;
         $audition->save();
+
+        PaymentLog::createOrFirst([
+            'type'=>'Esewa',
+            'user_id'=>Auth::user()->id,
+            'value'=>'',
+            'status'=>false
+        ]);
+
+        if(!$audition)
+        {
+            return \trigger_error(['error'=>'No user found this time.']);
+        }
+        return ['status'=>true];
     }
 
 }

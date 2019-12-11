@@ -40,6 +40,8 @@
         <h4>{{tr('Payment Method')}}</h4>
 
             <h5>Pay With</h5>
+            <div class="alert alert-danger" id="error_msg" style="display:none">
+            </div>
             <div class="row payment-method">
                 <div class="esewa col-sm-6">
                     <button onclick="document.getElementById('esewaPayment').submit();">
@@ -58,12 +60,12 @@
                 </div>
             </div>
 
-            <form id="esewaPayment" action="https://uat.esewa.com.np/epay/main" method="POST">
-                <input value="100" name="tAmt" type="hidden">
-                <input value="90" name="amt" type="hidden">
-                <input value="5" name="txAmt" type="hidden">
-                <input value="2" name="psc" type="hidden">
-                <input value="3" name="pdc" type="hidden">
+            <form id="esewaPayment" action="https://esewa.com.np/epay/main" method="POST">
+                <input value="10000" name="tAmt" type="hidden">
+                <input value="1000" name="amt" type="hidden">
+                <input value="0" name="txAmt" type="hidden">
+                <input value="0" name="psc" type="hidden">
+                <input value="0" name="pdc" type="hidden">
                 <input value="NP-ES-SRBN" name="scd" type="hidden">
                 <input value="{{'Leader-Audition-'.Auth::user()->id}}" name="pid" type="hidden">
                 <input value="{{env('APP_URL').'/web/audition/esewa/success'}}" type="hidden" name="su">
@@ -94,9 +96,12 @@
                         }
                         window.location.href='{{env('APP_URL')."/web/audition/register"}}';
                     },
-                    error:function()
+                    error:function(error)
                     {
-                        window.location.href='{{env('APP_URL')."/web/audition/payment"}}';
+                        document.getElementById("error_msg").style.display = 'block';
+                        document.getElementById("error_msg").innerHTML = '<span>Could not process payment at this time.</span>';
+
+                        // window.location.href='{{env('APP_URL')."/web/audition/payment"}}';
                     }
                 })
                 
@@ -114,6 +119,12 @@
         var checkout = new KhaltiCheckout(config);
         checkout.show({amount: totalAmount});
     }
+
+    // if(getParamValue('msg')) 
+    // { 
+    //     alert(getParamValue('msg'));
+        
+    // } 
 
     paypal.Buttons({
     // Configure environment
@@ -147,6 +158,25 @@
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(details) {
                 // Show a success message to the buyer
+                $.ajax({
+                    url:'{{env('APP_URL')."/web/audition/paypal/success"}}',
+                    type:"POST",
+                    dataType:"JSON",
+                    data:details,
+                    success:function(response){
+                        if(response.status)
+                        {
+                            window.location.href='{{env('APP_URL')."/web/audition/register"}}';
+                        }
+                        window.location.href='{{env('APP_URL')."/web/audition/register"}}';
+                    },
+                    error:function(error)
+                    {
+                        
+                        document.getElementById("error_msg").style.display = 'block';
+                        document.getElementById("error_msg").innerHTML = '<span>Could not process payment at this time.</span>';
+                    }
+                })
                 alert('Transaction completed by ' + details.payer.name.given_name + '!');
             });
         }
