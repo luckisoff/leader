@@ -4,7 +4,7 @@
 
 <div class="login-box">
     <h4>{{tr('reset_password')}}</h4> 
-                
+               
     <form class="signup-form login-form" role="form" method="POST" action="{{ url('/password/reset') }}">
                     {{ csrf_field() }}
                     <input type="hidden" name="token" value="{{ $token }}">

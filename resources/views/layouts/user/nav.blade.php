@@ -57,11 +57,11 @@
 	          	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 		            <ul class="nav navbar-nav navbar-left">
-		              	<li id="home"><a href="{{route('user.dashboard')}}">{{tr('videos')}}</a></li>
+		              	{{-- <li id="home"><a href="{{route('user.dashboard')}}">{{tr('videos')}}</a></li>
 		              	<li id="categories"><a href="{{route('user.categories')}}">{{tr('categories')}}</a></li>
-		              	<li id="trending"><a href="{{route('user.trending')}}">{{tr('trending')}}</a></li>
+		              	<li id="trending"><a href="{{route('user.trending')}}">{{tr('trending')}}</a></li> --}}
 		              	@if(Auth::check())
-						  <li id="profile"><a href="{{route('user.wishlist')}}">{{tr('wishlist')}}</a></li>
+						  {{-- <li id="profile"><a href="{{route('user.wishlist')}}">{{tr('wishlist')}}</a></li> --}}
 						  <li><a href="{{route('web-leader-register')}}">{{tr('leader register')}}</a></li>
 		              	@endif
 		              
