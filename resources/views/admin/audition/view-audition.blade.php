@@ -30,6 +30,7 @@
                         <thead>
                             <tr>
                                 <th>S.N.</th>
+                                <th>User Id</th>
                                 <th>Contestant Name</th>
                                 <th>Contact Number</th>
                                 <th>Address</th>
@@ -48,6 +49,7 @@
 
                                 <tr>
                                     <td> {{ $key + 1 }}.</td>
+                                    <td><span class="label label-success">{{$value->user_id}}</span></td>
                                     <td> {{ $value->name }}</td>
 
                                     <td>
