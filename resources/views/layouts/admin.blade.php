@@ -120,7 +120,7 @@
                 //     buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
                 // }
             );
-            $('#example1').DataTable({
+            $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": false,
                 "searching": true,
@@ -132,7 +132,35 @@
         });
         
     </script>
+ <script>
+    $(document).ready(function () {
+        $('#audition-table').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax":{
+                     "url": "{{route('audition.ajax-audition') }}",
+                     "dataType": "json",
+                     "type": "POST",
+                     "data":{ _token: "{{csrf_token()}}"}
+                   },
+            "columns": [
+                { "data": "id" },
+                { "data": "user_id" },
+                { "data": "name" },
+                { "data": "number" },
+                { "data": "address" },
+                { "data": "gender" },
+                {"data":"email"},
+                {"data":"payment_status"},
+                {"data":"registration_code"},
+                {"data":"payment_type"},
+                {"data":"options"},
 
+            ]	 
+
+        });
+    });
+</script>
 
 
     <script type="text/javascript">

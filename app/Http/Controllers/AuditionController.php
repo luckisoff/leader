@@ -558,8 +558,7 @@ class AuditionController extends Controller
     }
 
     public function viewAllAuditionUser(){
-        $data['contestant'] = Audition::orderBy('payment_status','desc')->get();
-        $data['totalUsers'] =count($data['contestant']);
+        $data['totalUsers'] =Audition::count();
         $data['totalRegistered']=Audition::where('payment_status',1)->count();
         $data['esewaUsers']=Audition::where('payment_type','Esewa')->orWhere('payment_type','esewa')->count();        
         $data['khaltiUsers']=Audition::where('payment_type','Khalti')->orWhere('payment_type','khalti')->count();        
@@ -858,14 +857,15 @@ class AuditionController extends Controller
     {
         $columns = array( 
             0 =>'id', 
-            1 =>'name',
-            2=> 'number',
-            3=> 'address',
-            4=> 'gender',
-            5=>'email',
-            6=>'payment_status',
-            7=>'payment_type',
-            8=>'registration_code'
+            1=>'user_id',
+            2 =>'name',
+            3=> 'number',
+            4=> 'address',
+            5=> 'gender',
+            6=>'email',
+            7=>'payment_status',
+            8=>'registration_code',
+            9=>'payment_type'
         );
 
         $totalData = Audition::count();
@@ -879,23 +879,24 @@ class AuditionController extends Controller
 
         if(empty($request->input('search.value')))
         {            
-        $auditions = Audition::offset($start)
+            $auditions = Audition::offset($start)
                 ->limit($limit)
-                ->orderBy($order,$dir)
+                ->orderBy('payment_status','desc')
                 ->get();
         }
-        else {
-        $search = $request->input('search.value'); 
+        else 
+        {
+            $search = $request->input('search.value'); 
 
-        $auditions =  Audition::where('id','LIKE',"%{$search}%")
-                    ->orWhere('name', 'LIKE',"%{$search}%")
-                    ->orWhere('address','LIKE',"%{$search}%")
-                    ->offset($start)
-                    ->limit($limit)
-                    ->orderBy($order,$dir)
-                    ->get();
+            $auditions =  Audition::where('user_id','LIKE',"%{$search}%")
+                        ->orWhere('name', 'LIKE',"%{$search}%")
+                        ->orWhere('address','LIKE',"%{$search}%")
+                        ->offset($start)
+                        ->limit($limit)
+                        ->orderBy($order,$dir)
+                        ->get();
 
-        $totalFiltered = Post::where('id','LIKE',"%{$search}%")
+            $totalFiltered = Audition::where('user_id','LIKE',"%{$search}%")
                     ->orWhere('name', 'LIKE',"%{$search}%")
                     ->orWhere('address', 'LIKE',"%{$search}%")
                     ->count();
@@ -904,26 +905,32 @@ class AuditionController extends Controller
         $data = array();
         if(!empty($auditions))
         {
-        foreach ($auditions as $audition)
-        {
-        // $show =  route('audition.show',$audition->id);
-        // $edit =  route('audition.edit',$audition->id);
+            foreach ($auditions as $key=>$audition)
+            {
+                
+                $nestedData['id'] = $key+1+$start;
+                $nestedData['user_id'] = $audition->payment_status==1
+                ?"<span class='label label-success'>".$audition->user_id."<span>":
+                "<span class='label label-danger'>".$audition->user_id."<span>";
 
-        $nestedData['id'] = $audition->id;
-        $nestedData['name'] = $audition->name;
-        $nestedData['number'] =$audition->number;
-        $nestedData['address'] =$audition->address;
-        $nestedData['gender'] =$audition->gender;
-        $nestedData['email'] =$audition->email;
-        $nestedData['payment_status'] =$audition->payment_status;
-        $nestedData['payment_type'] =$audition->payment_type;
-        $nestedData['registration_code'] =$audition->registration_code;
-        
-        // $nestedData['options'] = "&emsp;<a href='{$show}' title='SHOW' ><span class='glyphicon glyphicon-list'></span></a>
-        //                         &emsp;<a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>";
-        $data[] = $nestedData;
 
-        }
+                $nestedData['name'] = $audition->name;
+                $nestedData['number'] =$audition->number;
+                $nestedData['address'] =$audition->address;
+                $nestedData['gender'] =$audition->gender;
+                $nestedData['email'] =$audition->email;
+
+                $nestedData['payment_status'] =$audition->payment_status==1
+                ?"<i style='color:green;padding-left:25px;' class='fa fa-check-circle'></i>":
+                "<i style='color:red;padding-left:25px;' class='fa fa-times-circle'></i>";
+
+                $nestedData['payment_type'] =$this->ajaxPaymentType($audition->payment_type);
+                $nestedData['registration_code'] =$audition->registration_code
+                ?"<span class='label label-success'>".$audition->registration_code."</span>":"<span class='label label-danger'>Unavailable</span>";
+                
+                $nestedData['options'] =$this->ajaxOption($audition); 
+                $data[] = $nestedData;
+            }
         }
 
         $json_data = array(
@@ -932,7 +939,62 @@ class AuditionController extends Controller
             "recordsFiltered" => intval($totalFiltered), 
             "data"            => $data   
             );
+        return json_encode($json_data);
+    }
 
-        echo json_encode($json_data);
+    protected function ajaxOption($option)
+    {
+        return 
+        '<ul class="admin-action btn btn-default">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Action <span class="caret"></span>
+                </a>
+
+                <ul class="dropdown-menu">
+
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href='.route('audition.edit-audition-form', array('id' => $option->id)).'>
+                            <i class="fa fa-pencil"></i>Edit
+                        </a>
+                    </li>
+
+
+                    <li role="presentation">
+                        
+                            <a role="menuitem" tabindex="-1" onclick="return confirm("Are you sure?");" href='.route("audition.delete-audition",array("id" => $option->id)).'>
+                                <i class="fa fa-trash"></i>Delete
+                            </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>';
+    }
+
+    protected function ajaxPaymentType($type){
+        $message='';
+        switch(strtolower($type)){
+            case 'khalti':
+                $message=
+                '<div style="float: left;padding-left: 25px;">
+                    <img title="Khalti" class="img img-responsive" style="max-width:100%; height: 40px;" src="'.asset('images/khalti.png').'" alt="Pay With Khalti">
+                </div>';
+            break;
+            case 'esewa':
+                $message=
+                '<div style="float: left;padding-left: 25px;">
+                    <img title="Esewa" class="img img-responsive" style="max-width:100%; height: 40px;" src="'.asset('images/esewa-logo.jpg').'" alt="Pay With Khalti">
+                </div>';
+            break;
+            case 'paypal':
+                $message=
+                '<div style="float: left;padding-left: 25px;">
+                    <img title="Paypal" class="img img-responsive" style="max-width:85%; height: 40px;" src="'.asset('images/paypal.png').'" alt="Pay With Khalti">
+                </div>';
+            break;
+            default:
+            $message='Not Available';
+        }
+        return $message;
     }
 }
