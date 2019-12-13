@@ -599,8 +599,10 @@ class AuditionController extends Controller
         $form->gender = $request->gender;
         $form->address = $request->address;
         $form->payment_status=$request->payment_status;
-        $form->payment_type=$request->payment_type;
-        $form->registration_code='LEADERSRBN'.$form->user_id;
+
+        $form->payment_type=$form->payment_status==1?$request->payment_type:'';
+        $form->registration_code=$form->payment_status==1?'LEADERSRBN'.$form->user_id:'';
+        
         $form->number = $request->number;
         $form->email = $request->email;
 
