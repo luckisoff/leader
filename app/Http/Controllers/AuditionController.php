@@ -978,20 +978,20 @@ class AuditionController extends Controller
         switch(strtolower($type)){
             case 'khalti':
                 $message=
-                '<div style="float: left;padding-left: 25px;">
-                    <img title="Khalti" class="img img-responsive" style="max-width:100%; height: 40px;" src="'.asset('images/khalti.png').'" alt="Pay With Khalti">
+                '<div style="float: left;padding: 10px;">
+                    <img title="Khalti" class="img img-responsive" style="max-width:100%;" src="'.asset('images/khalti.png').'" alt="Pay With Khalti">
                 </div>';
             break;
             case 'esewa':
                 $message=
                 '<div style="float: left;padding-left: 25px;">
-                    <img title="Esewa" class="img img-responsive" style="max-width:100%; height: 40px;" src="'.asset('images/esewa-logo.jpg').'" alt="Pay With Khalti">
+                    <img title="Esewa" class="img img-responsive" style="max-width:100%;" src="'.asset('images/esewa-logo.jpg').'" alt="Pay With Khalti">
                 </div>';
             break;
             case 'paypal':
                 $message=
                 '<div style="float: left;padding-left: 25px;">
-                    <img title="Paypal" class="img img-responsive" style="max-width:85%; height: 40px;" src="'.asset('images/paypal.png').'" alt="Pay With Khalti">
+                    <img title="Paypal" class="img img-responsive" style="max-width:85%;" src="'.asset('images/paypal.png').'" alt="Pay With Khalti">
                 </div>';
             break;
             default:
