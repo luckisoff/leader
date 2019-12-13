@@ -598,7 +598,8 @@ class AuditionController extends Controller
         $form->name = $request->name;
         $form->gender = $request->gender;
         $form->address = $request->address;
-
+        $form->payment_status=$request->payment_status;
+        $form->payment_type=$request->payment_type;
         $form->number = $request->number;
         $form->email = $request->email;
 

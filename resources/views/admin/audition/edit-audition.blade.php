@@ -49,9 +49,9 @@
                                 <label for="" class="">Gender <span style="color:red;">*</span></label>
                                 <select class="form-control" id="" name="gender">
                                     <option value="">Select Any One</option>
-                                    <option value="male" @if( ( (old('gender') == null) ?  $contestant->gender : old('gender'))  == "male") selected @endif> Male</option>
-                                    <option value="female" @if(( (old('gender') == null) ?  $contestant->gender : old('gender')) == "female") selected @endif>Female</option>
-                                    <option value="others" @if( ( (old('gender') == null) ?  $contestant->gender : old('gender')) == "others") selected @endif>Others</option>
+                                    <option value="Male" {{$contestant->gender=='Male'?'selected':''}}> Male</option>
+                                    <option value="Female" {{$contestant->gender=='Female'?'selected':''}}>Female</option>
+                                    <option value="Others" {{$contestant->gender=='Others'?'selected':''}}>Others</option>
                                 </select>
                                 @if($errors->has('gender'))
                                     <span class="help-block" style="color:red;">
@@ -94,6 +94,24 @@
                                       * {{ $errors->first('email') }}
                                   </span>
                                 @endif
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="">Status <span style="color:red;">*</span></label>
+                                <select class="form-control" id="" name="payment_status">
+                                    <option value="">Select</option>
+                                    <option value="1" {{$contestant->payment_status==1?'selected':''}}>Paid</option>
+                                    <option value="0" {{$contestant->payment_status==0?'selected':''}}>Not Paid</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="" class="">Payment Type <span style="color:red;">*</span></label>
+                                <select class="form-control" id="" name="payment_type">
+                                    <option value="">Select</option>
+                                    <option value="Esewa" {{strtolower($contestant->payment_type)=='esewa'?'selected':''}}>Esewa</option>
+                                    <option value="Khalti" {{strtolower($contestant->payment_type)=='khalti'?'selected':''}}>Khalti</option>
+                                    <option value="Paypal" {{strtolower($contestant->payment_type)=='paypal'?'selected':''}}>Paypal</option>
+                                </select>
                             </div>
 
                         </div>
