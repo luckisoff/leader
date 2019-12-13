@@ -12,10 +12,10 @@ body {
 }
 .navbar-brand>img {
     display: block;
-    height: 30px;
     margin-top: 10px;
     margin-bottom: 10px;
-    margin-right: 10px;
+    margin-left: 113px;
+    width: 49px;
 }
 .top-nav{
 	background-color: #001554;

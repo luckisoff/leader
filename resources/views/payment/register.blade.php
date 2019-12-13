@@ -3,8 +3,10 @@
 @section('content')
     <div class="login-box">
     @if(!$audition)
-        <h4>{{tr('Leader Registration')}}</h4>
-
+        {{-- <h4>{{tr('Leader Registration')}}</h4> --}}
+        <div class="text-center">
+            <a href="{{route('user.dashboard')}}"><img class="login-logo" src="{{Setting::get('site_logo' , asset('logo.png'))}}"></a>
+        </div>
         <form role="form" method="POST" action="{{ url('web/audition/register') }}">
             
             {!! csrf_field() !!}

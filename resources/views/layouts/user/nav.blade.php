@@ -1,9 +1,10 @@
 <div class="top-fix">
-            
+	<a class="navbar-brand" href="{{route('user.dashboard')}}"><img src="{{Setting::get('site_logo' , asset('logo.png'))}}"></a>
     <div class="row top-nav">
 
     	@if(Auth::check())
-          <div class="container nav-pad">            
+          <div class="container nav-pad"> 
+			           
             <div class="dropdown">
               <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown">
                @if(Auth::check()) {{Auth::user()->name}} @else User @endif <span class="caret"></span>
@@ -38,9 +39,9 @@
 
     <div class="row main-nav">
 
-      	{{-- <nav class="navbar navbar-default" role="navigation">
+      	{{-- <nav class="navbar navbar-default" role="navigation"> --}}
 
-	        <div class="container nav-pad">
+	        {{-- <div class="container nav-pad">
 	          	<!-- Brand and toggle get grouped for better mobile display -->
 	          	<div class="navbar-header">
 		            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -50,22 +51,22 @@
 		              <span class="icon-bar"></span>
 		            </button>
 		            <a class="navbar-brand" href="{{route('user.dashboard')}}"><img src="{{Setting::get('site_logo' , asset('logo.png'))}}"></a>
-	          	</div> --}}
+	          	</div>
 
 	          	<!-- Collect the nav links, forms, and other content for toggling -->
 	          	
-	          	{{-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	          	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-		            <ul class="nav navbar-nav navbar-left"> --}}
+		            <ul class="nav navbar-nav navbar-left">  --}}
 		              	{{-- <li id="home"><a href="{{route('user.dashboard')}}">{{tr('videos')}}</a></li>
 		              	<li id="categories"><a href="{{route('user.categories')}}">{{tr('categories')}}</a></li>
 		              	<li id="trending"><a href="{{route('user.trending')}}">{{tr('trending')}}</a></li> --}}
 		              	{{-- @if(Auth::check()) --}}
 						  {{-- <li id="profile"><a href="{{route('user.wishlist')}}">{{tr('wishlist')}}</a></li> --}}
 						  {{-- <li><a href="{{route('web-leader-register')}}">{{tr('leader register')}}</a></li>
-		              	@endif
+							@endif--}}
 		              
-		            </ul>
+		            {{-- </ul>
 
 		            <form class="navbar-form navbar-right" role="search" id="userSearch" action="{{route('search-all')}}">
 		              	<div class="form-group">
@@ -78,15 +79,15 @@
 		            
 		            </form>
 	            
-	          	</div> --}}
+	          	</div>
 
 	          	<!-- /.navbar-collapse -->
 
-	        {{-- </div>
+	        </div>
 
 	        <!-- /.container-fluid -->
-      	</nav> --}}
-    </div>
+      	</nav>
+    </div> --}}
 
 </div>
 
