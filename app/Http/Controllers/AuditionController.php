@@ -558,7 +558,7 @@ class AuditionController extends Controller
     }
 
     public function viewAllAuditionUser(){
-        $data['contestant'] = Audition::orderBy('payment_status','desc')->get();
+        $data['contestant'] = Audition::orderBy('payment_status','desc')->paginate(100);
         $data['totalUsers'] =count($data['contestant']);
         $data['totalRegistered']=Audition::where('payment_status',1)->count();
         $data['esewaUsers']=Audition::where('payment_type','Esewa')->orWhere('payment_type','esewa')->count();        

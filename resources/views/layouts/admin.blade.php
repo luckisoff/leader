@@ -120,7 +120,7 @@
                 //     buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
                 // }
             );
-            $('#example2').DataTable({
+            $('#example1').DataTable({
                 "paging": true,
                 "lengthChange": false,
                 "searching": true,
@@ -145,32 +145,32 @@
    <?php echo Setting::get('body_scripts'); ?>
    @if(isset($leaderboards))
    <script>
-       var ctx = document.getElementById('myChart');
-       var myBarChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels:[@foreach($leaderboards as $leaderboard)"{{$leaderboard->user['name']}}",@endforeach],
-                datasets: [{
-                        barPercentage: 0.5,
-                        barThickness: 6,
-                        maxBarThickness: 8,
-                        minBarLength: 2,
-                        label: 'Rs Total (Top 10)',
-                        data: [@foreach($leaderboards as $leaderboard){{$leaderboard->point}},@endforeach],
-                        backgroundColor : [
-                            @php($colors=['pink','violet','red','green', 'blue', 'purple','magenta','orange','red'])
-                            @foreach($leaderboards as $leaderboard)
-                                "{{$colors[array_rand($colors)] }}",
-                            @endforeach
-                        ],
-                        borderColor : [
-                            @foreach($leaderboards as $leaderboard)
-                                "#111",
-                            @endforeach
-                        ],
-                    }]
-                },
-        });
+    //    var ctx = document.getElementById('myChart');
+    //    var myBarChart = new Chart(ctx, {
+    //         type: 'bar',
+    //         data: {
+    //             labels:[@foreach($leaderboards as $leaderboard)"{{$leaderboard->user['name']}}",@endforeach],
+    //             datasets: [{
+    //                     barPercentage: 0.5,
+    //                     barThickness: 6,
+    //                     maxBarThickness: 8,
+    //                     minBarLength: 2,
+    //                     label: 'Rs Total (Top 10)',
+    //                     data: [@foreach($leaderboards as $leaderboard){{$leaderboard->point}},@endforeach],
+    //                     backgroundColor : [
+    //                         @php($colors=['pink','violet','red','green', 'blue', 'purple','magenta','orange','red'])
+    //                         @foreach($leaderboards as $leaderboard)
+    //                             "{{$colors[array_rand($colors)] }}",
+    //                         @endforeach
+    //                     ],
+    //                     borderColor : [
+    //                         @foreach($leaderboards as $leaderboard)
+    //                             "#111",
+    //                         @endforeach
+    //                     ],
+    //                 }]
+    //             },
+    //     });
     </script>
     @endif
 </body>

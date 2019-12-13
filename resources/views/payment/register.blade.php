@@ -79,6 +79,7 @@
                                 </div>
                                 <div class="col-xs-9">
                                     <h4 style="text-align:left"><i class="fa fa-user"></i> {{$audition->name}}</h4>
+                                   
                                     <p>
                                         <table style="width: 225px;height: 152px;" class="table table-bordered">
                                             <tr>
@@ -102,6 +103,9 @@
                                             </tr>
                                         </table>                                         
                                     </p>
+                                    @if(session('message'))
+                                        <h6 class="alert alert-success">{{session('message')}}</h6>
+                                    @endif
                                     <!-- Split button -->
                                 </div>
                             </div>
