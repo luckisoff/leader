@@ -32,6 +32,10 @@
     <div class="login-box">
         <h4>{{tr('Payment Method')}}</h4>
 
+            @if(session('message'))
+                <h6 class="alert alert-warning">{{session('message')}}</h6>
+            @endif
+
             <h5>Pay With</h5>
             <div class="alert alert-danger" id="error_msg" style="display:none">
             </div>

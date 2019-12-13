@@ -238,6 +238,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/',['uses'=>'AuditionController@viewAllAuditionUser','as'=>'view-audition']);
         Route::get('/add',['uses'=>'AuditionController@showAuditionForm','as'=>'show-audition-form']);
         Route::post('/store',['uses'=>'AuditionController@addAudition','as'=>'add-audition']);
+        Route::post('/ajax',['uses'=>'AuditionController@ajax','as'=>'ajax-audition']);
 
         Route::get('/edit/{id}',['uses'=>'AuditionController@showEditAuditionForm','as'=>'edit-audition-form']);
         Route::post('/edit',['uses'=>'AuditionController@editAudition','as'=>'edit-audition']);

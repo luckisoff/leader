@@ -558,7 +558,7 @@ class AuditionController extends Controller
     }
 
     public function viewAllAuditionUser(){
-        $data['contestant'] = Audition::orderBy('payment_status','desc')->paginate(100);
+        $data['contestant'] = Audition::orderBy('payment_status','desc')->get();
         $data['totalUsers'] =count($data['contestant']);
         $data['totalRegistered']=Audition::where('payment_status',1)->count();
         $data['esewaUsers']=Audition::where('payment_type','Esewa')->orWhere('payment_type','esewa')->count();        
@@ -850,4 +850,89 @@ class AuditionController extends Controller
         return redirect()->route('location.view-location');
     }
     //end audition location function
+
+
+
+
+    public function ajax(Request $request)
+    {
+        $columns = array( 
+            0 =>'id', 
+            1 =>'name',
+            2=> 'number',
+            3=> 'address',
+            4=> 'gender',
+            5=>'email',
+            6=>'payment_status',
+            7=>'payment_type',
+            8=>'registration_code'
+        );
+
+        $totalData = Audition::count();
+
+        $totalFiltered = $totalData; 
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+
+        if(empty($request->input('search.value')))
+        {            
+        $auditions = Audition::offset($start)
+                ->limit($limit)
+                ->orderBy($order,$dir)
+                ->get();
+        }
+        else {
+        $search = $request->input('search.value'); 
+
+        $auditions =  Audition::where('id','LIKE',"%{$search}%")
+                    ->orWhere('name', 'LIKE',"%{$search}%")
+                    ->orWhere('address','LIKE',"%{$search}%")
+                    ->offset($start)
+                    ->limit($limit)
+                    ->orderBy($order,$dir)
+                    ->get();
+
+        $totalFiltered = Post::where('id','LIKE',"%{$search}%")
+                    ->orWhere('name', 'LIKE',"%{$search}%")
+                    ->orWhere('address', 'LIKE',"%{$search}%")
+                    ->count();
+        }
+
+        $data = array();
+        if(!empty($auditions))
+        {
+        foreach ($auditions as $audition)
+        {
+        // $show =  route('audition.show',$audition->id);
+        // $edit =  route('audition.edit',$audition->id);
+
+        $nestedData['id'] = $audition->id;
+        $nestedData['name'] = $audition->name;
+        $nestedData['number'] =$audition->number;
+        $nestedData['address'] =$audition->address;
+        $nestedData['gender'] =$audition->gender;
+        $nestedData['email'] =$audition->email;
+        $nestedData['payment_status'] =$audition->payment_status;
+        $nestedData['payment_type'] =$audition->payment_type;
+        $nestedData['registration_code'] =$audition->registration_code;
+        
+        // $nestedData['options'] = "&emsp;<a href='{$show}' title='SHOW' ><span class='glyphicon glyphicon-list'></span></a>
+        //                         &emsp;<a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>";
+        $data[] = $nestedData;
+
+        }
+        }
+
+        $json_data = array(
+            "draw"            => intval($request->input('draw')),  
+            "recordsTotal"    => intval($totalData),  
+            "recordsFiltered" => intval($totalFiltered), 
+            "data"            => $data   
+            );
+
+        echo json_encode($json_data);
+    }
 }

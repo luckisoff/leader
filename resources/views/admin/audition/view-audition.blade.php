@@ -165,6 +165,8 @@
                                 @endforeach
 
                         </tbody>
+
+                        <tbody></tbody>
                         </table>
                         </div>
                     @else
@@ -174,7 +176,7 @@
             </div>
         </div>
     </div>
-
+    
 @endsection
 
 @section('scripts')

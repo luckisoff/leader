@@ -84,7 +84,8 @@ class WebPaymentController extends Controller
 
                 if(!$audition)
                 {
-                    return redirect('/web/audition/payment');
+                    return redirect('/web/audition/payment')
+                    ->with('message','Please wait some time for confirmation');;
                 }
                 return redirect('/web/audition/register')
                 ->with('message','Registration successful. Please wait some time for confirmation.');
