@@ -892,6 +892,7 @@ class AuditionController extends Controller
                         ->orWhere('name', 'LIKE',"%{$search}%")
                         ->orWhere('address','LIKE',"%{$search}%")
                         ->offset($start)
+                        ->orWhere('payment_type','LIKE',"%{$search}%")
                         ->limit($limit)
                         ->orderBy($order,$dir)
                         ->get();
@@ -899,6 +900,7 @@ class AuditionController extends Controller
             $totalFiltered = Audition::where('user_id','LIKE',"%{$search}%")
                     ->orWhere('name', 'LIKE',"%{$search}%")
                     ->orWhere('address', 'LIKE',"%{$search}%")
+                    ->orWhere('payment_type','LIKE',"%{$search}%")
                     ->count();
         }
 
