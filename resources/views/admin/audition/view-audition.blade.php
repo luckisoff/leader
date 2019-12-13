@@ -109,7 +109,7 @@
                                               @elseif(strtolower($value->payment_type)=='esewa')
                                               <div style="float: left;padding-left: 25px;">
                                                   <a href="{{ route('paypal.view-paypal',array('user_id' => $value->id)) }}">
-                                                      <img title="Paypal" class="img img-responsive" style="max-width:100%; height: 25px;" src="{{asset('images/esewa-logo.png')}}" alt="Pay With Esewa">
+                                                      <img title="Paypal" class="img img-responsive" style="max-width:100%; height: 25px;" src="{{asset('images/esewa-logo.jpg')}}" alt="Pay With Esewa">
                                                   </a>
                                               </div>
                                             @endif
