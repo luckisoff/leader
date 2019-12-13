@@ -49,7 +49,7 @@
 
                                 <tr>
                                     <td> {{ $key + 1 }}.</td>
-                                    <td><span class="label label-success">{{$value->user_id}}</span></td>
+                                    <td><span class="label {{$value->payment_status == 1?'label-success':'label-danger'}}">{{$value->user_id}}</span></td>
                                     <td> {{ $value->name }}</td>
 
                                     <td>
