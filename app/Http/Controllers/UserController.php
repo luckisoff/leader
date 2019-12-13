@@ -69,7 +69,7 @@ class UserController extends Controller
             $suggestions  = Helper::suggestion_videos(WEB);*/
 
             $categories = get_categories();
-
+            return redirect('/login');
             return view('user.index')
                         ->with('page' , 'home')
                         ->with('subPage' , 'home')
