@@ -874,8 +874,6 @@ class AuditionController extends Controller
 
         $limit = $request->input('length');
         $start = $request->input('start');
-        $order = $columns[$request->input('order.0.column')];
-        $dir = $request->input('order.0.dir');
 
         if(empty($request->input('search.value')))
         {            
@@ -894,7 +892,7 @@ class AuditionController extends Controller
                         ->offset($start)
                         ->orWhere('payment_type','LIKE',"%{$search}%")
                         ->limit($limit)
-                        ->orderBy($order,$dir)
+                        ->orderBy('payment_status','desc')
                         ->get();
 
             $totalFiltered = Audition::where('user_id','LIKE',"%{$search}%")
