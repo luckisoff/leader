@@ -72,7 +72,7 @@ class WebPaymentController extends Controller
                 $audition=Audition::where('user_id',$request->id)->first();
                 $audition->payment_type = "Esewa";
                 $audition->payment_status = 1;
-                $audition->registration_code='LEADERSRBN'.$request->id.'-mobile-'.$audition->mobile;
+                $audition->registration_code='LEADERSRBN'.$request->id;
                 $audition->save();
                 
                 PaymentLog::create([
