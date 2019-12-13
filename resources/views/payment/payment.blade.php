@@ -2,13 +2,6 @@
 
 @section('content')
 <style type="text/css">
-.login-box{
-    background-color: #d4d3d2;
-}
-.login-box h4, .login-box h5{
-    color: rgb(44, 46, 47) !important;
-
-}
 .esewa{
     margin: 0;
     padding: 0 0 5px 15px;

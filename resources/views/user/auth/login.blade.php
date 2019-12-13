@@ -3,7 +3,10 @@
 @section('content')
 
     <div class="login-box">
-        <h4>{{tr('login')}}</h4>
+        {{-- <h4>{{tr('Login')}}</h4> --}}
+        <div class="text-center">
+            <a href="{{route('user.dashboard')}}"><img class="login-logo" src="{{Setting::get('site_logo' , asset('logo.png'))}}"></a>
+        </div>
 
         <form role="form" method="POST" action="{{ url('/login') }}">
             
@@ -27,10 +30,10 @@
                 </span>
             </div> 
 
-          <button type="submit" class="btn btn-default">{{tr('login')}}</button>
+          <button type="submit" class="btn btn-default">{{tr('Login')}}</button>
         </form>                
-        <p class="help"><a href="{{route('user.register.form')}}">{{tr('new_account')}}</a></p>
-        <p class="help"><a href="{{ url('/password/reset') }}">{{tr('forgot_password')}}</a></p>
+        <p class="help"><a href="{{route('user.register.form')}}">{{tr('Register')}}</a></p>
+        <p class="help"><a href="{{ url('/password/reset') }}">{{tr('ForgetPassword?')}}</a></p>
     </div>
 
 @endsection

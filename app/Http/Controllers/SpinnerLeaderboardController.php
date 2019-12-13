@@ -45,7 +45,7 @@ class SpinnerLeaderboardController extends Controller
 
     public function topTenUsers()
     {
-        $topTenUsers=SpinnerLeaderboard::orderBy('point','asc')->join('users',function($join){
+        $topTenUsers=SpinnerLeaderboard::orderBy('point','desc')->join('users',function($join){
             $join->on('user_id','=','users.id');
         })->select('spinner_leaderboards.user_id','spinner_leaderboards.point','users.name','users.picture','users.email')
         ->limit(10)->get();

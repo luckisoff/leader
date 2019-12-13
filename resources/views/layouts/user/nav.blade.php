@@ -9,18 +9,18 @@
                @if(Auth::check()) {{Auth::user()->name}} @else User @endif <span class="caret"></span>
               </button>
               <ul class="dropdown-menu dropdown-menu-right">
-                <li><a href="{{route('user.profile')}}">{{tr('profile')}}</a></li>
-				<li><a href="{{route('user.wishlist')}}">{{tr('wishlist')}}</a></li>
-				<li><a href="{{route('web-leader-register')}}">{{tr('leader register')}}</a></li>
+                {{-- <li><a href="{{route('user.profile')}}">{{tr('profile')}}</a></li>
+				<li><a href="{{route('user.wishlist')}}">{{tr('wishlist')}}</a></li> --}}
+				<li><a href="{{route('web-leader-register')}}">{{tr('Leader register')}}</a></li>
 				
                 <li>
                 	<a href="{{route('user.delete.account')}}" @if(Auth::user()->login_by != 'manual') onclick="return confirm('Are you sure? . Once you deleted account, you will lose your history and wishlist details.')" @endif>
-                        <i class="fa fa-trash"></i>{{tr('delete_account')}}
+                        {{tr('Delete Account?')}}
                     </a>
 
                 </li>  
 
-                <li><a href="{{route('user.logout')}}">{{tr('logout')}}</a></li>                
+                <li><a href="{{route('user.logout')}}">{{tr('Logout')}}</a></li>                
               </ul>
             </div>  
           </div>
@@ -28,8 +28,8 @@
         @else 
 
       	<div class="container nav-pad">
-	        <a href="{{ route('user.login.form') }}">{{tr('login')}}</a>  
-	        <a href="{{route('user.register.form')}}">{{tr('register')}}</a>  
+	        <a href="{{ route('user.login.form') }}">{{tr('Login')}}</a>  
+	        <a href="{{route('user.register.form')}}">{{tr('Register')}}</a>  
       	</div>
 
       	@endif
@@ -38,7 +38,7 @@
 
     <div class="row main-nav">
 
-      	<nav class="navbar navbar-default" role="navigation">
+      	{{-- <nav class="navbar navbar-default" role="navigation">
 
 	        <div class="container nav-pad">
 	          	<!-- Brand and toggle get grouped for better mobile display -->
@@ -50,19 +50,19 @@
 		              <span class="icon-bar"></span>
 		            </button>
 		            <a class="navbar-brand" href="{{route('user.dashboard')}}"><img src="{{Setting::get('site_logo' , asset('logo.png'))}}"></a>
-	          	</div>
+	          	</div> --}}
 
 	          	<!-- Collect the nav links, forms, and other content for toggling -->
 	          	
-	          	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	          	{{-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-		            <ul class="nav navbar-nav navbar-left">
+		            <ul class="nav navbar-nav navbar-left"> --}}
 		              	{{-- <li id="home"><a href="{{route('user.dashboard')}}">{{tr('videos')}}</a></li>
 		              	<li id="categories"><a href="{{route('user.categories')}}">{{tr('categories')}}</a></li>
 		              	<li id="trending"><a href="{{route('user.trending')}}">{{tr('trending')}}</a></li> --}}
-		              	@if(Auth::check())
+		              	{{-- @if(Auth::check()) --}}
 						  {{-- <li id="profile"><a href="{{route('user.wishlist')}}">{{tr('wishlist')}}</a></li> --}}
-						  <li><a href="{{route('web-leader-register')}}">{{tr('leader register')}}</a></li>
+						  {{-- <li><a href="{{route('web-leader-register')}}">{{tr('leader register')}}</a></li>
 		              	@endif
 		              
 		            </ul>
@@ -78,14 +78,14 @@
 		            
 		            </form>
 	            
-	          	</div>
+	          	</div> --}}
 
 	          	<!-- /.navbar-collapse -->
 
-	        </div>
+	        {{-- </div>
 
 	        <!-- /.container-fluid -->
-      	</nav>
+      	</nav> --}}
     </div>
 
 </div>

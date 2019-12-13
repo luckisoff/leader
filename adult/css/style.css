@@ -1,7 +1,11 @@
+
+.login-logo{
+    width: 92px;
+}
 body {
     font: 12px / 1.2 Arial,Helvetica,sans-serif;
-    color: #fff;
-    background: #000;
+    color: #000;
+    background: #fff;
 }
 .navbar-brand{
 	padding: 0;
@@ -14,9 +18,10 @@ body {
     margin-right: 10px;
 }
 .top-nav{
-	background-color:#272727;
-	padding: 5px 0px;
-	text-align: right;
+	background-color: #001554;
+    padding: 14px 0px;
+    text-align: right;
+    font-size: 16px;
 }
 .navbar-default {
     margin: 0;
@@ -96,8 +101,8 @@ body {
 	right: 0;
 }
 .page-content{
-	margin-top: 90px;
-	min-height: 550px;
+    margin-top: 90px;
+    min-height: 498px;
 }
 .box-title{
 	background-color: #1a1a1b;
@@ -221,10 +226,12 @@ body {
     opacity: 0;
 }
 .footer{
-	background-color: #1a1a1b;
+    clear: both;
+	background-color: #001554;
     text-align: center;
-    padding: 10px;
-    margin-top: 50px;
+    padding: 22px 10px;
+    color: #fff;
+    margin-top: auto;
 }
 
 .footer p{
@@ -449,7 +456,7 @@ a.fb-share:hover,a.fb-share:focus,a.fb-share:active{
 }
 .top-nav .dropdown-menu{
 	padding: 0;
-	background-color: #272727;
+	background-color: #001554;
 }
 .top-nav .dropdown-menu li a{
 	padding: 5px 10px;
@@ -479,11 +486,13 @@ a.fb-share:hover,a.fb-share:focus,a.fb-share:active{
 	color: #cb0000;
 }
 .login-box{
-	background-color: #272727;
+	background-color: #001554;
     padding: 15px;
     max-width: 400px;
     margin: 0 auto;
     margin-top: 15px;
+    margin-bottom: 15px;
+    color:#fff;
 }
 .login-box h4{
 	margin: 0;
