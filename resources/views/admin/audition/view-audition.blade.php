@@ -28,6 +28,13 @@
                         <table id="example1" class="table  table-bordered table-striped">
 
                         <thead>
+                            <tr style="background: #16008e;color: #fff;font-size: 15px;">
+                                <td colspan="3">Total: {{' '.$totalUsers}}</td>
+                                <td colspan="2">Registered: {{' '.$totalRegistered}}</td>
+                                <td colspan="2">Esewa: {{' '.$esewaUsers}}</td>
+                                <td colspan="2">Khalti: {{' '.$khaltiUsers}}</td>
+                                <td colspan="2">Paypal: {{' '.$paypalUsers}}</td>
+                            </tr>
                             <tr>
                                 <th>S.N.</th>
                                 <th>User Id</th>
