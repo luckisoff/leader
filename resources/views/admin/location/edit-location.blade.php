@@ -116,7 +116,7 @@
                                 @if($location->image != null )
                                     <img class="img img-responsive" style="max-width:100%; height: 100px;" src="{{asset($location->image)}}" alt="User Avatar">
                                 @endif
-                                <input type="file" required class="form-control" name="image"   accept="image/jpeg,image/png" placeholder="{{tr('default_image')}}">
+                                <input type="file" class="form-control" name="image"   accept="image/jpeg,image/png" placeholder="{{tr('default_image')}}">
                                 @if($errors->has('image'))
                                     <span class="help-block" style="color:red;">
                                       * {{ $errors->first('image') }}
