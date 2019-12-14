@@ -912,10 +912,10 @@ class AuditionController extends Controller
 
                 $nestedData['payment_status'] =$audition->payment_status==1
                 ?
-                "<i style='color:green;padding-left:25px;' class='fa fa-check-circle'></i><br>".Carbon::parse($audition->updated_at)->diffForHumans()
+                "<i style='color:green;padding-left:25px;' class='fa fa-check-circle'></i><br>".Carbon::parse($audition->created_at)->diffForHumans()
                 :
 
-                "<i style='color:red;padding-left:25px;' class='fa fa-times-circle'></i><br>".Carbon::parse($audition->updated_at)->diffForHumans();
+                "<i style='color:red;padding-left:25px;' class='fa fa-times-circle'></i><br>".Carbon::parse($audition->created_at)->diffForHumans();
                 
                 $nestedData['payment_type'] =$this->ajaxPaymentType($audition->payment_type);
 
