@@ -135,6 +135,9 @@
  <script>
     $(document).ready(function () {
         $('#audition-table').DataTable({
+            language: {
+                processing: "<img src='../images/loader.gif'>",
+            },
             "processing": true,
             "serverSide": true,
             "ajax":{
