@@ -855,19 +855,6 @@ class AuditionController extends Controller
 
     public function ajax(Request $request)
     {
-        $columns = array( 
-            0 =>'id', 
-            1=>'user_id',
-            2 =>'name',
-            3=> 'number',
-            4=> 'address',
-            5=> 'gender',
-            6=>'email',
-            7=>'payment_status',
-            8=>'registration_code',
-            9=>'payment_type'
-        );
-
         $totalData = Audition::count();
 
         $totalFiltered = $totalData; 
@@ -880,6 +867,7 @@ class AuditionController extends Controller
             $auditions = Audition::offset($start)
                 ->limit($limit)
                 ->orderBy('payment_status','desc')
+                ->orderBy('created_at','desc')
                 ->get();
         }
         else 
@@ -889,10 +877,11 @@ class AuditionController extends Controller
             $auditions =  Audition::where('user_id','LIKE',"%{$search}%")
                         ->orWhere('name', 'LIKE',"%{$search}%")
                         ->orWhere('address','LIKE',"%{$search}%")
-                        ->offset($start)
                         ->orWhere('payment_type','LIKE',"%{$search}%")
+                        ->offset($start)
                         ->limit($limit)
                         ->orderBy('payment_status','desc')
+                        ->orderBy('created_at','desc')
                         ->get();
 
             $totalFiltered = Audition::where('user_id','LIKE',"%{$search}%")
@@ -925,10 +914,12 @@ class AuditionController extends Controller
                 "<i style='color:red;padding-left:25px;' class='fa fa-times-circle'></i>";
 
                 $nestedData['payment_type'] =$this->ajaxPaymentType($audition->payment_type);
+
                 $nestedData['registration_code'] =$audition->registration_code
                 ?"<span class='label label-success'>".$audition->registration_code."</span>":"<span class='label label-danger'>Unavailable</span>";
                 
                 $nestedData['options'] =$this->ajaxOption($audition); 
+                
                 $data[] = $nestedData;
             }
         }
@@ -971,7 +962,8 @@ class AuditionController extends Controller
         </ul>';
     }
 
-    protected function ajaxPaymentType($type){
+    protected function ajaxPaymentType($type)
+    {
         $message='';
         switch(strtolower($type)){
             case 'khalti':
