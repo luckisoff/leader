@@ -11,6 +11,7 @@ use App\News;
 use App\Sponser;
 use Illuminate\Http\Request;
 use File;
+use \Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 
 
@@ -910,9 +911,12 @@ class AuditionController extends Controller
                 $nestedData['email'] =$audition->email;
 
                 $nestedData['payment_status'] =$audition->payment_status==1
-                ?"<i style='color:green;padding-left:25px;' class='fa fa-check-circle'></i>":
-                "<i style='color:red;padding-left:25px;' class='fa fa-times-circle'></i>";
+                ?
+                "<i style='color:green;padding-left:25px;' class='fa fa-check-circle'></i><br>".Carbon::parse($audition->created_at)->diffForHumans()
+                :
 
+                "<i style='color:red;padding-left:25px;' class='fa fa-times-circle'></i><br>".Carbon::parse($audition->created_at)->diffForHumans();
+                
                 $nestedData['payment_type'] =$this->ajaxPaymentType($audition->payment_type);
 
                 $nestedData['registration_code'] =$audition->registration_code
