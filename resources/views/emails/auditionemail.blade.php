@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Password Reset Code</title>
+<title>Leader Registration</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body style="margin: 0; padding: 0;">
@@ -15,25 +15,43 @@
                             <img src="{{Setting::get('site_icon' ,asset('favicon.png'))}}" width="155" height='155' alt='Logo'  data-default="placeholder" />
                         </td>
                     </tr>
+                    @if($email_data)
                     <tr>
                         <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td style="color: #153643; font-family: Arial, sans-serif; font-size: 24px;">
-                                        <b>Password Reset Code</b>
+                                        <b>The Leader Registration Details</b>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
                                         <h2 >Hi @if(isset($email_data))  
-                                            @if(isset($email_data['user']) )
-                                                {{$email_data['user']->name}}! 
-                                            @endif 
+                                            {{$email_data->name}}
                                         @endif</h2>
-                                        <p>Please use this code in the app to reset your password</p>
-                                        <p>
-                                            Code: @if(isset($email_data))  @if(isset($email_data['code'])){{$email_data['code']}} @endif @endif
-                                        </p>
+                                            <p>You are requested to note this informations with you.</p><br>
+                                            <table border="1" width="100%" cellspacing="0">
+                                                <tr>
+                                                    <td>Full Name</td><td>{{$email_data->name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Email</td><td>{{$email_data->email}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Address</td><td>{{$email_data->address}}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Gender</td><td>{{ucfirst($email_data->gender)}}</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Status</td><td>{{$email_data->payment_status==1?'Paid':'Unpaid'}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Reg. Code</td><td>{{$email_data->registration_code?$email_data->registration_code:'Not Available'}}</td>
+                                                </tr>
+                                            </table>
                                     </td>
                                 </tr>
                                 <tr>
@@ -54,6 +72,9 @@
                             </table>
                         </td>
                     </tr>
+                    @endif
+
+
                     <tr>
                         <td bgcolor="#ee4c50" style="padding: 30px 30px 30px 30px;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">

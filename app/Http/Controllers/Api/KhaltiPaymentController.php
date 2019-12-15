@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use  App\Audition;
 use Illuminate\Support\Facades\Validator;
 use App\PaymentLog;
+use App\Helpers\Helper;
 class KhaltiPaymentController extends Controller
 {
 
@@ -127,6 +128,8 @@ class KhaltiPaymentController extends Controller
         $audition->payment_status = 1;
         $audition->registration_code=$request->registration_code;
         $audition->save();
+
+        Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
         PaymentLog::create([
             'type'=>'Khalti',
             'status'=>true,
@@ -191,6 +194,8 @@ class KhaltiPaymentController extends Controller
             $audition->payment_status = 1;
             $audition->registration_code=$request->registration_code;
             $audition->update();
+
+            Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
             PaymentLog::create([
                 'type'=>'Khalti',
                 'status'=>true,

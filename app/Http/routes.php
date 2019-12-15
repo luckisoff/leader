@@ -358,6 +358,12 @@ Route::get('page/{type}', 'ApplicationController@get_page')->name('page');
 
 Route::group([], function(){
 
+    Route::group(['prefix'=>'social'],function(){
+        Route::get('facebook', 'SocialController@facebook');
+        Route::get('facebook/callback', 'SocialController@facebookCallback');
+    });
+    
+
     Route::get('login', 'Auth\AuthController@showLoginForm')->name('user.login.form');
 
     Route::post('login', 'Auth\AuthController@login')->name('user.login.post');

@@ -34,6 +34,7 @@
         </form>                
         <p class="help"><a href="{{route('user.register.form')}}">{{tr('Register')}}</a></p>
         <p class="help"><a href="{{ url('/password/reset') }}">{{tr('ForgetPassword?')}}</a></p>
+        <p class="help"><a href="{{ url('/social/facebook') }}">{{tr('Facebook Login')}}</a></p>
     </div>
 
 @endsection

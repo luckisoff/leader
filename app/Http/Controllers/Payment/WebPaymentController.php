@@ -7,7 +7,7 @@ use Auth;
 use App\Location;
 use App\Audition;
 use App\PaymentLog;
-
+use App\Helpers\Helper;
 class WebPaymentController extends Controller
 {
 
@@ -64,7 +64,7 @@ class WebPaymentController extends Controller
     //Esewa success method
     public function esewaSuccess(Request $request)
     {
-        
+        //return $request->all();
         if(!empty($request->oid) && !empty($request->refId))
         {
             // if($this->esewaVerify()==="Success")
@@ -73,8 +73,10 @@ class WebPaymentController extends Controller
                 $audition->payment_type = "Esewa";
                 $audition->payment_status = 1;
                 $audition->registration_code='LEADERSRBN'.$request->id;
-                $audition->save();
+                //$audition->save();
                 
+                Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
+
                 PaymentLog::create([
                     'type'=>'Esewa',
                     'user_id'=>$request->id,
@@ -85,7 +87,7 @@ class WebPaymentController extends Controller
                 if(!$audition)
                 {
                     return redirect('/web/audition/payment')
-                    ->with('message','Please wait some time for confirmation');;
+                    ->with('message','Please wait some time for confirmation');
                 }
                 return redirect('/web/audition/register')
                 ->with('message','Registration successful. Please wait some time for confirmation.');
@@ -163,6 +165,7 @@ class WebPaymentController extends Controller
         $audition->registration_code='LEADERSRBN'.Auth::user()->id;
         $audition->save();
 
+        Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
         PaymentLog::create([
             'type'=>'Khalti',
             'user_id'=>Auth::user()->id,
@@ -187,6 +190,7 @@ class WebPaymentController extends Controller
         $audition->registration_code='LEADERSRBN'.Auth::user()->id;
         $audition->save();
 
+        Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
         PaymentLog::create([
             'type'=>'Paypal',
             'user_id'=>Auth::user()->id,
