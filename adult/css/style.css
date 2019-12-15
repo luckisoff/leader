@@ -1,4 +1,6 @@
-
+.footer .pull-left,.footer .pull-right{
+    margin-top: -5px;
+}
 .login-logo{
     width: 92px;
 }
@@ -97,7 +99,7 @@ body {
     margin-bottom: 10px;
 }
 .top-fix{
-	position: fixed;
+	/* position: fixed; */
 	z-index: 999;
 	top:0;
 	left: 0;
@@ -105,7 +107,8 @@ body {
 }
 .page-content{
     margin-top: 29px;
-    min-height: 498px;
+    height:auto;
+    min-height:498px;
 }
 .box-title{
 	background-color: #1a1a1b;

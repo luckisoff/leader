@@ -86,6 +86,7 @@ Route::group(['middleware'=>'api'], function(){
         Route::group(['prefix'=>'khalti/payment/'],function(){
             Route::post('/initiate','Api\KhaltiPaymentController@initiate');
             Route::post('/confirm','Api\KhaltiPaymentController@confirmation');
+            
             Route::post('/card/verify','Api\KhaltiPaymentController@khaltiCardVerify');
         });
         

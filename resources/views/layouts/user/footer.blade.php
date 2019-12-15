@@ -1,10 +1,10 @@
-<div class="row">
-	<div class="container-fluid">
-		<div class="footer">
+<div class="container-fluid">
+	<div class="row">
+		<div class="cotainer footer">
+			<div class="col-lg-12">
 				<div class="pull-left">
-					<p>&copy; 2017 - <a href="{{Setting::get('copyrights_url') ? Setting::get('copyrights_url') : url('/')}}">{{Setting::get('site_name' , 'StreamHash')}} </a></p>
+					&copy; 2019 - <a href="{{Setting::get('copyrights_url') ? Setting::get('copyrights_url') : url('/')}}">{{Setting::get('site_name' , 'StreamHash')}} </a>
 				</div>
-					
 				<div class="pull-right">
 					<?php $pages = pages();?>
 					@if(count($pages) > 0)
@@ -15,6 +15,7 @@
 						</ul>
 						@endif
 				</div>
+			</div>
 		</div>
 	</div>
 </div>
