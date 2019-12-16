@@ -19,7 +19,8 @@ class SocialController extends Controller
         try {
             $fbUser = Socialite::driver('github')->user();
             $user=User::where('social_unique_id',$fbUser->getId())->first();
-            return $user;
+
+            return $fbUser;
             if(!$user)
             {
                 $user=new User();
