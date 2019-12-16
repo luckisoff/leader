@@ -18,7 +18,7 @@ class SocialController extends Controller
     {
         try {
             $socialUser = Socialite::driver($provider)->user();
-            $user=User::where('social_unique_id',$socialUser->getId())->first();
+            $user=User::where('social_unique_id',$socialUser->getId())->orWhere('email',$socialUser->getEmail())->first();
             
             if(!$user)
             {
