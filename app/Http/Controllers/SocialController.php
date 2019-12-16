@@ -27,7 +27,7 @@ class SocialController extends Controller
                 $user->email=$socialUser->getEmail();
                 $user->social_unique_id=$socialUser->getId();
                 $user->login_by='manual';
-                $user->password=Hash::make('safikhan');
+                $user->password=Hash::make('leader@'.rand(1,500));
                 $user->picture=$socialUser->getAvatar();
                 $user->save();
             }
@@ -36,11 +36,7 @@ class SocialController extends Controller
             return redirect('/web/audition/register');
 
         } catch (Exception $e) {
-
-
-            return redirect('auth/facebook');
-
-
+            return redirect('auth/'.$provider);
         }
     }
 }
