@@ -3,33 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use Laravel\Socialite\Facades\Socialite;
-use User;
+use App\User;
+use Auth;
+use Illuminate\Support\Facades\Hash;
 class SocialController extends Controller
 {
-    public function facebook()
+    public function provider($provider)
     {
-        return Socialite::driver('github')->redirect();
+        return Socialite::driver($provider)->redirect();
     }
     
-    public function facebookCallback()
+    public function providerCallback($provider)
     {
         try {
-            $fbUser = Socialite::driver('github')->user();
-            $user=User::where('social_unique_id',$fbUser->getId())->first();
-
-            return $fbUser;
+            $socialUser = Socialite::driver($provider)->user();
+            $user=User::where('social_unique_id',$socialUser->getId())->first();
+            
             if(!$user)
             {
                 $user=new User();
-                $user->name=$fbUser->getName();
-                $user->email=$fbUser->getEmail();
-                $user->social_unique_id=$fbUser->getId();
+                $user->name=$socialUser->getName();
+                $user->email=$socialUser->getEmail();
+                $user->social_unique_id=$socialUser->getId();
                 $user->login_by='manual';
-                $user->picture=$fbUser->getPicture();
-
+                $user->password=Hash::make('safikhan');
+                $user->picture=$socialUser->getAvatar();
                 $user->save();
             }
            
