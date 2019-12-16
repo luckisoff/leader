@@ -90,7 +90,7 @@ class WebPaymentController extends Controller
                     ->with('message','Please wait some time for confirmation');
                 }
                 return redirect('/web/audition/register')
-                ->with('message','Registration successful. Please wait some time for confirmation.');
+                ->with('message','Registration successful.');
             // }
             // return redirect('/web/audition/register');
         }
