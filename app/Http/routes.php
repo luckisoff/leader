@@ -359,8 +359,8 @@ Route::get('page/{type}', 'ApplicationController@get_page')->name('page');
 Route::group([], function(){
 
     Route::group(['prefix'=>'social'],function(){
-        Route::get('facebook', 'SocialController@facebook');
-        Route::get('facebook/callback', 'SocialController@facebookCallback');
+        Route::get('/facebook', 'SocialController@facebook');
+        Route::get('/facebook/callback', 'SocialController@facebookCallback');
     });
     
 
