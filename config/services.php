@@ -34,25 +34,36 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+
     'facebook' => [
         'client_id' => env('FB_CLIENT_ID'),
         'client_secret' => env('FB_CLIENT_SECRET'),
         'redirect' => env('FB_CALL_BACK'),
     ],
+
     'twitter' => [
         'client_id' => env('TWITTER_CLIENT_ID'),
         'client_secret' => env('TWITTER_CLIENT_SECRET'),
         'redirect' => env('TWITTER_CALL_BACK'),
     ],
+
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_CALL_BACK'),
     ],
+
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => env('GITHUB_CALL_BACK'),
+    ],
+
     'khalti'=>[
         'client_id'=>env('KHALTI_KEY'),
         'client_secret'=>env('KHALTI_SECRET')
     ],
+
     'paypal'=>[
         'client_id'=>env('PAYPAL_KEY'),
         'client_secret'=>env('PAYPAL_SECRET'),

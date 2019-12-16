@@ -11,14 +11,15 @@ class SocialController extends Controller
 {
     public function facebook()
     {
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver('github')->redirect();
     }
     
     public function facebookCallback()
     {
         try {
-            $fbUser = Socialite::driver('facebook')->user();
+            $fbUser = Socialite::driver('github')->user();
             $user=User::where('social_unique_id',$fbUser->getId())->first();
+            return $user;
             if(!$user)
             {
                 $user=new User();
