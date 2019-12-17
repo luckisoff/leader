@@ -73,7 +73,7 @@ class WebPaymentController extends Controller
                 $audition->payment_type = "Esewa";
                 $audition->payment_status = 1;
                 $audition->registration_code='LEADERSRBN'.$request->id;
-                $audition->save();
+                $audition->update();
                 
                 Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
 
@@ -163,7 +163,7 @@ class WebPaymentController extends Controller
         $audition->payment_type = "Khalti";
         $audition->payment_status = 1;
         $audition->registration_code='LEADERSRBN'.Auth::user()->id;
-        $audition->save();
+        $audition->update();
 
         Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
         PaymentLog::create([
@@ -188,7 +188,7 @@ class WebPaymentController extends Controller
         $audition->payment_type = "Paypal";
         $audition->payment_status = 1;
         $audition->registration_code='LEADERSRBN'.Auth::user()->id;
-        $audition->save();
+        $audition->update();
 
         Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
         PaymentLog::create([

@@ -127,7 +127,7 @@ class KhaltiPaymentController extends Controller
         $audition->payment_type = "Khalti";
         $audition->payment_status = 1;
         $audition->registration_code=$request->registration_code;
-        $audition->save();
+        $audition->update();
 
         Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
         PaymentLog::create([
