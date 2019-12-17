@@ -52,6 +52,7 @@
                                                     <td>Reg. Code</td><td>{{$email_data->registration_code?$email_data->registration_code:'Not Available'}}</td>
                                                 </tr>
                                             </table>
+                                            Visit: <a href="http://gundruknetwork.com/the_leader_audition/web/audition/register">Gundruk Network</a>
                                     </td>
                                 </tr>
                                 <tr>
