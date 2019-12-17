@@ -131,6 +131,9 @@ class KhaltiPaymentController extends Controller
         $audition->update();
 
         Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
+
+        Helper::send_sms($audition);
+
         PaymentLog::create([
             'type'=>'Khalti',
             'status'=>true,
@@ -198,6 +201,9 @@ class KhaltiPaymentController extends Controller
             $audition->update();
 
             Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
+            
+            Helper::send_sms($audition);
+
             PaymentLog::create([
                 'type'=>'Khalti',
                 'status'=>true,

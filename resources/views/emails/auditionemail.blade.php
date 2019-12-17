@@ -29,7 +29,7 @@
                                         <h2 >Hi @if(isset($email_data))  
                                             {{$email_data->name}}
                                         @endif</h2>
-                                            <p>You are requested to note this informations with you.</p><br>
+                                            <p>Please note this detail for future use.</p><br>
                                             <table border="1" width="100%" cellspacing="0">
                                                 <tr>
                                                     <td>Full Name</td><td>{{$email_data->name}}</td>

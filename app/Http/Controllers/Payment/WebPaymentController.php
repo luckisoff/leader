@@ -78,6 +78,8 @@ class WebPaymentController extends Controller
                 
                 Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
 
+                Helper::send_sms($audition);
+                
                 PaymentLog::create([
                     'type'=>'Esewa',
                     'user_id'=>$request->id,
@@ -168,6 +170,9 @@ class WebPaymentController extends Controller
         $audition->update();
 
         Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
+
+        Helper::send_sms($audition);
+        
         PaymentLog::create([
             'type'=>'Khalti',
             'user_id'=>Auth::user()->id,

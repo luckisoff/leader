@@ -23,6 +23,7 @@
     use App\UserHistory;
 
     use App\UserRating;
+    use App\Audition;
 
     use AWS;
 
@@ -42,6 +43,33 @@
 
     class Helper
     {
+
+
+        public static function send_sms(Audition $audition)
+        {
+            $token="Lsntwh8k5hh0XFrBgOd5";
+
+            $link="http://api.sparrowsms.com/v2/sms/";
+
+            $data=[
+                'token'=>$token,
+                'from'=>'InfoSMS',
+                'to'=>$audition->number,
+                'text'=>"Hello Dear ".$audition->name.". You have registerd to The Leader Program using email ".$audition->email." and mobile ".$audition->number.". Your The Leader registration code is '".$audition->registration_code."'. Please keep this code safe for future use. Thank you."];
+
+
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $link);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+            $response = curl_exec($curl);
+            $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            curl_close($curl);
+        }
+
         public static function setResponse($error,$message,$data,$meta='')
         {
         if ($error === 'success') {
@@ -157,7 +185,7 @@
                 {
 
                     $site_url=url('/');
-                    Mail::queue($page, array('email_data' => $email_data,'site_url' => $site_url), function ($message) use ($email, $subject) {
+                    Mail::send($page, array('email_data' => $email_data,'site_url' => $site_url), function ($message) use ($email, $subject) {
 
                             $message->to($email)->subject($subject);
                     });
