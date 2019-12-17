@@ -14,11 +14,10 @@ class CreateAdminAuditionsTable extends Migration
     {
         Schema::create('admin_auditions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('admin_id');
-            $table->unsignedBigInteger('audition_id');
+            $table->bigInteger('admin_id');
+            $table->bigInteger('audition_id');
             $table->timestamps();
-            
-            //$table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
         });
     }
 
