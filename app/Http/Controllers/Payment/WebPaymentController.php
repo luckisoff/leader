@@ -64,7 +64,7 @@ class WebPaymentController extends Controller
     //Esewa success method
     public function esewaSuccess(Request $request)
     {
-        //return $request->all();
+        
         if(!empty($request->oid) && !empty($request->refId))
         {
             // if($this->esewaVerify()==="Success")
@@ -73,6 +73,7 @@ class WebPaymentController extends Controller
                 $audition->payment_type = "Esewa";
                 $audition->payment_status = 1;
                 $audition->registration_code='LEADERSRBN'.$request->id;
+                $audition->channel=isset($request->type)?$request->type:'web';
                 $audition->update();
                 
                 Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
@@ -163,6 +164,7 @@ class WebPaymentController extends Controller
         $audition->payment_type = "Khalti";
         $audition->payment_status = 1;
         $audition->registration_code='LEADERSRBN'.Auth::user()->id;
+        $audition->channel='web';
         $audition->update();
 
         Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
@@ -188,6 +190,7 @@ class WebPaymentController extends Controller
         $audition->payment_type = "Paypal";
         $audition->payment_status = 1;
         $audition->registration_code='LEADERSRBN'.Auth::user()->id;
+        $audition->channel='paypal';
         $audition->update();
 
         Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);

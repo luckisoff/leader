@@ -127,6 +127,7 @@ class KhaltiPaymentController extends Controller
         $audition->payment_type = "Khalti";
         $audition->payment_status = 1;
         $audition->registration_code=$request->registration_code;
+        $audition->channel='mobile';
         $audition->update();
 
         Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
@@ -193,6 +194,7 @@ class KhaltiPaymentController extends Controller
             $audition->payment_type = "Khalti";
             $audition->payment_status = 1;
             $audition->registration_code=$request->registration_code;
+            $audition->channel='mobile';
             $audition->update();
 
             Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
