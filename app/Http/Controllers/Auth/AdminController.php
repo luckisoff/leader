@@ -56,6 +56,6 @@ class AdminController extends Controller
             $join->on('admin_auditions.audition_id','=','audition_registration.id');
         })->get();
 
-        return view('admin.auth.view')->with('users',$adminAuditions)->with('page','');
+        return view('admin.auth.details')->with('auditions',$adminAuditions)->with('page','');
     }
 }
