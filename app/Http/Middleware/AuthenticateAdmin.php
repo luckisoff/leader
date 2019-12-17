@@ -17,6 +17,7 @@ class AuthenticateAdmin
      */
     public function handle($request, Closure $next, $guard = 'admin')
     {
+        
         if (Auth::guard($guard)->guest()) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
@@ -24,7 +25,11 @@ class AuthenticateAdmin
                 return redirect()->guest(route('admin.login'));
             }
         }
-
+    
+        if(!Auth::guard($guard)->user()->is_activated)
+        {
+            return redirect('/admin/logout');
+        }
         return $next($request);
     }
 }

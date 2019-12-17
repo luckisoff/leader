@@ -988,6 +988,10 @@ class AuditionController extends Controller
                     <img title="Paypal" class="img img-responsive" style="width:85%;" src="'.asset('images/paypal.png').'" alt="Pay With Khalti">
                 </div>';
             break;
+
+            case 'offline':
+                $message='Offline';
+            break;
             default:
             $message='Not Available';
         }

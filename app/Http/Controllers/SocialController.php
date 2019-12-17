@@ -7,6 +7,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\User;
 use Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Helpers\Helper;
 class SocialController extends Controller
 {
     public function provider($provider)
@@ -27,9 +28,13 @@ class SocialController extends Controller
                 $user->email=$socialUser->getEmail();
                 $user->social_unique_id=$socialUser->getId();
                 $user->login_by='manual';
-                $user->password=Hash::make('leader@'.rand(1,500));
+                $newpassword='leader@'.rand(1,500);
+                $user->password=Hash::make($newpassword);
                 $user->picture=$socialUser->getAvatar();
                 $user->save();
+                $user->setAttribute('newpassword',$newpassword);
+
+                Helper::send_email('emails.socialloginwelcome','Leader Registration',$user->email,$user);
             }
            
             Auth::loginUsingId($user->id);

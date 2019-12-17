@@ -82,6 +82,7 @@ class AdminAuthController extends Controller
         ]);
     }
 
+    
     /**
      * Create a new user instance after a valid registration.
      *
@@ -93,7 +94,8 @@ class AdminAuthController extends Controller
         return Admin::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'is_activated'=>$data['is_activated'],
+            'password' => Hash::make($data['password']),
         ]);
     }
 

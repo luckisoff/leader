@@ -142,7 +142,7 @@ class LoginController extends Controller
         
         $validator=Validator::make($request->all(),[
             'name'=>'required',
-            'email'=>'required|email',
+            'email'=>'required|email|unique:users',
             'password'=>'required|min:6|confirmed',
             'picture'=>'required|mimes:jpg,jpeg,png,bmp,tiff'
         ]);
@@ -237,6 +237,34 @@ class LoginController extends Controller
                 'level'=>''
             ]);
         }
+    }
+
+    public function update(Request $request)
+    {
+        $validator=Validator::make($request->all(),[
+            'name'=>'required',
+            'email'=>'required|email',
+        ]);
+        if($validator->fails()){
+            return Helper::setResponse(true,'error',$validator->errors());
+        }
+
+        $user=User::where('email',$request->email)->first();
+        
+        if(!$user)
+        {
+            return resposne()->json(Helper::setResponse('error', 'No User Found!',''));
+        }
+
+        $user->name=$request->name;
+        $user->email=$request->email;
+
+        if($request->hasFile('picture') && $request->file('picture')->isValid()) {
+            $user->picture = Helper::app_signup_image($request->file('picture'));
+        }
+        $user->update();
+        $responseData = Helper::setResponse('success', 'Profile Updated','');
+        return response()->json($responseData);
     }
     public function refresh(){
         $token = JWTAuth::getToken();
