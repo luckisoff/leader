@@ -95,12 +95,14 @@ class LoginController extends Controller
                         return response()->json($responseData);
                     }else{
                         return response()->json([
+                            'error'=>false,
                             'message' => 'Unauthorized'
                         ], 401);
                     }
 
             }else{
                 return response()->json([
+                    'error'=>false,
                     'message' => 'No User Found'
                 ], 401);
             }

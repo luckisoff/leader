@@ -13,8 +13,4 @@ class AdminAudition extends Model
         return $this->belongsTo(Admin::class);
     }
 
-    public function audition()
-    {
-        return $this->belongsTo(Audition::class);
-    }
 }

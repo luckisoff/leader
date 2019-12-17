@@ -52,8 +52,10 @@ class AdminController extends Controller
 
     public function details($id)
     {
-        $auditions=AdminAudition::where('admin_id',$id)->with('audition')->get();
-        print_r($auditions);die;
-        return view('admin.auth.view')->with('users',$auditions)->with('page','');
+        $adminAuditions=AdminAudition::where('admin_id',$id)->leftJoin('audition_registration',function($join){
+            $join->on('admin_auditions.audition_id','=','audition_registration.id');
+        })->get();
+
+        return view('admin.auth.view')->with('users',$adminAuditions)->with('page','');
     }
 }

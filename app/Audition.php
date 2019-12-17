@@ -17,6 +17,6 @@ class Audition extends Model
 
     public function adminAuditions()
     {
-        return $this->hasMany(AdminAudition::class);
+        return $this->hasOne(AdminAudition::class);
     }
 }
