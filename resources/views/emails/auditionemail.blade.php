@@ -11,7 +11,7 @@
             <td style="padding: 10px 0 30px 0;">
                 <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border: 1px solid #cccccc; border-collapse: collapse;">
                     <tr>
-                        <td align="center" bgcolor="#70bbd9" style="padding: 40px 0 30px 0; color: #153643; font-size: 28px; font-weight: bold; font-family: Arial, sans-serif;">
+                        <td align="center" bgcolor="#360096" style="padding: 40px 0 30px 0; color: #153643; font-size: 28px; font-weight: bold; font-family: Arial, sans-serif;">
                             <img src="{{Setting::get('site_icon' ,asset('favicon.png'))}}" width="155" height='155' alt='Logo'  data-default="placeholder" />
                         </td>
                     </tr>
@@ -52,7 +52,7 @@
                                                     <td>Reg. Code</td><td>{{$email_data->registration_code?$email_data->registration_code:'Not Available'}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2">Visit: <a href="http://gundruknetwork.com/the_leader_audition/web/audition/register">Gundruk Network</a></td>
+                                                    <td colspan="2"><a href="http://gundruknetwork.com/the_leader_audition/web/audition/register">Get your reciept</a></td>
                                                 </tr>
                                             </table>
                                             
@@ -80,7 +80,7 @@
 
 
                     <tr>
-                        <td bgcolor="#ee4c50" style="padding: 30px 30px 30px 30px;">
+                        <td bgcolor="#a90c00" style="padding: 30px 30px 30px 30px;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;" width="75%">
@@ -91,13 +91,13 @@
                                             <tr>
                                                 <td style="font-family: Arial, sans-serif; font-size: 12px; font-weight: bold;">
                                                     <a href="https://www.twitter.com/bharyang" style="color: #ffffff;">
-                                                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/tw.gif" alt="Twitter" width="38" height="38" style="display: block;" border="0" />
+                                                        Facebook
                                                     </a>
                                                 </td>
                                                 <td style="font-size: 0; line-height: 0;" width="20">&nbsp;</td>
                                                 <td style="font-family: Arial, sans-serif; font-size: 12px; font-weight: bold;">
                                                     <a href="https://www.facebook.com/bharyang" style="color: #ffffff;">
-                                                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/fb.gif" alt="Facebook" width="38" height="38" style="display: block;" border="0" />
+                                                        Twitter    
                                                     </a>
                                                 </td>
                                             </tr>
