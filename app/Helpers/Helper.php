@@ -55,7 +55,7 @@
                 'token'=>$token,
                 'from'=>'InfoSMS',
                 'to'=>$audition->number,
-                'text'=>"Hello Dear ".$audition->name.". You have registerd to The Leader Program using email ".$audition->email." and mobile ".$audition->number.". Your The Leader registration code is '".$audition->registration_code."'. Please keep this code safe for future use. Thank you."];
+                'text'=>"Hello Dear ".$audition->name.". You have registerd to The Leader Program using email ".$audition->email." and mobile ".$audition->number.". Your The Leader registration code is '".$audition->registration_code."'. Please keep this code safe for future use. Please visit link http://gundruknetwork.com/the_leader_audition/web/audition/register for detail. Thank you."];
 
 
             $curl = curl_init();
