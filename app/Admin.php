@@ -23,4 +23,10 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function adminAuditions()
+    {
+        return $this->hasMany(AdminAudition::class);
+    }
+
 }

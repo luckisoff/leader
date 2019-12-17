@@ -14,4 +14,9 @@ class Audition extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function adminAuditions()
+    {
+        return $this->hasMany(AdminAudition::class);
+    }
 }
