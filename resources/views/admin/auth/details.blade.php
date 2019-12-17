@@ -48,7 +48,7 @@
 						</tbody>
 					</table>
 				@else
-					<h3 class="no-result">{{tr('no_user_found')}}</h3>
+					<h3 class="no-result">{{tr('No data Found')}}</h3>
 				@endif
             </div>
           </div>
