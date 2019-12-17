@@ -26,7 +26,7 @@
                                 </tr>
                                 <tr>
                                     <td style="padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
-                                        <h2 >Hi @if(isset($email_data))  
+                                        <h2 >Dear @if(isset($email_data))  
                                             {{$email_data->name}}
                                         @endif</h2>
                                             <p>Please note this detail for future use.</p><br>
