@@ -18,7 +18,7 @@ class CreateAdminAuditionsTable extends Migration
             $table->unsignedBigInteger('audition_id');
             $table->timestamps();
             
-            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
+            //$table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
         });
     }
 
