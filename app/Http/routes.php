@@ -55,6 +55,7 @@ Route::group(['prefix' => 'admin'], function(){
     Route::post('register', 'Auth\AdminController@store')->name('admin.new.register');
     Route::get('view', 'Auth\AdminController@view')->name('admin.list');
     Route::get('delete/{id}', 'Auth\AdminController@destroy')->name('admin.delete.admin');
+    Route::get('details/{id}', 'Auth\AdminController@details')->name('admin.details.admin');
 
     // Password Reset Routes...
     Route::get('password/reset/{token?}', 'Auth\AdminPasswordController@showResetForm');

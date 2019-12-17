@@ -6,6 +6,7 @@ use App\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\AdminAudition;
 class AdminController extends Controller
 {
     public function showRegister()
@@ -47,5 +48,12 @@ class AdminController extends Controller
             return redirect()->route('admin.list')->with('flash_success','An admin user is deleted');
         }
         return redirect()->route('admin.list')->with('flash_error','User could not be deleted');
+    }
+
+    public function details($id)
+    {
+        $auditions=AdminAudition::where('admin_id',$id)->with('audition')->get();
+        print_r($auditions);die;
+        return view('admin.auth.view')->with('users',$auditions)->with('page','');
     }
 }

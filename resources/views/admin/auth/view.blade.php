@@ -60,7 +60,12 @@
 
 								                  	 	<a role="menuitem" tabindex="-1"
 								                  			onclick="return confirm('Are you sure?');" href="{{route('admin.delete.admin', $user)}}">{{tr('delete')}}
-								                  		</a>
+														</a>
+														  
+														<a role="menuitem" tabindex="-1"
+														  href="{{route('admin.details.admin', $user)}}">{{tr('details')}}
+														</a>
+
 
 								                  	 @endif
 

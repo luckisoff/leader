@@ -144,8 +144,8 @@ class LoginController extends Controller
             'name'=>'required',
             'email'=>'required|email|unique:users',
             'password'=>'required|min:6|confirmed',
-            'picture'=>'required|mimes:jpg,jpeg,png,bmp,tiff'
         ]);
+
         if($validator->fails()){
             return Helper::setResponse(true,'error',$validator->errors());
         }
