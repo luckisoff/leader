@@ -397,7 +397,7 @@ Route::group([], function(){
 
     // Delete Account
 
-    Route::get('/delete/account', 'UserController@delete_account')->name('user.delete.account');
+    //Route::get('/delete/account', 'UserController@delete_account')->name('user.delete.account');
 
     Route::post('/delete/account', 'UserController@delete_account_process')->name('user.delete.account.process');
 
