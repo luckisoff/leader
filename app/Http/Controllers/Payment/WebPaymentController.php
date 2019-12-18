@@ -46,7 +46,7 @@ class WebPaymentController extends Controller
     {
         $url = "https://uat.esewa.com.np/epay/transrec";
         $data =[
-            'amt'=> 1000,
+            'amt'=> config('services.payment.esewa'),
             'rid'=> $_GET['refId'],
             'pid'=>$_GET['oid'],
             'scd'=> 'NP-ES-SRBN'
@@ -131,7 +131,7 @@ class WebPaymentController extends Controller
         $url='https://khalti.com/api/v2/payment/verify/';
         $data=[
             'token'=>$request->token,
-            'amount'=>1000*100
+            'amount'=>config('services.payment.khalti')
         ];
 
         $curl = curl_init();
