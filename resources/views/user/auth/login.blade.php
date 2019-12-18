@@ -31,7 +31,15 @@
             </div> 
 
           <button type="submit" class="btn btn-default">{{tr('Login')}}</button>
-        </form>                
+          <div class="social-login text-center">
+            <h5>Or</h5>
+                <a href="{{URL::to('/').'/social/facebook'}}"><span class="fb btn btn-large">Facebook</span></a>
+                <a href="{{URL::to('/').'/social/google'}}"><span class="gl btn btn-large">Google</span></a>
+            </div>
+        </form>     
+        
+        
+        
         <p class="help"><a href="{{route('user.register.form')}}">{{tr('Register')}}</a></p>
         <p class="help"><a href="{{ url('/password/reset') }}">{{tr('ForgetPassword?')}}</a></p>
         {{-- <p class="help"><a href="{{ url('/social/facebook') }}">{{tr('Facebook Login')}}</a></p> --}}

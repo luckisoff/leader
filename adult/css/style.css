@@ -1,3 +1,11 @@
+.social-login .fb{
+    background:#005ea9 !important;
+}
+
+.social-login .gl{
+    background:#fd0000 !important;
+}
+
 .login-logo{
     width: 92px;
 }
