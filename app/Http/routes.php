@@ -440,7 +440,3 @@ Route::group(['prefix'=>'web'],function(){
     Route::post('/audition/khalti/success','Payment\WebPaymentController@khaltiSuccess');
     Route::post('/audition/paypal/success','Payment\WebPaymentController@paypalVerify');
 });
-
-Route::get('*',function(){
-    return "Access Denied";
-});

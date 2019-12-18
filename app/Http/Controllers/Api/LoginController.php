@@ -247,6 +247,7 @@ class LoginController extends Controller
             'name'=>'required',
             'email'=>'required|email',
         ]);
+
         if($validator->fails()){
             return Helper::setResponse(true,'error',$validator->errors());
         }
@@ -264,6 +265,7 @@ class LoginController extends Controller
         if($request->hasFile('picture') && $request->file('picture')->isValid()) {
             $user->picture = Helper::app_signup_image($request->file('picture'));
         }
+        
         $user->update();
         $responseData = Helper::setResponse('success', 'Profile Updated','');
         return response()->json($responseData);
