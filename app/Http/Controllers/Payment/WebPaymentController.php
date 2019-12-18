@@ -167,15 +167,15 @@ class WebPaymentController extends Controller
                 'user_id'=>Auth::user()->id,
                 'value'=>\serialize($request->all()),
                 'status'=>false
-            ]);
-        }
-        $audition=Audition::where('email',Auth::user()->email)->first();
-        $audition->payment_type = "Khalti";
-        $audition->payment_status = 1;
-        $audition->registration_code=config('services.leader.identity').Auth::user()->id;
-        $audition->channel='web';
-        $audition->update();
-
+                ]);
+            }
+            
+            $audition=Audition::where('email',Auth::user()->email)->first();
+            $audition->payment_type = "Khalti";
+            $audition->payment_status = 1;
+            $audition->registration_code=config('services.leader.identity').Auth::user()->id;
+            $audition->channel='web';
+            $audition->update();
         Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
 
         Helper::send_sms($audition);

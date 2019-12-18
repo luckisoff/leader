@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateAuditionRegistrationTableAgain extends Migration
+class UpdateAuditionRegAddUpdatedAt extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class UpdateAuditionRegistrationTableAgain extends Migration
     public function up()
     {
         Schema::table('audition_registration', function (Blueprint $table) {
-            $table->string('channel')->nullbale();
+            $table->timestamp('updated_at')->useCurrent()->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class UpdateAuditionRegistrationTableAgain extends Migration
     public function down()
     {
         Schema::table('audition_registration', function (Blueprint $table) {
-            $table->dropColumn('channel');
+            $table->dropColumn('updated_at');
         });
     }
 }
