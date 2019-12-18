@@ -68,6 +68,12 @@ return [
         'client_id'=>env('PAYPAL_KEY'),
         'client_secret'=>env('PAYPAL_SECRET'),
         'mode'=>env('PAYPAL_MODE')
+    ],
+
+    'payment'=>[
+        'esewa'=>env('PAYMENT_ESEWA'),
+        'khalti'=>env('PAYMENT_KHALTI'),
+        'paypal'=>env('PAYMENT_PAYPAL')
     ]
 
 ];

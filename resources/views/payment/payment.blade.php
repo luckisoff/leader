@@ -46,7 +46,7 @@
                     </button>
                 </div>
                 <div class="khalti col-sm-6">
-                    <button onclick="khaltiPayment(1000*100)">
+                    <button onclick="khaltiPayment({{config('services.payment.khalti')}})">
                         <img src="{{ asset('images/khalti-logo.jpg') }}" class="img-responsive">
                     </button>
                 </div>
@@ -56,9 +56,9 @@
                     <div id="paypal-button-container"></div>
                 </div>
             </div>
-            <form id="esewaPayment" action="https://esewa.com.np/epay/main" method="POST">
-                <input value="1000" name="tAmt" type="hidden">
-                <input value="1000" name="amt" type="hidden">
+            <form id="esewaPayment" action="https://paymentesewa.com.np/epay/main" method="POST">
+                <input value="{{config('services.payment.esewa')}}" name="tAmt" type="hidden">
+                <input value="{{config('services.payment.esewa')}}" name="amt" type="hidden">
                 <input value="0" name="txAmt" type="hidden">
                 <input value="0" name="psc" type="hidden">
                 <input value="0" name="pdc" type="hidden">
@@ -128,7 +128,7 @@
             return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: '15'
+                        value: '{{config('services.payment.paypal')}}'
                     }
                 }]
             });
