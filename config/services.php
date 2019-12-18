@@ -70,6 +70,12 @@ return [
         'mode'=>env('PAYPAL_MODE')
     ],
 
+    'transactionapi'=>[
+        'esewapay'=>env('ESEWA_PAYMENT'),
+        'esewaverify'=>env('ESEWA_VERIFY'),
+        'khaltiverify'=>env('KHALTI_VERIFY'),
+    ],
+
     'payment'=>[
         'esewa'=>env('PAYMENT_ESEWA'),
         'khalti'=>env('PAYMENT_KHALTI'),

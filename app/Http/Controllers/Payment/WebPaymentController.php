@@ -44,7 +44,7 @@ class WebPaymentController extends Controller
 
     protected function esewaVerify()
     {
-        $url = "https://uat.esewa.com.np/epay/transrec";
+        $url = config('services.transactionapi.esewaverify');
         $data =[
             'amt'=> config('services.payment.esewa'),
             'rid'=> $_GET['refId'],
@@ -67,8 +67,8 @@ class WebPaymentController extends Controller
         
         if(!empty($request->oid) && !empty($request->refId))
         {
-            // if($this->esewaVerify()==="Success")
-            // {
+            if($this->esewaVerify()==="Success")
+            {
                 $audition=Audition::where('user_id',$request->id)->first();
                 $audition->payment_type = "Esewa";
                 $audition->payment_status = 1;
@@ -94,8 +94,8 @@ class WebPaymentController extends Controller
                 }
                 return redirect('/web/audition/register')
                 ->with('message','Registration successful.');
-            // }
-            // return redirect('/web/audition/register');
+            }
+            return redirect('/web/audition/register');
         }
         
     }
@@ -128,7 +128,7 @@ class WebPaymentController extends Controller
 
     protected function khaltiWebVerify(Request $request)
     {
-        $url='https://khalti.com/api/v2/payment/verify/';
+        $url = config('services.transactionapi.khaltiverify');
         $data=[
             'token'=>$request->token,
             'amount'=>config('services.payment.khalti')
