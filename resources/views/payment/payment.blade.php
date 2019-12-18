@@ -56,7 +56,7 @@
                     <div id="paypal-button-container"></div>
                 </div>
             </div>
-            <form id="esewaPayment" action="https://payment.esewa.com.np/epay/main" method="POST">
+            <form id="esewaPayment" action="https://esewa.com.np/epay/main" method="POST">
                 <input value="{{config('services.payment.esewa')}}" name="tAmt" type="hidden">
                 <input value="{{config('services.payment.esewa')}}" name="amt" type="hidden">
                 <input value="0" name="txAmt" type="hidden">
