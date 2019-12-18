@@ -94,7 +94,7 @@ class WebPaymentController extends Controller
                 }
                 return redirect('/web/audition/register')
                 ->with('message','Registration successful.');
-            // }
+            //}
             // return redirect('/web/audition/register');
         }
         
