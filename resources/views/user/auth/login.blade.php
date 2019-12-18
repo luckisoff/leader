@@ -33,8 +33,8 @@
           <button type="submit" class="btn btn-default">{{tr('Login')}}</button>
           <div class="social-login text-center">
             <h5>Or</h5>
-                {{-- <a href="{{URL::to('/').'/social/facebook'}}"><span class="fb btn btn-large">Facebook</span></a>
-                <a href="{{URL::to('/').'/social/google'}}"><span class="gl btn btn-large">Google</span></a> --}}
+                <a href="{{URL::to('/').'/social/facebook'}}"><span class="fb btn btn-large">Facebook</span></a>
+                <a href="{{URL::to('/').'/social/google'}}"><span class="gl btn btn-large">Google</span></a>
             </div>
         </form>     
         
