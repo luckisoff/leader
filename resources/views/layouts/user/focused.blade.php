@@ -25,7 +25,7 @@
 
        <?php echo Setting::get('header_scripts'); ?>
 
-    </head>
+    </head style="background: #d0d0d0;">
 
     <body>
 

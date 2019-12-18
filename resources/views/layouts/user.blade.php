@@ -46,7 +46,7 @@
 
     </head>
 
-    <body>
+    <body style="background: url('https://www.nationalgeographic.com/content/dam/news/2018/06/25/berann-maps/03-berann-illustration-maps.adapt.1900.1.jpg')">
 
         <div class="container-fluid">
 

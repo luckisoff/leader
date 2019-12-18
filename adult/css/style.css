@@ -1,9 +1,7 @@
-.footer .pull-left,.footer .pull-right{
-    margin-top: -5px;
-}
 .login-logo{
     width: 92px;
 }
+
 body {
     font: 12px / 1.2 Arial,Helvetica,sans-serif;
     color: #000;
@@ -231,18 +229,21 @@ body {
 	transition: all 1ss ease-in-out;
     opacity: 0;
 }
+
 .footer{
     clear: both;
 	background-color: #001554;
     text-align: center;
-    padding: 22px 10px;
+    padding: 22px 26px 9px 79px;
     color: #fff;
-    margin-top: auto;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
-.footer p{
+/* .footer p{
 	margin: 0;
-}
+} */
 
 .video-box a h5.video-title.cat{
 	font-weight: bold;
@@ -499,6 +500,7 @@ a.fb-share:hover,a.fb-share:focus,a.fb-share:active{
     margin-top: 15px;
     margin-bottom: 15px;
     color:#fff;
+    box-shadow: #3F51B5 1px 0px 10px 1px;
 }
 .login-box h4{
 	margin: 0;
