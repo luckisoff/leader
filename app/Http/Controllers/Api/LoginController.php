@@ -243,7 +243,6 @@ class LoginController extends Controller
 
     public function update(Request $request)
     {
-        //return $request->all();
         $validator=Validator::make($request->all(),[
             'name'=>'required',
             'email'=>'required|email',
@@ -268,7 +267,7 @@ class LoginController extends Controller
         }
 
         $user->update();
-        $responseData = Helper::setResponse('success', 'Profile Updated','');
+        $responseData = Helper::setResponse('success', 'Profile Updated',$user);
         return response()->json($responseData);
     }
     public function refresh(){
