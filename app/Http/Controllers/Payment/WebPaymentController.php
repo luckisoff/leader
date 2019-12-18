@@ -44,9 +44,9 @@ class WebPaymentController extends Controller
 
     protected function esewaVerify()
     {
-        $url = "https://uat.esewa.com.np/epay/transrec";
+        $url = config('services.transactionapi.esewaverify');
         $data =[
-            'amt'=> 1000,
+            'amt'=> config('services.payment.esewa'),
             'rid'=> $_GET['refId'],
             'pid'=>$_GET['oid'],
             'scd'=> 'NP-ES-SRBN'
@@ -56,8 +56,15 @@ class WebPaymentController extends Controller
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $response = json_decode(json_encode(curl_exec($curl)));
+        $result = strtolower(strip_tags(curl_exec($curl)));
         curl_close($curl);
+
+        if (strpos($result, 'success') === FALSE)
+        {
+            $response = false;
+        } else {
+            $response = true;
+        }
         return $response;
     }
 
@@ -67,8 +74,8 @@ class WebPaymentController extends Controller
         
         if(!empty($request->oid) && !empty($request->refId))
         {
-            // if($this->esewaVerify()==="Success")
-            // {
+            if($this->esewaVerify())
+            {
                 $audition=Audition::where('user_id',$request->id)->first();
                 $audition->payment_type = "Esewa";
                 $audition->payment_status = 1;
@@ -94,8 +101,8 @@ class WebPaymentController extends Controller
                 }
                 return redirect('/web/audition/register')
                 ->with('message','Registration successful.');
-            //}
-            // return redirect('/web/audition/register');
+            }
+            return redirect('/web/audition/register');
         }
         
     }
@@ -128,10 +135,10 @@ class WebPaymentController extends Controller
 
     protected function khaltiWebVerify(Request $request)
     {
-        $url='https://khalti.com/api/v2/payment/verify/';
+        $url = config('services.transactionapi.khaltiverify');
         $data=[
             'token'=>$request->token,
-            'amount'=>1000*100
+            'amount'=>config('services.payment.khalti')
         ];
 
         $curl = curl_init();

@@ -68,6 +68,18 @@ return [
         'client_id'=>env('PAYPAL_KEY'),
         'client_secret'=>env('PAYPAL_SECRET'),
         'mode'=>env('PAYPAL_MODE')
+    ],
+
+    'transactionapi'=>[
+        'esewapay'=>env('ESEWA_PAYMENT'),
+        'esewaverify'=>env('ESEWA_VERIFY'),
+        'khaltiverify'=>env('KHALTI_VERIFY'),
+    ],
+
+    'payment'=>[
+        'esewa'=>env('PAYMENT_ESEWA'),
+        'khalti'=>env('PAYMENT_KHALTI'),
+        'paypal'=>env('PAYMENT_PAYPAL')
     ]
 
 ];
