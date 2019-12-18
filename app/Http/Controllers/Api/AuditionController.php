@@ -21,7 +21,7 @@ class AuditionController extends Controller
 
     //audition form function here
     public function storeAuditionForm(Request $request){
-//        dd($request->all());
+        
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
             'name' => 'required|max:255',
@@ -45,9 +45,9 @@ class AuditionController extends Controller
             }
         }
         //check whether the user has already submit the form.
-        $audition = Audition::where('user_id',$request->user_id)->first();
+        $audition = Audition::where('user_id',$request->user_id)->orWhere('email',$request->email)->first();
 
-        if($audition != null){
+        if($audition){
             return Helper::setResponse(true, 'You have already submit the form ', '');
 
         }
