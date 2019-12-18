@@ -56,8 +56,15 @@ class WebPaymentController extends Controller
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        $response = json_decode(json_encode(curl_exec($curl)));
+        $result = strtolower(strip_tags(curl_exec($curl)));
         curl_close($curl);
+
+        if (strpos($result, 'success') === FALSE)
+        {
+            $response = false;
+        } else {
+            $response = true;
+        }
         return $response;
     }
 
@@ -67,9 +74,7 @@ class WebPaymentController extends Controller
         
         if(!empty($request->oid) && !empty($request->refId))
         {
-            $esewaverify = $this->esewaVerify();
-            echo "<pre>";print_r($esewaverify);die;
-            if($esewaVerify ==="Success")
+            if($this->esewaVerify())
             {
                 $audition=Audition::where('user_id',$request->id)->first();
                 $audition->payment_type = "Esewa";
