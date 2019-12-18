@@ -244,9 +244,8 @@ body {
     text-align: center;
     padding: 22px 26px 9px 79px;
     color: #fff;
-    position: fixed;
+    position: relative;
     bottom: 0;
-    width: 100%;
 }
 
 /* .footer p{
