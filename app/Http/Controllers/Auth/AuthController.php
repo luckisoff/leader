@@ -99,7 +99,7 @@ class AuthController extends Controller
         // register_mobile('web');
         
         // Send welcome email to the new user:
-        $subject = tr('user_welcome_title');
+        $subject = 'Welcome to Gundruk Network';
         $email_data = $User;
         $page = "emails.welcome";
         $email = $data['email'];

@@ -251,7 +251,7 @@ class UserApiController extends Controller
 
                 // Send welcome email to the new user:
                 if($new_user) {
-                    $subject = tr('user_welcome_title');
+                    $subject = 'Welcome to Gundruk Network';
                     $email_data = $user;
                     $page = "emails.welcome";
                     $email = $user->email;
