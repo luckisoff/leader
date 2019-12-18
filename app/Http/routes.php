@@ -441,3 +441,6 @@ Route::group(['prefix'=>'web'],function(){
     Route::post('/audition/paypal/success','Payment\WebPaymentController@paypalVerify');
 });
 
+Route::get('*',function(){
+    return "Access Denied";
+});
