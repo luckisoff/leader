@@ -67,7 +67,9 @@ class WebPaymentController extends Controller
         
         if(!empty($request->oid) && !empty($request->refId))
         {
-            if($this->esewaVerify()==="Success")
+            $esewaverify = $this->esewaVerify();
+            echo "<pre>";print_r($esewaverify);die;
+            if($esewaVerify ==="Success")
             {
                 $audition=Audition::where('user_id',$request->id)->first();
                 $audition->payment_type = "Esewa";
