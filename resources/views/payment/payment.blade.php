@@ -63,7 +63,7 @@
                 <input value="0" name="psc" type="hidden">
                 <input value="0" name="pdc" type="hidden">
                 <input value="NP-ES-SRBN" name="scd" type="hidden">
-                <input value="{{'LEADERAUDITION-SRBN-'.Auth::user()->id}}" name="pid" type="hidden">
+                <input value="{{ config('services.leader.identity') .Auth::user()->id}}" name="pid" type="hidden">
                 <input value="{{URL::to('/').'/web/audition/esewa/success?id='.Auth::user()->id}}" type="hidden" name="su">
                 <input value="{{URL::to('/').'/web/audition/esewa/failure?id='.Auth::user()->id}}" type="hidden" name="fu">
             </form>
@@ -74,7 +74,7 @@
 <script type="text/javascript">
     var config = {
         "publicKey": '{{config('services.khalti.client_id')}}',
-        "productIdentity": "LEADERSRBNREGISTRATION-{{Auth::user()->id}}",
+        "productIdentity": "{{config('services.leader.identity') .Auth::user()->id}}",
         "productName": "Dragon",
         "productUrl": "http://gundruknetwork.com/the_leader_audition",
         "eventHandler": {

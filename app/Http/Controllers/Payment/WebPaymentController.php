@@ -79,7 +79,7 @@ class WebPaymentController extends Controller
                 $audition=Audition::where('user_id',$request->id)->first();
                 $audition->payment_type = "Esewa";
                 $audition->payment_status = 1;
-                $audition->registration_code='LEADERSRBN'.$request->id;
+                $audition->registration_code=config('services.leader.identity').$request->id;
                 $audition->channel=isset($request->type)?$request->type:'web';
                 $audition->update();
                 
@@ -172,7 +172,7 @@ class WebPaymentController extends Controller
         $audition=Audition::where('email',Auth::user()->email)->first();
         $audition->payment_type = "Khalti";
         $audition->payment_status = 1;
-        $audition->registration_code='LEADERSRBN'.Auth::user()->id;
+        $audition->registration_code=config('services.leader.identity').Auth::user()->id;
         $audition->channel='web';
         $audition->update();
 
@@ -201,7 +201,7 @@ class WebPaymentController extends Controller
         $audition=Audition::where('email',Auth::user()->email)->first();
         $audition->payment_type = "Paypal";
         $audition->payment_status = 1;
-        $audition->registration_code='LEADERSRBN'.Auth::user()->id;
+        $audition->registration_code=config('services.leader.identity').Auth::user()->id;
         $audition->channel='paypal';
         $audition->update();
 

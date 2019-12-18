@@ -80,6 +80,10 @@ return [
         'esewa'=>env('PAYMENT_ESEWA'),
         'khalti'=>env('PAYMENT_KHALTI'),
         'paypal'=>env('PAYMENT_PAYPAL')
+    ],
+
+    'leader'=>[
+        'identity'=>env('LEADER_IDENTITY'),
     ]
 
 ];
