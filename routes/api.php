@@ -105,7 +105,7 @@ Route::get('leader-users','LeaderBoardController@get_leader_users');
 Route::post('send-topup','Api\LoginController@sendTopUp');
 Route::post('password-reset','Api\LoginController@resetPassword');
 Route::post('signup','Api\LoginController@signup');
-Route::post('user/update','Api\LoginController@udate');
+Route::post('user/update','Api\LoginController@update');
 
 Route::get('apps','AppController@api');
 

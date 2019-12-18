@@ -243,6 +243,7 @@ class LoginController extends Controller
 
     public function update(Request $request)
     {
+        return $request->all();
         $validator=Validator::make($request->all(),[
             'name'=>'required',
             'email'=>'required|email',
