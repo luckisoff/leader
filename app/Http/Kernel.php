@@ -55,5 +55,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'UserApiVal' => \App\Http\Middleware\UserApiValidation::class,
         'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class,
+        'esewa.verify' => \App\Http\Middleware\EsewaPassMiddleware::class,
     ];
 }

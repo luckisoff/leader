@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateAuditionRegistrationTableAgain extends Migration
+class CreateEsewaTokensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,11 @@ class UpdateAuditionRegistrationTableAgain extends Migration
      */
     public function up()
     {
-        Schema::table('audition_registration', function (Blueprint $table) {
-            $table->string('channel')->nullbale();
+        Schema::create('esewa_tokens', function (Blueprint $table) {
+            $table->increments('id');
+            $table->bigInteger('user_id');
+            $table->string('request_id');
+            $table->timestamps();
         });
     }
 
@@ -24,8 +27,6 @@ class UpdateAuditionRegistrationTableAgain extends Migration
      */
     public function down()
     {
-        Schema::table('audition_registration', function (Blueprint $table) {
-            $table->dropColumn('channel');
-        });
+        Schema::drop('esewa_tokens');
     }
 }

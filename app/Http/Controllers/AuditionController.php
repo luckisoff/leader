@@ -622,7 +622,7 @@ class AuditionController extends Controller
             $form->attachment = Helper::normal_img_upload($request->file('attachment'),'/uploads/audition/attachment');
 
         }*/
-        $form->save();
+        $form->update();
 
         \Session::flash('flash_success','Contestant Updated Successfully');
         return redirect()->route('audition.view-audition');

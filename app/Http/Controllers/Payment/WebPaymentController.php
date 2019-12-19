@@ -7,7 +7,10 @@ use Auth;
 use App\Location;
 use App\Audition;
 use App\PaymentLog;
+use App\EsewaToken;
 use App\Helpers\Helper;
+use Illuminate\Support\Facades\Validator;
+
 class WebPaymentController extends Controller
 {
 
@@ -167,15 +170,15 @@ class WebPaymentController extends Controller
                 'user_id'=>Auth::user()->id,
                 'value'=>\serialize($request->all()),
                 'status'=>false
-            ]);
-        }
-        $audition=Audition::where('email',Auth::user()->email)->first();
-        $audition->payment_type = "Khalti";
-        $audition->payment_status = 1;
-        $audition->registration_code=config('services.leader.identity').Auth::user()->id;
-        $audition->channel='web';
-        $audition->update();
-
+                ]);
+            }
+            
+            $audition=Audition::where('email',Auth::user()->email)->first();
+            $audition->payment_type = "Khalti";
+            $audition->payment_status = 1;
+            $audition->registration_code=config('services.leader.identity').Auth::user()->id;
+            $audition->channel='web';
+            $audition->update();
         Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
 
         Helper::send_sms($audition);
@@ -234,8 +237,139 @@ class WebPaymentController extends Controller
         return view('payment.esewa-pay',compact('id','audition'));
     }
 
-    public function esewaToken()
+    public function esewaToken($user_id)
     {
+        $audition=Audition::where('user_id',$user_id)->first();
+        if(!$audition)
+        {
+            return response()->json([
+                'status'=>false,
+                'code'=>200,
+                'message'=>'Not registered',
+                'data'=>''
+            ]);
+        }
+        return response()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'token generated',
+            'token'=>$this->uniqueToken($audition),
+            'data'=>''
+        ]);
         
     }
+
+    public function esewaInquery($request_id)
+    {
+        $isValid=EsewaToken::where('request_id',$request_id)->first();
+
+        if($isValid)
+        {
+            $audition=Audition::where('user_id',$isValid->user_id)->first();
+
+            if(!$audition)
+            {
+                return response()->json([
+                    "response_code"=>1,
+                    "response_message"=>"You are not registered in The Leader Program."
+                ]);
+            }
+            return response()->json([
+                "response_id"=>$request_id,
+                "response_code"=>0,
+                "response_message"=>'success',
+                "amount"=>1000,
+                "properties"=>[
+                    "customer_name"=>$audition->name,
+                    "address"=>$audition->address,
+                    "customer_id"=>$audition->user_id,
+                    "invoice_number"=>$request_id,
+                    "product_name"=>config('services.leader.identity').$audition->user_id
+                ]
+            ]);
+        }
+
+        return response()->json([
+            "response_code"=>1,
+            "response_message"=>"Invalid Token"
+        ]);
+        
+    }
+
+    public function esewaPayment(Request $request)
+    {
+        $validator=Validator::make($request->all(),[
+            'request_id'=>'required',
+            'amount'=>'required',
+            'transaction_code'=>'required'
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'response_code'=>1,
+                'response_message'=>$validator->errors()->first()
+            ]);
+        }
+
+        $tokenUser=EsewaToken::where('request_id',$request->request_id)->first();
+
+        if($tokenUser)
+        {
+            if($request->amount!=1000)
+            {
+                return response()->json([
+                    'response_code'=>1,
+                    'response_message'=>'Amount insufficient'
+                ]);
+            }
+
+            $audition=Audition::where('user_id',$tokenUser->user_id)->first();
+
+            $audition->payment_type="esewa";
+            $audition->registration_code=config('services.leader.identity').$audition->user_id;
+            $audition->channel='esewa token';
+            $audition->update();
+
+            Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
+            Helper::send_sms($audition);
+
+            PaymentLog::create([
+                'type'=>'Paypal',
+                'user_id'=>$audition->user_id,
+                'value'=>\serialize($request->all()),
+                'status'=>true
+            ]);
+
+            return response()->json([
+                'request_id'=>$request->request_id,
+                'response_code'=>0,
+                'response_message'=>'payment successful',
+                'amount'=>1000,
+                'reference_code'=>$audition->registration_code
+            ]);
+        }
+
+        return response()->json([
+            'response_code'=>1,
+            'response_message'=>'Invalid token'
+        ]);
+    }
+
+    protected function uniqueToken($audition)
+    {
+        $request_id=substr(md5('LEADERSRBN'.$audition->user_id.rand(1,1500000)),0,9);
+
+        $token=EsewaToken::where('request_id',$request_id)->first();
+        if(!$token)
+        {
+            EsewaToken::create([
+                'user_id'=>$audition->user_id,
+                'request_id'=>$request_id
+            ]);
+            return $request_id;
+        }
+        return uniqueToken($audition);
+    }
+
 }
