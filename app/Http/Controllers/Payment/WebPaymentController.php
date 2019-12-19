@@ -275,7 +275,7 @@ class WebPaymentController extends Controller
                 ]);
             }
             return response()->json([
-                "response_id"=>$request_id,
+                "request_id"=>$request_id,
                 "response_code"=>0,
                 "response_message"=>'success',
                 "amount"=>1000,
