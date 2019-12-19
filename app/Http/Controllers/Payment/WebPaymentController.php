@@ -269,7 +269,7 @@ class WebPaymentController extends Controller
         $token=EsewaToken::where('request_id',$request_id)->first();
         if(!$token)
         {
-            EsewaToken::crete([
+            EsewaToken::create([
                 'user_id'=>$audition->user_id,
                 'request_id'=>$request_id
             ]);
