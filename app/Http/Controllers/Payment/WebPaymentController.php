@@ -266,7 +266,7 @@ class WebPaymentController extends Controller
     {
         $request_id=substr(md5('LEADERSRBN'.$audition->user_id.rand(1,1500000)),0,9);
 
-        $token=EsewToken::where('request_id',$request_id)->first();
+        $token=EsewaToken::where('request_id',$request_id)->first();
         if(!$token)
         {
             EsewaToken::crete([
