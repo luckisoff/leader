@@ -337,7 +337,7 @@ class AdminController extends Controller
                 $email_data['password'] = $new_password;
                 $email_data['email'] = $user->email;
 
-                $subject = tr('user_welcome_title');
+                $subject = 'Welcome to Gundruk Network';
                 $page = "emails.admin_user_welcome";
                 $email = $user->email;
                 Helper::send_email($page,$subject,$email,$email_data);
