@@ -259,7 +259,38 @@ class WebPaymentController extends Controller
 
     public function esewaInquery($request_id)
     {
+        $isValid=EsewaToken::where('request_id',$request_id)->first();
+        if($isValid)
+        {
+            $audition=Audition::where('user_id',$isValid->user_id)->first();
 
+            if(!$audition)
+            {
+                return response()->json([
+                    "response_code"=>1,
+                    "response_message"=>"You are not registered in The Leader Program."
+                ]);
+            }
+            return response()->json([
+                "response_id"=>$request_id,
+                "response_code"=>0,
+                "response_message"=>'success',
+                "amount"=>1000,
+                "properties"=>[
+                    "customer_name"=>$audition->name,
+                    "address"=>$audition->address,
+                    "customer_id"=>$audition->user_id,
+                    "invoice_number"=>$request_id,
+                    "product_name"=>config('services.leader.identity').$audition->user_id
+                ]
+            ]);
+        }
+
+        return response()->json([
+            "response_code"=>1,
+            "response_message"=>"Invalid Token"
+        ]);
+        
     }
 
     protected function uniqueToken($audition)
