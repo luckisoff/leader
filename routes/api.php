@@ -120,3 +120,8 @@ Route::get('/faq', 'Api\GundrukController@getFaq');
 
 Route::get('/audition/payment/esewa-pay/{user_id}','Payment\WebPaymentController@esewaPay');
 
+Route::group(['prefix'=>'esewa/token'],function()
+{
+    Route::get('token/generate/{user_id}','Payment/WebPaymentController@esewaToken');
+    Route::get('inquery/{$request-id}','Payment/WebPaymentController@esewaInquery');
+});

@@ -7,6 +7,7 @@ use Auth;
 use App\Location;
 use App\Audition;
 use App\PaymentLog;
+use App\EsewaToken;
 use App\Helpers\Helper;
 class WebPaymentController extends Controller
 {
@@ -232,5 +233,48 @@ class WebPaymentController extends Controller
             ]);
         }
         return view('payment.esewa-pay',compact('id','audition'));
+    }
+
+    public function esewaToken($audition_id)
+    {
+        $audition=Audition::find($audition_id);
+        if(!$audition)
+        {
+            return response()->json([
+                'status'=>false,
+                'code'=>200,
+                'message'=>'Not registered',
+                'data'=>''
+            ]);
+        }
+        return resposne()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'token generated',
+            'token'=>$this->uniqueToken($audition),
+            'data'=>''
+        ]);
+        
+    }
+
+    public function esewaInquery($request_id)
+    {
+
+    }
+
+    protected function uniqueToken($audition)
+    {
+        $request_id=substr(md5('LEADERSRBN'.$audition->user_id.rand(1,1500000)),0,9);
+
+        $token=EsewToken::where('request_id',$request_id)->first();
+        if(!$token)
+        {
+            EsewaToken::crete([
+                'user_id'=>$audition->user_id,
+                'request_id'=>$request_id
+            ]);
+            return $request_id;
+        }
+        uniqueToken($audition);
     }
 }
