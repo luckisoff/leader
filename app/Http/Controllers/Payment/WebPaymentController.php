@@ -247,7 +247,7 @@ class WebPaymentController extends Controller
                 'data'=>''
             ]);
         }
-        return resposne()->json([
+        return response()->json([
             'status'=>true,
             'code'=>200,
             'message'=>'token generated',
