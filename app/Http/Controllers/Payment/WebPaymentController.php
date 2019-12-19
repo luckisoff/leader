@@ -235,9 +235,9 @@ class WebPaymentController extends Controller
         return view('payment.esewa-pay',compact('id','audition'));
     }
 
-    public function esewaToken($audition_id)
+    public function esewaToken($user_id)
     {
-        $audition=Audition::find($audition_id);
+        $audition=Audition::where('user_id',$user_id)->first();
         if(!$audition)
         {
             return response()->json([
