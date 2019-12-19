@@ -15,8 +15,8 @@ class EsewaPassMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(isset($_SERVER['HTTP_requestusername']) && isset($_SERVER['HTTP_requestpassword'])){
-            if(($_SERVER['HTTP_requestusernamee']=='esewapayment') && ($_SERVER['HTTP_requestpassword']=='esewapayment'))
+        if(isset($_SERVER['HTTP_REQUESTUSERNAME']) && isset($_SERVER['HTTP_REQUESTPASSWORD'])){
+            if(($_SERVER['HTTP_REQUESTUSERNAME']=='esewapayment') && ($_SERVER['HTTP_REQUESTPASSWORD']=='esewapayment'))
             {
                 return $next($request);
             }
