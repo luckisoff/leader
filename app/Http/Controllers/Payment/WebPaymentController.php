@@ -262,6 +262,7 @@ class WebPaymentController extends Controller
     public function esewaInquery($request_id)
     {
         $isValid=EsewaToken::where('request_id',$request_id)->first();
+
         if($isValid)
         {
             $audition=Audition::where('user_id',$isValid->user_id)->first();
@@ -334,7 +335,7 @@ class WebPaymentController extends Controller
 
             PaymentLog::create([
                 'type'=>'Paypal',
-                'user_id'=>Auth::user()->id,
+                'user_id'=>$audition->user_id,
                 'value'=>\serialize($request->all()),
                 'status'=>true
             ]);
