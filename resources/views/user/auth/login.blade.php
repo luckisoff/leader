@@ -2,43 +2,55 @@
 
 @section('content')
 
-    <div class="login-box">
-        {{-- <h4>{{tr('Login')}}</h4> --}}
-        <div class="text-center">
-            <a href="{{route('user.dashboard')}}"><img class="login-logo" src="{{Setting::get('site_logo' , asset('logo.png'))}}"></a>
-        </div>
-
-        <form role="form" method="POST" action="{{ url('/login') }}">
-            
-            {!! csrf_field() !!}
-
-            <div class="form-group">
-                <label for="email">Email address:</label>
-                <input type="email" name="email" required class="form-control" id="email">
-                @if($errors->has('email'))
-                    <span class="form-error"><strong>{{ $errors->first('email') }}</strong></span>
-                @endif
-            </div>
-
-            <div class="form-group">
-                <label for="pwd">Password:</label>
-                <input type="password" name="password" required class="form-control" id="pwd">
-                <span class="form-error">
-                    @if ($errors->has('password'))
-                        <strong>{{ $errors->first('password') }}</strong>
-                    @endif
-                </span>
-            </div> 
-
-          <button type="submit" class="btn btn-default">{{tr('Login')}}</button>
-          <div class="social-login text-center">
-            <h5>Or</h5>
-                <a href="{{URL::to('/').'/social/facebook'}}"><span class="fb btn btn-large">Facebook</span></a>
-                <a href="{{URL::to('/').'/social/google'}}"><span class="gl btn btn-large">Google</span></a>
-            </div>
-        </form>     
-        <p class="help"><a href="{{route('user.register.form')}}">{{tr('Register')}}</a></p>
-        <p class="help"><a href="{{ url('/password/reset') }}">{{tr('Forget Password?')}}</a></p>
+<!-- Sing in  Form -->
+<section class="sign-in">
+  <div class="signin-content">
+    <div class="signin-image">
+        <figure><img src="{{Setting::get('site_logo' , asset('logo.png'))}}" alt="the leader" class="img-responsive"></figure>
+        <a href="{{route('user.register.form')}}" class="signup-image-link">Create an account</a>
     </div>
 
+    <div class="signin-form">
+        <h2 class="form-title">Sign in</h2>
+        <form role="form" method="POST" action="{{ url('/login') }}" class="register-form" id="login-form">
+            {!! csrf_field() !!}
+
+            @foreach ($errors->all() as $error)
+                <span class="form-error">{{ $error }}</span>
+            @endforeach
+            <div class="form-group">
+                <label for="email"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                <input type="email" name="email" required id="email" placeholder="email id"/>
+               
+            </div>
+            <div class="form-group">
+                <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                <input type="password" name="password" required id="password" placeholder="password"/>
+            </div>
+            <a href="{{ url('/password/reset') }}" class="signup-image-link forgot-password">Forget Password?</a>
+
+            <!-- <div class="form-group">
+                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+            </div> -->
+            <div class="form-group form-button">
+                <input type="submit" class="form-submit" value="Log in"/>
+            </div>
+        </form>
+
+        <div class="social-login">
+            <span class="social-label">Or login with</span>
+            <ul class="socials">
+                <li><a href="{{URL::to('/').'/social/facebook'}}"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                <!-- <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li> -->
+                <li><a href="{{URL::to('/').'/social/google'}}"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+            </ul>
+        </div>
+    </div>
+  </div>
+</section>
+
 @endsection
+
+
+

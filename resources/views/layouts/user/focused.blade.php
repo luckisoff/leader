@@ -11,53 +11,36 @@
         <meta name="author" content="">
 
         <link href="{{asset('adult/css/bootstrap.min.css')}}" rel="stylesheet">
-        <link href="{{asset('adult/css/jquery-ui.css')}}" rel="stylesheet">
-        <link href="{{asset('adult/css/style.css')}}" rel="stylesheet">
-        <link href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('adult/fonts/material-icon/css/material-design-iconic-font.min.css') }}">
+
 
         <link href="{{asset('intl-tel-input/css/intlTelInput.css')}}" rel="stylesheet">
         <link href="{{asset('intl-tel-input/css/demo.css')}}" rel="stylesheet">
+        <link href="{{asset('adult/css/style.css')}}" rel="stylesheet">
+
 
         <link rel="shortcut icon" type="image/png" href="{{Setting::get('site_icon' , asset('img/favicon.png'))}}"/>
 
-        <style type="text/css">
-            .ui-autocomplete{
-              z-index: 99999;
-            }
-        </style>
-
        <?php echo Setting::get('header_scripts'); ?>
 
-    </head style="background: #d0d0d0;">
+    </head>
 
     <body>
 
-        <div class="container-fluid">
+      @include('layouts.user.nav')
 
-            @include('layouts.user.nav')
-
-            <div class="row page-content">
-
-                <div class="container">
-                   
-                    <div class="row">
-
-                        @yield('content')
-
-                    </div>
-                
-                </div>
-
-            </div>
-
-            @include('layouts.user.footer')
-
+      <div class="main">
+        <div class="container">
+          @yield('content')
         </div>
+      </div>
+
+      @include('layouts.user.footer')
+
 
         <script src="{{asset('adult/js/jquery.min.js')}}"></script>
         <script src="{{asset('adult/js/bootstrap.min.js')}}"></script>
         <script src="{{asset('adult/js/jquery-ui.js')}}"></script>
-        <script src="{{asset('adult/js/scripts.js')}}"></script>
         <script src="{{asset('intl-tel-input/js/intlTelInput.js')}}"></script>
 
         <script type="text/javascript">
@@ -114,7 +97,7 @@
               // },
               customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
                 $("#country_code").val(selectedCountryData.dialCode);
-                return "Enter your mobile number";
+                return "Mobile number";
               },
               // hiddenInput: "full_number",
               // initialCountry: "auto",
