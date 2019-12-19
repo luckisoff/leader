@@ -237,7 +237,7 @@ class WebPaymentController extends Controller
 
     public function esewaToken($user_id)
     {
-        return $_SERVER['username'];
+        return $_SERVER;
         $audition=Audition::where('user_id',$user_id)->first();
         if(!$audition)
         {
