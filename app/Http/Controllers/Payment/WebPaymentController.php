@@ -316,8 +316,6 @@ class WebPaymentController extends Controller
 
         if($tokenUser)
         {
-            $audition=Audition::where('user_id',$tokenUser->user_id)->first();
-
             if($request->amount!=1000)
             {
                 return response()->json([
@@ -326,19 +324,22 @@ class WebPaymentController extends Controller
                 ]);
             }
 
+            $audition=Audition::where('user_id',$tokenUser->user_id)->first();
+
             $audition->payment_type="esewa";
-            $audition->registration_code=config('services.leader.indentity').$audition->user_id;
+            $audition->registration_code=config('services.leader.identity').$audition->user_id;
             $audition->channel='esewa token';
             $audition->update();
-            Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
-            Helper::send_sms($audition);
 
-            PaymentLog::create([
-                'type'=>'Paypal',
-                'user_id'=>$audition->user_id,
-                'value'=>\serialize($request->all()),
-                'status'=>true
-            ]);
+            // Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
+            // Helper::send_sms($audition);
+
+            // PaymentLog::create([
+            //     'type'=>'Paypal',
+            //     'user_id'=>$audition->user_id,
+            //     'value'=>\serialize($request->all()),
+            //     'status'=>true
+            // ]);
 
             return response()->json([
                 'request_id'=>$request->request_id,
