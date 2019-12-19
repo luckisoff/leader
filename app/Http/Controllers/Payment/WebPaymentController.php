@@ -331,15 +331,15 @@ class WebPaymentController extends Controller
             $audition->channel='esewa token';
             $audition->update();
 
-            // Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
-            // Helper::send_sms($audition);
+            Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
+            Helper::send_sms($audition);
 
-            // PaymentLog::create([
-            //     'type'=>'Paypal',
-            //     'user_id'=>$audition->user_id,
-            //     'value'=>\serialize($request->all()),
-            //     'status'=>true
-            // ]);
+            PaymentLog::create([
+                'type'=>'Paypal',
+                'user_id'=>$audition->user_id,
+                'value'=>\serialize($request->all()),
+                'status'=>true
+            ]);
 
             return response()->json([
                 'request_id'=>$request->request_id,
