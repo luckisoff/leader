@@ -275,6 +275,6 @@ class WebPaymentController extends Controller
             ]);
             return $request_id;
         }
-        uniqueToken($audition);
+        return uniqueToken($audition);
     }
 }
