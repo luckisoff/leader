@@ -21,7 +21,8 @@
 
             <div class="form-group">
                 <label for="phone">Phone Number:</label>
-                <input type="number" name="phone" required class="form-control" id="phone" placeholder="Enter your mobile number">
+                <input type="tel" name="phone" required class="form-control" id="phone">
+                <input type="hidden" name="country_code" id="country_code" value="">
                 @if($errors->has('phone'))
                     <span class="form-error"><strong>{{ $errors->first('phone') }}</strong></span>
                 @endif

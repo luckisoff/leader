@@ -15,6 +15,9 @@
         <link href="{{asset('adult/css/style.css')}}" rel="stylesheet">
         <link href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
 
+        <link href="{{asset('intl-tel-input/css/intlTelInput.css')}}" rel="stylesheet">
+        <link href="{{asset('intl-tel-input/css/demo.css')}}" rel="stylesheet">
+
         <link rel="shortcut icon" type="image/png" href="{{Setting::get('site_icon' , asset('img/favicon.png'))}}"/>
 
         <style type="text/css">
@@ -55,6 +58,7 @@
         <script src="{{asset('adult/js/bootstrap.min.js')}}"></script>
         <script src="{{asset('adult/js/jquery-ui.js')}}"></script>
         <script src="{{asset('adult/js/scripts.js')}}"></script>
+        <script src="{{asset('intl-tel-input/js/intlTelInput.js')}}"></script>
 
         <script type="text/javascript">
 
@@ -92,6 +96,36 @@
 
                 }); 
 
+            });
+
+            var input = document.querySelector("#phone");
+            window.intlTelInput(input, {
+              // allowDropdown: false,
+              // autoHideDialCode: false,
+              // autoPlaceholder: "off",
+              // dropdownContainer: document.body,
+              // excludeCountries: ["us"],
+              // formatOnDisplay: false,
+              // geoIpLookup: function(callback) {
+              //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+              //     var countryCode = (resp && resp.country) ? resp.country : "";
+              //     callback(countryCode);
+              //   });
+              // },
+              customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+                console.log('ac', selectedCountryData);
+                $("#country_code").val(selectedCountryData.dialCode);
+                return "e.g. " + selectedCountryPlaceholder;
+              },
+              // hiddenInput: "full_number",
+              // initialCountry: "auto",
+              // localizedCountries: { 'de': 'Deutschland' },
+              // nationalMode: false,
+              // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+              // placeholderNumberType: "MOBILE",
+              preferredCountries: ['np', 'in'],
+              separateDialCode: true,
+              utilsScript: "/laravel/leader/intl-tel-input/js/utils.js",
             });
 
         </script>
