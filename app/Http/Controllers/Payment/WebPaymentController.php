@@ -331,8 +331,8 @@ class WebPaymentController extends Controller
             $audition->channel='esewa token';
             $audition->update();
 
-            Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
-            Helper::send_sms($audition);
+            // Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
+            // Helper::send_sms($audition);
 
             PaymentLog::create([
                 'type'=>'Paypal',
