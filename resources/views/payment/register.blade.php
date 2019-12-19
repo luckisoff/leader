@@ -20,8 +20,8 @@
             </div>
 
             <div class="form-group">
-                <label for="phone">Phone Number:</label>
-                <input type="tel" name="phone" required class="form-control" id="phone">
+                <label for="phone">Mobile Number:</label>
+                <input type="tel" name="phone" required class="form-control" id="phone" pattern = "[+][0-9][0-9]" title="mobile number format">
                 <input type="hidden" name="country_code" id="country_code" value="">
                 @if($errors->has('phone'))
                     <span class="form-error"><strong>{{ $errors->first('phone') }}</strong></span>
@@ -31,8 +31,9 @@
             <div class="form-group">
                 <label for="location">Gender:</label>
                 <select name="gender" id="gender" class="form-control">
-                    <option value="Female">Female</option>
+                    <option value="">-- select --</option>
                     <option value="Male">Male</option>
+                    <option value="Female">Female</option>
                     <option value="Other">Other</option>
                 </select>
             </div>
@@ -48,7 +49,7 @@
             <div class="form-group">
                 <label for="address">Audition Location:</label>
                 <select name="address" id="address" class="form-control">
-                    <option value="">--Select--</option>
+                    <option value="">-- select --</option>
                     <option value="Kathmandu">Kathmandu</option>
                     <option value="Pokhara">Pokhara</option>
                     <option value="Chitwan">Chitwan</option>

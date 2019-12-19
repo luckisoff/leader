@@ -32,13 +32,20 @@ class SmsEventListener {
      */
     public function onLeaderRegistration(SendSms $event) {
         $audition = $event->audition;
-        $msg = "Hello Dear ".$audition['name'].". You have registerd to The Leader Program using email ".$audition['email']." and mobile ".$audition['number']."'. Please proceed for payment to complete registration. Please visit link http://gundruknetwork.com/the_leader_audition/web/audition/register for detail. Thank you.";
 
-        if(substr($audition['number'], 0, 3) === '977') {
-            $this->sparrowSms($audition['number'], $msg);
+        if($audition['country_code'] === '977') {
+            $mobile = $audition['number'];
+        }else{
+            $mobile = $audition['country_code'] .$audition['number'];
+        }
+
+        $msg = "Hello Dear ".$audition['name'].". You have registerd to The Leader Program using email ".$audition['email']." and mobile ".$mobile."'. Please proceed for payment to complete registration. Please visit link http://gundruknetwork.com/the_leader_audition/web/audition/register for detail. Thank you.";
+
+        if($audition['country_code'] === '977') {
+            $this->sparrowSms($mobile, $msg);
 
         }else{
-            $this->nexmoSms($audition['number'], $msg);
+            $this->nexmoSms($mobile, $msg);
         }
     }
 
@@ -47,13 +54,19 @@ class SmsEventListener {
      */
     public function onLeaderPayment(SendSms $event) {
         $audition = $event->audition;
-        $msg = "Hello Dear ".$audition['name'].". You have registerd to The Leader Program using email ".$audition['email']." and mobile ".$audition['number'].". Your The Leader registration code is '".$audition['registration_code']."'. Please keep this code safe for future use. Please visit link http://gundruknetwork.com/the_leader_audition/web/audition/register for detail. Thank you.";
+        if($audition['country_code'] === '977') {
+            $mobile = $audition['number'];
+        }else{
+            $mobile = $audition['country_code'] .$audition['number'];
+        }
 
-        if(substr($audition['number'], 0, 3) === '977') {
-            $this->sparrowSms($audition['number'], $msg);
+        $msg = "Hello Dear ".$audition['name'].". You have registerd to The Leader Program using email ".$audition['email']." and mobile ".$mobile.". Your The Leader registration code is '".$audition['registration_code']."'. Please keep this code safe for future use. Please visit link http://gundruknetwork.com/the_leader_audition/web/audition/register for detail. Thank you.";
+
+        if($audition['country_code'] === '977') {
+            $this->sparrowSms($mobile, $msg);
 
         }else{
-            $this->nexmoSms($audition['number'], $msg);
+            $this->nexmoSms($mobile, $msg);
         }
     }
 
@@ -73,7 +86,7 @@ class SmsEventListener {
         $data = [
             'token' => $token,
             'from' => 'InfoSMS',
-            'to' => substr($to, 3, 10),
+            'to' => $to,
             'text'=> $msg
         ];
 

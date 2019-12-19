@@ -113,17 +113,16 @@
               //   });
               // },
               customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
-                console.log('ac', selectedCountryData);
                 $("#country_code").val(selectedCountryData.dialCode);
-                return "e.g. " + selectedCountryPlaceholder;
+                return "Enter your mobile number";
               },
               // hiddenInput: "full_number",
               // initialCountry: "auto",
               // localizedCountries: { 'de': 'Deutschland' },
               // nationalMode: false,
               // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-              // placeholderNumberType: "MOBILE",
-              preferredCountries: ['np', 'in'],
+              // placeholderNumberType: "MOBI
+              preferredCountries: ['np', 'in', 'au', 'us', 'jp', 'ca', 'cn'],
               separateDialCode: true,
               utilsScript: "/laravel/leader/intl-tel-input/js/utils.js",
             });

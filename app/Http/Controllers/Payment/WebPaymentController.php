@@ -27,14 +27,15 @@ class WebPaymentController extends Controller
 
         $this->validate($request,[
             'name'=>'required',
-            'phone'=>'required',
+            'phone'=>'required|max:15',
             'email'=>'required|unique:audition_registration',
         ]);
         
         $audition=new Audition();
         $audition->user_id=Auth::User()->id;
         $audition->name=$request->name;
-        $audition->number=$request->country_code .$request->phone;
+        $audition->number=$request->phone;
+        $audition->country_code=$request->country_code;
         $audition->address=$request->address;
         $audition->gender=$request->gender;
         $audition->email=Auth::User()->email?Auth::User()->email:$request->email;
