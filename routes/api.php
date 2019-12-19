@@ -123,7 +123,9 @@ Route::get('/audition/payment/esewa-pay/{user_id}','Payment\WebPaymentController
 Route::group(['prefix'=>'esewa/token'],function()
 {
     Route::get('generate/{user_id}','Payment\WebPaymentController@esewaToken');
+    
     Route::group(['middleware'=>'esewa.verify'],function(){
         Route::get('inquery/{request_id}','Payment\WebPaymentController@esewaInquery');
+        Route::post('payment','Payment\WebPaymentController@esewaPayment');
     });
 });

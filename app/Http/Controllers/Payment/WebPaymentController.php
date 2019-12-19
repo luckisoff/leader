@@ -9,6 +9,8 @@ use App\Audition;
 use App\PaymentLog;
 use App\EsewaToken;
 use App\Helpers\Helper;
+use Illuminate\Support\Facades\Validator;
+
 class WebPaymentController extends Controller
 {
 
@@ -237,7 +239,6 @@ class WebPaymentController extends Controller
 
     public function esewaToken($user_id)
     {
-        return $_SERVER;
         $audition=Audition::where('user_id',$user_id)->first();
         if(!$audition)
         {
@@ -294,6 +295,65 @@ class WebPaymentController extends Controller
         
     }
 
+    public function esewaPayment(Request $request)
+    {
+        $validator=Validator::make($request->all(),[
+            'request_id'=>'required',
+            'amount'=>'required',
+            'transaction_code'=>'required'
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'response_code'=>1,
+                'response_message'=>$validator->errors()->first()
+            ]);
+        }
+
+        $tokenUser=EsewaToken::where('request_id',$request->request_id)->first();
+
+        if($tokenUser)
+        {
+            $audition=Audition::where('user_id',$tokenUser->user_id)->first();
+
+            if($request->amount!=1000)
+            {
+                return response()->json([
+                    'response_code'=>1,
+                    'response_message'=>'Amount insufficient'
+                ]);
+            }
+
+            $audition->payment_type="esewa";
+            $audition->registration_code=config('services.leader.indentity').$audition->user_id;
+            $audition->channel='esewa token';
+            $audition->update();
+            Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
+            Helper::send_sms($audition);
+
+            PaymentLog::create([
+                'type'=>'Paypal',
+                'user_id'=>Auth::user()->id,
+                'value'=>\serialize($request->all()),
+                'status'=>true
+            ]);
+
+            return response()->json([
+                'request_id'=>$request->request_id,
+                'response_code'=>0,
+                'response_message'=>'payment successful',
+                'amount'=>1000,
+                'reference_code'=>$audition->registration_code
+            ]);
+        }
+
+        return response()->json([
+            'response_code'=>1,
+            'response_message'=>'Invalid token'
+        ]);
+    }
+
     protected function uniqueToken($audition)
     {
         $request_id=substr(md5('LEADERSRBN'.$audition->user_id.rand(1,1500000)),0,9);
@@ -309,4 +369,5 @@ class WebPaymentController extends Controller
         }
         return uniqueToken($audition);
     }
+
 }
