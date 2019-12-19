@@ -104,7 +104,7 @@ class AdminAuthController extends Controller
         if(\Auth::guard('admin')->check()) {
             if($admin = Admin::find(\Auth::guard('admin')->user()->id)) {
                 $admin->timezone = $request->has('timezone') ? $request->timezone : '';
-                $admin->save();
+                $admin->update();
             }   
         };
        return redirect()->intended($this->redirectPath());

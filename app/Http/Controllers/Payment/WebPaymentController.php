@@ -233,4 +233,9 @@ class WebPaymentController extends Controller
         }
         return view('payment.esewa-pay',compact('id','audition'));
     }
+
+    public function esewaToken()
+    {
+        
+    }
 }

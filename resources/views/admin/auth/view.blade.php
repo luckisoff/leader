@@ -38,7 +38,7 @@
 							    <tr>
 							      	<td>{{$i+1}}</td>
 							      	<td>{{$user->name}}</td>
-							      	<td>{{$user->email}}</td>
+							      	<td>{{$user->email. ' ('.$user->updated_at->diffForHumans().')'}}</td>
 							        <td>{{$user->is_activated?'Full':'None'}}</td>
 							      	<td>
 							      		
