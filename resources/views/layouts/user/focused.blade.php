@@ -14,9 +14,9 @@
         <link rel="stylesheet" href="{{ asset('adult/fonts/material-icon/css/material-design-iconic-font.min.css') }}">
 
 
+        <link href="{{asset('adult/css/style.css')}}" rel="stylesheet">
         <link href="{{asset('intl-tel-input/css/intlTelInput.css')}}" rel="stylesheet">
         <link href="{{asset('intl-tel-input/css/demo.css')}}" rel="stylesheet">
-        <link href="{{asset('adult/css/style.css')}}" rel="stylesheet">
 
 
         <link rel="shortcut icon" type="image/png" href="{{Setting::get('site_icon' , asset('img/favicon.png'))}}"/>

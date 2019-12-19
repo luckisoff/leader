@@ -1,28 +1,21 @@
 @extends('layouts.user.focused')
 
 @section('content')
-    <div class="login-box">
-      <section class="sign-in">
-       <div class="container">
+   <section class="sign-in">
          @if(!$audition)
         
          <div class="signin-content">
            <div class="signin-image">
              <figure><img src="{{ asset('images/ravi-lamichhane.png')}}" alt="leader banner image"></figure>
-             <a href="#" class="signup-image-link">I am already member</a>
-             <div class="social-login">
-               <span class="social-label">Or Register with</span>
-               <ul class="socials">
-                  <li><a href="{{URL::to('/').'/social/facebook'}}"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
-                  <!-- <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li> -->
-                  <li><a href="{{URL::to('/').'/social/google'}}"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
-               </ul>
-             </div>
            </div>
            <div class="signin-form">
-             <h2 class="form-title">Sign up</h2>
+             <h2 class="form-title">Leader Registration</h2>
              <form method="POST" action="{{ url('web/audition/register') }}" class="register-form" id="register-form">
                {!! csrf_field() !!}
+
+               @foreach ($errors->all() as $error)
+                  <span class="form-error">{{ $error }}</span>
+               @endforeach
 
                <div class="form-group">
                   <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
@@ -34,6 +27,8 @@
                   <input type="tel" name="phone" required id="phone" value="{{$user?$user->phone:''}}" title="Mobile number"/>
                   <input type="hidden" name="country_code" id="country_code" value="">
                </div>
+
+
 
                <div class="form-group">
                    <label for="location"><i class="zmdi zmdi-male-female material-icons-name"></i></label>
@@ -53,7 +48,7 @@
                <div class="form-group">
                    <label for="address"><i class="zmdi zmdi-google-maps material-icons-name"></i></label>
                    <select name="address" id="address">
-                       <option value="">-- select --</option>
+                       <option value="">-- Audition Location --</option>
                        <option value="Kathmandu">Kathmandu</option>
                        <option value="Pokhara">Pokhara</option>
                        <option value="Chitwan">Chitwan</option>
@@ -80,7 +75,6 @@
               </div>
             </form>   
          </div>  
-         </div>           
          
          @else
          @if($audition->payment_status==1)
@@ -131,8 +125,6 @@
             <a href="{{route('web-leader-payment')}}" style="color:#ffffff"><h4 style="margin-bottom:0px">{{tr('Pay')}}</h4></a>
         @endif
     @endif 
-    </div>
-  </div>
 </section>
 
 @endsection

@@ -21,6 +21,11 @@
 		          	</a>
 		              <ul class="dropdown-menu">
 						<li><a href="{{route('web-leader-register')}}">{{tr('Leader register')}}</a></li>
+						{{-- <li>
+							<a href="{{route('user.delete.account')}}" @if(Auth::user()->login_by != 'manual') onclick="return confirm('Are you sure? . Once you deleted account, you will lose your history and wishlist details.')" @endif>
+                        {{tr('Delete Account?')}}
+                    		</a>
+                		</li> --}}
 						<li><a href="{{route('user.logout')}}">{{tr('Logout')}}</a></li>    
 		              </ul>
 		            </li>

@@ -197,9 +197,10 @@ body {
   font-family: Poppins; }
 
 .main .container {
-  width: 800px;
   background: #fff;
   margin: 0 auto;
+  width: 75%;
+  padding: 0;
   box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
   -webkit-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
@@ -308,8 +309,7 @@ figure {
 
 .form-group {
   position: relative;
-  margin-bottom: 25px;
-  overflow: hidden; }
+  margin-bottom: 25px; }
   .form-group:last-child {
     margin-bottom: 0px; }
 select{
@@ -691,4 +691,9 @@ label.valid {
 .form-error{
     color: #F00;
     display: block;
+}
+.iti__country-list{
+    width: 300%;
+    overflow-x: hidden;
+    white-space: normal !important;
 }
