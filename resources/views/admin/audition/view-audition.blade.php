@@ -28,8 +28,8 @@
 
                             <thead>
                                 <tr style="background: #16008e;color: #fff;font-size: 15px;">
-                                    <td colspan="3">Total: {{' '.$totalUsers}} | Today:{{' '.$todayNewUsers}}</td>
-                                    <td colspan="2">Registered: {{' '.$totalRegistered}} | Today:{{' '.$todayRegistered}}</td>
+                                    <td colspan="3">Total: {{' '.$totalUsers.' '}} (Today:{{' '.$todayNewUsers}})</td>
+                                    <td colspan="2">Registered: {{' '.$totalRegistered.' '}} (Today:{{' '.$todayRegistered}})</td>
                                     <td colspan="2">Esewa: {{' '.$esewaUsers}}</td>
                                     <td colspan="2">Khalti: {{' '.$khaltiUsers}}</td>
                                     <td colspan="2">Paypal: {{' '.$paypalUsers}}</td>
