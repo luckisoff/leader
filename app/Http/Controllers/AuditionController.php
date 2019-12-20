@@ -869,7 +869,6 @@ class AuditionController extends Controller
                 ->limit($limit)
                 ->orderBy('payment_status','desc')
                 ->orderBy('updated_at','desc')
-                ->orderBy('created_at','desc')
                 ->get();
         }
         else 
