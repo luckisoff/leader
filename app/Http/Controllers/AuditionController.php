@@ -623,7 +623,7 @@ class AuditionController extends Controller
 
         }*/
         $form->update();
-
+        Helper::send_sms($form);
         \Session::flash('flash_success','Contestant Updated Successfully');
         return redirect()->route('audition.view-audition');
     }
