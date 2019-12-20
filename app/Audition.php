@@ -3,12 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Audition extends Model
-{
+{   
+    use SoftDeletes;
     protected $fillable=['channel','user_id','name','number','address','gender','email'];
     protected  $table ="audition_registration";
-
+    protected $dates = ['deleted_at'];
+    
     public function user()
     {
         return $this->belongsTo(User::class);

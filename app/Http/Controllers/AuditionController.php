@@ -22,8 +22,6 @@ class AuditionController extends Controller
         $data['news'] = News::all();
         $data['page'] = 'news';
         $data['sub_page'] = 'show_news';
-//        dd($data);
-
         return view('admin.news.view-news',$data);
     }
 
@@ -40,7 +38,6 @@ class AuditionController extends Controller
             'image' => 'required|mimes:jpeg,png,jpg,gif|max:2058',
         ]);
 
-        //validating video link url if it is filled in form
         if(isset($request->video)){
             $this->validate($request, [
                 'video' => 'required|mimes:mp4,3gp,flv,m3u8,ts,mov,avi,wmv'
@@ -83,7 +80,6 @@ class AuditionController extends Controller
             'news_id' => 'required',
         ]);
 
-        //validating video link url if it is filled in form
         if(isset($request->image)){
             $this->validate($request, [
                 'image' => 'required|mimes:jpeg,png,jpg,gif|max:2058',
@@ -142,12 +138,11 @@ class AuditionController extends Controller
 
     //function for audition banner started from here crud opearation
     public function viewBanner(){
-//        $data['banner'] = Banner::all();
+
 
         $data['banner'] = Banner::all();
         $data['page'] = 'banner';
         $data['sub_page'] = 'show_banner';
-//        dd($data);
 
         return view('admin.banner.view-banner',$data);
     }
@@ -201,22 +196,14 @@ class AuditionController extends Controller
     }
 
     public function editBanner(Request $request){
-//        dd($request->all());
         $regex = '/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/';
 
-        //validating the form field.
         $this->validate($request, [
             'banner_id' => 'required',
             'banner_link' => 'required|regex:'.$regex,
             'instruction' => 'required|max:255',
         ]);
 
-        //validating video link url if it is filled in form
-        /*if(isset($request->video_link)){
-            $this->validate($request, [
-                'video_link' => 'regex:'.$regex,
-            ]);
-        }*/
 
         if(isset($request->image)){
             $this->validate($request, [
@@ -257,9 +244,6 @@ class AuditionController extends Controller
         return redirect()->route('banner.view-banner');
     }
 
-    //end banner function
-
-    //started sponser function
     public function showSponserForm(){
         return view('admin.sponser.add-sponser')
             ->with('page' , 'sponser')
@@ -296,7 +280,6 @@ class AuditionController extends Controller
         $data['sponser'] = Sponser::all();
         $data['page'] = 'sponser';
         $data['sub_page'] = 'show_sponser';
-//        dd($data);
 
         return view('admin.sponser.view-sponser',$data);
 
@@ -559,7 +542,9 @@ class AuditionController extends Controller
     }
 
     public function viewAllAuditionUser(){
-        $data['totalUsers'] =Audition::count();
+
+        $data['totalUsers'] =Audition::where('deleted_at',null)->count();
+        $data['todayNewUsers']=Audition::where('deleted_at',null)->where('created_at','>=',Carbon::today())->count();
         $data['totalRegistered']=Audition::where('payment_status',1)->count();
         $data['esewaUsers']=Audition::where('payment_type','Esewa')->orWhere('payment_type','esewa')->count();        
         $data['khaltiUsers']=Audition::where('payment_type','Khalti')->orWhere('payment_type','khalti')->count();        
@@ -617,13 +602,11 @@ class AuditionController extends Controller
 
         }
 
-        /*if(isset($request->attachment)){
-            File::delete( base_path() . "/uploads/audition/attachment/" . basename($form->attachment));
-            $form->attachment = Helper::normal_img_upload($request->file('attachment'),'/uploads/audition/attachment');
-
-        }*/
         $form->update();
-        Helper::send_sms($form);
+        if($request->payment_status==1)
+        {
+            Helper::send_sms($form);
+        }
         \Session::flash('flash_success','Contestant Updated Successfully');
         return redirect()->route('audition.view-audition');
     }
@@ -856,7 +839,7 @@ class AuditionController extends Controller
 
     public function ajax(Request $request)
     {
-        $totalData = Audition::count();
+        $totalData = Audition::where('deleted_at',null)->count();
 
         $totalFiltered = $totalData; 
 
@@ -869,6 +852,7 @@ class AuditionController extends Controller
                 ->limit($limit)
                 ->orderBy('payment_status','desc')
                 ->orderBy('updated_at','desc')
+                ->where('deleted_at',null)
                 ->get();
         }
         else 
@@ -876,6 +860,7 @@ class AuditionController extends Controller
             $search = $request->input('search.value'); 
 
             $auditions =  Audition::where('user_id','LIKE',"%{$search}%")
+                        ->where('deleted_at',null)
                         ->orWhere('name', 'LIKE',"%{$search}%")
                         ->orWhere('address','LIKE',"%{$search}%")
                         ->orWhere('payment_type','LIKE',"%{$search}%")
@@ -889,6 +874,7 @@ class AuditionController extends Controller
                         ->get();
 
             $totalFiltered = Audition::where('user_id','LIKE',"%{$search}%")
+                    ->where('deleted_at',null)
                     ->orWhere('name', 'LIKE',"%{$search}%")
                     ->orWhere('address', 'LIKE',"%{$search}%")
                     ->orWhere('payment_type','LIKE',"%{$search}%")
@@ -918,13 +904,13 @@ class AuditionController extends Controller
 
                 $nestedData['payment_status'] =$audition->payment_status==1
                 ?"<i style='color:green;padding-left:25px;' class='fa fa-check-circle'></i><br>".Carbon::parse($audition->created_at)->diffForHumans()
-                ."<br>".Carbon::parse($audition->updated_at)->diffForHumans()
                 :"<i style='color:red;padding-left:25px;' class='fa fa-times-circle'></i><br>".Carbon::parse($audition->created_at)->diffForHumans();
                 
                 $nestedData['payment_type'] =$this->ajaxPaymentType($audition->payment_type);
 
                 $nestedData['registration_code'] =$audition->registration_code
-                ?"<span class='label label-success'>".$audition->registration_code."</span>":"<span class='label label-danger'>Unavailable</span>";
+                ?"<span class='label label-success'>".$audition->registration_code."</span><br>".Carbon::parse($audition->updated_at)->diffForHumans():
+                    "<span class='label label-danger'>Unavailable</span>";
                 
                 $nestedData['options'] =$this->ajaxOption($audition); 
                 

@@ -95,7 +95,7 @@ class PaymentController extends Controller
         $audition->payment_status = 1;
         $audition->registration_code=$request->registration_code;
         $audition->save();
-
+        Helper::send_sms($audition);
         $responseData = Helper::setResponse(false, 'User Payment Status Changed Successfully','');
         return response()->json($responseData);
 
