@@ -107,7 +107,7 @@
               // placeholderNumberType: "MOBI
               preferredCountries: ['np', 'in', 'au', 'us', 'jp', 'ca', 'cn'],
               separateDialCode: true,
-              utilsScript: "/laravel/leader/intl-tel-input/js/utils.js",
+              utilsScript: "{{asset('intl-tel-input/js/utils.js')}}",
             });
             $(document).ready(function(){
               $('#agree-term').click(function(){
