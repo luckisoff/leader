@@ -9,6 +9,7 @@ use App\Audition;
 use App\PaymentLog;
 use App\EsewaToken;
 use App\Helpers\Helper;
+use App\Events\SendSms;
 use Illuminate\Support\Facades\Validator;
 
 class WebPaymentController extends Controller
@@ -19,14 +20,18 @@ class WebPaymentController extends Controller
         $locations=Location::orderBy('location','asc')->get();
         $user=Auth::user();
         $audition=Audition::where('email',$user->email)->first();
+        if($audition && $audition->payment_status == false) {
+            return redirect('/web/audition/payment');
+        }
         return view('payment.register',compact('user','locations','audition'));
     }
 
     public function storeRegistration(Request $request)
     {
+
         $this->validate($request,[
             'name'=>'required',
-            'phone'=>'required',
+            'phone'=>'required|max:15',
             'email'=>'required|unique:audition_registration',
         ]);
         
@@ -34,12 +39,14 @@ class WebPaymentController extends Controller
         $audition->user_id=Auth::User()->id;
         $audition->name=$request->name;
         $audition->number=$request->phone;
+        $audition->country_code=$request->country_code;
         $audition->address=$request->address;
         $audition->gender=$request->gender;
         $audition->email=Auth::User()->email?Auth::User()->email:$request->email;
         $audition->save();
         if($audition)
         {
+            event(new SendSms($audition));
             return redirect('/web/audition/payment');
         }
         return redirect('/web/audition/register');
@@ -88,7 +95,7 @@ class WebPaymentController extends Controller
                 
                 Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
 
-                Helper::send_sms($audition);
+                event(new SendSms($audition));
                 
                 PaymentLog::create([
                     'type'=>'Esewa',
@@ -181,7 +188,7 @@ class WebPaymentController extends Controller
             $audition->update();
         Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
 
-        Helper::send_sms($audition);
+        event(new SendSms($audition));
         
         PaymentLog::create([
             'type'=>'Khalti',
@@ -209,6 +216,8 @@ class WebPaymentController extends Controller
         $audition->update();
 
         Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
+        event(new SendSms($audition));
+
         PaymentLog::create([
             'type'=>'Paypal',
             'user_id'=>Auth::user()->id,
@@ -331,8 +340,8 @@ class WebPaymentController extends Controller
             $audition->channel='esewa token';
             $audition->update();
 
-            Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
-            Helper::send_sms($audition);
+            // Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
+            // Helper::send_sms($audition);
 
             PaymentLog::create([
                 'type'=>'Paypal',

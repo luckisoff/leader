@@ -161,6 +161,7 @@ return [
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Nexmo\Laravel\NexmoServiceProvider::class,
 //        'Tymon\JWTAuth\Providers\JWTAuthServiceProvider'
 //        Laravel\Cashier\CashierServiceProvider::class
         
