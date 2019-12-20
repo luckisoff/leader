@@ -27,7 +27,7 @@
                 <label for="password"><i class="zmdi zmdi-lock"></i></label>
                 <input type="password" name="password" required id="password" placeholder="password"/>
             </div>
-            <a href="{{ url('/password/reset') }}" class="signup-image-link forgot-password">Forget Password?</a>
+            <a href="{{ url('/password/reset') }}" class="signup-image-link forgot-password">Forgot Password?</a>
 
             <!-- <div class="form-group">
                 <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
