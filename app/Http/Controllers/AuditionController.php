@@ -868,6 +868,7 @@ class AuditionController extends Controller
             $auditions = Audition::offset($start)
                 ->limit($limit)
                 ->orderBy('payment_status','desc')
+                ->orderBy('updated_at','desc')
                 ->orderBy('created_at','desc')
                 ->get();
         }
@@ -911,11 +912,9 @@ class AuditionController extends Controller
                 $nestedData['email'] =$audition->email;
 
                 $nestedData['payment_status'] =$audition->payment_status==1
-                ?
-                "<i style='color:green;padding-left:25px;' class='fa fa-check-circle'></i><br>".Carbon::parse($audition->created_at)->diffForHumans()
-                :
-
-                "<i style='color:red;padding-left:25px;' class='fa fa-times-circle'></i><br>".Carbon::parse($audition->created_at)->diffForHumans();
+                ?"<i style='color:green;padding-left:25px;' class='fa fa-check-circle'></i><br>".Carbon::parse($audition->created_at)->diffForHumans()
+                ."<br>".Carbon::parse($audition->updated_at)->diffForHumans()
+                :"<i style='color:red;padding-left:25px;' class='fa fa-times-circle'></i><br>".Carbon::parse($audition->created_at)->diffForHumans();
                 
                 $nestedData['payment_type'] =$this->ajaxPaymentType($audition->payment_type);
 
