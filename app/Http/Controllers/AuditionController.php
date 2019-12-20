@@ -879,6 +879,7 @@ class AuditionController extends Controller
                         ->orWhere('name', 'LIKE',"%{$search}%")
                         ->orWhere('address','LIKE',"%{$search}%")
                         ->orWhere('payment_type','LIKE',"%{$search}%")
+                        ->orWhere('number','LIKE',"%{$search}%")
                         ->offset($start)
                         ->limit($limit)
                         ->orderBy('payment_status','desc')
@@ -889,6 +890,7 @@ class AuditionController extends Controller
                     ->orWhere('name', 'LIKE',"%{$search}%")
                     ->orWhere('address', 'LIKE',"%{$search}%")
                     ->orWhere('payment_type','LIKE',"%{$search}%")
+                    ->orWhere('number','LIKE',"%{$search}%")
                     ->count();
         }
 
