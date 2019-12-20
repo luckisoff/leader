@@ -3,7 +3,7 @@
   	<div class="pull-left col-sm-6 text-left">
 		&copy; 2019 - <a href="{{Setting::get('copyrights_url') ? Setting::get('copyrights_url') : url('/')}}">{{Setting::get('site_name' , 'StreamHash')}} </a>
   	</div>
-  	<div class="pull-right col-md-6 text-right">
+  	<div class="pull-right col-sm-6 text-right">
 		<?php $pages = pages();?>
 		@if(count($pages) > 0)
 			<ul>

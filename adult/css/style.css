@@ -598,12 +598,12 @@ label.valid {
 }
 
 .navholder, .footer{
-  background-color: #072051;
+  background-color: #0d1d3c;
   padding: 8px;
 }
 
 .main{
-  margin-bottom: 15px;
+  margin-bottom: 68px;
   margin-top: 15px;
 }
 
@@ -648,8 +648,8 @@ label.valid {
 }
 
 .footer{
-    /*position: fixed;
-    bottom: 0;*/
+    position: fixed;
+    bottom: 0;
     flex-shrink: none;
     color: #bfbfbf;
     width: 100%;
@@ -684,6 +684,13 @@ label.valid {
 }
 .footer li:last-child:after {
     content: "";
+}
+
+@media screen and (max-width: 635px) {
+  .footer .col-sm-6{
+    float: none !important;
+    text-align: center !important;
+  }
 }
 .forgot-password{
     text-align: left !important;
