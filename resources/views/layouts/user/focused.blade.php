@@ -19,7 +19,7 @@
         <link href="{{asset('intl-tel-input/css/demo.css')}}" rel="stylesheet">
 
 
-        <link rel="shortcut icon" type="image/png" href="{{Setting::get('site_icon' , asset('img/favicon.png'))}}"/>
+        <link rel="shortcut icon" type="image/png" href="{{Setting::get('site_icon' , asset('images/favicon.ico'))}}"/>
 
        <?php echo Setting::get('header_scripts'); ?>
 
