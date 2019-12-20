@@ -84,6 +84,12 @@ return [
 
     'leader'=>[
         'identity'=>env('LEADER_IDENTITY'),
-    ]
+    ],
+
+    'nexmo' => [
+        'key' => env('NEXMO_KEY'),
+        'secret' => env('NEXMO_SECRET'),
+        'sms_from' => env('NEXMO_NUMBER'),
+    ],
 
 ];

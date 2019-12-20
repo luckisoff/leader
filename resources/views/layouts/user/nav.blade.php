@@ -1,94 +1,44 @@
-<div class="top-fix">
-	<a class="navbar-brand" href="{{route('user.dashboard')}}"><img src="{{Setting::get('site_logo' , asset('logo.png'))}}"></a>
-    <div class="row top-nav">
-
-    	@if(Auth::check())
-          <div class="container nav-pad"> 
-			           
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown">
-               @if(Auth::check()) {{Auth::user()->name}} @else User @endif <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-right">
-                {{-- <li><a href="{{route('user.profile')}}">{{tr('profile')}}</a></li>
-				<li><a href="{{route('user.wishlist')}}">{{tr('wishlist')}}</a></li> --}}
-				<li><a href="{{route('web-leader-register')}}">{{tr('Leader register')}}</a></li>
-				
-                {{-- <li>
-                	<a href="{{route('user.delete.account')}}" @if(Auth::user()->login_by != 'manual') onclick="return confirm('Are you sure? . Once you deleted account, you will lose your history and wishlist details.')" @endif>
+<div class="navholder">
+	<div class="container">
+		<nav class="navbar navbar-default">
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="#">
+		        <img src="{{ asset('images/logo.png')}}" class="img-responsive" width="50">
+		      </a>
+		    </div>
+		    <div id="navbar" class="navbar-collapse collapse">
+		      <ul class="nav navbar-nav navbar-right">
+		        	@if(Auth::check())
+		            <li class="dropdown">
+		              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+		              	@if(Auth::check()) {{Auth::user()->name}} @else User @endif <span class="caret"></span>
+		          	</a>
+		              <ul class="dropdown-menu">
+						<li><a href="{{route('web-leader-register')}}">{{tr('Leader register')}}</a></li>
+						{{-- <li>
+							<a href="{{route('user.delete.account')}}" @if(Auth::user()->login_by != 'manual') onclick="return confirm('Are you sure? . Once you deleted account, you will lose your history and wishlist details.')" @endif>
                         {{tr('Delete Account?')}}
-                    </a>
+                    		</a>
+                		</li> --}}
+						<li><a href="{{route('user.logout')}}">{{tr('Logout')}}</a></li>    
+		              </ul>
+		            </li>
+		          @else
+						<li><a href="{{ route('user.login.form') }}">Login</a></li>
+						<li><a href="{{route('user.register.form')}}">Register</a></li>
 
-                </li>   --}}
-
-                <li><a href="{{route('user.logout')}}">{{tr('Logout')}}</a></li>                
-              </ul>
-            </div>  
-          </div>
-
-        @else 
-
-      	<div class="container nav-pad">
-	        <a href="{{ route('user.login.form') }}">{{tr('Login')}}</a>  
-	        <a href="{{route('user.register.form')}}">{{tr('Register')}}</a>  
-      	</div>
-
-      	@endif
-    
-    </div>
-
-    <div class="row main-nav">
-
-      	{{-- <nav class="navbar navbar-default" role="navigation"> --}}
-
-	        {{-- <div class="container nav-pad">
-	          	<!-- Brand and toggle get grouped for better mobile display -->
-	          	<div class="navbar-header">
-		            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-		              <span class="sr-only">Toggle navigation</span>
-		              <span class="icon-bar"></span>
-		              <span class="icon-bar"></span>
-		              <span class="icon-bar"></span>
-		            </button>
-		            <a class="navbar-brand" href="{{route('user.dashboard')}}"><img src="{{Setting::get('site_logo' , asset('logo.png'))}}"></a>
-	          	</div>
-
-	          	<!-- Collect the nav links, forms, and other content for toggling -->
-	          	
-	          	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-		            <ul class="nav navbar-nav navbar-left">  --}}
-		              	{{-- <li id="home"><a href="{{route('user.dashboard')}}">{{tr('videos')}}</a></li>
-		              	<li id="categories"><a href="{{route('user.categories')}}">{{tr('categories')}}</a></li>
-		              	<li id="trending"><a href="{{route('user.trending')}}">{{tr('trending')}}</a></li> --}}
-		              	{{-- @if(Auth::check()) --}}
-						  {{-- <li id="profile"><a href="{{route('user.wishlist')}}">{{tr('wishlist')}}</a></li> --}}
-						  {{-- <li><a href="{{route('web-leader-register')}}">{{tr('leader register')}}</a></li>
-							@endif--}}
-		              
-		            {{-- </ul>
-
-		            <form class="navbar-form navbar-right" role="search" id="userSearch" action="{{route('search-all')}}">
-		              	<div class="form-group">
-		                	<input type="search" required id="auto_complete_search" class="form-control" name="key" placeholder="Search">
-		              	</div>
-
-		              	<button type="submit" class="btn btn-default">
-		              		<i class="glyphicon glyphicon-search"></i>
-						</button>
-		            
-		            </form>
-	            
-	          	</div>
-
-	          	<!-- /.navbar-collapse -->
-
-	        </div>
-
-	        <!-- /.container-fluid -->
-      	</nav>
-    </div> --}}
-
+					@endif
+	        </ul>
+	    	</div><!--/.nav-collapse -->
+		</nav>
+	</div>
 </div>
+
 
 

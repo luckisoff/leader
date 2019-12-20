@@ -2,57 +2,49 @@
 
 @section('content')
 
-<div class="login-box">
-    <h4>{{tr('reset_password')}}</h4> 
-               
-    <form class="signup-form login-form" role="form" method="POST" action="{{ url('/password/reset') }}">
-                    {{ csrf_field() }}
-                    <input type="hidden" name="token" value="{{ $token }}">
-        <!-- <div class="form-group">
-            <label for="email">{{tr('email')}}</label>
-            <input type="email" name = "email" class="form-control" placeholder="{{tr('email')}}" id="email">
-            <span class="form-error">email is required</span>
-        </div>  -->            
-        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-            <label for="exampleInputEmail1">{{tr('email')}}</label>
-            <input type="email" id="email" type="email" placeholder="Enter your email" required="" name="email" value="{{ $email or old('email') }}" aria-describedby="emailHelp" class="form-control"  >
-            @if ($errors->has('email'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
-                </span>
-            @endif
-        </div>        
-        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+<!-- Sing in  Form -->
+<section class="sign-in">
+  <div class="signin-content">
+      <div class="signin-image">
+        <figure><img src="{{Setting::get('site_logo' , asset('logo.png'))}}" alt="the leader" class="img-responsive"></figure>
+      </div>
+      <div class="signin-form">
+         <h2 class="form-title">Reset Password</h2>
+         <form role="form" method="POST" action="{{ url('/password/reset') }}" class="register-form" id="login-form">
+            {{ csrf_field() }}
+            <input type="hidden" name="token" value="{{ $token }}">
+            @foreach ($errors->all() as $error)
+               <span class="form-error">{{ $error }}</span>
+            @endforeach
 
-                <label for="exampleInputEmail1">{{tr('password')}}</label>
+            <div class="form-group">
+              <label for="email"><i class="zmdi zmdi-email material-icons-name"></i></label>
+              <input type="text" name="email" required id="email" placeholder="Enter your email id"/>
+           </div>
 
-                <input id="password" type="password" placeholder="Enter your password" required="" name="password" value="{{ $password or old('password') }}" aria-describedby="emailHelp" class="form-control"  >
-
-                @if ($errors->has('password'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('password') }}</strong>
-                    </span>
-                @endif
-                
+            <div class="form-group">
+                <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                <input type="password" name="password" required id="password" placeholder="Enter your new password"/>
             </div>
-            <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
 
-                <label for="exampleInputEmail1">{{tr('password_confirmation')}}</label>
+            <div class="form-group">
+                <label for="password_confirmation"><i class="zmdi zmdi-lock"></i></label>
+                <input type="password" name="password_confirmation" required id="password_confirmation" placeholder="Confirm your new password"/>
+            </div>
 
-                <input  id="password_confirmation" type="password" placeholder="Enter your confirm password " required="" name="password_confirmation" value="{{ $password_confirmation or old('password_confirmation') }}" aria-describedby="emailHelp" class="form-control" >
+            <div class="form-group form-button">
+               <input type="submit" class="form-submit" value="Reset Now"/>
+            </div>
 
-                @if ($errors->has('password_confirmation'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                    </span>
-                @endif
+         </form>
+         <div class="social-login">
+          <ul class="socials">
+              <li><a href="{{ route('user.login.form') }}" class="signup-image-link">Sign in to your account</a></li>
+          </ul>
+      </div>
+      </div>
+   </div>
+</section>
 
-            </div>                      
-      <button type="submit" class="btn btn-default">{{tr('reset_now')}}</button>
-    </form>  
-
-    <!-- <p class="help"><a href="{{route('user.register.form')}}">{{tr('new_account')}}</a></p>
-    <p class="help"><a href="{{ route('user.login.form') }}">{{tr('login')}}</a></p> -->
-</div>
 
 @endsection

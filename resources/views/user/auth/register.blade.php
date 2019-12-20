@@ -2,59 +2,58 @@
 
 @section('content')
 
-<div class="login-box">
-    {{-- <h4>{{tr('register')}}</h4> --}}
-    <div class="text-center">
-        <a href="{{route('user.dashboard')}}"><img class="login-logo" src="{{Setting::get('site_logo' , asset('logo.png'))}}"></a>
+<!-- Sing in  Form -->
+<section class="sign-in">
+  <div class="signin-content">
+    <div class="signin-image">
+        <figure><img src="{{Setting::get('site_logo' , asset('logo.png'))}}" alt="the leader" class="img-responsive"></figure>
+        <a href="{{ route('user.login.form') }}" class="signup-image-link">I am already member</a>
     </div>
+
+    <div class="signin-form">
+        <h2 class="form-title">Leader Sign up</h2>
     
-    <form role="form" method="POST" action="{{ url('/register') }}">
-        
-      <div class="form-group">
-        {!! csrf_field() !!}
-        @if($errors->has('email') || $errors->has('name') || $errors->has('password_confirmation') ||$errors->has('password'))
-            <div data-abide-error="" class="alert callout">
-                <p>
-                    <i class="fa fa-exclamation-triangle"></i> 
-                    <strong> 
-                        @if($errors->has('email')) 
-                            {{ $errors->first('email') }}
-                        @endif
+       <form role="form" method="POST" action="{{ url('/register') }}" class="register-form" id="login-form">
+           
+           {!! csrf_field() !!}
+           @foreach ($errors->all() as $error)
+               <span class="form-error">{{ $error }}</span>
+           @endforeach
 
-                        @if($errors->has('name')) 
-                            {{ $errors->first('name') }}
-                        @endif
+           <div class="form-group">
+               <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+               <input type="text" name="name" required id="name" placeholder="Enter your full name"/>
+           </div>
 
-                        @if($errors->has('password')) 
-                            {{$errors->first('password') }}
-                        @endif
+           <div class="form-group">
+               <label for="email"><i class="zmdi zmdi-email material-icons-name"></i></label>
+               <input type="email" name="email" required id="email" placeholder="Enter your email address"/>
+           </div>
 
-                        @if($errors->has('password_confirmation'))
-                            {{ $errors->first('password_confirmation') }}
-                        @endif
+           <div class="form-group">
+               <label for="pwd"><i class="zmdi zmdi-key material-icons-name"></i></label>
+               <input type="password" name="password" required id="pwd" placeholder="Enter a password"/>
+           </div>
 
-                    </strong>
-                </p>
-            </div>
-        @endif
-        <label for="name">{{tr('Name')}}</label>
-        <input type="text" name="name" required class="form-control" id="name" placeholder="Enter your full name">
-      </div>
-      <div class="form-group">
-        <label for="email">{{tr('Email')}}</label>
-        <input type="email" name="email" required class="form-control" id="email" placeholder="Enter your email address">
-      </div>
-      <div class="form-group">
-        <label for="pwd">{{tr('Password')}}</label>
-        <input type="password" name="password" required class="form-control" id="pwd" placeholder="Enter a password">
-      </div>  
-      <div class="form-group">
-        <label for="pwd">{{tr('Confirm Password')}}</label>
-        <input type="password" name="password_confirmation" required class="form-control" id="pwd" placeholder="Confirm your password">
-      </div>                  
-      <button type="submit" class="btn btn-default">{{tr('Sign Up')}}</button>
-    </form>                
-    <p class="help"><a href="{{ route('user.login.form') }}">{{tr('Login')}}</a></p>         
-</div>
+           <div class="form-group">
+               <label for="pwd2"><i class="zmdi zmdi-key material-icons-name"></i></label>
+               <input type="password" name="password_confirmation" required id="pwd2" placeholder="Confirm your password"/>
+           </div>
+
+           <div class="form-group form-button">
+               <input type="submit" class="form-submit" value="Sign Up"/>
+           </div>
+       </form>
+       <div class="social-login">
+            <span class="social-label">Or register with</span>
+            <ul class="socials">
+                <li><a href="{{URL::to('/').'/social/facebook'}}"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                <!-- <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li> -->
+                <li><a href="{{URL::to('/').'/social/google'}}"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+            </ul>
+        </div>
+    </div>
+  </div>
+</section>              
 
 @endsection
