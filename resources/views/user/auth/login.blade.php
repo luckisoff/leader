@@ -19,7 +19,7 @@
                 <span class="form-error">{{ $error }}</span>
             @endforeach
             <div class="form-group">
-                <label for="email"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                <label for="email"><i class="zmdi zmdi-email material-icons-name"></i></label>
                 <input type="email" name="email" required id="email" placeholder="email id"/>
                
             </div>

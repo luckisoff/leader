@@ -697,3 +697,6 @@ label.valid {
     overflow-x: hidden;
     white-space: normal !important;
 }
+.page-content{
+    padding: 15px;
+}

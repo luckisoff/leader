@@ -109,6 +109,18 @@
               separateDialCode: true,
               utilsScript: "/laravel/leader/intl-tel-input/js/utils.js",
             });
+            $(document).ready(function(){
+              $('#agree-term').click(function(){
+                if(!$(this).is(':checked')){
+                     $('#register-form').attr("disabled","disabled");   
+                     $('#signup').attr("disabled","disabled");
+                } else {
+                    $('#register-form').removeAttr('disabled');
+                    $('#signup').removeAttr("disabled");
+                }
+              });
+            });
+
 
         </script>
 

@@ -29,46 +29,51 @@
     }
 }
 </style>
-    <div class="login-box">
-        <h4>{{tr('Payment Method')}}</h4>
 
-            @if(session('message'))
-                <h6 class="alert alert-warning">{{session('message')}}</h6>
-            @endif
-
-            <h5>Pay With</h5>
-            <div class="alert alert-danger" id="error_msg" style="display:none">
-            </div>
-            <div class="row payment-method">
-                <div class="esewa col-sm-6">
-                    <button onclick="document.getElementById('esewaPayment').submit();">
-                        <img src="{{ asset('images/esewa-logo.jpg') }}" class="img-responsive">
-                    </button>
-                </div>
-                <div class="khalti col-sm-6">
-                    <button onclick="khaltiPayment({{config('services.payment.khalti')}})">
-                        <img src="{{ asset('images/khalti-logo.jpg') }}" class="img-responsive">
-                    </button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div id="paypal-button-container"></div>
-                </div>
-            </div>
-            <form id="esewaPayment" action="{{config('services.transactionapi.esewapay')}}" method="POST">
-                <input value="{{config('services.payment.esewa')}}" name="tAmt" type="hidden">
-                <input value="{{config('services.payment.esewa')}}" name="amt" type="hidden">
-                <input value="0" name="txAmt" type="hidden">
-                <input value="0" name="psc" type="hidden">
-                <input value="0" name="pdc" type="hidden">
-                <input value="NP-ES-SRBN" name="scd" type="hidden">
-                <input value="{{ config('services.leader.identity') .Auth::user()->id}}" name="pid" type="hidden">
-                <input value="{{URL::to('/').'/web/audition/esewa/success?id='.Auth::user()->id}}" type="hidden" name="su">
-                <input value="{{URL::to('/').'/web/audition/esewa/failure?id='.Auth::user()->id}}" type="hidden" name="fu">
-            </form>
-
+<!-- Sing in  Form -->
+<section class="sign-in">
+  <div class="signin-content">
+    <div class="signin-image">
+        <figure><img src="{{Setting::get('site_logo' , asset('logo.png'))}}" alt="the leader" class="img-responsive"></figure>
     </div>
+    <div class="signin-form">
+      <h2 class="form-title">Payment Method</h2>
+      @if(session('message'))
+          <h6 class="alert alert-warning">{{session('message')}}</h6>
+      @endif
+      <h3 class="form-title">Pay With</h3>
+         <div class="alert alert-danger" id="error_msg" style="display:none"></div>
+         <div class="row payment-method">
+             <div class="esewa col-sm-6">
+                 <button onclick="document.getElementById('esewaPayment').submit();">
+                     <img src="{{ asset('images/esewa-logo.jpg') }}" class="img-responsive">
+                 </button>
+             </div>
+             <div class="khalti col-sm-6">
+                 <button onclick="khaltiPayment({{config('services.payment.khalti')}})">
+                     <img src="{{ asset('images/khalti-logo.jpg') }}" class="img-responsive">
+                 </button>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-sm-12">
+                 <div id="paypal-button-container"></div>
+             </div>
+         </div>
+         <form id="esewaPayment" action="{{config('services.transactionapi.esewapay')}}" method="POST">
+             <input value="{{config('services.payment.esewa')}}" name="tAmt" type="hidden">
+             <input value="{{config('services.payment.esewa')}}" name="amt" type="hidden">
+             <input value="0" name="txAmt" type="hidden">
+             <input value="0" name="psc" type="hidden">
+             <input value="0" name="pdc" type="hidden">
+             <input value="NP-ES-SRBN" name="scd" type="hidden">
+             <input value="{{ config('services.leader.identity') .Auth::user()->id}}" name="pid" type="hidden">
+             <input value="{{URL::to('/').'/web/audition/esewa/success?id='.Auth::user()->id}}" type="hidden" name="su">
+             <input value="{{URL::to('/').'/web/audition/esewa/failure?id='.Auth::user()->id}}" type="hidden" name="fu">
+         </form>
+      </div>
+   </div>
+</section>
 <script src="https://khalti.com/static/khalti-checkout.js"></script>
 <script src="https://www.paypal.com/sdk/js?client-id={{config('services.paypal.client_id')}}&currency=USD"></script>
 <script type="text/javascript">

@@ -27,7 +27,6 @@ class AuditionController extends Controller
             'name' => 'required|max:255',
             'address' => 'required|max:255',
             'number' => 'required|max:15',
-            'country_code' => 'required',
             'gender' => 'required|max:255',
             'email' => 'required|max:255',
         ]);
@@ -60,7 +59,7 @@ class AuditionController extends Controller
         $form->name = $request->name;
         $form->address = $request->address;
         $form->number = $request->number;
-        $form->country_code=$request->country_code;
+        $form->country_code=$request->country_code ?: '977';
 
         $form->gender = $request->gender;
         $form->email = $request->email;

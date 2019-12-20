@@ -2,31 +2,38 @@
 
 @section('content')
 
-<div class="login-box">
-    <h4>{{tr('forgot_password')}}</h4>               
-    <form method="post" novalidate="" action="{{ url('/password/email') }}">
-      <div class="form-group">
+<!-- Sing in  Form -->
+<section class="sign-in">
+  <div class="signin-content">
+    <div class="signin-image">
+        <figure><img src="{{Setting::get('site_logo' , asset('logo.png'))}}" alt="the leader" class="img-responsive"></figure>
+    </div>
+    <div class="signin-form">
+      <h2 class="form-title">Forgot Password</h2>
+      <form role="form" method="POST" action="{{ url('/password/email') }}" class="register-form" id="login-form">
         {!! csrf_field() !!}
-          @if($errors->has('email'))
-              <div data-abide-error="" class="alert callout">
-                  <p>
-                      <i class="fa fa-exclamation-triangle"></i> 
-                      <strong> 
-                          @if($errors->has('email')) 
-                              {{ $errors->first('email') }}
-                          @endif
-                      </strong>
-                  </p>
-              </div>
-          @endif
-        <label for="email">{{tr('email')}}</label>
-        <input type="email" name="email" class="form-control" id="email">
-      </div>                                   
-      <button type="submit" class="btn btn-default">{{tr('reset_now')}}</button>
-                   
-    <p class="help"><a href="{{route('user.register.form')}}">{{tr('new_account')}}</a></p>
-    <p class="help"><a href="{{ route('user.login.form') }}">{{tr('login')}}</a></p>
-    </form> 
-</div>
+        @foreach ($errors->all() as $error)
+          <span class="form-error">{{ $error }}</span>
+        @endforeach
+
+        <div class="form-group">
+           <label for="email"><i class="zmdi zmdi-email material-icons-name"></i></label>
+           <input type="text" name="email" required id="email" placeholder="Enter your email id"/>
+        </div>
+
+        <div class="form-group form-button">
+          <input type="submit" class="form-submit" value="Reset Password"/>
+        </div>
+      </form>
+      <div class="social-login">
+          <ul class="socials">
+              <li><a href="{{ route('user.login.form') }}" class="signup-image-link">Sign in to your account</a></li>
+              <li>|</li>
+              <li><a href="{{route('user.register.form')}}" class="signup-image-link">Register your account</a></li>
+          </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
 @endsection

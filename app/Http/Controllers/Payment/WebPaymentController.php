@@ -19,6 +19,9 @@ class WebPaymentController extends Controller
         $locations=Location::orderBy('location','asc')->get();
         $user=Auth::user();
         $audition=Audition::where('email',$user->email)->first();
+        if($audition && $audition->payment_status == false) {
+            return redirect('/web/audition/payment');
+        }
         return view('payment.register',compact('user','locations','audition'));
     }
 

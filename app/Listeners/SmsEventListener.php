@@ -35,7 +35,8 @@ class SmsEventListener {
 
         if($audition['country_code'] === '977') {
             $mobile = $audition['number'];
-        }else{
+            
+        }elseif($audition['country_code']) {
             $mobile = $audition['country_code'] .$audition['number'];
         }
 
@@ -56,7 +57,8 @@ class SmsEventListener {
         $audition = $event->audition;
         if($audition['country_code'] === '977') {
             $mobile = $audition['number'];
-        }else{
+
+        }elseif($audition['country_code']){
             $mobile = $audition['country_code'] .$audition['number'];
         }
 

@@ -1,33 +1,19 @@
-@extends('layouts.user')
-
-@section('styles')
-
-<style type="text/css">
-
-.navbar-form .btn { 
-
-padding: 8px 10px;
-
-}
-
-h4 {
-
-	text-transform: capitalize;
-}
-
-</style>
-
-@endsection
+@extends('layouts.user.focused')
 
 @section('content')
+<!-- Sing in  Form -->
+<section class="sign-in">
+  <div class="page-content">
 
-<div class="video-full-box">
+		<div class="video-full-box">
 
-<h4>{{$model->heading}}</h4>
+			<h4>{{$model->heading}}</h4>
 
 
-<?= $model->description; ?>
+			<?= $model->description; ?>
 
-</div>
+		</div>
+	</div>
+</section>
 
 @endsection
