@@ -546,7 +546,10 @@ class AuditionController extends Controller
     public function viewAllAuditionUser(){
 
         $data['totalUsers'] =Audition::where('deleted_at',null)->count();
+        
         $data['todayNewUsers']=Audition::where('deleted_at',null)->where('created_at','>=',Carbon::today())->count();
+        $data['todayRegistered']=Audition::where('deleted_at',null)->where('payment_status',1)
+                                    ->where('updated_at','>=',Carbon::today())->count();
         $data['totalRegistered']=Audition::where('payment_status',1)->count();
         $data['esewaUsers']=Audition::where('payment_type','Esewa')->orWhere('payment_type','esewa')->count();        
         $data['khaltiUsers']=Audition::where('payment_type','Khalti')->orWhere('payment_type','khalti')->count();        
