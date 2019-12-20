@@ -54,6 +54,8 @@ Route::group(['middleware'=>'api'], function(){
         Route::post('saveuserpoints','LeaderBoardController@save');
         Route::get('getuserpoints/{id}','LeaderBoardController@getPoints');
         Route::get('leaderusers','LeaderBoardController@get_leader_users');
+        Route::post('withdraw/claim','LeaderAmountWithdrawController@store');
+        Route::get('withdraw/claim/status/{user_id}','LeaderAmountWithdrawController@checkStatus');
 
         Route::post('deduct-user-point','LeaderBoardController@deductUserPoint');//params: user_id, point_to_deduct
         Route::post('register-live-user','LivequizController@registerLiveUsers');//params:question_set,user_id
@@ -67,7 +69,7 @@ Route::group(['middleware'=>'api'], function(){
         Route::get('get-live-position','LivequizController@getPostion');
         Route::get('get-live-winner','LivequizController@getWinner');
         Route::get('get-winner-list','LivequizController@getWinnerList');
-        
+       
         Route::post('gundruk/payment-claim','LeaderBoardController@paymentClaim');
 
         Route::group(['prefix'=>'spinner/leaderboard'],function(){

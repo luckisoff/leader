@@ -36,6 +36,7 @@
                     <li id="view-user"><a href="{{route('admin.new.admin')}}"><i class="fa fa-circle-o"></i>{{tr('New Admin')}}</a></li>
                     <li id="view-user"><a href="{{route('admin.list')}}"><i class="fa fa-circle-o"></i>{{tr('View Admins')}}</a></li>
                     <li id="winner-winner"><a href="{{route('live-quiz-winners')}}"><i class="fa fa-circle-o"></i>{{tr('Live Quiz Winner')}}</a></li>
+                    <li id="winner-winner"><a href="{{route('view-claim')}}"><i class="fa fa-circle-o"></i>{{tr('View Pay Claims')}}</a></li>
                 </ul>
     
             </li>

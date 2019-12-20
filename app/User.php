@@ -91,6 +91,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(SpinnerDailyPoint::class);
     }
     
+    public function amoutnWithDraw()
+    {
+        return $this->hasMany(LeaderAmountWithDraw::class);
+    }
     public static function boot()
     {
         //execute the parent's boot method 

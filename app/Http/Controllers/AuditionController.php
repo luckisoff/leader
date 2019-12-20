@@ -12,6 +12,8 @@ use App\Sponser;
 use Illuminate\Http\Request;
 use File;
 use \Carbon\Carbon;
+use App\AuditionDelete;
+use Auth;
 use Illuminate\Support\Facades\Redirect;
 
 
@@ -618,12 +620,35 @@ class AuditionController extends Controller
             return redirect()->route('audition.view-audition');
         }
 
-//        File::delete( base_path() . "/uploads/audition/document/" . basename($data->image));
-//        File::delete( base_path() . "/uploads/audition/attachment/" . basename($data->attachment));
         $data->delete();
+
+        AuditionDelete::create([
+            'admin_id'=>Auth::guard('admin')->user()->id,
+            'audition_id'=>$data->id,
+            'ip'=>$this->get_client_ip()
+        ]);
 
         \Session::flash('flash_success','Contestant Deleted Successfully');
         return redirect()->route('audition.view-audition');
+    }
+
+    protected function get_client_ip() {
+        $ipaddress = '';
+        if (getenv('HTTP_CLIENT_IP'))
+            $ipaddress = getenv('HTTP_CLIENT_IP');
+        else if(getenv('HTTP_X_FORWARDED_FOR'))
+            $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+        else if(getenv('HTTP_X_FORWARDED'))
+            $ipaddress = getenv('HTTP_X_FORWARDED');
+        else if(getenv('HTTP_FORWARDED_FOR'))
+            $ipaddress = getenv('HTTP_FORWARDED_FOR');
+        else if(getenv('HTTP_FORWARDED'))
+           $ipaddress = getenv('HTTP_FORWARDED');
+        else if(getenv('REMOTE_ADDR'))
+            $ipaddress = getenv('REMOTE_ADDR');
+        else
+            $ipaddress = 'UNKNOWN';
+        return $ipaddress;
     }
 
     //khalti integration
