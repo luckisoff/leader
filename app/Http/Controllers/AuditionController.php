@@ -510,7 +510,7 @@ class AuditionController extends Controller
             'name' => 'required|max:50',
             'gender' => 'required|max:50',
             'address' => 'required|max:50',
-            'number' => 'required|max:15',
+            'number' => 'required|min:10|max:15',
             'email' => 'required|email|max:100',
         ]);
 

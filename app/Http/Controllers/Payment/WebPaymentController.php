@@ -31,7 +31,7 @@ class WebPaymentController extends Controller
 
         $this->validate($request,[
             'name'=>'required',
-            'phone'=>'required|max:15',
+            'phone'=>'required|min:10|max:15',
             'email'=>'required|unique:audition_registration',
         ]);
         
