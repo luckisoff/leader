@@ -64,7 +64,7 @@
                                                                 <a role="button" href="javascript:;" class="btn disabled" style="text-align: left">{{tr('delete')}}</a>
                                                             @else
                                                                 <a role="menuitem" tabindex="-1" onclick="return confirm('Are you sure?');" href="{{route('audition.deleted-audition-exclude',$audition->id)}}">
-                                                                    <i class="fa fa-trash"></i>Exclude
+                                                                    <i class="fa fa-undo"></i>Revert
                                                                 </a>
                                                             @endif
                                                         </li>
