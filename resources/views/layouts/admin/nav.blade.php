@@ -160,6 +160,7 @@
                 <ul class="treeview-menu">
                     <li id="add_audition"><a href="{{route('audition.show-audition-form')}}"><i class="fa fa-circle-o"></i>Add Audition User </a></li>
                     <li id="show_audition"><a href="{{route('audition.view-audition')}}"><i class="fa fa-circle-o"></i>View Audition User</a></li>
+                    <li id="show_audition"><a href="{{route('audition.delete-audition-view')}}"><i class="fa fa-circle-o"></i>View Deleted Leader</a></li>
                 </ul>
             </li>
 

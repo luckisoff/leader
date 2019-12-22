@@ -252,6 +252,8 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/delete/{id}',['uses'=>'AuditionController@deleteAudition','as'=>'delete-audition']);
         Route::get('/deleted/view',['uses'=>'AuditionController@showDeletedAudition','as'=>'delete-audition-view']);
 
+        Route::get('/deleted/exlude/{audition}',['uses'=>'AuditionController@excludeDeletedAudition','as'=>'deleted-audition-exclude']);
+
         //server integrate with merchant
 //        Route::get('/khalti',['uses'=>'AuditionController@showKhalti','as'=>'view-khalti']);
 //        Route::get('/integrate',['uses'=>'AuditionController@integrateKhalti','as'=>'delete-audition']);

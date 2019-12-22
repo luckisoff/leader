@@ -36,6 +36,7 @@
                                     <th>Admin Email</th>
                                     <th>Admin Ip</th>
                                     <th>Deleted on</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,6 +50,29 @@
                                         <td>{{$audition->admin->email}}</td>
                                         <td>{{$audition->ip}}</td>
                                         <td>{{$audition->audition->deleted_at->diffForHumans()}}</td>
+                                        <td>
+                                            <ul class="admin-action btn btn-default">
+                                                <li class="dropdown">
+                                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                        Action <span class="caret"></span>
+                                                    </a>
+    
+                                                    <ul class="dropdown-menu">
+    
+                                                        <li role="presentation">
+                                                            @if(Setting::get('admin_delete_control'))
+                                                                <a role="button" href="javascript:;" class="btn disabled" style="text-align: left">{{tr('delete')}}</a>
+                                                            @else
+                                                                <a role="menuitem" tabindex="-1" onclick="return confirm('Are you sure?');" href="{{route('audition.deleted-audition-exclude',$audition->id)}}">
+                                                                    <i class="fa fa-trash"></i>Exclude
+                                                                </a>
+                                                            @endif
+                                                        </li>
+                                                    </ul>
+                                                </li>
+    
+                                            </ul>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -641,22 +641,36 @@ class AuditionController extends Controller
         
         return view('admin.audition.deleted-udition')->with('auditions',$auditions)->with('page','');
     }
+
+    public function excludeDeletedAudition($id)
+    {
+        $auditionDel=AuditionDelete::find($id);
+        $audition =Audition::where('id',$auditionDel->audition_id)->withTrashed()->first();
+        $audition->deleted_at=null;
+        if($audition->update())
+        {
+            $auditionDel->delete();
+            return redirect()->back()->with('flash_success','Successfully transferred to audition table.')->with('page','');
+        }
+        return redirect()->back()->with('flash_error','Can not transferred to audition table.')->with('page','');
+
+    }
     protected function get_client_ip() {
         $ipaddress = '';
-        if (getenv('HTTP_CLIENT_IP'))
-            $ipaddress = getenv('HTTP_CLIENT_IP');
-        else if(getenv('HTTP_X_FORWARDED_FOR'))
-            $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
-        else if(getenv('HTTP_X_FORWARDED'))
-            $ipaddress = getenv('HTTP_X_FORWARDED');
-        else if(getenv('HTTP_FORWARDED_FOR'))
-            $ipaddress = getenv('HTTP_FORWARDED_FOR');
-        else if(getenv('HTTP_FORWARDED'))
-           $ipaddress = getenv('HTTP_FORWARDED');
-        else if(getenv('REMOTE_ADDR'))
-            $ipaddress = getenv('REMOTE_ADDR');
-        else
-            $ipaddress = 'UNKNOWN';
+            if(getenv('HTTP_X_FORWARDED_FOR'))
+                $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+            else if(getenv('HTTP_X_FORWARDED'))
+                $ipaddress = getenv('HTTP_X_FORWARDED');
+            else if(getenv('HTTP_FORWARDED_FOR'))
+                $ipaddress = getenv('HTTP_FORWARDED_FOR');
+            else if(getenv('HTTP_FORWARDED'))
+                $ipaddress = getenv('HTTP_FORWARDED');
+            else if(getenv('REMOTE_ADDR'))
+                $ipaddress = getenv('REMOTE_ADDR');
+            else if (getenv('HTTP_CLIENT_IP'))
+                $ipaddress = getenv('HTTP_CLIENT_IP');
+            else
+                $ipaddress = 'UNKNOWN';
         return $ipaddress;
     }
 
