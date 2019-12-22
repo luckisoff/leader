@@ -164,6 +164,33 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function () {
+        $('#user-table').DataTable({
+            language: {
+                processing: "<img src='../images/loader.gif'>",
+            },
+            "processing": true,
+            "serverSide": true,
+            "ajax":{
+                     "url": "{{route('admin.view.ajaxuser') }}",
+                     "dataType": "json",
+                     "type": "POST",
+                     "data":{ _token: "{{csrf_token()}}"}
+                   },
+            "columns": [
+                { "data": "id" },
+                { "data": "name" },
+                { "data": "email" },
+                { "data": "mobile" },
+                { "data": "level" },
+                {"data":"options"},
+
+            ]	 
+
+        });
+    });
+</script>
 
 
     <script type="text/javascript">

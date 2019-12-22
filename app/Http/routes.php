@@ -85,6 +85,7 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('/delete/user', 'AdminController@delete_user')->name('admin.delete.user');
 
     Route::get('/view/user/{id}', 'AdminController@view_user')->name('admin.view.user');
+    Route::post('view/user/ajax','AdminController@ajax')->name('admin.view.ajaxuser');
 
     Route::get('user/withdraw/claims','LeaderAmountWithdrawController@index')->name('view-claim');
     Route::get('user/withdraw/pay/{withdraw}','LeaderAmountWithdrawController@update')->name('pay-claim');

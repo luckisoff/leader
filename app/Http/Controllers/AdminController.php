@@ -1676,5 +1676,103 @@ class AdminController extends Controller
             return back()->with('flash_error', 'Story can not be deleted successfully');
         }
     }
+
+    public function ajax(Request $request)
+    {
+        $totalData = User::count();
+
+        $totalFiltered = $totalData; 
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+
+        if(empty($request->input('search.value')))
+        {            
+            $users = User::offset($start)
+                ->limit($limit)
+                ->orderBy('updated_at','desc')
+                ->get();
+        }
+        else 
+        {
+            $search = $request->input('search.value'); 
+
+            $users =  User::where('name','LIKE',"%{$search}%")
+                        ->orWhere('mobile','LIKE',"%{$search}%")
+                        ->orWhere('email','LIKE',"%{$search}%")
+                        ->orWhere('gender','LIKE',"%{$search}%")
+                        ->offset($start)
+                        ->limit($limit)
+                        ->orderBy('name','asc')
+                        ->get();
+
+            $totalFiltered =  User::where('name','LIKE',"%{$search}%")
+                            ->orWhere('mobile','LIKE',"%{$search}%")
+                            ->orWhere('email','LIKE',"%{$search}%")
+                            ->orWhere('gender','LIKE',"%{$search}%")
+                            ->offset($start)
+                            ->limit($limit)
+                            ->orderBy('name','asc')
+                            ->count();
+        }
+
+        $data = array();
+        if(!empty($users))
+        {
+            foreach ($users as $key=>$user)
+            {
+                
+                $nestedData['id'] = $key+1+$start;
+                $nestedData['name'] = $user->name;
+                $nestedData['email'] = $user->email;
+                $nestedData['mobile'] =$user->mobile;
+                $nestedData['level'] =$user->leaderBoard->first()['level'];
+
+                $nestedData['options'] =$this->ajaxOption($user); 
+                
+                $data[] = $nestedData;
+            }
+        }
+
+        $json_data = array(
+            "draw"            => intval($request->input('draw')),  
+            "recordsTotal"    => intval($totalData),  
+            "recordsFiltered" => intval($totalFiltered), 
+            "data"            => $data   
+            );
+        return json_encode($json_data);
+    }
+
+    protected function ajaxOption($option)
+    {
+        return '<ul class="admin-action btn btn-default">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Action<span class="caret"></span>
+                        </a>
+                            <ul class="dropdown-menu">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="'.route("admin.edit.user" , array("id" => $option->id)).'">'.tr('edit').'</a></li> 
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="'.route("admin.view.user" , $option->id).'">'.tr("view").'</a></li>
+                                <li role="presentation" class="divider"></li>
+
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="'.route("admin.user.history",$option->id).'">'.tr("history").'</a></li>
+
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="'.route("admin.user.wishlist", $option->id).'">'.tr("wishlist").'</a></li>
+
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="'.route("user-earnings", $option->id).'">'.tr("earnings").'</a></li>
+
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">
+
+								    <a role="menuitem" tabindex="-1"
+								        onclick="return confirm("Are you sure?");" href="'.route("admin.delete.user", array('id' => $option->id)).'">'.tr('delete').'
+								    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </li>
+                </ul>';
+    }
+
     
 }
