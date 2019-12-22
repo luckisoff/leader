@@ -93,7 +93,7 @@
             <div class="small-box bg-orange">
               <div class="inner">
                     <h3>{{'Rs. '.number_format($total_earned,0)}}</h3>
-                    <p>{{tr('People Earned')}}</p>
+                    <p>{!!tr('People Earned').' <a style="color:#fff;text-decoration: underline;" href="'.route("view-claim").'">(Claims '.$total_claims.')</a>'!!}</p>
               </div>
               
               <div class="icon">

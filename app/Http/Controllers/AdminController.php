@@ -154,7 +154,7 @@ class AdminController extends Controller
         $recent_users = get_recent_users();
 
         $total_earned=\App\LeaderBoard::sum('point');
-
+        $total_claims=\App\LeaderAmountWithDraw::where('status',0)->with('user')->count();
         $categories = active_categories_count();
         $leaderboard=\App\LeaderBoard::orderBy('point','desc')->limit(10)->get();
         $winners=Winner::orderBy('created_at','desc')->limit(2)->get();
@@ -168,6 +168,7 @@ class AdminController extends Controller
                     ->with('recent_videos' , $recent_videos)
                     ->with('total_earned',$total_earned)
                     ->with('leaderboards',$leaderboard)
+                    ->with('total_claims',$total_claims)
                     ->with('apps',$apps)
                     ->with('categories', $categories);
     }
