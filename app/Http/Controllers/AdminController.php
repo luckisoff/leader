@@ -262,11 +262,7 @@ class AdminController extends Controller
     }
 
     public function users() {
-
-        $users = User::orderBy('created_at','desc')->get();
-
         return view('admin.users')->withPage('users')
-                        ->with('users' , $users)
                         ->with('sub_page','view-user');
     }
 
@@ -1677,6 +1673,7 @@ class AdminController extends Controller
         }
     }
 
+    //ajax request for user-table datatable
     public function ajax(Request $request)
     {
         $totalData = User::count();
@@ -1727,7 +1724,7 @@ class AdminController extends Controller
                 $nestedData['email'] = $user->email;
                 $nestedData['mobile'] =$user->mobile;
                 $nestedData['level'] =$user->leaderBoard->first()['level'];
-
+                $nestedData['point'] ='Rs '.$user->leaderBoard->first()['point'];
                 $nestedData['options'] =$this->ajaxOption($user); 
                 
                 $data[] = $nestedData;

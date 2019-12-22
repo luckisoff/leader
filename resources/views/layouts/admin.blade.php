@@ -132,6 +132,7 @@
         });
         
     </script>
+@if(Request::url()==route('audition.view-audition'))
  <script>
     $(document).ready(function () {
         $('#audition-table').DataTable({
@@ -164,6 +165,8 @@
         });
     });
 </script>
+@endif
+@if(Request::url()==route('admin.users'))
 <script>
     $(document).ready(function () {
         $('#user-table').DataTable({
@@ -184,6 +187,7 @@
                 { "data": "email" },
                 { "data": "mobile" },
                 { "data": "level" },
+                { "data": "point" },
                 {"data":"options"},
 
             ]	 
@@ -191,7 +195,7 @@
         });
     });
 </script>
-
+@endif
 
     <script type="text/javascript">
         $("#{{$page}}").addClass("active");

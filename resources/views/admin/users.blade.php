@@ -26,6 +26,7 @@
 						      <th>{{tr('email')}}</th>
 						      <th>{{tr('mobile')}}</th>
 							  <th>{{tr('quiz level')}}</th>
+							  <th>{{tr('Total Earned')}}</th>
 						      <th>{{tr('action')}}</th>
 						    </tr>
 						</thead>
