@@ -250,6 +250,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/edit/{id}',['uses'=>'AuditionController@showEditAuditionForm','as'=>'edit-audition-form']);
         Route::post('/edit',['uses'=>'AuditionController@editAudition','as'=>'edit-audition']);
         Route::get('/delete/{id}',['uses'=>'AuditionController@deleteAudition','as'=>'delete-audition']);
+        Route::get('/deleted/view',['uses'=>'AuditionController@showDeletedAudition','as'=>'delete-audition-view']);
 
         //server integrate with merchant
 //        Route::get('/khalti',['uses'=>'AuditionController@showKhalti','as'=>'view-khalti']);

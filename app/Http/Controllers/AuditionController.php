@@ -635,6 +635,12 @@ class AuditionController extends Controller
         return redirect()->route('audition.view-audition');
     }
 
+    public function showDeletedAudition()
+    {
+        $auditions=AuditionDelete::orderBy('created_at','desc')->get();
+        
+        return view('admin.audition.deleted-udition')->with('auditions',$auditions)->with('page','');
+    }
     protected function get_client_ip() {
         $ipaddress = '';
         if (getenv('HTTP_CLIENT_IP'))
