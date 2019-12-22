@@ -21,14 +21,14 @@
 	              	<table id="user-table" class="table table-bordered table-striped">
 						<thead>
 						    <tr>
-						      <th>{{tr('id')}}</th>
-						      <th>{{tr('username')}}</th>
-						      <th>{{tr('email')}}</th>
-						      <th>{{tr('mobile')}}</th>
-							  <th>{{tr('quiz level')}}</th>
+						      <th>{{tr('Index')}}</th>
+						      <th>{{tr('Full Name')}}</th>
+						      <th>{{tr('Email')}}</th>
+						      <th>{{tr('Mobile')}}</th>
+							  <th>{{tr('Quiz Level')}}</th>
 							  <th>{{tr('Total Earned')}}</th>
 							  <th>{{tr('Active')}}</th>
-						      <th>{{tr('action')}}</th>
+						      <th>{{tr('Action')}}</th>
 						    </tr>
 						</thead>
 						<tbody></tbody>
