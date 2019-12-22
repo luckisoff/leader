@@ -29,12 +29,12 @@
                             <thead>
                                 <tr>
                                     <th>S.N.</th>
-                                    <th>Admin Name</th>
-                                    <th>Admin Email</th>
-                                    <th>Admin Ip</th>
                                     <th>User Name</th>
                                     <th>User Id</th>
                                     <th>User Status</th>
+                                    <th>Admin Name</th>
+                                    <th>Admin Email</th>
+                                    <th>Admin Ip</th>
                                     <th>Deleted on</th>
                                 </tr>
                             </thead>
@@ -42,12 +42,12 @@
                                 @foreach ($auditions as $key=>$audition)
                                     <tr>
                                         <td>{{$key+1}}</td>
-                                        <td>{{$audition->admin->name}}</td>
-                                        <td>{{$audition->admin->email}}</td>
-                                        <td>{{$audition->ip}}</td>
                                         <td>{{$audition->audition->name}}</td>
                                         <td>{{$audition->audition->user_id}}</td>
                                         <td>{{$audition->audition->payment_status==1?'Paid':'Unpaid'}}</td> 
+                                        <td>{{$audition->admin->name}}</td>
+                                        <td>{{$audition->admin->email}}</td>
+                                        <td>{{$audition->ip}}</td>
                                         <td>{{$audition->audition->deleted_at->diffForHumans()}}</td>
                                     </tr>
                                 @endforeach
