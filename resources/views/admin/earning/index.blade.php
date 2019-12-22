@@ -41,7 +41,7 @@
                                     <td>{{$value->set?$value->set:'No Info'}}</td>
                                     <td>{{$value->level?$value->level:'No Info'}}</td>
                                     <td>{{$value->amount}}</td>
-                                    <td>{{$value->created_at}}</td>
+                                    <td>{{$value->created_at->diffForHumans()}}</td>
                                 </tr>
 
                                 @endforeach
