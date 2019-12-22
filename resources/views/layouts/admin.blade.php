@@ -188,6 +188,7 @@
                 { "data": "mobile" },
                 { "data": "level" },
                 { "data": "point" },
+                { "data": "status" },
                 {"data":"options"},
 
             ]	 

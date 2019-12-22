@@ -1725,6 +1725,7 @@ class AdminController extends Controller
                 $nestedData['mobile'] =$user->mobile;
                 $nestedData['level'] =$user->leaderBoard->first()['level'];
                 $nestedData['point'] =$user->leaderBoard->first()?'Rs '.$user->leaderBoard->first()['point']:'No data';
+                $nestedData['status'] =$user->updated_at->diffForHumans();
                 $nestedData['options'] =$this->ajaxOption($user); 
                 
                 $data[] = $nestedData;
