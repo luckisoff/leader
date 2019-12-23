@@ -28,7 +28,7 @@
                                 <th>Mobile</th>
                                 <th>Type</th>
                                 <th>Amount Claimed</th>
-                                <th>Amount Earned</th>
+                                <th>Balance</th>
                                 <th>Status</th>
                                 <th>Action</th>
 
