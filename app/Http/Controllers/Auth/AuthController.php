@@ -31,7 +31,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/web/audition/register';
+    protected $redirectTo = '/web/audition/';
 
     protected $redirectAfterLogout = '/login';
 
