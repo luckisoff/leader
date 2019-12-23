@@ -27,7 +27,8 @@
                                 <th>Email</th>
                                 <th>Mobile</th>
                                 <th>Type</th>
-                                <th>Amount</th>
+                                <th>Amount Claimed</th>
+                                <th>Amount Earned</th>
                                 <th>Status</th>
                                 <th>Action</th>
 
@@ -44,6 +45,7 @@
                                     <td>{{$value->mobile}}</td>
                                     <td>{{ucfirst($value->type)}}</td>
                                     <td>{{'Rs. '.number_format($value->amount,2,'.','')}}</td>
+                                    <td>{{'Rs. '.number_format($value->user->audition->point,2,'.','')}}</td>
                                     <td>{{$value->status==1?'Paid':'Unpaid'}}</td>
                                     <td>
                                         <ul class="admin-action btn btn-default">
