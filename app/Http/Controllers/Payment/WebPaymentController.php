@@ -28,6 +28,7 @@ class WebPaymentController extends Controller
         $leaderboard = Leaderboard::where('user_id', $user->id)->first();
         $spinnerUsers = SpinnerLeaderboard::orderBy('point', 'desc')->get();
 
+        $data = ['position', 'payment_claim', 'pending_payment_claim', 'spinnerPosition', 'spinnerPoints', 'point', 'level'];
         $data['payment_claim'] = LeaderAmountWithDraw::groupBy('user_id')
                     ->where('user_id', $user->id)
                     ->where('status', 1)
