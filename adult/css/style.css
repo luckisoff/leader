@@ -713,6 +713,19 @@ section.dashboard{
    padding: 16px 40px;
 }
 
+section.registration{
+  font-size: 1.2em;
+}
+
+section.registration p{
+  font-size: 1.1em;
+}
+
+section.registration ul{
+  list-style: none;
+  padding-left: 10px;
+}
+
 @media (min-width: 768px){
    #page-wrapper {
       padding: 0 30px;
