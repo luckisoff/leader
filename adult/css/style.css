@@ -849,7 +849,7 @@ section.registration ul{
 }
 .circle-tile-description {
    font-weight: bold;
-   font-size: 18px;
+   font-size: 1.2em;
     text-transform: uppercase;
 }
 
@@ -859,7 +859,7 @@ section.registration ul{
 
 .circle-tile-number {
     padding: 5px 0 15px;
-    font-size: 17px;
+    font-size: 1.1em;
     font-weight: 700;
     line-height: 1;
 }
@@ -867,6 +867,7 @@ section.registration ul{
 .circle-tile-footer {
     display: block;
     padding: 5px;
+    border-radius: 0 0 10px 10px;
     color: rgba(255,255,255,0.7);
     background-color: rgba(0,0,0,0.2);
     transition: all ease-in-out .3s;
@@ -882,12 +883,15 @@ section.registration ul{
   list-style: none;
 }
 .userinfo .col-lg-3{
-  margin-top: 5%;
+  margin-top: 1%;
 }
 
 .userinfo .jumbotron p{
-  font-size: 20px;
+  font-size: 1.2em;
   margin-bottom: 12px;
+}
+.userinfo h2{
+  font-size: 2em;
 }
 .userinfo hr{
   margin-bottom: 0;
@@ -908,4 +912,8 @@ section.registration ul{
 
 .userinfo .popovers{
   padding: 0;
+}
+
+.userinfo .jumbotron{
+  padding: 40px;
 }
