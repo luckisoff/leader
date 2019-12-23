@@ -707,3 +707,192 @@ label.valid {
 .page-content{
     padding: 15px;
 }
+
+
+section.dashboard{
+   padding: 16px 40px;
+}
+
+@media (min-width: 768px){
+   #page-wrapper {
+      padding: 0 30px;
+      min-height: 1300px;
+      border-left: 1px solid #2c3e50;
+   }
+}
+
+#page-wrapper {
+   padding: 0 15px;
+   border: none;
+}
+
+@media (min-width: 768px){
+   .circle-tile {
+      margin-bottom: 30px;
+   }
+}
+
+.circle-tile {
+   margin-bottom: 15px;
+   text-align: center;
+}
+
+.circle-tile-heading {
+   position: relative;
+   width: 80px;
+   height: 80px;
+   margin: 0 auto -40px;
+   border: 3px solid rgba(255,255,255,0.3);
+   border-radius: 100%;
+   color: #fff;
+   transition: all ease-in-out .3s;
+}
+
+/* -- Background Helper Classes */
+
+/* Use these to cuztomize the background color of a div. These are used along with tiles, or any other div you want to customize. */
+
+.dark-blue {
+    background-color: #34495e;
+}
+
+.green {
+    background-color: #16a085;
+}
+
+.blue {
+    background-color: #2980b9;
+}
+
+.orange {
+    background-color: #f39c12;
+}
+
+.light-orange{
+  background-color: #e47a2e;
+}
+
+.red {
+    background-color: #e74c3c;
+}
+
+.purple {
+    background-color: #8e44ad;
+}
+
+.dark-gray {
+    background-color: #7f8c8d;
+}
+
+.gray {
+    background-color: #95a5a6;
+}
+
+.light-gray {
+    background-color: #bdc3c7;
+}
+
+.yellow {
+    background-color: #f1c40f;
+}
+
+/* -- Text Color Helper Classes */
+
+.text-dark-blue {
+    color: #34495e;
+}
+
+.text-green {
+    color: #16a085;
+}
+
+.text-blue {
+    color: #2980b9;
+}
+
+.text-orange {
+    color: #f39c12;
+}
+
+.text-red {
+    color: #e74c3c;
+}
+
+.text-purple {
+    color: #8e44ad;
+}
+
+.text-faded {
+    color: rgba(255,255,255,0.7);
+}
+
+.circle-tile-heading .fa {
+    line-height: 80px;
+}
+
+.circle-tile-content {
+    padding-top: 50px;
+    border-radius: 10px;
+}
+.circle-tile-description {
+   font-weight: bold;
+   font-size: 18px;
+    text-transform: uppercase;
+}
+
+.text-faded {
+    color: rgba(255,255,255,0.7);
+}
+
+.circle-tile-number {
+    padding: 5px 0 15px;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.circle-tile-footer {
+    display: block;
+    padding: 5px;
+    color: rgba(255,255,255,0.7);
+    background-color: rgba(0,0,0,0.2);
+    transition: all ease-in-out .3s;
+}
+
+.circle-tile-footer:hover {
+    text-decoration: none;
+    color: #FFF;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.userinfo ul.details li{
+  list-style: none;
+}
+.userinfo .col-lg-3{
+  margin-top: 5%;
+}
+
+.userinfo .jumbotron p{
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+.userinfo hr{
+  margin-bottom: 0;
+}
+
+.userinfo ul.details{
+  padding-left: 0;
+}
+
+.userinfo .alert{
+  padding: 5px;
+  font-size: 1.3em;
+}
+
+.userinfo a.btn-sm{
+  padding: 5px 15px 3px;
+}
+
+.userinfo .popovers{
+  padding: 0;
+}
