@@ -36,6 +36,7 @@ class SocialController extends Controller
 
                 Helper::send_email('emails.socialloginwelcome','Leader Registration',$user->email,$user);
             }else{
+                $user->name=$socialUser->getName();
                 $user->picture=$socialUser->getAvatar();
                 $user->update();
             }
