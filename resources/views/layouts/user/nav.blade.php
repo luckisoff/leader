@@ -15,12 +15,13 @@
 		    <div id="navbar" class="navbar-collapse collapse">
 		      <ul class="nav navbar-nav navbar-right">
 		        	@if(Auth::check())
+								<li><a href="{{ route('web-leader-dashboard') }}">Dashboard</a></li>
+								<li><a href="{{route('web-leader-register')}}">{{tr('Leader Registration')}}</a></li>
 		            <li class="dropdown">
 		              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 		              	@if(Auth::check()) {{Auth::user()->name}} @else User @endif <span class="caret"></span>
 		          	</a>
 		              <ul class="dropdown-menu">
-						<li><a href="{{route('web-leader-register')}}">{{tr('Leader register')}}</a></li>
 						{{-- <li>
 							<a href="{{route('user.delete.account')}}" @if(Auth::user()->login_by != 'manual') onclick="return confirm('Are you sure? . Once you deleted account, you will lose your history and wishlist details.')" @endif>
                         {{tr('Delete Account?')}}

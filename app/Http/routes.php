@@ -438,6 +438,9 @@ Route::group(['prefix'=>'web'],function(){
         Route::get('/audition/payment','Payment\WebPaymentController@payment')->name('web-leader-payment');
         Route::get('/audition/register','Payment\WebPaymentController@register')->name('web-leader-register');
         Route::post('/audition/register','Payment\WebPaymentController@storeRegistration');
+        Route::get('/audition','Payment\WebPaymentController@index')->name('web-leader-dashboard');
+        Route::get('/audition/resend-sms-code','Payment\WebPaymentController@resendSms')->name('web-leader-resend-sms');
+        Route::get('/audition/resend-email','Payment\WebPaymentController@resendEmail')->name('web-leader-resend-email');
     });
     // Esewa
     Route::get('/audition/esewa/success','Payment\WebPaymentController@esewaSuccess');

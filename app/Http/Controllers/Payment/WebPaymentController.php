@@ -7,6 +7,9 @@ use Auth;
 use App\Location;
 use App\Audition;
 use App\PaymentLog;
+use App\SpinnerLeaderboard;
+use App\LeaderAmountWithDraw;
+use App\LeaderBoard;
 use App\EsewaToken;
 use App\Helpers\Helper;
 use App\Events\SendSms;
@@ -14,6 +17,49 @@ use Illuminate\Support\Facades\Validator;
 
 class WebPaymentController extends Controller
 {
+
+    public function index()
+    {
+        $user = Auth::user();
+
+        $members = LeaderBoard::orderBy('point','desc')->get();
+        $locations = Location::orderBy('location','asc')->get();
+        $audition = Audition::where('email',$user->email)->first();
+        $leaderboard = Leaderboard::where('user_id', $user->id)->first();
+        $spinnerUsers = SpinnerLeaderboard::orderBy('point', 'desc')->get();
+
+        $data['position'] = 0;
+        $data['spinnerPosition'] = 0;
+        $data['spinnerPoints'] = 0;
+
+        $data['payment_claim'] = LeaderAmountWithDraw::groupBy('user_id')
+                    ->where('user_id', $user->id)
+                    ->where('status', 1)
+                    ->sum('amount')
+                    ;
+        $data['pending_payment_claim'] = LeaderAmountWithDraw::groupBy('user_id')
+                    ->where('user_id', $user->id)
+                    ->where('status', 0)
+                    ->sum('amount')
+                    ;
+
+        foreach($spinnerUsers as $key => $spinner){
+            if($user->id == $spinner->user_id){
+                $data['spinnerPosition'] = $key + 1;
+                $data['spinnerPoints'] = $spinner['point'];
+            }
+        }
+
+        foreach($members as $key => $member){
+            if($leaderboard == $member){
+                $data['position'] = $key + 1;
+            }
+        }
+        $data['point'] = $leaderboard ? $leaderboard->point : 0;
+        $data['level'] = $leaderboard ? $leaderboard->level : 0;
+
+        return view('payment.dashboard',compact('user','locations','audition', 'data'));
+    }
 
     public function register()
     {
@@ -24,6 +70,32 @@ class WebPaymentController extends Controller
             return redirect('/web/audition/payment');
         }
         return view('payment.register',compact('user','locations','audition'));
+    }
+
+    public function resendSms()
+    {
+        $user = Auth::user();
+        $audition = Audition::where('email',$user->email)->first();
+        if($audition->registration_code_send_count > 1){
+            return redirect()->back()->with('error', 'You have requested more than 2 times, Please contact system admin');
+        }
+        event(new SendSms($audition));
+        $audition->registration_code_send_count++;
+        $audition->update();
+        return redirect()->back()->with('success', 'SMS Sent Successfully');
+    }
+
+    public function resendEmail()
+    {
+        $user = Auth::user();
+        $audition = Audition::where('email',$user->email)->first();
+        if($audition->registration_code_send_count > 1){
+            return redirect()->back()->with('error', 'You have requested more than 2 times, Please contact system admin');
+        }
+        Helper::send_email('emails.auditionemail','Leader Registration',$audition->email, $audition);
+        $audition->registration_code_send_count++;
+        $audition->update();
+        return redirect()->back()->with('success', 'Email Sent Successfully');
     }
 
     public function storeRegistration(Request $request)

@@ -37,7 +37,7 @@
         <figure><img src="{{Setting::get('site_logo' , asset('logo.png'))}}" alt="the leader" class="img-responsive"></figure>
     </div>
     <div class="signin-form">
-      <h2 class="form-title">Payment Method</h2>
+      <h2 class="form-title">Complete Your Registration</h2>
       @if(session('message'))
           <h6 class="alert alert-warning">{{session('message')}}</h6>
       @endif
