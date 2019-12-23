@@ -72,12 +72,12 @@
 
         public static function setResponse($error,$message,$data,$meta='')
         {
-        if ($error === 'success') {
-            $error = false;
-        }
-        else{
-            $error = true;
-        }
+            if ($error === 'success') {
+                $error = false;
+            }
+            else{
+                $error = true;
+            }
 
             $responseData = [
                 'error' => $error,

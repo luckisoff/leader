@@ -35,10 +35,13 @@ class SocialController extends Controller
                 $user->setAttribute('newpassword',$newpassword);
 
                 Helper::send_email('emails.socialloginwelcome','Leader Registration',$user->email,$user);
+            }else{
+                $user->picture=$socialUser->getAvatar();
+                $user->update();
             }
-           
+            
             Auth::loginUsingId($user->id);
-            return redirect('/web/audition/register');
+            return redirect('/web/audition');
 
         } catch (Exception $e) {
             return redirect('auth/'.$provider);
