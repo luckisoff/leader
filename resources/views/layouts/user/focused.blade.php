@@ -110,7 +110,7 @@
                 $("#country_code").val(selectedCountryData.dialCode);
                 return "Mobile number";
               },
-              // hiddenInput: "full_number",
+              // hiddenInput: "country_code",
               // initialCountry: "auto",
               // localizedCountries: { 'de': 'Deutschland' },
               // nationalMode: false,
