@@ -162,6 +162,7 @@ return [
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Nexmo\Laravel\NexmoServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 //        'Tymon\JWTAuth\Providers\JWTAuthServiceProvider'
 //        Laravel\Cashier\CashierServiceProvider::class
         
