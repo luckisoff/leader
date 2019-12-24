@@ -27,7 +27,10 @@
                         {{tr('Delete Account?')}}
                     		</a>
                 		</li> --}}
-						<li><a href="{{route('user.logout')}}">{{tr('Logout')}}</a></li>    
+              			@if(Auth::user()->login_by == 'manual')
+											<li><a href="{{route('user.update.password-form')}}">{{tr('Change Password')}}</a></li>
+										@endif
+										<li><a href="{{route('user.logout')}}">{{tr('Logout')}}</a></li>
 		              </ul>
 		            </li>
 		          @else
