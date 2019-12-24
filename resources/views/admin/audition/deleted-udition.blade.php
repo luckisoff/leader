@@ -43,13 +43,13 @@
                                 @foreach ($auditions as $key=>$audition)
                                     <tr>
                                         <td>{{$key+1}}</td>
-                                        <td>{{$audition->audition['name']}}</td>
-                                        <td>{{$audition->audition['user_id']}}</td>
-                                        <td>{{$audition->audition['payment_status']==1?'Paid':'Unpaid'}}</td> 
+                                        <td>{{$audition->audition()->first()['name']}}</td>
+                                        <td>{{$audition->audition()->first()['user_id']}}</td>
+                                        <td>{{$audition->audition()->first()['payment_status']==1?'Paid':'Unpaid'}}</td> 
                                         <td>{{$audition->admin->name}}</td>
                                         <td>{{$audition->admin->email}}</td>
                                         <td>{{$audition->ip}}</td>
-                                        <td>{{$audition->audition['deleted_at']->diffForHumans()}}</td>
+                                        <td>{{$audition->audition()->first()['deleted_at']->diffForHumans()}}</td>
                                         <td>
                                             <ul class="admin-action btn btn-default">
                                                 <li class="dropdown">
