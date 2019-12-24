@@ -49,7 +49,7 @@
                                         <td>{{$audition->admin->name}}</td>
                                         <td>{{$audition->admin->email}}</td>
                                         <td>{{$audition->ip}}</td>
-                                        <td>{{$audition->audition()->first()['deleted_at']->diffForHumans()}}</td>
+                                        <td>{{$audition->created_at->diffForHumans()}}</td>
                                         <td>
                                             <ul class="admin-action btn btn-default">
                                                 <li class="dropdown">
