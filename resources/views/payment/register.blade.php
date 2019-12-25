@@ -23,7 +23,7 @@
 
            <div class="form-group">
               <label for="phone"><i class="zmdi zmdi-smartphone-info material-icons-name"></i></label>
-              <input type="tel" name="phone" required id="phone" value="{{$user?$user->phone:''}}" title="Mobile number"/>
+              <input type="number" name="phone" required id="phone" value="{{$user?$user->phone:''}}" title="Mobile number"/>
               <input type="hidden" name="country_code" id="country_code" value="">
            </div>
 

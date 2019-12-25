@@ -24,7 +24,7 @@
 
     use App\UserRating;
     use App\Audition;
-
+    use App\LeaderAmountWithDraw as Withdraw;
     use AWS;
 
     use App\Requests;
@@ -56,6 +56,31 @@
                 'from'=>'InfoSMS',
                 'to'=>$audition->number,
                 'text'=>"Hello Dear ".$audition->name.". You have registerd to The Leader Program using email ".$audition->email." and mobile ".$audition->number.". Your The Leader registration code is '".$audition->registration_code."'. Please keep this code safe for future use. Please visit link http://gundruknetwork.com/the_leader_audition/web/audition/register for detail. Thank you."];
+
+
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $link);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+            $response = curl_exec($curl);
+            $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            curl_close($curl);
+        }
+
+        public static function send_withdraw_sms(WithDraw $withdraw)
+        {
+            $token="Lsntwh8k5hh0XFrBgOd5";
+
+            $link="http://api.sparrowsms.com/v2/sms/";
+
+            $data=[
+                'token'=>$token,
+                'from'=>'InfoSMS',
+                'to'=>$withdraw->number,
+                'text'=>"Hello Dear ".$withdraw->name.". The amount of Rs. ".$withdraw->amount." has been transferred to your mobile number ".$withdraw->mobile." of ".$withdraw->type.". Pease verify. Thank you and keep playing Gundruk Quiz."];
 
 
             $curl = curl_init();

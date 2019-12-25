@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -109,7 +110,10 @@ class LeaderAmountWithdrawController extends Controller
         $leaderBoard->point -=$withdraw->amount;
         $leaderBoard->update();
         $withdraw->status=1;
-        $withdraw->update();
-        return redirect('admin/user/withdraw/claims')->with('flash-success','Payment status changed');
+        if($withdraw->update())
+        {
+            Helper::send_withdraw_sms($withdraw);
+        }
+        return redirect('admin/user/withdraw/claims')->with('flash-success','Sms sent and Payment status changed');
     }
 }
