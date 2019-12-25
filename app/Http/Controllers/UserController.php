@@ -539,4 +539,38 @@ class UserController extends Controller
         return back()->with('flash_error', Helper::get_error_message(146));
 
     }
+
+    /**
+     * Save changed password.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function save_password(Request $request)
+    {
+        $request->request->add([ 
+            'id' => \Auth::user()->id,
+            'token' => \Auth::user()->token,
+            'device_token' => \Auth::user()->device_token,
+        ]);
+
+        $response = $this->UserAPI->change_password($request)->getData();
+
+        if($response->success) {
+
+            return redirect('web/audition')->with('success', 'Password has been updated successfully');
+
+        } else {
+           //  $response->success = false;
+            $response->message = $response->error." ".$response->error_messages;
+
+            return back()->with('flash_error', $response->message);
+        }
+    }
+
+    public function change_password(Request $request) {
+
+        return view('user.change-password-view')->with('page' , 'profile')
+                    ->with('subPage' , 'user-change-password');
+
+    }
 }

@@ -903,7 +903,7 @@ section.registration ul{
 
 .userinfo .alert{
   padding: 5px;
-  font-size: 1.3em;
+  font-size: 1.1em;
 }
 
 .userinfo a.btn-sm{
@@ -916,4 +916,20 @@ section.registration ul{
 
 .userinfo .jumbotron{
   padding: 40px;
+}
+
+a.action{
+  font-size: 13px;
+  color: #337ab7;
+  line-height: 1.8;
+  font-weight: 400;
+  font-family: Poppins;
+}
+.edit-profile label{
+  position: static;
+  display: contents !important;
+}
+
+.edit-profile .alert{
+  font-size: 1em !important;
 }

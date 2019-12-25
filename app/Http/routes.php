@@ -441,6 +441,9 @@ Route::group(['prefix'=>'web'],function(){
         Route::get('/audition','Payment\WebPaymentController@index')->name('web-leader-dashboard');
         Route::get('/audition/resend-sms-code','Payment\WebPaymentController@resendSms')->name('web-leader-resend-sms');
         Route::get('/audition/resend-email','Payment\WebPaymentController@resendEmail')->name('web-leader-resend-email');
+
+        Route::get('/audition/profile/password', 'UserController@change_password')->name('user.update.password-form');
+        Route::post('/audition//profile/password', 'UserController@save_password')->name('user.update.password');
     });
     // Esewa
     Route::get('/audition/esewa/success','Payment\WebPaymentController@esewaSuccess');
