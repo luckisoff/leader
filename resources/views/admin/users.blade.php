@@ -12,7 +12,7 @@
 @section('content')
 
 	@include('notification.notify')
-
+	
 	<div class="row">
         <div class="col-xs-12">
           <div class="box">
@@ -20,6 +20,9 @@
 
 	              	<table id="user-table" class="table table-bordered table-striped">
 						<thead>
+							<tr style="color: #fff;background: #3c8dbc;">
+								<td colspan="8">{{'Highest Level '.$leaderboard->level}}</td>
+							</tr>
 						    <tr>
 						      <th>{{tr('Index')}}</th>
 						      <th>{{tr('Full Name')}}</th>

@@ -34,7 +34,7 @@ use App\Settings;
 use App\Page;
 
 use App\Stories;
-
+use App\LeaderBoard;
 use App\Helpers\Helper;
 
 use Validator;
@@ -263,8 +263,11 @@ class AdminController extends Controller
     }
 
     public function users() {
+
+        $leaderboard=LeaderBoard::orderBy('level','desc')->first();
+        
         return view('admin.users')->withPage('users')
-                        ->with('sub_page','view-user');
+                        ->with('sub_page','view-user')->with('leaderboard',$leaderboard);
     }
 
     public function add_user() {
