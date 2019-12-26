@@ -21,7 +21,7 @@
 	              	<table id="user-table" class="table table-bordered table-striped">
 						<thead>
 							<tr style="color: #fff;background: #3c8dbc;">
-								<td colspan="8">{{'Highest Level '.$leaderboard->level}}</td>
+								<td colspan="8">{{'Highest Level '.$leaderboard->first()['level']}}</td>
 							</tr>
 						    <tr>
 						      <th>{{tr('Index')}}</th>

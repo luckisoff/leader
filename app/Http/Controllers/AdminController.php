@@ -264,7 +264,7 @@ class AdminController extends Controller
 
     public function users() {
 
-        $leaderboard=LeaderBoard::orderBy('level','desc')->first();
+        $leaderboard=LeaderBoard::orderBy('level','desc')->limit(1);
         
         return view('admin.users')->withPage('users')
                         ->with('sub_page','view-user')->with('leaderboard',$leaderboard);
