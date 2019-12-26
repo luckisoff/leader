@@ -84,12 +84,13 @@ class KhaltiPaymentController extends Controller
 
         if(!isset($response->idx))
         {
-            return response()->json([
-                'status'=>false,
-                'code'=>200,
-                'message'=>'something web wrong, try again',
-                'data'=>''
-            ]);
+            return;
+            // return response()->json([
+            //     'status'=>false,
+            //     'code'=>200,
+            //     'message'=>'something wen wrong, try again',
+            //     'data'=>''
+            // ]);
         }
         return $this->verify($response->amount,$request,$audition);
     }
