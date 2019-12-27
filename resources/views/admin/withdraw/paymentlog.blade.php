@@ -26,7 +26,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
-                                <th>Log</th>
+                                <th>Type</th>
                                 <th>Status</th>
 
                             </tr>
@@ -35,40 +35,40 @@
                             <tbody>
                                 @foreach($paymentlogs as $key =>  $value)
                                     @if($value->user)
-                                        @if($value->user->audition)
-                                        <tr>
-                                            <td>{{$key + 1 }}</td>
-                                            <td>{{$value->user->audition->name}}</td>
-                                            <td>{{$value->user->audition->email}}</td>
-                                            <td>{{$value->user->audition->number}}</td>
-                                            <td>{{$value->value}}</td>
-                                            <td>{{$value->created_at->diffForHumans()}}</td>
-                                            {{-- <td>
-                                                <ul class="admin-action btn btn-default">
-                                                    <li class="dropdown">
-                                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                        Action <span class="caret"></span>
-                                                        </a>
+                                        @if($value->user->audition && !$value->user->audition->payment_status)
+                                            <tr>
+                                                <td>{{$key + 1 }}</td>
+                                                <td>{{$value->user->audition->name}}</td>
+                                                <td>{{$value->user->audition->email}}</td>
+                                                <td>{{$value->user->audition->number}}</td>
+                                                <td>{{$value->type}}</td>
+                                                <td>{{$value->created_at->diffForHumans()}}</td>
+                                                {{-- <td>
+                                                    <ul class="admin-action btn btn-default">
+                                                        <li class="dropdown">
+                                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                                            Action <span class="caret"></span>
+                                                            </a>
 
-                                                        <ul class="dropdown-menu">
-                                                        
-                                                            <li role="presentation">
-                                                            @if(Setting::get('admin_delete_control'))
+                                                            <ul class="dropdown-menu">
+                                                            
+                                                                <li role="presentation">
+                                                                @if(Setting::get('admin_delete_control'))
 
-                                                                <a role="button" href="javascript:;" class="btn disabled" style="text-align: left">{{tr('delete')}}</a>
+                                                                    <a role="button" href="javascript:;" class="btn disabled" style="text-align: left">{{tr('delete')}}</a>
 
-                                                            @else
-                                                                <a role="menuitem" tabindex="-1" onclick="return confirm('Are you sure?');" href="#">
-                                                                    Delete
-                                                                </a>
-                                                            @endif
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                
-                                                </ul>
-                                        </td> --}}
-                                        </tr>
+                                                                @else
+                                                                    <a role="menuitem" tabindex="-1" onclick="return confirm('Are you sure?');" href="#">
+                                                                        Delete
+                                                                    </a>
+                                                                @endif
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    
+                                                    </ul>
+                                            </td> --}}
+                                            </tr>
                                         @endif
                                     @endif
                                 @endforeach
