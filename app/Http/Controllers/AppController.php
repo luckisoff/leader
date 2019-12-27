@@ -59,16 +59,25 @@ class AppController extends Controller
         return response()->json(['response'=>true,'type'=>'apps','data'=>$apps]);
     }
 
-    public function appDetails()
+    public function appDetails($ver)
     {
         $version=Settings::where('key','app_version')->first();
         $desc=Settings::where('key','app_description')->first();
+        
+        if($version->value+0 > $ver+0)
+        {
+            return response()->json([
+                'status'=>true,
+                'code'=>200,
+                'message'=>'App details',
+                'version'=>$version->value,
+                'description'=>$desc->value
+            ]);
+        }
         return response()->json([
-            'status'=>true,
-            'code'=>200,
-            'message'=>'App details',
-            'version'=>$version->value,
-            'description'=>$desc->value
-        ]);
+            'status'=>false,
+            'code'=>505,
+            'message'=>'No update available'
+        ],505);
     }
 }
