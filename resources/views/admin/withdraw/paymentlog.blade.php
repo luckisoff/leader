@@ -27,6 +27,7 @@
                                 <th>Email</th>
                                 <th>Mobile</th>
                                 <th>Type</th>
+                                <th>Log</th>
                                 <th>Status</th>
 
                             </tr>
@@ -42,6 +43,7 @@
                                                 <td>{{$value->user->audition->email}}</td>
                                                 <td>{{$value->user->audition->number}}</td>
                                                 <td>{{$value->type}}</td>
+                                                <td>{{$value->value}}</td>
                                                 <td>{{$value->created_at->diffForHumans()}}</td>
                                                 {{-- <td>
                                                     <ul class="admin-action btn btn-default">
