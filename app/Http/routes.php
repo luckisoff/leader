@@ -218,7 +218,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/add',['uses'=>'AuditionController@showNewsForm','as'=>'show-news-form']);
         Route::post('/store',['uses'=>'AuditionController@addNews','as'=>'add-news']);
 
-        Route::get('/edit/{id}',['uses'=>'AuditionController@showEditNewsForm','as'=>'edit-news-form']);
+        Route::get('/edit/{id?}',['uses'=>'AuditionController@showEditNewsForm','as'=>'edit-news-form']);
         Route::post('/edit',['uses'=>'AuditionController@editNews','as'=>'edit-news']);
         Route::get('/delete/{id}',['uses'=>'AuditionController@deleteNews','as'=>'delete-news']);
     });

@@ -103,7 +103,14 @@
     <script src="{{asset('admin-css/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js')}}"></script>
 
     <script src="{{asset('admin-css/plugins/jvectormap/jquery-jvectormap-world-mill-en.js')}}"></script>
-
+    
+    {{-- ck editor for specific routes --}}
+    @if((Request::route()->getName()=='news.show-news-form')||(Request::route()->getName()=='news.edit-news-form'))
+    <script src="{{asset('admin-css/plugins/ckeditor/ckeditor.js')}}"></script>
+    <script>
+        CKEDITOR.replace( 'ckeditor' );
+    </script>
+    @endif
     {{-- <script src="{{asset('admin-css/plugins/chartjs/Chart.min.js')}}"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
@@ -205,37 +212,7 @@
 
     @yield('scripts')
 
-   <?php echo Setting::get('body_scripts'); ?>
-   @if(isset($leaderboards))
-   <script>
-    //    var ctx = document.getElementById('myChart');
-    //    var myBarChart = new Chart(ctx, {
-    //         type: 'bar',
-    //         data: {
-    //             labels:[@foreach($leaderboards as $leaderboard)"{{$leaderboard->user['name']}}",@endforeach],
-    //             datasets: [{
-    //                     barPercentage: 0.5,
-    //                     barThickness: 6,
-    //                     maxBarThickness: 8,
-    //                     minBarLength: 2,
-    //                     label: 'Rs Total (Top 10)',
-    //                     data: [@foreach($leaderboards as $leaderboard){{$leaderboard->point}},@endforeach],
-    //                     backgroundColor : [
-    //                         @php($colors=['pink','violet','red','green', 'blue', 'purple','magenta','orange','red'])
-    //                         @foreach($leaderboards as $leaderboard)
-    //                             "{{$colors[array_rand($colors)] }}",
-    //                         @endforeach
-    //                     ],
-    //                     borderColor : [
-    //                         @foreach($leaderboards as $leaderboard)
-    //                             "#111",
-    //                         @endforeach
-    //                     ],
-    //                 }]
-    //             },
-    //     });
-    </script>
-    @endif
+   <?php  echo Setting::get('body_scripts'); ?>
 </body>
 
 </html>

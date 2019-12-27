@@ -16,7 +16,7 @@
 
     <div class="row">
 
-        <div class="col-md-6">
+        <div class="col-md-12">
 
             <div class="box box-info">
 
@@ -41,7 +41,7 @@
 
                             <div class="form-group">
                                 <label for="description" class="">Description<span style="color:red;">*</span></label>
-                                <textarea  style="overflow:auto;resize:none" placeholder="Enter Descripton" class="form-control"  required rows="4" cols="50" id="description" name="description">{{old('description') }}</textarea>
+                                <textarea  id="ckeditor" style="overflow:auto;resize:none" placeholder="Enter Descripton" class="form-control"  required rows="4" cols="50" id="description" name="description">{{old('description') }}</textarea>
                                 @if($errors->has('description'))
                                     <span class="help-block" style="color:red;">
                                       * {{ $errors->first('description') }}
