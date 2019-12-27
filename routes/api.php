@@ -101,7 +101,7 @@ Route::group(['middleware'=>'api'], function(){
 });
 
 Route::group(['prefix'=>'mobile/app'],function(){
-    Route::get('/details/{version}','AppController@appDetails');
+    Route::get('/details','AppController@appDetails');
 });
 
 Route::get('get-winner-list','LivequizController@getWinnerList');

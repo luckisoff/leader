@@ -64,8 +64,8 @@ class AppController extends Controller
         $version=Settings::where('key','app_version')->first();
         $desc=Settings::where('key','app_description')->first();
         
-        if($version->value+0 > $ver+0)
-        {
+        // if($version->value+0 > $ver+0)
+        // {
             return response()->json([
                 'status'=>true,
                 'code'=>200,
@@ -73,11 +73,11 @@ class AppController extends Controller
                 'version'=>$version->value,
                 'description'=>$desc->value
             ]);
-        }
-        return response()->json([
-            'status'=>false,
-            'code'=>505,
-            'message'=>'No update available'
-        ],505);
+        // }
+        // return response()->json([
+        //     'status'=>false,
+        //     'code'=>505,
+        //     'message'=>'No update available'
+        // ],505);
     }
 }
