@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use App\App;
-use Illuminate\Support\Facades\Validator;
+use App\Settings;
 class AppController extends Controller
 {
 
@@ -58,5 +57,18 @@ class AppController extends Controller
     public function api(){
         $apps=App::orderBy('created_at','desc')->select('name','status as live')->get();
         return response()->json(['response'=>true,'type'=>'apps','data'=>$apps]);
+    }
+
+    public function appDetails()
+    {
+        $version=Settings::where('key','app_version')->first();
+        $desc=Settings::where('key','app_description')->first();
+        return response()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'App details',
+            'version'=>$version->value,
+            'description'=>$desc->value
+        ]);
     }
 }

@@ -95,6 +95,16 @@
                             <textarea class="form-control" id="body_scripts" name="body_scripts">{{Setting::get('body_scripts')}}</textarea>
                         </div>  
 
+                        <div class="form-group">
+                            <label for="app-version">{{tr('Current App Version')}}</label>
+                            <input class="form-control" id="app_version" name="app_version" value='{{Setting::get('app_version')}}'>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="app-version">{{tr('App Description')}}</label>
+                            <textarea class="form-control" id="app_description" name="app_description">{{Setting::get('app_description')}}</textarea>
+                        </div>
+
 
                         <!-- <div class="col-md-3">
                             <div class="form-group">

@@ -96,7 +96,9 @@ Route::group(['middleware'=>'api'], function(){
             Route::get('/paypal/key','Api\PaymentController@getPaypalKey');
             
         });
-        
+        Route::group(['prefix'=>'mobile/app'],function(){
+            Route::get('/details','AppController@appDetails');
+        });
     });
 });
 Route::get('get-winner-list','LivequizController@getWinnerList');
