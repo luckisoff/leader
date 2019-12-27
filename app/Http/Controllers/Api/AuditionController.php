@@ -11,7 +11,7 @@ use App\News;
 use App\Sponser;
 use App\Policy;
 use Illuminate\Http\Request;
-
+use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -35,6 +35,12 @@ class AuditionController extends Controller
             return Helper::setResponse(true, 'missing_parameter', '');
         }
 
+        $user=User::where('id',$request->user_id)->first();
+        
+        if(!$user)
+        {
+            return Helper::setResponse(true, 'No user found', '');
+        }
         if(isset($request->image)){
             $validator = Validator::make($request->all(), [
                 'image' => 'required|mimes:jpeg,png,jpg,gif',

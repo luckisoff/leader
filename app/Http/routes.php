@@ -90,6 +90,8 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('user/withdraw/claims','LeaderAmountWithdrawController@index')->name('view-claim');
     Route::get('user/withdraw/pay/{withdraw}','LeaderAmountWithdrawController@update')->name('pay-claim');
 
+    Route::get('user/paymentlog','PaymentLogController@index')->name('payment-log');
+
     // User History - admin
 
     Route::get('/user/history/{id}', 'AdminController@view_history')->name('admin.user.history');
