@@ -59,7 +59,7 @@ class AppController extends Controller
         return response()->json(['response'=>true,'type'=>'apps','data'=>$apps]);
     }
 
-    public function appDetails($ver)
+    public function appDetails()
     {
         $version=Settings::where('key','app_version')->first();
         $desc=Settings::where('key','app_description')->first();
