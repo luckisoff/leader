@@ -79,7 +79,7 @@
             $data=[
                 'token'=>$token,
                 'from'=>'InfoSMS',
-                'to'=>$withdraw->number,
+                'to'=>$withdraw->mobile,
                 'text'=>"Hello Dear ".$withdraw->name.". The amount of Rs. ".$withdraw->amount." has been transferred to your mobile number ".$withdraw->mobile." of ".$withdraw->type.". Pease verify. Thank you and keep playing Gundruk Quiz."];
 
 
