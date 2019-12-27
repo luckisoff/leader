@@ -80,7 +80,7 @@
                 'token'=>$token,
                 'from'=>'InfoSMS',
                 'to'=>$withdraw->mobile,
-                'text'=>"Hello ".$withdraw->name.". The amount of Rs. ".$withdraw->amount." has been transferred to your mobile number ".$withdraw->mobile." of ".$withdraw->type.". Pease verify. Thank you and keep playing Gundruk Quiz."];
+                'text'=>"Hello ".$withdraw->user->name.". The amount of Rs. ".$withdraw->amount." has been transferred to your mobile number ".$withdraw->mobile." of ".$withdraw->type.". Pease verify. Thank you and keep playing Gundruk Quiz."];
 
 
             $curl = curl_init();
