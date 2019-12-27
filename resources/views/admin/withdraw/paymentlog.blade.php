@@ -39,7 +39,7 @@
                                             <td>{{$key + 1 }}</td>
                                             <td>{{$value->user->audition->name}}</td>
                                             <td>{{$value->user->audition->email}}</td>
-                                            <td>{{$value->user->audition->mobile}}</td>
+                                            <td>{{$value->user->audition->number}}</td>
                                             <td>{{$value->value}}</td>
                                             {{-- <td>
                                                 <ul class="admin-action btn btn-default">
