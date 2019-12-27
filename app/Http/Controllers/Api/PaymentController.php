@@ -11,6 +11,7 @@ use Cartalyst\Stripe\Stripe;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\PaymentLog;
 class PaymentController extends Controller
 {
     public function getPaypalKey()
@@ -94,8 +95,16 @@ class PaymentController extends Controller
         $audition->payment_type = $request->payment_type;
         $audition->payment_status = 1;
         $audition->registration_code=$request->registration_code;
-        $audition->save();
+        $audition->channel='mobile-'.$request->payment_type;
+        $audition->update();
         Helper::send_sms($audition);
+
+        PaymentLog::create([
+            'type'=>$request->payment_type,
+            'user_id'=>$audition->user_id,
+            'value'=>\serialize($request->all()),
+            'status'=>true
+        ]);
         $responseData = Helper::setResponse(false, 'User Payment Status Changed Successfully','');
         return response()->json($responseData);
 
