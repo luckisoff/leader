@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
-@section('title', 'Withdraw Claims')
+@section('title', 'Failed Payments')
 
-@section('content-header', 'Withdraw Claims')
+@section('content-header', 'Failed Payments')
 
 @section('breadcrumb')
     <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i>Home</a></li>
