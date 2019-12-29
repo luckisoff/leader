@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 
 use App\Helpers\Helper;
+use App\Jobs\SendGundrukWelcomeMail;
 
 class AuthController extends Controller
 {
@@ -99,12 +100,9 @@ class AuthController extends Controller
         // register_mobile('web');
         
         // Send welcome email to the new user:
-        $subject = 'Welcome to Gundruk Network';
-        $email_data = $User;
-        $page = "emails.welcome";
-        $email = $data['email'];
-        $result = Helper::send_email($page,$subject,$email,$email_data);
+        dispatch(new SendGundrukWelcomeMail($User));
         
+        // $result = Helper::send_email($page,$subject,$email,$email_data);
         return $User;
     }
  
