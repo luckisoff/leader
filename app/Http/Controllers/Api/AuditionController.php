@@ -64,7 +64,14 @@ class AuditionController extends Controller
         $form->user_id = $request->user_id;
         $form->name = $request->name;
         $form->address = $request->address;
-        $form->number = $request->number;
+
+        // mobile number format
+        $re = '/[\D]/m';
+        $str = $request->number;
+        $subst = '';
+        $form->number = preg_replace($re, $subst, $str);
+        //mobile number format
+
         $form->country_code=$request->country_code ?: '977';
 
         $form->gender = $request->gender;
