@@ -52,17 +52,24 @@ Route::group(['middleware'=>'api'], function(){
 
     Route::group(['middleware' => ['jwt.verify']], function() {
         Route::post('saveuserpoints','LeaderBoardController@save');
+
         Route::get('getuserpoints/{id}','LeaderBoardController@getPoints');
+
         Route::get('leaderusers','LeaderBoardController@get_leader_users');
+
         Route::post('withdraw/claim','LeaderAmountWithdrawController@store');
+        
         Route::get('withdraw/claim/status/{user_id}','LeaderAmountWithdrawController@checkStatus');
 
         Route::post('deduct-user-point','LeaderBoardController@deductUserPoint');//params: user_id, point_to_deduct
         Route::post('register-live-user','LivequizController@registerLiveUsers');//params:question_set,user_id
         Route::post('save-live-data','LivequizController@store');//params: user_id, question_set, question_id, option,point,time_taken,prize
         Route::post('option-count','LivequizController@getOptionCount');//param:question_id
+
         Route::post('set-live-position','LivequizController@setPosition');//param:question_set,question_id
+
         Route::post('live-quit','LivequizController@quit');//param: user_id
+
         Route::post('add-live-viewer','LivequizController@setLiveViewer');//params:user_id, question_set
         
         
@@ -77,6 +84,7 @@ Route::group(['middleware'=>'api'], function(){
             Route::get('/top-ten','SpinnerLeaderboardController@topTenUsers');
             Route::get('/previous-winner','SpinnerLeaderboardController@previousWinners');
             Route::get('/user-point/{user_id}','SpinnerLeaderboardController@getUserPoint');
+            Route::get('/user/rank/{user_id}','SpinnerLeaderboardController@getSpinnerRank');
             Route::get('/get-landmark','SpinnerLeaderboardController@getLandmark');
             Route::post('/view-ad','SpinnerLeaderboardController@addSpin');
             

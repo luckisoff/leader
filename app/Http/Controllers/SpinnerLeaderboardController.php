@@ -249,4 +249,24 @@ class SpinnerLeaderboardController extends Controller
             'status'=>false
         ]);
     }
+
+    public function getSpinnerRank($user_id)
+    {
+        $spinners=SpinnerLeaderboard::orderBy('point','desc')->get();
+        $rank=0;
+        foreach($spinners as $key=>$spinner)
+        {
+            if($user_id===$spinner->user_id)
+            {
+                $rank=$key+1;
+            }
+        }
+
+        return response()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'Rank of user',
+            'rank'=>$rank
+        ]);
+    }
 }
