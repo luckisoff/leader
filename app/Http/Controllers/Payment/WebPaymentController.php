@@ -107,10 +107,15 @@ class WebPaymentController extends Controller
             'email'=>'required|unique:audition_registration',
         ]);
         
+        $re = '/[\D]/m';
+        $str = $request->phone;
+        $subst = '';
         $audition=new Audition();
         $audition->user_id=Auth::User()->id;
         $audition->name=$request->name;
-        $audition->number=$request->phone;
+
+        $audition->number=preg_replace($re, $subst, $str);
+        
         $audition->country_code=$request->country_code;
         $audition->address=$request->address;
         $audition->gender=$request->gender;
