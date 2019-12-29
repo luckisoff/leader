@@ -111,7 +111,7 @@ class AuthController extends Controller
     protected function authenticated(Request $request, User $user){
 
         if(\Auth::check()) {
-            if($user = User::find(\Auth::user()->id)) {
+            if($user = \Auth::user()) {
                 $user->login_by = 'manual';
                 $user->update();
             }   
