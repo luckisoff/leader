@@ -16,6 +16,7 @@ use JWTAuth;
 use Config;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\SendTopUpMail;
 
 class LoginController extends Controller
 {
@@ -192,9 +193,12 @@ class LoginController extends Controller
             return Helper::setResponse(true, 'No Email Found', '');
         }
 
-        $topUp['code']=rand(100,50000);
-        $topUp['user']=$user;
-        Helper::send_email('emails.topupemail','Password Reset Code',$request->email,$topUp);
+        $topUp['code'] = rand(100,50000);
+        $topUp['user'] = $user;
+
+        dispatch(new SendTopUpMail($topUp));
+
+        // Helper::send_email('emails.topupemail','Password Reset Code',$request->email,$topUp);
         return Helper::setResponse('success', 'Password Reset Code', $topUp);
     }
 

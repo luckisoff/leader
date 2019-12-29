@@ -8,6 +8,8 @@ use App\User;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\Helper;
+use App\Jobs\SendSocialLoginWelcomeMail;
+
 class SocialController extends Controller
 {
     public function provider($provider)
@@ -34,7 +36,8 @@ class SocialController extends Controller
                 $user->save();
                 $user->setAttribute('newpassword',$newpassword);
 
-                Helper::send_email('emails.socialloginwelcome','Leader Registration',$user->email,$user);
+                dispatch(new SendSocialLoginWelcomeMail($user));
+                // Helper::send_email('emails.socialloginwelcome','Leader Registration',$user->email,$user);
             }else{
                 $user->name=$socialUser->getName();
                 $user->picture=$socialUser->getAvatar();

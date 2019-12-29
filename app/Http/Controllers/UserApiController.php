@@ -70,6 +70,8 @@ define('SUGGESTIONS' , 'suggestion');
 define('WISHLIST' , 'wishlist');
 define('WATCHLIST' , 'watchlist');
 define('BANNER' , 'banner');
+use App\Jobs\SendGundrukWelcomeMail;
+use App\Jobs\SendForgotPasswordMail;
 
 class UserApiController extends Controller
 {
@@ -251,11 +253,8 @@ class UserApiController extends Controller
 
                 // Send welcome email to the new user:
                 if($new_user) {
-                    $subject = 'Welcome to Gundruk Network';
-                    $email_data = $user;
-                    $page = "emails.welcome";
-                    $email = $user->email;
-                    Helper::send_email($page,$subject,$email,$email_data);
+                    dispatch(new SendGundrukWelcomeMail($user));
+                    // Helper::send_email($page,$subject,$email,$email_data);
                 }
 
                 // Response with registered user details:
@@ -441,12 +440,14 @@ class UserApiController extends Controller
             $user->password = Hash::make($new_password);
 
             $email_data = array();
-            $subject = tr('user_forgot_email_title');
+            // $subject = tr('user_forgot_email_title');
             $email = $user->email;
             $email_data['user']  = $user;
             $email_data['password'] = $new_password;
-            $page = "emails.forgot-password";
-            $email_send = Helper::send_email($page,$subject,$user->email,$email_data);
+            // $page = "emails.forgot-password";
+
+            dispatch(new SendForgotPasswordMail($email_data));
+            // $email_send = Helper::send_email($page,$subject,$user->email,$email_data);
 
             $response_array['success'] = true;
             $response_array['message'] = Helper::get_message(106);
