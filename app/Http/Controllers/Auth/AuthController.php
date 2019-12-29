@@ -113,7 +113,7 @@ class AuthController extends Controller
         if(\Auth::check()) {
             if($user = User::find(\Auth::user()->id)) {
                 $user->login_by = 'manual';
-                $user->save();
+                $user->update();
             }   
         }
        
