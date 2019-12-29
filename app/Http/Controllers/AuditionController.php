@@ -16,7 +16,7 @@ use App\AuditionDelete;
 use Auth;
 use Illuminate\Support\Facades\Redirect;
 use App\Events\SendSms;
-
+use App\Jobs\AuditionRegistrationMail;
 class AuditionController extends Controller
 {
     // news crud here
@@ -611,7 +611,7 @@ class AuditionController extends Controller
         if($request->payment_status==1)
         {
             $res = event(new SendSms($form));
-            // Helper::send_sms($form);
+            dispatch(new AuditionRegistrationMail($form));
         }
         \Session::flash('flash_success','Contestant Updated Successfully');
         return redirect()->route('audition.view-audition');

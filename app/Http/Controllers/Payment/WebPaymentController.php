@@ -92,7 +92,8 @@ class WebPaymentController extends Controller
         if($audition->registration_code_send_count > 1){
             return redirect()->back()->with('error', 'You have requested more than 2 times, Please contact system admin');
         }
-        Helper::send_email('emails.auditionemail','Leader Registration',$audition->email, $audition);
+        
+        dispatch(new AuditionRegistrationMail($audition));
         $audition->registration_code_send_count++;
         $audition->update();
         return redirect()->back()->with('success', 'Email Sent Successfully');
@@ -170,8 +171,7 @@ class WebPaymentController extends Controller
                 $audition->channel=isset($request->type)?$request->type:'web';
                 $audition->update();
                 
-                Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
-
+                dispatch(new AuditionRegistrationMail($audition));
                 event(new SendSms($audition));
                 
                 PaymentLog::create([
@@ -263,8 +263,7 @@ class WebPaymentController extends Controller
             $audition->registration_code=config('services.leader.identity').Auth::user()->id;
             $audition->channel='web';
             $audition->update();
-        Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
-
+        dispatch(new AuditionRegistrationMail($audition));
         event(new SendSms($audition));
         
         PaymentLog::create([
@@ -292,7 +291,7 @@ class WebPaymentController extends Controller
         $audition->channel='paypal';
         $audition->update();
 
-        Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
+        dispatch(new AuditionRegistrationMail($audition));
         event(new SendSms($audition));
 
         PaymentLog::create([

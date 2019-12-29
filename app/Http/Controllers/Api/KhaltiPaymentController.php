@@ -133,9 +133,7 @@ class KhaltiPaymentController extends Controller
         $audition->channel='mobile';
         $audition->update();
 
-        Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
-
-        // Helper::send_sms($audition);
+        dispatch(new AuditionRegistrationMail($audition));
         event(new SendSms($audition));
 
         PaymentLog::create([
@@ -204,9 +202,9 @@ class KhaltiPaymentController extends Controller
             $audition->channel='mobile';
             $audition->update();
 
-            Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
+            //Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
             
-            // Helper::send_sms($audition);
+            dispatch(new AuditionRegistrationMail($audition));
             event(new SendSms($audition));
 
             PaymentLog::create([
