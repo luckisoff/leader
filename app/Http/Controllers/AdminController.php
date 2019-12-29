@@ -73,6 +73,7 @@ define('VIDEO_TYPE_OTHER', 3);
 
 define('VIDEO_UPLOAD_TYPE_s3', 1);
 define('VIDEO_UPLOAD_TYPE_DIRECT', 2);
+use App\Jobs\SendLeaderWelcomeEmail;
 
 class AdminController extends Controller
 {
@@ -315,7 +316,7 @@ class AdminController extends Controller
                 $user = new User;
                 $new_password = time();
                 $new_password .= rand();
-                $new_password = sha1($new_password);
+                // $new_password = sha1($new_password);
                 $new_password = substr($new_password, 0, 8);
                 $user->password = Hash::make($new_password);
                 $message = tr('admin_add_user');
@@ -332,18 +333,8 @@ class AdminController extends Controller
             $user->token_expiry = Helper::generate_token_expiry();
             $user->is_activated = 1;                   
 
-            if($request->id == ''){
-                $email_data['name'] = $user->name;
-                $email_data['password'] = $new_password;
-                $email_data['email'] = $user->email;
-
-                $subject = 'Welcome to Gundruk Network';
-                $page = "emails.admin_user_welcome";
-                $email = $user->email;
-                Helper::send_email($page,$subject,$email,$email_data);
-            }
-
             $user->save();
+            dispatch(new SendLeaderWelcomeEmail($user, $new_password));
 
             if($user) {
                 // register_mobile('web');

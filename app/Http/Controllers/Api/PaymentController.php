@@ -12,6 +12,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\PaymentLog;
+use App\Events\SendSms;
+
 class PaymentController extends Controller
 {
     public function getPaypalKey()
@@ -97,7 +99,8 @@ class PaymentController extends Controller
         $audition->registration_code=$request->registration_code;
         $audition->channel='mobile-'.$request->payment_type;
         $audition->update();
-        Helper::send_sms($audition);
+        // Helper::send_sms($audition);
+        event(new SendSms($audition));
 
         PaymentLog::create([
             'type'=>$request->payment_type,
