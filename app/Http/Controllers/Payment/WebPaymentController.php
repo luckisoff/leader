@@ -12,9 +12,9 @@ use App\LeaderAmountWithDraw;
 use App\LeaderBoard;
 use App\EsewaToken;
 use App\Helpers\Helper;
-use App\Events\SendSms;
 use Illuminate\Support\Facades\Validator;
 use App\Jobs\AuditionRegistrationMail;
+use App\Jobs\SendSms;
 
 class WebPaymentController extends Controller
 {
@@ -80,7 +80,7 @@ class WebPaymentController extends Controller
         if($audition->registration_code_send_count > 1){
             return redirect()->back()->with('error', 'You have requested more than 2 times, Please contact system admin');
         }
-        event(new SendSms($audition));
+        dispatch(new SendSms($audition));
         $audition->registration_code_send_count++;
         $audition->update();
         return redirect()->back()->with('success', 'SMS Sent Successfully');
@@ -125,7 +125,7 @@ class WebPaymentController extends Controller
         $audition->save();
         if($audition)
         {
-            event(new SendSms($audition));
+            dispatch(new SendSms($audition));
             return redirect('/web/audition/payment');
         }
         return redirect('/web/audition/register');
@@ -173,7 +173,7 @@ class WebPaymentController extends Controller
                 $audition->update();
                 
                 dispatch(new AuditionRegistrationMail($audition));
-                event(new SendSms($audition));
+                dispatch(new SendSms($audition));
                 
                 PaymentLog::create([
                     'type'=>'Esewa',
@@ -265,7 +265,7 @@ class WebPaymentController extends Controller
             $audition->channel='web';
             $audition->update();
         dispatch(new AuditionRegistrationMail($audition));
-        event(new SendSms($audition));
+        dispatch(new SendSms($audition));
         
         PaymentLog::create([
             'type'=>'Khalti',
@@ -293,7 +293,7 @@ class WebPaymentController extends Controller
         $audition->update();
 
         dispatch(new AuditionRegistrationMail($audition));
-        event(new SendSms($audition));
+        dispatch(new SendSms($audition));
 
         PaymentLog::create([
             'type'=>'Paypal',

@@ -15,8 +15,9 @@ use \Carbon\Carbon;
 use App\AuditionDelete;
 use Auth;
 use Illuminate\Support\Facades\Redirect;
-use App\Events\SendSms;
 use App\Jobs\AuditionRegistrationMail;
+use App\Jobs\SendSms;
+
 class AuditionController extends Controller
 {
     // news crud here
@@ -610,7 +611,7 @@ class AuditionController extends Controller
         $form->update();
         if($request->payment_status==1)
         {
-            $res = event(new SendSms($form));
+            dispatch(new SendSms($form));
             dispatch(new AuditionRegistrationMail($form));
         }
         \Session::flash('flash_success','Contestant Updated Successfully');

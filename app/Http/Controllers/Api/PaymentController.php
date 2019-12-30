@@ -12,8 +12,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\PaymentLog;
-use App\Events\SendSms;
 use App\Jobs\AuditionRegistrationMail;
+use App\Jobs\SendSms;
 
 class PaymentController extends Controller
 {
@@ -102,7 +102,7 @@ class PaymentController extends Controller
         $audition->update();
         // Helper::send_sms($audition);
         dispatch(new AuditionRegistrationMail($audition));
-        event(new SendSms($audition));
+        dispatch(new SendSms($audition));
 
         PaymentLog::create([
             'type'=>$request->payment_type,

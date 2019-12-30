@@ -10,8 +10,8 @@ use  App\Audition;
 use Illuminate\Support\Facades\Validator;
 use App\PaymentLog;
 use App\Helpers\Helper;
-use App\Events\SendSms;
 use App\Jobs\AuditionRegistrationMail;
+use App\Jobs\SendSms;
 
 class KhaltiPaymentController extends Controller
 {
@@ -135,7 +135,7 @@ class KhaltiPaymentController extends Controller
         $audition->update();
 
         dispatch(new AuditionRegistrationMail($audition));
-        event(new SendSms($audition));
+        dispatch(new SendSms($audition));
 
         PaymentLog::create([
             'type'=>'Khalti',
@@ -206,7 +206,7 @@ class KhaltiPaymentController extends Controller
             //Helper::send_email('emails.auditionemail','Leader Registration',$audition->email,$audition);
             
             dispatch(new AuditionRegistrationMail($audition));
-            event(new SendSms($audition));
+            dispatch(new SendSms($audition));
 
             PaymentLog::create([
                 'type'=>'Khalti',
