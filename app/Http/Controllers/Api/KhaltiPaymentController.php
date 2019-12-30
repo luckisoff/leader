@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use App\PaymentLog;
 use App\Helpers\Helper;
 use App\Events\SendSms;
+use App\Jobs\AuditionRegistrationMail;
 
 class KhaltiPaymentController extends Controller
 {

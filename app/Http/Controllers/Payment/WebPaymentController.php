@@ -14,6 +14,7 @@ use App\EsewaToken;
 use App\Helpers\Helper;
 use App\Events\SendSms;
 use Illuminate\Support\Facades\Validator;
+use App\Jobs\AuditionRegistrationMail;
 
 class WebPaymentController extends Controller
 {

@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\PaymentLog;
 use App\Events\SendSms;
+use App\Jobs\AuditionRegistrationMail;
 
 class PaymentController extends Controller
 {
