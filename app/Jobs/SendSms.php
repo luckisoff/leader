@@ -13,6 +13,8 @@ class SendSms extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
+
+
     public $audition;
 
     /**
@@ -95,14 +97,16 @@ class SendSms extends Job implements ShouldQueue
         $status = $res->getStatus();
         $responseData = $res->getResponseData();
 
+        $message = $this->getCodeMessages($audition['country_code'], $response_code);
+
         SmsLog::create([
-                    'type'=>'Nexmo',
-                    'user_id'=>$audition['user_id'],
-                    'message'=>$msg,
-                    'response_code'=>$status,
-                    'status'=>($status === '0') ? true : false,
-                    'request'=>$data,
-                    'response'=>$responseData
+                    'type' => 'Nexmo',
+                    'user_id' => $audition['user_id'],
+                    'message' => $message,
+                    'response_code' => $status,
+                    'status' => ($status === '0') ? true : false,
+                    'request' => $data,
+                    'response' => $responseData
                 ]);
     }
 
@@ -135,14 +139,152 @@ class SendSms extends Job implements ShouldQueue
             $response_code = '';
         }
 
+        $message = $this->getCodeMessages($audition['country_code'], $response_code);
+
         SmsLog::create([
-                    'type'=>'SparrowSms',
-                    'user_id'=>$audition['user_id'],
-                    'message'=>$msg,
-                    'response_code'=>$response_code,
-                    'status'=>($response_code === 200) ? true : false,
-                    'request'=>$data,
-                    'response'=>$response
+                    'type' => 'SparrowSms',
+                    'user_id' => $audition['user_id'],
+                    'message' => $message,
+                    'response_code' => $response_code,
+                    'status' => ($response_code === 200) ? true : false,
+                    'request' => $data,
+                    'response' => $response
                 ]);
+
+    }
+
+    public function getCodeMessages($country_code, $code){
+        $msg = '';
+
+        if(!$country_code === '977'){
+            switch ($code) {
+                case '0':
+                    $msg = 'Message was delivered successfully';
+                    break;
+
+                case '1':
+                    $msg = 'Message was not delivered, and no reason could be determined';
+                    break;
+
+                case '2':
+                    $msg = 'Message was not delivered because handset was temporarily unavailable - retry';
+                    break;
+
+                case '3':
+                    $msg = 'The number is no longer active and should be removed from your database';
+                    break;
+
+                case '4':
+                    $msg = 'This is a permanent error: the number should be removed from your database and the user must contact their network operator to remove the bar';
+                    break;
+
+                case '5':
+                    $msg = 'There is an issue relating to portability of the number and you should contact the network operator to resolve it';
+                    break;
+
+                case '6':
+                    $msg = 'The message has been blocked by a carrier\'s anti-spam filter';
+                    break;
+
+                case '7':
+                    $msg = 'The handset was not available at the time the message was sent - retry';
+                    break;
+
+                case '8':
+                    $msg = 'The message failed due to a network error - retry';
+                    break;
+
+                case '9':
+                    $msg = 'The user has specifically requested not to receive messages from a specific service';
+                    break;
+
+                case '10':
+                    $msg = 'There is an error in a message parameter, e.g. wrong encoding flag';
+                    break;
+
+                case '11':
+                    $msg = 'Nexmo cannot find a suitable route to deliver the message';
+                    break;
+
+                case '12':
+                    $msg = 'A route to the number cannot be found - confirm the recipient\'s number';
+                    break;
+
+
+                case '13':
+                    $msg = 'The target cannot receive your message due to their age';
+                    break;
+
+                case '14':
+                    $msg = 'The recipient should ask their carrier to enable SMS on their plan';
+                    break;
+
+                case '15':
+                    $msg = 'The recipient is on a prepaid plan and does not have enough credit to receive your message';
+                    break;
+
+                default:
+                    $msg = 'Unknown Error';
+                    break;
+            }
+        }else {
+            switch ($code) {
+                case '200':
+                    $msg = 'Message was delivered successfully';
+                    break;
+                
+                case '1000':
+                    $msg = 'A required field is missing';
+                    break;
+
+                case '1001':
+                    $msg = 'Invalid IP Address';
+                    break;
+
+                case '1002':
+                    $msg = 'Invalid Token"';
+                    break;
+
+                case '1003':
+                case '1004':
+                    $msg = 'Account Inactive';
+                    break;
+
+                case '1005':
+                case '1006':
+                    $msg = 'Account has been expired';
+                    break;
+
+                case '1007':
+                    $msg = 'Invalid Receiver';
+                    break;
+
+                case '1008':
+                    $msg = 'Invalid Sender';
+                    break;
+
+                case '1010':
+                    $msg = 'Text cannot be empty';
+                    break;
+
+                case '1011':
+                    $msg = 'No valid receiver';
+                    break;
+
+                case '1012':
+                    $msg = 'No Credits Available';
+                    break;
+
+                case '1013':
+                    $msg = 'Insufficient Credits';
+                    break;
+
+                default:
+                    $msg = 'Unknown Error';
+                    break;
+            }
+        }
+
+        return $msg;
     }
 }
