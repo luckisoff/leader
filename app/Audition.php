@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Audition extends Model
 {   
     use SoftDeletes;
-    protected $fillable=['channel','user_id','name','number','country_code','address','gender','email', 'registration_code_send_count'];
+    protected $fillable=['channel','user_id','name','number','country_code','address','gender','email', 'registration_code_send_count','sms_queue'];
     
     protected  $table ="audition_registration";
     protected $dates = ['deleted_at'];

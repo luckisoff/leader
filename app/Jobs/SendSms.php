@@ -13,8 +13,6 @@ class SendSms extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
-
-
     public $audition;
 
     /**
@@ -77,7 +75,7 @@ class SendSms extends Job implements ShouldQueue
             $mobile = $audition['country_code'] .$audition['number'];
         }
 
-        $msg = "Congratulations! ".$audition['name'].". Your registration is successful. Your registration code is '".$audition['registration_code']."'. Please keep this code safe. Visit http://bit.ly/leadernp for more details. Thank you.";
+        $msg = "Congratulations ".$audition['name']."!. Your registration is successful. Your registration code is '".$audition['registration_code']."'. Please keep this code safe. Visit http://bit.ly/leadernp for more details. Thank you.";
 
         if($audition['country_code'] === '977') {
             $this->sparrowSms($mobile, $msg, $audition);
