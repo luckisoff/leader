@@ -138,7 +138,7 @@ class AdminController extends Controller
     public function dashboard() {
         // Twocheckout::privateKey('BE632CB0-BB29-11E3-AFB6-D99C28100996');
         // Twocheckout::sellerId('901248204');
-        NotificationController::test();
+        //return NotificationController::test();
         $admin = Admin::first();
 
         $admin->token = Helper::generate_token();

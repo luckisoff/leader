@@ -111,6 +111,7 @@
                                     <option value="Esewa" {{strtolower($contestant->payment_type)=='esewa'?'selected':''}}>Esewa</option>
                                     <option value="Khalti" {{strtolower($contestant->payment_type)=='khalti'?'selected':''}}>Khalti</option>
                                     <option value="Paypal" {{strtolower($contestant->payment_type)=='paypal'?'selected':''}}>Paypal</option>
+                                    <option value="Offline" {{strtolower($contestant->payment_type)=='offline'?'selected':''}}>Offline</option>
                                 </select>
                             </div>
 

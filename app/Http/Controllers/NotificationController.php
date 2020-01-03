@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Audition;
 use App\User;
-use Illuminate\Support\Facades\Log;
 
 class NotificationController extends Controller
 {
@@ -35,19 +34,32 @@ class NotificationController extends Controller
         self::curlInit($fields);
     }
 
+    public static function paymentClaim(User $user)
+    {
+        $fields = array(
+            'to' => $user->device_token,
+            'notification'=>[
+                'title'=>'Payment Claim',
+                'text'=>'Dear '.$user->name.'. We have received your payment claim. We will process it soon. Please keep playing gundruk quiz.' 
+            ],
+            'data'=>array(
+                'type'=>'claim'
+            )
+        );
+        self::curlInit($fields);
+    }
+
 
     public static function test()
     {
         $fields = array(
-            'to' => 'foDjNFswnL4:APA91bEtQlo8sKSYFOmrsgsSXSwU5V85L932SfsjmH3BWCjjfnx-PVR6Esa4TmXkcdC8i_4tMYOVrgvr1JnqacGqMsLOBegF9Ix6-2w9tGryYlJMNPZNwYckkNA6Gax6iS_Tsk00kaeL',
+            'to' => 'ekXRm3xTy-4:APA91bHcgjyOyqje875MSHZjtNk3zER9cJDEUuTOjzyE0-H7wnupLgAG4g2b4u14jzuSBUplAd8WgADgNEOMZMXHKP5-6fNtlu6Xwxg7ZsFckGaly1vOAFci1f6RgvV257h7eYyaOqZS',
             'notification'=>[
                 'title'=>'Payment Claim',
-                'text'=>'Welcome to gundruk network.' 
+                'text'=>'We have received your payment claim. We will process it soon. Please keep playing gundruk quiz.' 
             ],
             'data'=>array(
-                'message'=>'This is test message body',
-                'image'=>'http://gundruknetwork.com/the_leader_audition/uploads/f34830a2030a6e1ac81554f5c87d90631a36d515.png',
-                'vibrate'=>1,
+                'type'=>'claim'
             )
         );
         
