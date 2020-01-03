@@ -15,7 +15,9 @@ use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-
+use App\Jobs\SendSocialLoginWelcomeMail;
+use App\Jobs\AuditionRegistrationMail;
+use App\PaymentLog;
 class AuditionController extends Controller
 {
 
@@ -187,5 +189,113 @@ class AuditionController extends Controller
     }
 
 
+    public function khaltiReg(Request $request)
+    {
+        $validator=Validator::make($request->all(),[
+            'name'=>'required',
+            'email'=>'email',
+            'mobile'=>'required|max:10',
+            'gender'=>'required',
+            'address'=>'required'
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>false,
+                'code'=>200,
+                'message'=>$validator->errors()->first()
+            ]);
+        }
+
+        $user=User::where('email',$request->email)->first();
+        if(!$user)
+        {
+            $user=new User();
+            $user->name=$request->name;
+            $user->mobile=$request->mobile;
+            $user->email=$request->email;
+            $user->address=$request->address;
+            $user->gender=$request->gender;
+
+            $password='srbn@'.rand(154,98000);
+            $user->password=Hash::make($password);
+            $user->token_expiry=time() + 24*3600*30;
+            $user->device_token='';
+            $user->is_activated = 1;
+            $user->login_by = 'manual';
+            $user->device_type = 'web';
+            $user->save();
+            $user->setAttribute('newpassword',$password);
+            dispatch(new SendSocialLoginWelcomeMail($user));
+        }
+
+        $auditionUser=Audition::where('email',$user->email)->first();
+        if(!$auditionUser)
+        {
+            $auditionUser=new Audition();
+            $auditionUser->name=$request->name;
+            $auditionUser->user_id=$user->id;
+            $auditionUser->email=$request->email;
+            $auditionUser->number=$request->mobile;
+            $auditionUser->address=$request->address;
+            $auditionUser->gender=$request->gender;
+            $auditionUser->country_code='977';
+            $auditionUser->save();
+        }
+
+        return $this->khaltiVerifyAndPay($request->token,$auditionUser);
+        
+    }
+
+    protected function khaltiVerifyAndPay($token,Audition $audition)
+    {
+        $url='https://khalti.com/api/v2/payment/verify/';
+
+        $data=[
+            'token'=>$token,
+            'amount'=>1000
+        ];
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        $headers = ['Authorization:Key '.config('services.khalti.client_secret')];
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        // Response
+        $response = curl_exec($curl);
+        $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+
+        $responseOb=json_decode($response);
+
+        if(isset($responseOb->status_code))
+        {
+            return response()->json([
+                'status'=>false,
+                'data'=>$response
+            ]);
+        }
+            
+        $audition->payment_type = "Khalti";
+        $audition->payment_status = 1;
+        $audition->registration_code=config('services.leader.identity').$audition->user_id;
+        $audition->channel='khalti-app-mbl';
+        $audition->update();
+
+        dispatch(new AuditionRegistrationMail($audition));
+        event(new SendSms($audition));
+
+        PaymentLog::create([
+            'type'=>'Khalti',
+            'status'=>true,
+            'user_id'=>$audition->user_id,
+            'value'=>\serialize($audition)
+        ]);
+        return $response;
+    }
 
 }

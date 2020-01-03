@@ -57,6 +57,11 @@ class LoginController extends Controller
                     $user->social_unique_id = $request->social_unique_id;
                     $user->picture = $request->picture;
 
+                    if($request->has('device_token'))
+                    {
+                        $user->device_token=$request->device_token;
+                    }
+
                     if(isset($request->email)){
                         $user->email = $request->email;
                     }
@@ -64,14 +69,23 @@ class LoginController extends Controller
                     if(isset($request->mobile)){
                         $user->mobile = $request->mobile;
                     }
+
                     $user->save();
                     $this->createLeaderboard($user);
                    
 
             }
             else{
+                    if($request->has('picture'))
+                    {
+                        $user->picture = $request->picture;
+                    }
+                    if($request->has('device_token'))
+                    {
+                        $user->device_token=$request->device_token;
+                    }
                     $user->updated_at = date("Y-m-d H:i:s");
-                    $user->save();
+                    $user->update();
                 }
 
                 $user = User::where('login_by', $request->login_by)->where('social_unique_id', $request->social_unique_id)->first();
@@ -84,7 +98,7 @@ class LoginController extends Controller
                 if ($user) {
                     if (Hash::check($request->password, $user->password)) {
                         $user->updated_at = date("Y-m-d H:i:s");
-                        $user->save();
+                        $user->update();
                         $token = JWTAuth::fromUser($user);
                         $data = [
                             'token_type' => 'bearer',
@@ -240,7 +254,7 @@ class LoginController extends Controller
             \App\LeaderBoard::create([
                 'user_id'=>$user->id,
                 'point'=>0,
-                'level'=>''
+                'level'=>0
             ]);
         }
     }
