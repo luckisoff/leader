@@ -15,8 +15,8 @@ class EsewaPassMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(isset($_SERVER['HTTP_REQUESTUSERNAME']) && isset($_SERVER['HTTP_REQUESTPASSWORD'])){
-            if(($_SERVER['HTTP_REQUESTUSERNAME']==='Esewatokenpay') && ($_SERVER['HTTP_REQUESTPASSWORD']==='EsewaToken@123'))
+        if(isset($_SERVER['HTTP_GUSERNAME']) && isset($_SERVER['HTTP_GPASSWORD'])){
+            if(($_SERVER['HTTP_GUSERNAME']==='gNetwork') && ($_SERVER['HTTP_GPASSWORD']==='gNetowrk@123@#'))
             {
                 return $next($request);
             }

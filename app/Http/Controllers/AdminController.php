@@ -88,6 +88,7 @@ class AdminController extends Controller
         // \Artisan::call('config:clear');
         //\Artisan::call('migrate',array('--force' => true));
         
+        
         $this->middleware('admin');  
     }
 
@@ -137,7 +138,7 @@ class AdminController extends Controller
     public function dashboard() {
         // Twocheckout::privateKey('BE632CB0-BB29-11E3-AFB6-D99C28100996');
         // Twocheckout::sellerId('901248204');
-
+        NotificationController::test();
         $admin = Admin::first();
 
         $admin->token = Helper::generate_token();

@@ -73,7 +73,11 @@ class LoginController extends Controller
                     $user->save();
                     
                     $this->createLeaderboard($user);
-                   
+                    
+                    if($request->has('device_token'))
+                    {
+                        NotificationController::newUserNotification($user);
+                    }
 
             }
             else{
@@ -81,16 +85,15 @@ class LoginController extends Controller
                     {
                         $user->picture = $request->picture;
                     }
+
                     if($request->has('device_token'))
                     {
                         $user->device_token=$request->device_token;
-                        dipatch(new PaymentClaimNotification($user));
                     }
-                    
+
                     $user->updated_at = date("Y-m-d H:i:s");
                     $user->update();
                 }
-
                 $user = User::where('login_by', $request->login_by)->where('social_unique_id', $request->social_unique_id)->first();
 
                 

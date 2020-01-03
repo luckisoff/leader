@@ -11,11 +11,12 @@ use App\SpinnerLeaderboard;
 use App\LeaderAmountWithDraw;
 use App\LeaderBoard;
 use App\EsewaToken;
-use App\Helpers\Helper;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use App\Jobs\AuditionRegistrationMail;
 use App\Jobs\SendSms;
-
+use App\Jobs\SendSocialLoginWelcomeMail;
+use App\User;
 class WebPaymentController extends Controller
 {
 
@@ -456,6 +457,79 @@ class WebPaymentController extends Controller
             return $request_id;
         }
         return uniqueToken($audition);
+    }
+
+    public function gatewayRegister(Request $request)
+    {
+        $validator=Validator::make($request->all(),[
+            'name'=>'required',
+            'email'=>'required|email',
+            'gender'=>'required',
+            'mobile'=>'required|min:10|max:10',
+            'address'=>'required'
+
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>false,
+                'code'=>200,
+                'message'=>$validator->errors()->first()
+            ]);
+        }
+        $input=$request->all();
+        $user=User::where('email',$request->email)->first();
+        if(!$user)
+        {
+            $input['login_by']='manual';
+            $password='leadersrbn@'.rand(150,1500);
+            $input['password']=Hash::make($password);
+            $user=User::create($input);
+            $user->setAttribute('newpassword',$password);
+            // dispatch(new SendSms($audition));
+            dispatch(new SendSocialLoginWelcomeMail($user));
+        }
+        $audition=Audition::where('email',$request->email)->first();
+
+        if(!$audition)
+        {
+            $audition = new Audition();
+            $audition->user_id=$user->id;
+            $audition->name=$request->name;
+            $audition->email=$request->email;
+            $audition->number=$request->mobile;
+            $audition->gender=$request->gender;
+            $audition->address=$request->address;
+            $audition->gender=$request->gender;
+            $audition->payment_status=1;
+            $audition->payment_type='esewa';
+            $audition->registration_code=config('services.leader.identity').$user->id;
+            
+            if($audition->save())
+            {
+                dispatch(new SendSms($audition));
+                dispatch(new AuditionRegistrationMail($audition));
+            }
+        }
+        else
+        {
+            $audition->payment_status=1;
+            $audition->payment_type='esewa';
+            $audition->registration_code=config('services.leader.identity').$user->id;
+            if($audition->update())
+            {
+                //dispatch(new SendSms($audition));
+                dispatch(new AuditionRegistrationMail($audition));
+            }
+        }
+
+        return response()->json([
+            'status'=>true,
+            'code'=>200,
+            'message'=>'Registration successful',
+            'registration_code'=>$audition->registration_code,
+        ]);
     }
 
 }

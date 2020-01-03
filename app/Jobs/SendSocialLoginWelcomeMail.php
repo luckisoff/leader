@@ -33,7 +33,7 @@ class SendSocialLoginWelcomeMail extends Job implements ShouldQueue
     public function handle(Mailer $mailer)
     {
         $email = $this->user->email;
-        $subject = 'Leader Registration';
+        $subject = 'Welcome';
 
         $mailer->send('emails.socialloginwelcome', ['email_data' => $this->user], function ($message) use ($email, $subject) {
             $message->to($email)->subject($subject);
