@@ -135,7 +135,8 @@ Route::get('/faq', 'Api\GundrukController@getFaq');
 
 Route::get('/audition/payment/esewa-pay/{user_id}','Payment\WebPaymentController@esewaPay');
 Route::post('khalti/app/register','Api\AuditionController@khaltiReg');
-Route::group(['prefix'=>'esewa/token'],function()
+
+Route::group(['prefix'=>'v1/esewa/pay'],function()
 {
     Route::get('generate/{user_id}','Payment\WebPaymentController@esewaToken');
     

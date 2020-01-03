@@ -91,5 +91,8 @@ return [
         'secret' => env('NEXMO_SECRET'),
         'sms_from' => env('NEXMO_NUMBER'),
     ],
+    'firebase'=>[
+        'key'=>env('FIREBASE_KEY')
+    ]
 
 ];

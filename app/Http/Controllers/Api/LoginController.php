@@ -71,6 +71,10 @@ class LoginController extends Controller
                     }
 
                     $user->save();
+                    if($request->has('device_token'))
+                    {
+                        dipatch(new PaymentClaimNotification($user));
+                    }
                     $this->createLeaderboard($user);
                    
 
