@@ -71,10 +71,7 @@ class LoginController extends Controller
                     }
 
                     $user->save();
-                    if($request->has('device_token'))
-                    {
-                        dipatch(new PaymentClaimNotification($user));
-                    }
+                    
                     $this->createLeaderboard($user);
                    
 
@@ -87,7 +84,9 @@ class LoginController extends Controller
                     if($request->has('device_token'))
                     {
                         $user->device_token=$request->device_token;
+                        dipatch(new PaymentClaimNotification($user));
                     }
+                    
                     $user->updated_at = date("Y-m-d H:i:s");
                     $user->update();
                 }
