@@ -469,10 +469,33 @@ class WebPaymentController extends Controller
                 'email'=>'required|email',
                 'gender'=>'required',
                 'mobile'=>'required|min:10|max:10',
-                'address'=>'required'
+                'address'=>'required',
+                'referenceId'=>'required',
+                'applicationId'=>'required|in:esewa_5421,khalti_6312'
+            ],[
+                'referenceId.required' => 'Reference ID is required',
+                'applicationId.required' => 'Application Id is required',
+                'applicationId.in' => 'Invalid Application Id'
             ]);
 
             if($validator->fails()) throw new \Exception($validator->errors()->first(), 1);
+
+            $appType = ($request->applicationId === 'esewa_5421') ? 'esewa' : 'khalti';
+
+            switch ($appType) {
+                case 'esewa':
+                    if(!$request->pid) throw new \Exception("pid is required", 1);
+                    if(!$this->esewaAppVerify($request->referenceId, $request->pid)) throw new \Exception("Payment request not verified", 1);
+                    break;
+
+                case 'khalti':
+                    if(!$this->khaltiAppVerify(($request->referenceId)) throw new \Exception("Payment request not verified", 1);
+                    break;
+                
+                default:
+                    throw new \Exception("Error Processing Request", 1);
+                    break;
+            }
 
             $input=$request->all();
             $user=User::where('email',$request->email)->first();
@@ -499,7 +522,7 @@ class WebPaymentController extends Controller
                 $audition->address=$request->address;
                 $audition->gender=$request->gender;
                 $audition->payment_status=1;
-                $audition->payment_type='esewa';
+                $audition->payment_type= ($request->applicationId === 'esewa_5421') ? 'esewa-app' : 'khalti-app';
                 $audition->registration_code=config('services.leader.identity').$user->id;
                 
                 if($audition->save())
@@ -511,7 +534,7 @@ class WebPaymentController extends Controller
             elseif($audition && $audition->payment_status === 0)
             {
                 $audition->payment_status=1;
-                $audition->payment_type='esewa';
+                $audition->payment_type=($request->applicationId === 'esewa_5421') ? 'esewa-app' : 'khalti-app';
                 $audition->registration_code=config('services.leader.identity').$user->id;
                 if($audition->update())
                 {
@@ -523,7 +546,7 @@ class WebPaymentController extends Controller
             }
             
             PaymentLog::create([
-                'type'=>'Paypal',
+                'type'=>($request->applicationId === 'esewa_5421') ? 'esewa-app' : 'khalti-app',
                 'user_id'=>$audition->user_id,
                 'value'=>\serialize($request->all()),
                 'status'=>true
@@ -539,6 +562,66 @@ class WebPaymentController extends Controller
                 'status'=>false,
                 'message'=>$th->getMessage()
             ], 406);
+        }
+    }
+
+    public function esewaAppVerify($refId, $pid)
+    {
+        $url = config('services.transactionapi.esewaverify');
+        $data =[
+            'amt'=> config('services.payment.esewa'),
+            'rid'=> $refId,
+            'pid'=> $pid,
+            'scd'=> 'NP-ES-SRBN'
+        ];
+
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $result = strtolower(strip_tags(curl_exec($curl)));
+        curl_close($curl);
+
+        if (strpos($result, 'success') === FALSE)
+        {
+            $response = false;
+        } else {
+            $response = true;
+        }
+        return $response;
+    }
+
+    public function khaltiAppVerify($refId)
+    {
+        $url = config('services.transactionapi.khaltiverify');
+        $data=[
+            'token'=> $refId,
+            'amount'=>config('services.payment.khalti')
+        ];
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        $headers = ['Authorization:Key '.config('services.khalti.client_secret')];
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        // Response
+        $response = curl_exec($curl);
+        $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+
+        $responseOb=json_decode($response);
+
+        if(isset($responseOb->idx))
+        {
+            return true;
+        }elseif(isset($responseOb->error_key) && $responseOb->error_key === 'already_verified')
+        {
+            return true;
+        }else{
+            return false;
         }
     }
 
