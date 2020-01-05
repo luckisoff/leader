@@ -508,7 +508,7 @@ class WebPaymentController extends Controller
                     dispatch(new AuditionRegistrationMail($audition));
                 }
             }
-            else
+            elseif($audition && $audition->payment_status === 0)
             {
                 $audition->payment_status=1;
                 $audition->payment_type='esewa';
@@ -518,6 +518,8 @@ class WebPaymentController extends Controller
                     //dispatch(new SendSms($audition));
                     dispatch(new AuditionRegistrationMail($audition));
                 }
+            }else{
+                throw new \Exception("User already registered", 1);
             }
             
             PaymentLog::create([
