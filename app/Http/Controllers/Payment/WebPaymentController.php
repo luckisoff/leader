@@ -489,7 +489,7 @@ class WebPaymentController extends Controller
                     break;
 
                 case 'khalti':
-                    if(!$this->khaltiAppVerify(($request->referenceId)) throw new \Exception("Payment request not verified", 1);
+                    if(!$this->khaltiAppVerify($request->referenceId)) throw new \Exception("Payment request not verified", 1);
                     break;
                 
                 default:
@@ -506,7 +506,7 @@ class WebPaymentController extends Controller
                 $input['password']=Hash::make($password);
                 $user=User::create($input);
                 $user->setAttribute('newpassword',$password);
-                // dispatch(new SendSms($audition));
+                dispatch(new SendSms($audition));
                 dispatch(new SendSocialLoginWelcomeMail($user));
             }
             $audition=Audition::where('email',$request->email)->first();
@@ -538,7 +538,7 @@ class WebPaymentController extends Controller
                 $audition->registration_code=config('services.leader.identity').$user->id;
                 if($audition->update())
                 {
-                    //dispatch(new SendSms($audition));
+                    dispatch(new SendSms($audition));
                     dispatch(new AuditionRegistrationMail($audition));
                 }
             }else{
@@ -555,7 +555,7 @@ class WebPaymentController extends Controller
                 'status'=>true,
                 'message'=>'Registration successful',
                 'registration_code'=>$audition->registration_code,
-            ]);
+            ],200);
 
         } catch (\Throwable $th) {
             return response()->json([
