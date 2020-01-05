@@ -23,8 +23,8 @@ class EsewaPassMiddleware
         }
         return response()->json([
             'status'=>false,
-            'message'=>'Un Authorized'
-        ]);
+            'message'=>'Unauthorized'
+        ], 401);
 
     }
 }

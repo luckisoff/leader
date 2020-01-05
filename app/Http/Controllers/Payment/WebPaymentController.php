@@ -461,24 +461,19 @@ class WebPaymentController extends Controller
 
     public function gatewayRegister(Request $request)
     {
-        $validator=Validator::make($request->all(),[
-            'name'=>'required',
-            'email'=>'required|email',
-            'gender'=>'required',
-            'mobile'=>'required|min:10|max:10',
-            'address'=>'required'
 
-        ]);
-
-        if($validator->fails())
-        {
-            return response()->json([
-                'status'=>false,
-                'code'=>200,
-                'message'=>$validator->errors()->first()
-            ]);
-        }
         try {
+
+            $validator=Validator::make($request->all(),[
+                'name'=>'required',
+                'email'=>'required|email',
+                'gender'=>'required',
+                'mobile'=>'required|min:10|max:10',
+                'address'=>'required'
+            ]);
+
+            if($validator->fails()) throw new \Exception($validator->errors()->first(), 1);
+
             $input=$request->all();
             $user=User::where('email',$request->email)->first();
             if(!$user)
@@ -533,7 +528,6 @@ class WebPaymentController extends Controller
             ]);
             return response()->json([
                 'status'=>true,
-                'code'=>200,
                 'message'=>'Registration successful',
                 'registration_code'=>$audition->registration_code,
             ]);
@@ -541,9 +535,8 @@ class WebPaymentController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'status'=>false,
-                'code'=>500,
-                'message'=>'Internal server error'
-            ]);
+                'message'=>$th->getMessage()
+            ], 406);
         }
     }
 
