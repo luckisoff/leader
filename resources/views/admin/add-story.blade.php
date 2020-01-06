@@ -28,14 +28,14 @@
                     <div class="box-body">
 
                         <div class="form-group">
-                            <label for="name" class="col-sm-1 control-label">{{tr('name')}}</label>
+                            <label for="name" class="col-sm-1 control-label">{{tr('Name')}}</label>
                             <div class="col-sm-10">
                                 <input type="text" required class="form-control" id="name" name="name" placeholder="Story  Name">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="picture" class="col-sm-1 control-label">{{tr('content')}}</label>
+                            <label for="picture" class="col-sm-1 control-label">{{tr('Content')}}</label>
                             <div class="col-sm-10">
                                 <input type="file" required class="form-control" id="picture" accept="image/png,image/jpeg" name="picture" placeholder="{{tr('picture')}}">
                                 <p>Please choose a video or an image file</p>

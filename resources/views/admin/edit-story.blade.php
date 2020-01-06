@@ -30,7 +30,7 @@
                         <input type="hidden" name="id" value="{{$story->id}}">
 
                         <div class="form-group">
-                            <label for="name" class="col-sm-1 control-label">{{tr('name')}}</label>
+                            <label for="name" class="col-sm-1 control-label">{{tr('Name')}}</label>
                             <div class="col-sm-10">
                                 <input type="text" required class="form-control" value="{{$story->name}}" id="name" name="name" placeholder="Story Name">
                             </div>
@@ -38,7 +38,7 @@
                         
                         
                         <div class="form-group">
-                            <label for="categories" class="col-sm-1 control-label">{{tr('category')}}</label>
+                            <label for="categories" class="col-sm-1 control-label">{{tr('Category')}}</label>
                             <div class="col-sm-10">
                                 
                                 <select id="category" name="category_id" class="form-control">
@@ -62,7 +62,7 @@
 
                         
                         <div class="form-group">
-                            <label for="picture" class="col-sm-1 control-label">{{tr('content')}}</label>
+                            <label for="picture" class="col-sm-1 control-label">{{tr('Content')}}</label>
                             <div class="col-sm-10" style="">
                                 <input type="file" class="form-control" accept="image/png,image/jpeg" id="picture" name="picture" placeholder="{{tr('picture')}}">
                                  <p class="help-block">Please choose a video or an image file</p>
