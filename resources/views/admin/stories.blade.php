@@ -25,11 +25,11 @@
 						<thead>
 						    <tr>
 						      <th>{{tr('#')}}</th>
-						      <th>{{tr('story name')}}</th>
-						      <th>{{tr('picture')}}</th>
-						      <th>{{tr('Category')}}</th>
-						      <th>{{tr('Status')}}</th>
-						      <th>{{tr('action')}}</th>
+						      <th>Story Name</th>
+						      <th>Content</th>
+						      <th>Category</th>
+						      <th>Status</th>
+						      <th>Action</th>
 						    </tr>
 						</thead>
 
@@ -40,7 +40,11 @@
 							        <td>{{$i+1}}</td>
 							      	<td>{{$story->name}}</td>
 							      	<td>
+									  @if($story->type=='image')
 	                                	<img style="height: 30px;" src="{{$story->picture}}">
+									  @else
+									  	<video src="{{$story->picture}}" height="50" width="55" controls></video>
+									  @endif
 	                            	</td>
 	                            	<td>{{$story->category['name']}}</td>
 	                            	<td>

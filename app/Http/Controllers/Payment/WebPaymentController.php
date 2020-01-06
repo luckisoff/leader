@@ -482,7 +482,8 @@ class WebPaymentController extends Controller
 
             $appType = ($request->applicationId === 'esewa_5421') ? 'esewa' : 'khalti';
 
-            switch ($appType) {
+            switch ($appType)
+            {
                 case 'esewa':
                     if(!$request->pid) throw new \Exception("pid is required", 1);
                     if(!$this->esewaAppVerify($request->referenceId, $request->pid)) throw new \Exception("Payment request not verified", 1);

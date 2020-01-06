@@ -35,22 +35,31 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="picture" class="col-sm-1 control-label">{{tr('picture')}}</label>
+                            <label for="picture" class="col-sm-1 control-label">{{tr('content')}}</label>
                             <div class="col-sm-10">
                                 <input type="file" required class="form-control" id="picture" accept="image/png,image/jpeg" name="picture" placeholder="{{tr('picture')}}">
+                                <p>Please choose a video or an image file</p>
                             </div>
                         </div>
                         
                          <div class="form-group">
                             <label for="categories" class="col-sm-1 control-label">{{tr('Category')}}</label>
                             <div class="col-sm-10">
-                                
                                 <select id="category" name="category_id" class="form-control">
                                     @foreach($categories as $category)
                                     <option value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach
                                 </select>
-                                
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="types" class="col-sm-1 control-label">{{tr('Type')}}</label>
+                            <div class="col-sm-10">
+                                <select id="type" name="type" class="form-control">
+                                   <option value="image">Image</option>
+                                   <option value="video">Video</option>
+                                </select>
                             </div>
                         </div>
 

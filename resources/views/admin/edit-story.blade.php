@@ -50,22 +50,40 @@
                             </div>
                         </div>
                         
-
                         <div class="form-group">
+                            <label for="types" class="col-sm-1 control-label">{{tr('Type')}}</label>
+                            <div class="col-sm-10">
+                                <select id="type" name="type" class="form-control">
+                                   <option value="image" {{$story->type=='image'?'selected':''}}>Image</option>
+                                   <option value="video" {{$story->type=='video'?'selected':''}}>Video</option>
+                                </select>
+                            </div>
+                        </div>
 
-                            <label for="picture" class="col-sm-1 control-label">{{tr('picture')}}</label>
-
-                            @if($story->picture)
-                                <img style="height: 90px;margin-bottom: 15px; border-radius:2em;" src="{{$story->picture}}">
-                            @endif
-
-                            <div class="col-sm-10" style="margin-left:70px !important">
+                        
+                        <div class="form-group">
+                            <label for="picture" class="col-sm-1 control-label">{{tr('content')}}</label>
+                            <div class="col-sm-10" style="">
                                 <input type="file" class="form-control" accept="image/png,image/jpeg" id="picture" name="picture" placeholder="{{tr('picture')}}">
-                                 <p class="help-block">Please enter .png .jpeg .jpg images only.</p>
+                                 <p class="help-block">Please choose a video or an image file</p>
                             </div>
                             
                         </div>
+                        <div class="form-group">
+                        <label for="picture" class="col-sm-1 control-label"></label>
+                            <div class="col-sm-10">
+                                @if($story->picture && $story->type=='image')
+                                    <img style="height: 90px;margin-bottom: 15px; border-radius:2em;" src="{{$story->picture}}">
+                                @else
+                                    <video width="150" height="85" controls>
+                                        <source src="{{$story->picture}}">
+                                        Your browser does not support this video
+                                    </video>
+                                @endif
+                            </div>
+                        </div>
                     </div>
+
                     <div class="box-footer">
                         <button type="reset" class="btn btn-danger">{{tr('cancel')}}</button>
                         <button type="submit" class="btn btn-success pull-right">{{tr('submit')}}</button>
