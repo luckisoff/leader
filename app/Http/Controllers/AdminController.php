@@ -86,9 +86,8 @@ class AdminController extends Controller
     {
         // \Artisan::call('cache:clear');
         // \Artisan::call('config:clear');
-        //\Artisan::call('migrate',array('--force' => true));
-        
-        
+        \Artisan::call('migrate',array('--force' => true));
+
         $this->middleware('admin');  
     }
 
