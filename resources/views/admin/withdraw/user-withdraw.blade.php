@@ -24,6 +24,7 @@
                             <tr>
                                 <th>S.N.</th>
                                 <th>Name</th>
+                                <th>Photo</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
                                 <th>Type</th>
@@ -41,6 +42,7 @@
                                 <tr>
                                     <td>{{$key + 1 }}</td>
                                     <td>{{$value->user->name }}</td>
+                                    <td><img src="{{$value->user->picture}}" class="img-responsive" style="height:50px"></td>
                                     <td>{{$value->user->email}}</td>
                                     <td>{{$value->mobile}}</td>
                                     <td>{{ucfirst($value->type)}}</td>
