@@ -499,7 +499,9 @@ class WebPaymentController extends Controller
             }
 
             $input=$request->all();
+
             $user=User::where('email',$request->email)->first();
+
             if(!$user)
             {
                 $input['login_by']='manual';
@@ -507,11 +509,12 @@ class WebPaymentController extends Controller
                 $input['password']=Hash::make($password);
                 $user=User::create($input);
                 $user->setAttribute('newpassword',$password);
-                dispatch(new SendSms($audition));
+                //dispatch(new SendSms($user));
                 dispatch(new SendSocialLoginWelcomeMail($user));
             }
+
             $audition=Audition::where('email',$request->email)->first();
-    
+            
             if(!$audition)
             {
                 $audition = new Audition();
@@ -618,10 +621,13 @@ class WebPaymentController extends Controller
         if(isset($responseOb->idx))
         {
             return true;
-        }elseif(isset($responseOb->error_key) && $responseOb->error_key === 'already_verified')
+        }
+        elseif(isset($responseOb->error_key) && $responseOb->error_key === 'already_verified')
         {
             return true;
-        }else{
+        }
+        else
+        {
             return false;
         }
     }

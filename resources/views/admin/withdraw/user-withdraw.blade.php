@@ -42,7 +42,9 @@
                                 <tr>
                                     <td>{{$key + 1 }}</td>
                                     <td>{{$value->user->name }}</td>
-                                    <td><img src="{{$value->user->picture}}" class="img-responsive" style="height:50px"></td>
+                                    <td>
+                                        <img src="{{$value->user->picture}}" class="img-responsive" style="height:50px">
+                                    </td>
                                     <td>{{$value->user->email}}</td>
                                     <td>{{$value->mobile}}</td>
                                     <td>{{ucfirst($value->type)}}</td>
