@@ -624,7 +624,7 @@ class WebPaymentController extends Controller
         }
         elseif(isset($responseOb->error_key) && $responseOb->error_key === 'already_verified')
         {
-            throw new \Exception($responseOb->error_key, 1);
+            throw new \Exception('token already used', 1);
         }
         else
         {
