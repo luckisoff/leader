@@ -229,7 +229,8 @@ class SpinnerLeaderboardController extends Controller
                     'available_spin'=>20,
                 ]);
             }
-            if($dailyPoint->check_in==1)
+
+            if($dailyPoint->check_in)
             {
                 throw new \Exception('Already Checked In',1);
             }
@@ -251,12 +252,14 @@ class SpinnerLeaderboardController extends Controller
     public function isCheckedIn($user_id)
     {
         $dailyPoint=DailyPoint::where('user_id',$user_id)->where('check_in',1)->where('created_at','>=',\Carbon\Carbon::today())->first();
+        
         if($dailyPoint)
         {
             return response()->json([
                 'status'=>true
             ]);
         }
+
         return response()->json([
             'status'=>false
         ]);
