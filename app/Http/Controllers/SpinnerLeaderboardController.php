@@ -223,9 +223,9 @@ class SpinnerLeaderboardController extends Controller
             
             if(!$dailyPoint)
             {
-                $dailyPoint=DailyPoint::firstOrcreate([
+                $dailyPoint=DailyPoint::create([
                     'user_id'=>$request->user_id,
-                    'point'=>0,
+                    'point'=>$request->point,
                     'available_spin'=>20,
                 ]);
             }
@@ -256,12 +256,14 @@ class SpinnerLeaderboardController extends Controller
         if($dailyPoint)
         {
             return response()->json([
-                'status'=>true
+                'status'=>true,
+                'message'=>'Checked in'
             ]);
         }
 
         return response()->json([
-            'status'=>false
+            'status'=>false,
+            'message'=>'Not checked in'
         ]);
     }
 
