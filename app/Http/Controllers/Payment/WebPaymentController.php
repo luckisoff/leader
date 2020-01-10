@@ -531,7 +531,7 @@ class WebPaymentController extends Controller
                 
                 if($audition->save())
                 {
-                    //dispatch(new SendSms($audition));
+                    dispatch(new SendSms($audition));
                     dispatch(new AuditionRegistrationMail($audition));
                 }
             }
