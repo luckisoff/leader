@@ -52,57 +52,63 @@ class KhaltiPaymentController extends Controller
 
     public function confirmation(Request $request)
     {
-        $audition = Audition::where('user_id',$request->user_id)->first();
-        
-        if(!$audition){
+        try
+        {
+            $validator=Validator::make($request->all(),[
+                'token'=>'required',
+                'confirmation_code'=>'required',
+                'transaction_pin'=>'required',
+                'user_id'=>'required'
+            ]);
+
+            if($validator->fails())
+            {
+                throw new \Exception($validator->errors()->first(),1);
+            }
+            
+            $audition = Audition::where('user_id',$request->user_id)->first();
+            if(!$audition){
+                throw new \Exception("User not registered", 1);
+            }
+    
+            if($audition->payment_status==1)
+            {
+                throw new \Exception("Already Registered", 1);
+            }
+            
+            $url='https://khalti.com/api/payment/confirm/';
+           
+            $data=[
+                'public_key'=>config('services.khalti.client_id'),
+                'token'=>$request->token,
+                'confirmation_code'=>$request->confirmation_code,
+                'transaction_pin'=>$request->transaction_pin
+            ];
+    
+            # Make the call using API.
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            // Response
+            $response=json_decode(curl_exec($curl));
+            $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            curl_close($curl);
+    
+            if(!isset($response->idx))
+            {
+                throw new \Exception("Payment not successful", 1);
+            }
+            return $this->verify($response->amount,$request,$audition);
+        }
+        catch (\Throwable $th)
+        {
             return response()->json([
                 'status'=>false,
-                'code'=>200,
-                'message'=>'User not registered'
-            ]);
+                'message'=>$th->getMessage()
+            ],406);
         }
-
-        if($audition->payment_status==1)
-        {
-            return response()->json([
-                'status'=>true,
-                'code'=>200,
-                'message'=>'Already Registered',
-                'data'=>''
-            ]);
-        }
-        
-        $url='https://khalti.com/api/payment/confirm/';
-       
-        $data=[
-            'public_key'=>config('services.khalti.client_id'),
-            'token'=>$request->token,
-            'confirmation_code'=>$request->confirmation_code,
-            'transaction_pin'=>$request->transaction_pin
-        ];
-
-        # Make the call using API.
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        // Response
-        $response=json_decode(curl_exec($curl));
-        $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-
-        if(!isset($response->idx))
-        {
-            return;
-            // return response()->json([
-            //     'status'=>false,
-            //     'code'=>200,
-            //     'message'=>'something went wrong, try again',
-            //     'data'=>''
-            // ]);
-        }
-        return $this->verify($response->amount,$request,$audition);
     }
 
     protected function verify($amount,Request $request,Audition $audition)
