@@ -132,34 +132,45 @@ class SpinnerLeaderboardController extends Controller
 
     public function getUserPoint($user_id)
     {
-        $spinenrUser=SpinnerLeaderboard::where('user_id',$user_id)->first();
-        $dailyPoint=DailyPoint::where('user_id',$user_id)->where('created_at','>=',\Carbon\Carbon::today())->first();
-        
-        if(!$dailyPoint)
+        try
         {
-            $dailyPoint=DailyPoint::firstOrcreate([
-                'user_id'=>$user_id,
-                'point'=>0,
-                'available_spin'=>20,
+            $spinenrUser=SpinnerLeaderboard::where('user_id',$user_id)->first();
+            
+            $dailyPoint=DailyPoint::where('user_id',$user_id)->where('created_at','>=',\Carbon\Carbon::today())->first();
+            
+            if(!$dailyPoint)
+            {
+                $dailyPoint=DailyPoint::firstOrcreate([
+                    'user_id'=>$user_id,
+                    'point'=>0,
+                    'available_spin'=>20,
+                ]);
+            }
+    
+            if(!$spinenrUser)
+            {
+                $spinenrUser= SpinnerLeaderboard::create([
+                    'user_id'=>$user_id,
+                    'point'=>0
+                ]);
+            }
+            return response()->json([
+                'status'=>true,
+                'code'=>200,
+                'message'=>'Users point',
+                'data'=>[
+                    'daily'=>$dailyPoint,
+                    'overal'=> $spinenrUser
+                ]
             ]);
         }
-
-        if(!$spinenrUser)
+        catch (\Throwable $th)
         {
-            $spinenrUser= SpinnerLeaderboard::create([
-                'user_id'=>$user_id,
-                'point'=>0
-            ]);
+            return resonse()->json([
+                'status'=>false,
+                'message'=>$th->getMessage()
+            ],406);
         }
-        return response()->json([
-            'status'=>true,
-            'code'=>200,
-            'message'=>'Users point',
-            'data'=>[
-                'daily'=>$dailyPoint,
-                'overal'=> $spinenrUser
-            ]
-        ]);
     }
 
     public function getLandmark()
@@ -196,44 +207,45 @@ class SpinnerLeaderboardController extends Controller
     
     public function checkIn(Request $request)
     {
-        
-        $validator=Validator::make($request->all(),[
-            'user_id'=>'required',
-            'point'=>'required:max:2'
-        ]);
-
-        if($validator->fails())
+        try
         {
+            $validator=Validator::make($request->all(),[
+                'user_id'=>'required',
+                'point'=>'required:max:2'
+            ]);
+    
+            if($validator->fails())
+            {
+                throw new \Exception($validator->errors()->first(),1);
+            }
+    
+            $dailyPoint=DailyPoint::where('user_id',$request->user_id)->where('created_at','>=',\Carbon\Carbon::today())->first();
+            
+            if(!$dailyPoint)
+            {
+                $dailyPoint=DailyPoint::firstOrcreate([
+                    'user_id'=>$user_id,
+                    'point'=>0,
+                    'available_spin'=>20,
+                ]);
+            }
+            if($dailyPoint->check_in==1)
+            {
+                throw new \Exception('Already Checked In',1);
+            }
+
+            $dailyPoint->check_in=1;
+            $dailyPoint->update();
+            
+            return $this->updatePoint($request);
+        
+        } catch (\Throwable $th) {
             return response()->json([
                 'status'=>false,
-                'message'=>$validator->errors()->first(),
-                'data'=>''
+                'message'=>$th->getMessage()
             ]);
         }
-
-        $dailyPoint=DailyPoint::where('user_id',$request->user_id)->where('created_at','>=',\Carbon\Carbon::today())->first();
-        if(!$dailyPoint)
-        {
-            return response()->json([
-                'status'=>false,
-                'code'=>200,
-                'message'=>'No user present',
-                'data'=>''
-            ]);
-        }
-        if($dailyPoint->check_in==1)
-        {
-            return response()->json([
-                'status'=>true,
-                'code'=>200,
-                'message'=>'Already Checked In',
-                'data'=>$dailyPoint
-            ]);
-        }
-        $dailyPoint->check_in=1;
-        $dailyPoint->update();
         
-        return $this->updatePoint($request);
     }
 
     public function isCheckedIn($user_id)
