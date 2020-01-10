@@ -17,6 +17,9 @@ use Auth;
 use Illuminate\Support\Facades\Redirect;
 use App\Jobs\AuditionRegistrationMail;
 use App\Jobs\SendSms;
+use App\Jobs\SendSocialLoginWelcomeMail;
+use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuditionController extends Controller
 {
@@ -522,24 +525,57 @@ class AuditionController extends Controller
             ]);
         }
 
-        $form = new Audition();
-        $form->user_id = 0;
-        $form->name = $request->name;
-        $form->gender = $request->gender;
-        $form->address = $request->address;
-
-        $form->number = $request->number;
-        $form->email = $request->email;
-
-//        $form->attachment = Helper::normal_img_upload($request->file('attachment'),'/uploads/audition/attachment');
-
-
-        if(isset($request->image)){
-            $form->image = Helper::normal_img_upload($request->file('image'),'/uploads/audition/document');
-
+        $user=User::where('email',$request->email)->first();
+        if(!$user)
+        {
+            $user=new User();
+            $user->name=$request->name;
+            $user->email=$request->email;
+            $user->login_by='manual';
+            $newpassword='leader@'.rand(1,500);
+            $user->password=Hash::make($newpassword);
+            $user->save();
+            $user->setAttribute('newpassword',$newpassword);
+            //dispatch(new SendSocialLoginWelcomeMail($user));
         }
-        $form->save();
 
+        $form=Audition::where('email',$request->email)->first();
+
+        if(!$form)
+        {
+            $form = new Audition();
+            $form->user_id = $user->id;
+            $form->name = $request->name;
+            $form->gender = $request->gender;
+            $form->address = $request->address;
+            
+            $form->payment_status=1;
+            $form->payment_type='offline';
+            $form->registration_code=config('services.leader.identity').$user->id;
+
+            $form->number = $request->number;
+            $form->email = $request->email;
+    
+            if(isset($request->image)){
+                $form->image = Helper::normal_img_upload($request->file('image'),'/uploads/audition/document');
+            }
+            $form->save();
+        }
+        else
+        {
+            $form->name = $request->name;
+            $form->gender = $request->gender;
+            $form->address = $request->address;
+            
+            $form->payment_status=1;
+            $form->payment_type='offline';
+            $form->registration_code=config('services.leader.identity').$user->id;
+            $form->number = $request->number;
+
+            $form->update();
+        }
+
+        //dispatch(new SendSms($form));
         \Session::flash('flash_success','New Contestant Registered  Successfully');
         return redirect()->route('audition.view-audition');
     }
