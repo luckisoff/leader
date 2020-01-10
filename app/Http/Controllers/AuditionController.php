@@ -941,12 +941,12 @@ class AuditionController extends Controller
             {
                 
                 $nestedData['id'] = $key+1+$start;
-                $nestedData['user_id'] = $audition->payment_status==1
+                $nestedData['user_id'] = ($audition->payment_status==1
                 ?"<span class='label label-success'>".$audition->user_id."<span>":
-                "<span class='label label-danger'>".$audition->user_id."<span>";
+                "<span class='label label-danger'>".$audition->user_id."<span>");
 
 
-                $nestedData['name'] = $audition->name;
+                $nestedData['name'] =$audition->name;
                 $nestedData['number'] =$audition->number;
                 $nestedData['address'] =$audition->address;
                 $nestedData['gender'] =$audition->gender;

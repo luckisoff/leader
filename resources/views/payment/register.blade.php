@@ -44,7 +44,9 @@
 
            <div class="form-group">
                <label for="address"><i class="zmdi zmdi-google-maps material-icons-name"></i></label>
-               <select name="address" id="address">
+               <input type="text" name="address" required id="address" value="{{$user?$user->address:''}}" placeholder="Enter you address">
+
+               <!-- <select name="address" id="address">
                    <option value="">-- Audition Location --</option>
                    <option value="Kathmandu">Kathmandu</option>
                    <option value="Pokhara">Pokhara</option>
@@ -60,7 +62,7 @@
                    <option value="Malaysia">Malaysia</option>
                    <option value="South Korea">South Korea</option>
                    <option value="Australia">Australia</option>
-               </select>
+               </select> -->
            </div>
 
            <div class="form-group">

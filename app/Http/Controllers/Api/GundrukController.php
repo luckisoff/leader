@@ -54,11 +54,14 @@ class GundrukController extends Controller
     public function getStoriesList(){
         
         //respond the categories with story created today/last 24 hrs
-        $categories=Category::with(['story'=>function($q){
-            $q->where('updated_at','>=',\Carbon\Carbon::now()->subDay());
-        }])->whereHas('story',function($q){
-            $q->where('updated_at','>=',\Carbon\Carbon::now()->subDay());
-        })->orderBy('updated_at','desc')->get();
+        // $categories=Category::with(['story'=>function($q){
+        //     $q->where('updated_at','>=',\Carbon\Carbon::now()->subDay());
+        // }])
+        // ->whereHas('story',function($q){
+        //     $q->where('updated_at','>=',\Carbon\Carbon::now()->subDay());
+        // })->orderBy('updated_at','desc')
+        // ->get();
+        
 
         $categories=Category::with('story')->orderBy('updated_at','desc')->get();
     
