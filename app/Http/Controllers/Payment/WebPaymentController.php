@@ -531,7 +531,7 @@ class WebPaymentController extends Controller
                 
                 if($audition->save())
                 {
-                    dispatch(new SendSms($audition));
+                    //dispatch(new SendSms($audition));
                     dispatch(new AuditionRegistrationMail($audition));
                 }
             }
@@ -624,7 +624,7 @@ class WebPaymentController extends Controller
         }
         elseif(isset($responseOb->error_key) && $responseOb->error_key === 'already_verified')
         {
-            throw new \Exception('token already used', 1);
+            return false;
         }
         else
         {
