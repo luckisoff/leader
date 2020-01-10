@@ -624,8 +624,7 @@ class WebPaymentController extends Controller
         }
         elseif(isset($responseOb->error_key) && $responseOb->error_key === 'already_verified')
         {
-            return true;
-            //throw new \Exception($responseOb->error_key, 1);
+            throw new \Exception($responseOb->error_key, 1);
         }
         else
         {
