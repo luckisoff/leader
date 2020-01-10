@@ -18,4 +18,9 @@ class Stories extends Model
         parent::boot();
 		
     }
+
+    public function getCreatedAtAttribute($created_at)
+    {
+        return \Carbon\Carbon::parse($created_at)->diffForHumans();
+    }
 }
