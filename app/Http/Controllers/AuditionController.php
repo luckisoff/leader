@@ -536,7 +536,7 @@ class AuditionController extends Controller
             $user->password=Hash::make($newpassword);
             $user->save();
             $user->setAttribute('newpassword',$newpassword);
-            //dispatch(new SendSocialLoginWelcomeMail($user));
+            dispatch(new SendSocialLoginWelcomeMail($user));
         }
 
         $form=Audition::where('email',$request->email)->first();
@@ -575,7 +575,7 @@ class AuditionController extends Controller
             $form->update();
         }
 
-        //dispatch(new SendSms($form));
+        dispatch(new SendSms($form));
         \Session::flash('flash_success','New Contestant Registered  Successfully');
         return redirect()->route('audition.view-audition');
     }
