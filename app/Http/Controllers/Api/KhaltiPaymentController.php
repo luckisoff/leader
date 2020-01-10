@@ -18,27 +18,36 @@ class KhaltiPaymentController extends Controller
 
     public function initiate(Request $request )
     {
-        $url='https://khalti.com/api/payment/initiate/';
-        
-        $data=[
-            'public_key'=>config('services.khalti.client_id'),
-            'amount'=>1000*100,
-            'product_identity'=>'Leader Audition Registration',
-            'product_name'=>'Leader Audition Registration Charge',
-            'mobile'=>$request->mobile
-
-        ];
-        # Make the call using API.
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-        // Response
-        $response=curl_exec($curl);
-        $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-        return $response;
+        try 
+        {
+            $url='https://khalti.com/api/payment/initiate/';            
+            $data=[
+                'public_key'=>config('services.khalti.client_id'),
+                'amount'=>config('services.payment.khalti'),
+                'product_identity'=>'Leader Audition Registration',
+                'product_name'=>'Leader Audition Registration Charge',
+                'mobile'=>$request->mobile
+    
+            ];
+            # Make the call using API.
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            // Response
+            $response=json_decode(curl_exec($curl));
+            $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            curl_close($curl);
+            return response()->json($response);
+        }
+        catch (\Throwable $th)
+        {
+            return response()->json([
+                'status'=>false,
+                'message'=>$th->getMessage()
+            ],504);
+        }
     }
 
     public function confirmation(Request $request)
