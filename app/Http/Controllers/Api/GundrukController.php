@@ -65,9 +65,6 @@ class GundrukController extends Controller
 
         $categories=Category::with('story')->orderBy('updated_at','desc')->get();
     
-        
-
-        
         return response()->json($categories);
         
         // $stories= Stories::with('category')->where('created_at', '>=', Carbon::now()->subDay())->get();
