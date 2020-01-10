@@ -620,7 +620,9 @@ class WebPaymentController extends Controller
         }elseif(isset($responseOb->error_key) && $responseOb->error_key === 'already_verified')
         {
             return true;
-        }else{
+        }
+        else
+        {
             return false;
         }
     }
