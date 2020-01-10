@@ -1033,7 +1033,7 @@ class AuditionController extends Controller
                 $message='Offline';
             break;
             default:
-            $message='Not Available';
+            $message=$type;
         }
         return $message;
     }
