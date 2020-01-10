@@ -224,7 +224,7 @@ class SpinnerLeaderboardController extends Controller
             if(!$dailyPoint)
             {
                 $dailyPoint=DailyPoint::firstOrcreate([
-                    'user_id'=>$user_id,
+                    'user_id'=>$request->user_id,
                     'point'=>0,
                     'available_spin'=>20,
                 ]);
