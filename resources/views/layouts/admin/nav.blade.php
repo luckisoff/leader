@@ -56,7 +56,7 @@
             
              <li class="treeview" id="stories">
                 <a href="{{route('admin.stories')}}">
-                    <i class="fa fa-suitcase"></i> <span>{{tr('stories')}}</span> <i class="fa fa-angle-left pull-right"></i>
+                    <i class="fa fa-book"></i> <span>{{tr('stories')}}</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
 
                 <ul class="treeview-menu">
