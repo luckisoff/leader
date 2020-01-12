@@ -8,6 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Audition;
 use App\SmsLog;
+use Nexmo\Laravel\Facade\Nexmo;
 
 class SendSms extends Job implements ShouldQueue
 {
