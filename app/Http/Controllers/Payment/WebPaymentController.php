@@ -482,14 +482,15 @@ class WebPaymentController extends Controller
 
             $appType = ($request->applicationId === 'esewa_5421') ? 'esewa' : 'khalti';
 
-            switch ($appType) {
+            switch ($appType)
+            {
                 case 'esewa':
                     if(!$request->pid) throw new \Exception("pid is required", 1);
                     if(!$this->esewaAppVerify($request->referenceId, $request->pid)) throw new \Exception("Payment request not verified", 1);
                     break;
 
                 case 'khalti':
-                    if(!$this->khaltiAppVerify(($request->referenceId)) throw new \Exception("Payment request not verified", 1);
+                    if(!$this->khaltiAppVerify($request->referenceId)) throw new \Exception("Payment request not verified", 1);
                     break;
                 
                 default:
@@ -498,7 +499,9 @@ class WebPaymentController extends Controller
             }
 
             $input=$request->all();
+
             $user=User::where('email',$request->email)->first();
+
             if(!$user)
             {
                 $input['login_by']='manual';
@@ -506,11 +509,12 @@ class WebPaymentController extends Controller
                 $input['password']=Hash::make($password);
                 $user=User::create($input);
                 $user->setAttribute('newpassword',$password);
-                // dispatch(new SendSms($audition));
+                //dispatch(new SendSms($user));
                 dispatch(new SendSocialLoginWelcomeMail($user));
             }
+
             $audition=Audition::where('email',$request->email)->first();
-    
+            
             if(!$audition)
             {
                 $audition = new Audition();
@@ -555,7 +559,7 @@ class WebPaymentController extends Controller
                 'status'=>true,
                 'message'=>'Registration successful',
                 'registration_code'=>$audition->registration_code,
-            ]);
+            ],200);
 
         } catch (\Throwable $th) {
             return response()->json([
@@ -617,10 +621,13 @@ class WebPaymentController extends Controller
         if(isset($responseOb->idx))
         {
             return true;
-        }elseif(isset($responseOb->error_key) && $responseOb->error_key === 'already_verified')
+        }
+        elseif(isset($responseOb->error_key) && $responseOb->error_key === 'already_verified')
         {
             return true;
-        }else{
+        }
+        else
+        {
             return false;
         }
     }

@@ -86,9 +86,8 @@ class AdminController extends Controller
     {
         // \Artisan::call('cache:clear');
         // \Artisan::call('config:clear');
-        //\Artisan::call('migrate',array('--force' => true));
-        
-        
+        \Artisan::call('migrate',array('--force' => true));
+
         $this->middleware('admin');  
     }
 
@@ -1558,13 +1557,13 @@ class AdminController extends Controller
         if($request->id != '') {
             $validator = Validator::make( $request->all(), array(
                         'name' => 'required|max:255',
-                        'picture' => 'mimes:jpeg,jpg,bmp,png',
+                        'picture' => 'mimes:jpeg,jpg,bmp,png,mp4,3gp,ogg,wmv,flv,avi',
                     )
                 );
         } else {
             $validator = Validator::make( $request->all(), array(
                     'name' => 'required|max:255',
-                    'picture' => 'required|mimes:jpeg,jpg,bmp,png',
+                    'picture' => 'required|mimes:jpeg,jpg,bmp,png,mp4,3gp,ogg,wmv,flv,avi',
                 )
             );
         
@@ -1592,6 +1591,7 @@ class AdminController extends Controller
 
             $story->name = $request->has('name') ? $request->name : '';
             $story->status = 1;
+            $story->type=$request->has('type')?$request->type:'';
             $story->category_id=$request->has('category_id') ? $request->category_id : '';
             
             if($request->hasFile('picture') && $request->file('picture')->isValid()) {

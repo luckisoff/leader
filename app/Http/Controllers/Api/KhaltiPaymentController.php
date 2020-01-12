@@ -89,7 +89,7 @@ class KhaltiPaymentController extends Controller
             // return response()->json([
             //     'status'=>false,
             //     'code'=>200,
-            //     'message'=>'something wen wrong, try again',
+            //     'message'=>'something went wrong, try again',
             //     'data'=>''
             // ]);
         }
