@@ -64,7 +64,7 @@
                         <div class="form-group">
                             <label for="password_confirmation" class="col-sm-1 control-label">{{tr('Confirm')}}</label>
                             <div class="col-sm-10">
-                                <input type="password" required name="password_confirmation" class="form-control" id="password_confirmation" placeholder="{{tr('Confirm Password')}}">
+                                <input type="password" required name="password_confirmation" class="form-control" id="password_confirmation" placeholder="{{tr('confirm password')}}">
                             </div>
                         </div>
 
