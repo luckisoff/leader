@@ -95,12 +95,14 @@ class AuditionController extends Controller
     public function getAuditionStatus(){
         if(isset($_GET['user_id'])){
             $user_id = $_GET['user_id'];
+            
             $audition = Audition::where('user_id',$user_id)->first();
-
             if($audition == null){
                 $responseData = Helper::setResponse('fail','User Has Not Submit Form','','');
             }
             else{
+                $app_status=\App\App::where('name','The Leader')->first();
+                $audition->setAttribute('registration_open',$app_status->status==1?true:false);
                 $responseData = Helper::setResponse('success','Payment Information Listing Successfull',$audition,'');
             }
 

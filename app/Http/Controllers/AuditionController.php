@@ -571,7 +571,6 @@ class AuditionController extends Controller
             $form->payment_type='offline';
             $form->registration_code=config('services.leader.identity').$user->id;
             $form->number = $request->number;
-
             $form->update();
         }
 
