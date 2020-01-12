@@ -101,8 +101,10 @@ class AuditionController extends Controller
                 $responseData = Helper::setResponse('fail','User Has Not Submit Form','','');
             }
             else{
-                $app_status=\App\App::where('name','The Leader')->first();
-                $audition->setAttribute('registration_open',$app_status->status==1?true:false);
+                if($app_status=\App\App::where('name','Registration')->first())
+                {
+                    $audition->setAttribute('registration_open',$app_status->status==1?true:false);
+                }
                 $responseData = Helper::setResponse('success','Payment Information Listing Successfull',$audition,'');
             }
 
