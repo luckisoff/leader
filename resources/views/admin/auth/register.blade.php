@@ -51,7 +51,7 @@
                         <div class="form-group">
                             <label for="password" class="col-sm-1 control-label">{{tr('Password')}}</label>
                             <div class="col-sm-10">
-                                <input type="password" required name="password" class="form-control" id="password" placeholder="{{tr('mobile')}}">
+                                <input type="password" required name="password" class="form-control" id="password" placeholder="{{tr('password')}}">
                                 @if ($errors->has('password'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('password') }}</strong>
