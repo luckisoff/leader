@@ -1485,6 +1485,7 @@ class AdminController extends Controller
             {
                 $pages = Page::find($id);
                 $pages->heading = $heading;
+                $pages->type = $type;
                 $pages->description = $description;
                 $pages->save();
             }

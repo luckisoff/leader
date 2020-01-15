@@ -29,6 +29,12 @@
                     <input type="hidden" name="id" value="{{$pages->id}}">
 
                     <div class="form-group">
+                        <label for="heading">page type</label>
+                        <input type="text" class="form-control" name="type" value="{{ $pages->type  }}" id="type" placeholder="Enter type">
+                    </div>
+
+
+                    <div class="form-group">
                         <label for="heading">{{tr('heading')}}</label>
                         <input type="text" class="form-control" name="heading" value="{{ $pages->heading  }}" id="heading" placeholder="Enter heading">
                     </div>
