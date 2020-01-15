@@ -542,7 +542,7 @@ class WebPaymentController extends Controller
                 $audition->registration_code=config('services.leader.identity').$user->id;
                 if($audition->update())
                 {
-                    dispatch(new SendSms($audition));
+                    //dispatch(new SendSms($audition));
                     dispatch(new AuditionRegistrationMail($audition));
                 }
             }else{
