@@ -27,16 +27,8 @@
 	                <div class="box-body">
 
 	                     <div class="form-group floating-label">
-	                     	<label for="select2">Select Page Type</label>
-                            <select id="select2" name="type" class="form-control">
-                                <option value="about" selected="true">About Us</option>
-                                <option value="terms">Terms and Condition</option>
-                                <option value="privacy">Privacy</option>
-                                <option value="legal">Legal</option>
-                                <option value="faq">FAQs</option>
-                                <option value="others">Others</option>
-                            </select>
-                            
+	                     	<label for="select2">Page Type</label>
+							 <input type="text" name="type" class="form-control"> 
                         </div>
 
 	                    <div class="form-group">
