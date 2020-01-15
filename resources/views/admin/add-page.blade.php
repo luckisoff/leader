@@ -32,6 +32,8 @@
                                 <option value="about" selected="true">About Us</option>
                                 <option value="terms">Terms and Condition</option>
                                 <option value="privacy">Privacy</option>
+                                <option value="legal">Legal</option>
+                                <option value="faq">FAQs</option>
                                 <option value="others">Others</option>
                             </select>
                             

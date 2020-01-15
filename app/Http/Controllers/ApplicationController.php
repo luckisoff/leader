@@ -201,6 +201,7 @@ class ApplicationController extends Controller {
 
         $model = Page::where('type', $type)->first();
 
+        // return $model;
         return view('user.static_page')->with('model', $model)->with('page', 'Page')->with('sub_page', '');
 
     }
