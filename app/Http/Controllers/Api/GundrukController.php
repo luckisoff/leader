@@ -31,7 +31,7 @@ class GundrukController extends Controller
 
     public function getPaymentTerms()
     {
-        $page=Page::where('heading','payment_terms')->first();
+        $page=Page::where('type','leader-terms')->first();
         return response()->json([
             'status'=>true,
             'code'=>200,
