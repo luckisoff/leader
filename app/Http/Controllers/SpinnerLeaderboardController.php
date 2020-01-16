@@ -271,11 +271,13 @@ class SpinnerLeaderboardController extends Controller
     {
         $spinners=SpinnerLeaderboard::orderBy('point','desc')->get();
         $rank=$spinners->count()+1;
+        $point=0;
         foreach($spinners as $key=>$spinner)
         {
             if($user_id==$spinner->user_id)
             {
                 $rank=$key+1;
+                $point=$spinner->point;
             }
         }
 
@@ -283,7 +285,8 @@ class SpinnerLeaderboardController extends Controller
             'status'=>true,
             'code'=>200,
             'message'=>'Rank of user',
-            'rank'=>$rank
+            'rank'=>$rank,
+            'point'=>$point
         ]);
     }
 }
