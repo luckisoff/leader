@@ -88,6 +88,7 @@ Route::group(['prefix' => 'admin'], function(){
     Route::post('view/user/ajax','AdminController@ajax')->name('admin.view.ajaxuser');
 
     Route::get('user/withdraw/claims','LeaderAmountWithdrawController@index')->name('view-claim');
+    Route::get('user/withdraw/paid','LeaderAmountWithdrawController@paid')->name('view-paid');
     Route::get('user/withdraw/pay/{withdraw}','LeaderAmountWithdrawController@update')->name('pay-claim');
 
     Route::get('user/paymentlog','PaymentLogController@index')->name('payment-log');

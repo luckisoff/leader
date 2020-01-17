@@ -37,6 +37,7 @@
                     <li id="view-user"><a href="{{route('admin.list')}}"><i class="fa fa-circle-o"></i>{{tr('View Admins')}}</a></li>
                     <li id="winner-winner"><a href="{{route('live-quiz-winners')}}"><i class="fa fa-circle-o"></i>{{tr('Live Quiz Winner')}}</a></li>
                     <li id="winner-winner"><a href="{{route('view-claim')}}"><i class="fa fa-circle-o"></i>{{tr('View Pay Claims')}}</a></li>
+                    <li id="winner-winner"><a href="{{route('view-paid')}}"><i class="fa fa-circle-o"></i>{{tr('View Paid')}}</a></li>
                     <li id="winner-winner"><a href="{{route('payment-log')}}"><i class="fa fa-circle-o"></i>{{tr('Failed Payment')}}</a></li>
                 </ul>
     

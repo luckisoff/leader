@@ -17,9 +17,9 @@
         <div class="col-xs-12 col-md-12">
             <div class="box">
                 <div class="box-body">
-
+                        <h4>Unpaid Lists</h4>
+                        <hr>
                         <table id="example1" class="table table-bordered table-striped">
-
                             <thead>
                             <tr>
                                 <th>S.N.</th>
@@ -81,6 +81,8 @@
                                 @endforeach
                             </tbody>
                         </table>
+
+                       
                 </div>
             </div>
         </div>

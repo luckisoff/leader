@@ -74,7 +74,14 @@ class LeaderAmountWithdrawController extends Controller
     public function index()
     {
         $withdraws=Withdraw::where('status',0)->with('user')->get();
-        return view('admin.withdraw.user-withdraw')->with('withdraws',$withdraws)->with('page','');
+        $withdrawPaids=Withdraw::where('status',1)->with('user')->get();
+        return view('admin.withdraw.user-withdraw')->with('withdraws',$withdraws)->with('withdrawPaids',$withdrawPaids)->with('page','');
+    }
+
+    public function paid()
+    {
+        $withdrawPaids=Withdraw::where('status',1)->with('user')->get();
+        return view('admin.withdraw.user-paid')->with('withdrawPaids',$withdrawPaids)->with('page','');
     }
 
     public function checkStatus($user_id)
