@@ -48,7 +48,11 @@
                             <td>{{ucfirst($value->type)}}</td>
                             <td>{{'Rs. '.number_format($value->amount,2,'.','').' (Level: '.$value->user->leaderboard->first()->level.')'}}</td>
                             <td>{{'Rs. '.number_format($value->user->leaderBoard->first()->point,2,'.','')}}</td>
-                            <td>{{$value->status==1?'Paid':'Unpaid'}}</td>
+                            <td>
+                                {{$value->status==1?'Paid':'Unpaid'}}
+                                <br>
+                                {{$value->updated_at->diffForHumans()}}    
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

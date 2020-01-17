@@ -48,7 +48,11 @@
                                     <td>{{$value->user->email}}</td>
                                     <td>{{$value->mobile}}</td>
                                     <td>{{ucfirst($value->type)}}</td>
-                                    <td>{{'Rs. '.number_format($value->amount,2,'.','').' (Level: '.$value->user->leaderboard->first()->level.')'}}</td>
+                                    <td>
+                                        {{'Rs. '.number_format($value->amount,2,'.','').' (Level: '.$value->user->leaderboard->first()->level.')'}}
+                                        <br>
+                                        {{$value->created_at->diffForHumans()}}
+                                    </td>
                                     <td>{{'Rs. '.number_format($value->user->leaderBoard->first()->point,2,'.','')}}</td>
                                     <td>{{$value->status==1?'Paid':'Unpaid'}}</td>
                                     <td>
