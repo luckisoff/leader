@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
-@section('title', 'Withdraw Claims')
+@section('title', 'Paid Lists')
 
-@section('content-header', 'Withdraw Claims')
+@section('content-header', 'Paid Lists')
 
 @section('breadcrumb')
     <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i>Home</a></li>
-    <li class="active"><i class="fa fa-shopping-basket"></i>Withdraw Claims</li>
+    <li class="active"><i class="fa fa-shopping-basket"></i>Paid Lists</li>
 @endsection
 
 @section('content')
@@ -17,8 +17,7 @@
         <div class="col-xs-12 col-md-12">
             <div class="box">
                 <div class="box-body">
-                <h4>Paid Lists</h4>
-                <hr>
+                
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
@@ -28,7 +27,7 @@
                         <th>Email</th>
                         <th>Mobile</th>
                         <th>Type</th>
-                        <th>Amount Claimed</th>
+                        <th>Amount</th>
                         <th>Balance</th>
                         <th>Status</th>
                     </tr>
