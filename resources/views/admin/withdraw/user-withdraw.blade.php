@@ -27,7 +27,7 @@
                                 <th>Email</th>
                                 <th>Mobile</th>
                                 <th>Type</th>
-                                <th>Amount Claimed</th>
+                                <th>Amount</th>
                                 <th>Balance</th>
                                 <th>Status</th>
                                 <th>Action</th>
