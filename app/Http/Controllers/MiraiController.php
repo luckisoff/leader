@@ -47,28 +47,34 @@ class MiraiController extends Controller
 
     public function excel()
     {
-        $auditions = Audition::where('payment_status',1)->select(
-            'name as Full-Name','address as Address','email as Email-Address','number as Phone-No','gender as Gender','registration_code as Reg-Code'
-        )->get()->toArray();
-
-        $filename = "audition_data_" . date('Ymd') . ".xls";
-
-        header("Content-Disposition: attachment; filename=\"$filename\"");
-        header("Content-Type: application/vnd.ms-excel");
-
-        $flag = false;
-
-        foreach($auditions as $audition)
-        {
-            if(!$flag) 
-            {
-                echo implode("\t", array_keys($audition)) . "\r\n";
-                $flag = true;
-            }
+        try {
             
-            echo implode("\t", array_values($audition)) . "\r\n";
-        }
+            $auditions = Audition::where('payment_status',1)->select(
+                'name as Full-Name','address as Address','email as Email-Address','number as Phone-No','gender as Gender','registration_code as Reg-Code'
+            )->orderBy('address','asc')->get()->toArray();
+    
+            $filename = "audition_data_" . date('Ymd') . ".xls";
+    
+            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-Type: application/vnd.ms-excel");
+    
+            $flag = false;
+    
+            foreach($auditions as $audition)
+            {
+                if(!$flag) 
+                {
+                    echo implode("\t", array_keys($audition)) . "\r\n";
+                    $flag = true;
+                }
+    
+                echo implode("\t", array_values($audition)) . "\r\n";
+            }
+    
+            return ['Total Audition'=>count($auditions)];
 
-        return ['Total Audition'=>count($auditions)];
+        } catch (\Throwable $th) {
+            return ['error'=>$th->getMessage()];
+        }
     }
 }
