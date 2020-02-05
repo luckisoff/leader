@@ -59,7 +59,7 @@ class MiraiController extends Controller
             header("Content-Type: application/vnd.ms-excel");
     
             $flag = false;
-    
+            return $auditions;
             foreach($auditions as $audition)
             {
                 if(!$flag) 
