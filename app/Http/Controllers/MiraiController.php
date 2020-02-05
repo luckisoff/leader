@@ -55,8 +55,8 @@ class MiraiController extends Controller
     
             $filename = "audition_data_" . date('Ymd') . ".xls";
     
-            header("Content-Disposition: attachment; filename=\"$filename\"");
-            header("Content-Type: application/vnd.ms-excel");
+            // header("Content-Disposition: attachment; filename=\"$filename\"");
+            // header("Content-Type: application/vnd.ms-excel");
     
             $flag = false;
             return $auditions;
