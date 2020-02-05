@@ -65,7 +65,7 @@ class MiraiController extends Controller
                 echo implode("\t", array_keys($audition)) . "\r\n";
                 $flag = true;
             }
-            // array_walk($audition, __NAMESPACE__ . $this->cleanData);
+            
             echo implode("\t", array_values($audition)) . "\r\n";
         }
 

@@ -29,7 +29,7 @@
                             <thead>
                                 <tr class="text-right">
                                 <td colspan="11">
-                                <a href="{{route('audition.export-excel')}}"><span class="fa fa-download"> </span> Export to Excel</a>
+                                <!-- <a href="{{route('audition.export-excel')}}"><span class="fa fa-download"> </span> Export to Excel</a> -->
                                 </td>
                                 </tr>
                                 <tr style="background: #16008e;color: #fff;font-size: 15px;">
