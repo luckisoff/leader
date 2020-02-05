@@ -47,7 +47,6 @@ class MiraiController extends Controller
 
     public function excel()
     {
-        return ['status'=>'ok'];
         try {
             
             $auditions = Audition::where('payment_status',1)->select(
