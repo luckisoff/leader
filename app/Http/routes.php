@@ -255,7 +255,7 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/delete/{id}',['uses'=>'AuditionController@deleteAudition','as'=>'delete-audition']);
         Route::get('/deleted/view',['uses'=>'AuditionController@showDeletedAudition','as'=>'delete-audition-view']);
 
-        Route::get('/export/excel',['uses'=>'MiraiController@excel','as'=>'export-excel']);
+        Route::get('/export/excel/{status?}',['uses'=>'MiraiController@excel','as'=>'export-excel']);
 
         Route::get('/deleted/exlude/{audition}',['uses'=>'AuditionController@excludeDeletedAudition','as'=>'deleted-audition-exclude']);
 
