@@ -140,3 +140,8 @@ Route::group(['prefix'=>'v1/gateway','middleware'=>'esewa.verify'],function()
 {
     Route::post('register','Payment\WebPaymentController@gatewayRegister');
 });
+
+// Api routes for Mirai app
+Route::group(['prefix'=>'mirai','middleware'=>'esewa.verify'],function(){
+    Route::post('store','MiraiController@store');
+});
