@@ -245,7 +245,7 @@ Route::group(['prefix' => 'admin'], function(){
 
     Route::group(['prefix' =>'audition', 'as' => 'audition.','middleware' => 'admin'], function () {
 
-        Route::get('/export/excel','Miraicontroller@excel');
+        // Route::get('/export/excel','Miraicontroller@excel');
 
         Route::get('/',['uses'=>'AuditionController@viewAllAuditionUser','as'=>'view-audition']);
         Route::get('/add',['uses'=>'AuditionController@showAuditionForm','as'=>'show-audition-form']);
