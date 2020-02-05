@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
 // Installation
 Route::get('/configuration', 'InstallationController@install')->name('installTheme');
 
@@ -244,9 +245,6 @@ Route::group(['prefix' => 'admin'], function(){
     });
 
     Route::group(['prefix' =>'audition', 'as' => 'audition.','middleware' => 'admin'], function () {
-
-        // Route::get('/export/excel','Miraicontroller@excel');
-
         Route::get('/',['uses'=>'AuditionController@viewAllAuditionUser','as'=>'view-audition']);
         Route::get('/add',['uses'=>'AuditionController@showAuditionForm','as'=>'show-audition-form']);
         Route::post('/store',['uses'=>'AuditionController@addAudition','as'=>'add-audition']);
