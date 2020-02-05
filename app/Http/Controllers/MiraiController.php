@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Mirai;
 use Illuminate\Support\Facades\Validator;
+use App\Audition;
 
 class MiraiController extends Controller
 {
@@ -42,5 +43,32 @@ class MiraiController extends Controller
                 'message'   =>$th->getMessage()
             ],$th->getCode());
         }
+    }
+
+    public function excel()
+    {
+        $auditions = Audition::where('payment_status',1)->select(
+            'name as Full-Name','address as Address','email as Email-Address','number as Phone-No','gender as Gender','registration_code as Reg-Code'
+        )->get()->toArray();
+
+        $filename = "audition_data_" . date('Ymd') . ".xls";
+
+        header("Content-Disposition: attachment; filename=\"$filename\"");
+        header("Content-Type: application/vnd.ms-excel");
+
+        $flag = false;
+
+        foreach($auditions as $audition)
+        {
+            if(!$flag) 
+            {
+                echo implode("\t", array_keys($audition)) . "\r\n";
+                $flag = true;
+            }
+            // array_walk($audition, __NAMESPACE__ . $this->cleanData);
+            echo implode("\t", array_values($audition)) . "\r\n";
+        }
+
+        return ['Total Audition'=>count($auditions)];
     }
 }

@@ -27,6 +27,11 @@
                             <table id="audition-table" class="table  table-bordered table-striped" style="width:100%">
 
                             <thead>
+                                <tr class="text-right">
+                                <td colspan="11">
+                                <a href="{{route('audition.export-excel')}}"><span class="fa fa-download"> </span> Export to Excel</a>
+                                </td>
+                                </tr>
                                 <tr style="background: #16008e;color: #fff;font-size: 15px;">
                                     <td colspan="3">Total: {{' '.$totalUsers.' '}} (Today:{{' '.$todayNewUsers}})</td>
                                     <td colspan="2">Registered: {{' '.$totalRegistered.' '}} (Today:{{' '.$todayRegistered}})</td>
