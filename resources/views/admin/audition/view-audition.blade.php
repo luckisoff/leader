@@ -29,15 +29,12 @@
                             <thead>
                                 <tr class="">
                                 <td colspan="11">
-                                    <fieldset>
-                                        <legend>Export: </legend>
-                                        <a href="{{route('audition.export-excel',1)}}" class="btn btn-success btn-sm">
-                                            <span class="fa fa-file-excel-o"> Registered</span>
-                                        </a>
-                                        <a href="{{route('audition.export-excel',0)}}" class="btn btn-success btn-sm">
-                                            <span class="fa fa-file-excel-o"> Unregistered</span>
-                                        </a>
-                                    </fieldset>
+                                    <a href="{{route('audition.export-excel',1)}}" class="btn btn-warning">
+                                        <span class="fa fa-cloud-download"> Registered</span>
+                                    </a>
+                                    <a href="{{route('audition.export-excel',0)}}" class="btn btn-primary">
+                                        <span class="fa fa-cloud-download"> Unregistered</span>
+                                    </a>
                                 </td>
                                 </tr>
                                 <tr style="background: #16008e;color: #fff;font-size: 15px;">
