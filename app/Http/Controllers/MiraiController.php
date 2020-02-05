@@ -53,7 +53,7 @@ class MiraiController extends Controller
                 'name as Name','address as Address','email as Email','number as Phone','gender as Gender','registration_code as Reg-Code'
             )->orderBy('address','asc')->get()->toArray();
     
-            $filename = "audition_data_" . date('Ymd') . ".xls";
+            $filename = ($status?'reg':'unreg')."_audition_data_" . date('Ymd') . ".xls";
     
             header("Content-Disposition: attachment; filename=\"$filename\"");
             header("Content-Type: application/vnd.ms-excel");
