@@ -47,14 +47,17 @@ class MiraiController extends Controller
 
     public function excel()
     {
+        return ['status'=>'ok'];
         try {
             
-            $auditions = Audition::where('payment_status',1)->orderBy('address','asc')->get()->toArray();
+            $auditions = Audition::where('payment_status',1)->select(
+                'name as Full-Name','address as Address','email as Email-Address','number as Phone-No','gender as Gender','registration_code as Reg-Code'
+            )->orderBy('address','asc')->get()->toArray();
     
-            $filename = "audition_data_" . \date('Ymd') . ".xls";
+            $filename = "audition_data_" . date('Ymd') . ".xls";
     
-            // header("Content-Disposition: attachment; filename=\"$filename\"");
-            // header("Content-Type: application/vnd.ms-excel");
+            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-Type: application/vnd.ms-excel");
     
             $flag = false;
             return $auditions;
