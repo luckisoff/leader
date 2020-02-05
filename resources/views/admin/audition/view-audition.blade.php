@@ -27,9 +27,11 @@
                             <table id="audition-table" class="table  table-bordered table-striped" style="width:100%">
 
                             <thead>
-                                <tr class="text-right">
+                                <tr class="">
                                 <td colspan="11">
-                                <!-- <a href="{{route('audition.export-excel')}}"><span class="fa fa-download"> </span> Export to Excel</a> -->
+                                    <a href="{{route('audition.export-excel')}}">
+                                        <span class="fa fa-file-excel-o"> Export to Excel</span>
+                                    </a>
                                 </td>
                                 </tr>
                                 <tr style="background: #16008e;color: #fff;font-size: 15px;">
