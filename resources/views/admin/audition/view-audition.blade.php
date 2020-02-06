@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
-@section('title', 'View Audition Registration List')
+@section('title', 'Audition Registration List')
 
-@section('content-header', 'View Audition Registration List')
+@section('content-header', 'Audition Registration List')
 
 @section('breadcrumb')
     <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i>Home</a></li>
