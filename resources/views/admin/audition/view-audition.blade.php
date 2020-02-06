@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
     <li><a href="{{route('admin.dashboard')}}"><i class="fa fa-dashboard"></i>Home</a></li>
-    <li class="active"><i class="fa fa-bookmark"></i> View Audition Registration List</li>
+    <li class="active"><i class="fa fa-bookmark"></i> Audition Registration List</li>
 @endsection
 
 @section('css')
@@ -29,10 +29,10 @@
                             <thead>
                                 <tr class="">
                                 <td colspan="11">
-                                    <a href="{{route('audition.export-excel',1)}}" class="btn btn-warning">
+                                    <a href="{{route('audition.export-excel',1)}}" class="btn btn-warning btn-sm">
                                         <span class="fa fa-cloud-download"> Registered</span>
                                     </a>
-                                    <a href="{{route('audition.export-excel',0)}}" class="btn btn-primary">
+                                    <a href="{{route('audition.export-excel',0)}}" class="btn btn-primary btn-sm">
                                         <span class="fa fa-cloud-download"> Unregistered</span>
                                     </a>
                                 </td>
