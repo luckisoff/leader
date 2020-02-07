@@ -44,25 +44,27 @@
 
            <div class="form-group">
                <label for="address"><i class="zmdi zmdi-google-maps material-icons-name"></i></label>
-               <input type="text" name="address" required id="address" value="{{$user?$user->address:''}}" placeholder="Enter you address">
-
-               <!-- <select name="address" id="address">
-                   <option value="">-- Audition Location --</option>
-                   <option value="Kathmandu">Kathmandu</option>
-                   <option value="Pokhara">Pokhara</option>
-                   <option value="Chitwan">Chitwan</option>
-                   <option value="Dhangadhi">Dhangadhi</option>
-                   <option value="Butwal">Butwal</option>
-                   <option value="Nepalgunj">Nepalgunj</option>
-                   <option value="Biratnagar">Biratnagar</option>
-                   <option value="USA">United States of America</option>
-                   <option value="UK">United Kingdom</option>
-                   <option value="Saudi Arabia">Saudi Arabia</option>
-                   <option value="UAE">United Arab Emirates</option>
-                   <option value="Malaysia">Malaysia</option>
-                   <option value="South Korea">South Korea</option>
-                   <option value="Australia">Australia</option>
-               </select> -->
+               <select name="address" id="address" >
+                  <optgroup label="Nepal">
+                      <option value="">-- select --</option>
+                      <option value="Butwal">Butwal</option>
+                      <option value="Chitwan">Chitwan</option>
+                      <option value="Dang">Dang</option>
+                      <option value="Dhangadi">Dhangadi</option>
+                      <option value="Itahari">Itahari</option>
+                      <option value="Janakpur">Janakpur</option>
+                      <option value="Kathmandu">Kathmandu</option>
+                      <option value="Pokhara">Pokhara</option>
+                      <option value="Surkhet">Surkhet</option>
+                  </optgroup>
+                  <optgroup label="International">
+                  <option value="Australia">Australia</option>
+                  <option value="Japan">Japan</option>
+                  <option value="Malasiya">Malasiya</option>
+                  <option value="Qatar">Qatar</option>
+                  <option value="Usa">Usa</option>
+                  </optgroup>
+              </select>
            </div>
 
            <div class="form-group">

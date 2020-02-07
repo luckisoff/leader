@@ -60,15 +60,37 @@
                                 @endif
                             </div>
 
+                            
+
                             <div class="form-group">
                                 <label for="" class="">Address<span style="color:red;">*</span></label>
-                                <input type="text" required  class="form-control" id="" value="{{ ( (old('address') == null) ?  $contestant->address : old('address')) }}" name="address" placeholder="Enter  Address">
+                                <select name="address" id="address" class="form-control">
+                                    <optgroup label="Nepal">
+                                        <option value="Butwal">Butwal</option>
+                                        <option value="Chitwan">Chitwan</option>
+                                        <option value="Dang">Dang</option>
+                                        <option value="Dhangadi">Dhangadi</option>
+                                        <option value="Itahari">Itahari</option>
+                                        <option value="Janakpur">Janakpur</option>
+                                        <option value="Kathmandu">Kathmandu</option>
+                                        <option value="Pokhara">Pokhara</option>
+                                        <option value="Surkhet">Surkhet</option>
+                                    </optgroup>
+                                    <optgroup label="International">
+                                    <option value="Australia">Australia</option>
+                                    <option value="Japan">Japan</option>
+                                    <option value="Malasiya">Malasiya</option>
+                                    <option value="Qatar">Qatar</option>
+                                    <option value="Usa">Usa</option>
+                                    </optgroup>
+                                </select>
                                 @if($errors->has('address'))
                                     <span class="help-block" style="color:red;">
                                       * {{ $errors->first('address') }}
                                   </span>
                                 @endif
                             </div>
+
                         </div>
 
                         <div class="col-md-1">
