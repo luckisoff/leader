@@ -63,7 +63,8 @@
                             
 
                             <div class="form-group">
-                                <label for="" class="">Address<span style="color:red;">*</span></label>
+                                <label for="" class="">Audition Location<span style="color:red;">*</span></label>
+                                <span class="alert-danger">(Current : {{$contestant->address}})</span>
                                 <select name="address" id="address" class="form-control">
                                     <optgroup label="Nepal">
                                         <option value="Butwal">Butwal</option>
