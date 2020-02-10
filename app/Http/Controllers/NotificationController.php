@@ -27,7 +27,7 @@ class NotificationController extends Controller
         $fields = array(
             'to' => $user->device_token,
             'notification'=>[
-                'title'=>'Payment Claim',
+                'title'=>'Welcome Message',
                 'text'=>'Dear '.$user->name.' welcome to gundruk network.' 
             ]
         );
