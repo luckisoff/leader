@@ -17,6 +17,7 @@ use Config;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Auth;
 use App\Jobs\SendTopUpMail;
+use App\Http\Controllers\NotificationController;
 
 class LoginController extends Controller
 {
@@ -73,10 +74,14 @@ class LoginController extends Controller
                     $user->save();
                     
                     $this->createLeaderboard($user);
-                    
-                    if($request->has('device_token'))
-                    {
-                        NotificationController::newUserNotification($user);
+
+                    try {
+                        if($request->has('device_token'))
+                        {
+                            NotificationController::newUserNotification($user);
+                        }
+                    } catch (\Throwable $th) {
+                        //throw $th;
                     }
 
             }
