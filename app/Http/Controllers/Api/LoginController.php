@@ -36,53 +36,64 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return Helper::setResponse(true, 'missing_parameter', '');
         }
-            $user = User::where('login_by', $request->login_by)->orWhere('email',$request->has('email')?$request->email:'')->where('social_unique_id', $request->social_unique_id)->first();
-
-            //if user is not found then register the user
+            $user = User::where('login_by', $request->login_by)->where('social_unique_id', $request->social_unique_id)->first();
+            
             if (!$user) {
 
-                //validating the social unique id
-                    $validator = Validator::make($request->all(), [
-                        'name' => 'required',
-                        //'email' => 'required',
-                        'picture' => 'required',
-                    ]);
-
-                    if ($validator->fails()) {
-                        return Helper::setResponse(true, 'missing_parameter', '');
-                    }
-
-                    $user = new User();
-                    $user->name = $request->name;
-                    $user->login_by = $request->login_by;
-                    $user->social_unique_id = $request->social_unique_id;
-                    $user->picture = $request->picture;
-
-                    if($request->has('device_token'))
-                    {
-                        $user->device_token=$request->device_token;
-                    }
-
-                    if(isset($request->email)){
-                        $user->email = $request->email;
-                    }
-
-                    if(isset($request->mobile)){
-                        $user->mobile = $request->mobile;
-                    }
-
-                    $user->save();
-                    
-                    $this->createLeaderboard($user);
-
-                    try {
+                try {
+                    //code...
+                    //validating the social unique id
+                        $validator = Validator::make($request->all(), [
+                            'name' => 'required',
+                            //'email' => 'required',
+                            'picture' => 'required',
+                        ]);
+    
+                        if ($validator->fails()) {
+                            return Helper::setResponse(true, 'missing_parameter', '');
+                        }
+                        
+                        
+                        $user = new User();
+                        $user->name = $request->name;
+                        $user->login_by = $request->login_by;
+                        $user->social_unique_id = $request->social_unique_id;
+                        $user->picture = $request->picture;
+                        
                         if($request->has('device_token'))
                         {
-                            NotificationController::newUserNotification($user);
+                            $user->device_token=$request->device_token;
                         }
-                    } catch (\Throwable $th) {
-                        //throw $th;
-                    }
+                        
+                        if(isset($request->email)){
+                            if(User::where('email',$request->email)->first()) throw new \Exception('Your email is already in use',1);
+                            $user->email = $request->email;
+                        }
+    
+                        if(isset($request->mobile)){
+                            $user->mobile = $request->mobile;
+                        }
+    
+                        
+                        $user->save();
+                        
+                        
+                        try {
+                            $this->createLeaderboard($user);
+                            if($request->has('device_token'))
+                            {
+                                NotificationController::newUserNotification($user);
+                            }
+                        } catch (\Throwable $th) {
+                            //throw $th;
+                        }
+
+                } catch (\Throwable $th) {
+                    return response()->json([
+                        'status'    =>false,
+                        'message'   =>$th->getMessage()
+                    ]);
+                }
 
             }
             else{
