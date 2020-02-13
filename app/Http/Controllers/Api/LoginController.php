@@ -43,6 +43,11 @@ class LoginController extends Controller
                 try {
                     //code...
                     //validating the social unique id
+                        if($request->has('email')){
+                            if(User::where('email',$request->email)->first()) throw new \Exception('Your email is already in use',1);
+                            $user->email = $request->email;
+                        }
+
                         $validator = Validator::make($request->all(), [
                             'name' => 'required',
                             //'email' => 'required',
@@ -65,10 +70,6 @@ class LoginController extends Controller
                             $user->device_token=$request->device_token;
                         }
                         
-                        if(isset($request->email)){
-                            if(User::where('email',$request->email)->first()) throw new \Exception('Your email is already in use',1);
-                            $user->email = $request->email;
-                        }
     
                         if(isset($request->mobile)){
                             $user->mobile = $request->mobile;
