@@ -90,7 +90,7 @@ class LoginController extends Controller
 
                 } catch (\Throwable $th) {
                     return response()->json([
-                        'status'    =>false,
+                        'error'    =>true,
                         'message'   =>$th->getMessage()
                     ]);
                 }
