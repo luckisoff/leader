@@ -34,6 +34,7 @@ class AuditionController extends Controller
             if(!$audition = Audition::where('user_id',$request->user_id)->first()) throw new \Exception('No auditin user found');
 
             $audition->address = $request->address;
+            $audition->address_set = true;
             $audition->update();
 
             $responseData = Helper::setResponse(false, 'Locatin updated','');
