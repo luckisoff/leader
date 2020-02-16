@@ -104,6 +104,8 @@ Route::group(['middleware'=>'api'], function(){
             Route::get('/paypal/key','Api\PaymentController@getPaypalKey');
             
         });
+
+        Route::post('audition/address/change','Api\AuditionController@updateAuditionAddress');
        
     });
 });

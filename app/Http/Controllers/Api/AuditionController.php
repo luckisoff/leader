@@ -21,6 +21,30 @@ use App\PaymentLog;
 class AuditionController extends Controller
 {
 
+    public function updateAuditionAddress(Request $request)
+    {
+        try{
+            $validator = Validator::make($request->all(),[
+                'user_id' => 'required',
+                'address' => 'required'
+            ]);
+
+            if($validator->fails()) throw new \Exception($validator->errors()->first());
+            
+            if(!$audition = Audition::where('user_id',$request->user_id)->first()) throw new \Exception('No auditin user found');
+
+            $audition->address = $request->address;
+            $audition->update();
+
+            $responseData = Helper::setResponse(false, 'Locatin updated','');
+            return response()->json($responseData); 
+        }catch(Throwable $th)
+        {
+            $responseData = Helper::setResponse(true, $th->getMessage(),'');
+            return response()->json($responseData);
+        }
+    }
+
     //audition form function here
     public function storeAuditionForm(Request $request){
         
