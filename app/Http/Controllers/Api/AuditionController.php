@@ -31,15 +31,15 @@ class AuditionController extends Controller
 
             if($validator->fails()) throw new \Exception($validator->errors()->first());
             
-            if(!$audition = Audition::where('user_id',$request->user_id)->first()) throw new \Exception('No auditin user found');
+            if(!$audition = Audition::where('user_id',$request->user_id)->first()) throw new \Exception('No audition user found');
 
             $audition->address = $request->address;
             $audition->address_set = true;
             $audition->update();
 
-            $responseData = Helper::setResponse(false, 'Locatin updated','');
+            $responseData = Helper::setResponse(false, 'Location updated','');
             return response()->json($responseData); 
-        }catch(Throwable $th)
+        }catch(\Throwable $th)
         {
             $responseData = Helper::setResponse(true, $th->getMessage(),'');
             return response()->json($responseData);
