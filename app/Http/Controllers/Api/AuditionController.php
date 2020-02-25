@@ -206,7 +206,7 @@ class AuditionController extends Controller
 
     //news listing
     public function getNewslist(){
-        $news = News::all();
+        $news = News::orderBy('created_at','desc')->get();
 
         if(count($news) == 0){
             $responseData = Helper::setResponse('fail','News  not found | Empty','','');
