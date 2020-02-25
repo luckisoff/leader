@@ -25,7 +25,7 @@ class AuditionController extends Controller
 {
     // news crud here
     public function viewNews(){
-        $data['news'] = News::all();
+        $data['news'] = News::orderBy('created_at','desc')->get();
         $data['page'] = 'news';
         $data['sub_page'] = 'show_news';
         return view('admin.news.view-news',$data);
