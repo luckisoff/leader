@@ -58,6 +58,7 @@
                                 <select id="type" name="type" class="form-control">
                                    <option value="image">Image</option>
                                    <option value="video">Video</option>
+                                   <option value="ad">Ad</option>
                                 </select>
                             </div>
                         </div>

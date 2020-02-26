@@ -56,6 +56,7 @@
                                 <select id="type" name="type" class="form-control">
                                    <option value="image" {{$story->type=='image'?'selected':''}}>Image</option>
                                    <option value="video" {{$story->type=='video'?'selected':''}}>Video</option>
+                                   <option value="ad" {{$story->type=='ad'?'selected':''}}>Ad</option>
                                 </select>
                             </div>
                         </div>
