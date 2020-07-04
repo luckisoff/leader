@@ -110,12 +110,10 @@ class SendSms extends Job implements ShouldQueue
     }
 
     public function sparrowSms($to, $msg, $audition) {
-        $token = "Lsntwh8k5hh0XFrBgOd5";
-
         $link = "http://api.sparrowsms.com/v2/sms/";
 
         $data = [
-            'token' => $token,
+            'token' => env("SPARROW_TOKEN"),
             'from' => 'InfoSMS',
             'to' => $to,
             'text'=> $msg

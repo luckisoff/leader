@@ -47,12 +47,10 @@
 
         public static function send_sms(Audition $audition)
         {
-            $token="Lsntwh8k5hh0XFrBgOd5";
-
             $link="http://api.sparrowsms.com/v2/sms/";
 
             $data=[
-                'token'=>$token,
+                'token'=> env("SPARROW_TOKEN"),
                 'from'=>'InfoSMS',
                 'to'=>$audition->number,
                 'text'=>"Hello Dear ".$audition->name.". You have registerd to The Leader Program using email ".$audition->email." and mobile ".$audition->number.". Your The Leader registration code is '".$audition->registration_code."'. Please keep this code safe for future use. Please visit link http://gundruknetwork.com/the_leader_audition/web/audition/register for detail. Thank you."];
